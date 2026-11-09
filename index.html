@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tortuga Scan · Clean eating scanner</title>
+  <meta name="description" content="Tortuga Scan: a personal clean-eating barcode scanner (prototype). Not affiliated with Seed Oil Scout or Olive.">
+  <meta name="theme-color" content="#3B5323">
+  <meta name="color-scheme" content="light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Tortuga Scan">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="icons/tortoise-mark.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">
+        <img id="logoImg" src="icons/tortuga-logo.png" width="64" height="64" alt="" decoding="async">
+        <svg id="logoFallback" class="logo-fallback" hidden viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M10 41c0-12.2 9.4-22 21-22s21 9.8 21 22z" fill="#5E7F3A"/>
+          <path d="M17 40c.6-8.6 6.6-15.5 14-15.5S44.4 31.4 45 40" fill="none" stroke="#3B5323" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M31 24.5V40M22.5 29l3.5 11M39.5 29 36 40" stroke="#3B5323" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M8 41h46" stroke="#3B5323" stroke-width="3" stroke-linecap="round"/>
+          <path d="M50 36c1.5-5 5-7.5 8-6.5s3.5 5 .5 7.8c-1.6 1.5-4.5 2-8.5 1.2z" fill="#8FA86A"/>
+          <circle cx="57" cy="32.6" r="1.1" fill="#1F2418"/>
+          <path d="M15 41.5l-3 7.5h5l2.5-7M41 41.5l1.5 7.5h5l-1-7.5M26 41.5l-1 6.5h4.5l1-6.5" fill="#8FA86A"/>
+          <path d="M10.5 39.5 5 42" stroke="#8FA86A" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div class="brand-text">
+        <h1>Tortuga Scan</h1>
+        <p class="sub">Clean eating scanner<span aria-hidden="true"> · </span><br>prototype</p>
+      </div>
+    </div>
+    <button type="button" class="btn-ghost" id="openStandards" aria-haspopup="dialog">How we grade</button>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- HOME -->
+    <section id="view-home" class="view" aria-labelledby="homeTitle">
+      <div class="card intro">
+        <h2 id="homeTitle">Scan a package</h2>
+        <p>Point your camera at the barcode. You’ll get a <strong>Seed Oil Safe-style</strong> pass or fail, a <strong>GMO</strong> status, and our <strong>clean score</strong> out of 100, with every flag explained.</p>
+      </div>
+
+      <form id="manualForm" class="card" autocomplete="off" novalidate>
+        <label for="manualCode" class="label">Type the barcode instead</label>
+        <div class="row">
+          <input id="manualCode" name="code" type="text" inputmode="numeric" pattern="[0-9 ]*" maxlength="16" placeholder="12 or 13 digits" aria-describedby="manualHelp">
+          <button type="submit" class="btn btn-secondary">Look up</button>
+        </div>
+        <p id="manualHelp" class="help">The numbers under the bars. UPC (12 digits) and EAN (13 or 8 digits) both work.</p>
+      </form>
+
+      <details class="card disclosure" id="pasteHome">
+        <summary>Grade a label by hand</summary>
+        <form id="pasteHomeForm" class="paste">
+          <label for="pasteHomeText" class="label">Paste or type the ingredient list</label>
+          <textarea id="pasteHomeText" rows="5" placeholder="Organic whole milk, sea salt…"></textarea>
+          <button type="submit" class="btn btn-secondary">Grade these ingredients</button>
+        </form>
+      </details>
+
+      <div id="recent" class="card" hidden>
+        <h2 class="small-title">Recent</h2>
+        <ul id="recentList" class="recent"></ul>
+      </div>
+    </section>
+
+    <!-- SCANNER -->
+    <section id="view-scan" class="view" hidden aria-labelledby="scanTitle">
+      <h2 id="scanTitle" class="visually-hidden">Camera scanner</h2>
+      <div class="reader-wrap">
+        <div id="reader"></div>
+        <div class="reader-guide" aria-hidden="true"><span></span></div>
+      </div>
+      <p class="scan-hint" id="scanHint" role="status">Starting camera…</p>
+      <button type="button" class="btn btn-stop" id="stopScan">Stop scanning</button>
+    </section>
+
+    <!-- STATUS (loading / errors / not found) -->
+    <section id="view-status" class="view" hidden aria-live="polite"></section>
+
+    <!-- RESULT -->
+    <section id="view-result" class="view" hidden aria-live="polite"></section>
+  </main>
+
+  <footer class="foot">
+    <p class="disclaimer"><strong>Not affiliated with Olive or Seed Oil Scout.</strong> Grades come from the ingredient list on Open Food Facts (which can be incomplete or out of date) or what you pasted. We can’t verify manufacturing processes, cross-contact, or lab contaminants. Always read the package.</p>
+    <p class="credit">Product data © <a href="https://world.openfoodfacts.org/" rel="noopener" target="_blank">Open Food Facts</a> contributors, under the Open Database License.</p>
+  </footer>
+
+  <nav class="dock" aria-label="Scan">
+    <button type="button" class="btn btn-scan" id="scanBtn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4.5A1.5 1.5 0 0 1 4.5 3H7M17 3h2.5A1.5 1.5 0 0 1 21 4.5V7M21 17v2.5a1.5 1.5 0 0 1-1.5 1.5H17M7 21H4.5A1.5 1.5 0 0 1 3 19.5V17M7 8v8M10 8v8M13 8v8M16.5 8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span id="scanBtnLabel">Scan barcode</span>
+    </button>
+  </nav>
+
+  <dialog id="standards" aria-labelledby="stdTitle">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <h2 id="stdTitle">How we grade</h2>
+        <button type="button" class="btn-ghost" id="closeStandards">Close</button>
+      </div>
+      <div id="standardsBody" class="standards"></div>
+    </div>
+  </dialog>
+
+  <script src="vendor/html5-qrcode.min.js" defer></script>
+  <script src="rules.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Tortuga Scan",
+  "short_name": "Tortuga",
+  "description": "Clean eating scanner (prototype). Grades packaged foods against Seed Oil Safe-style rules, a GMO check, and our own clean score. Not affiliated with Seed Oil Scout or Olive.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FCF5E3",
+  "theme_color": "#3B5323",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/tortoise-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

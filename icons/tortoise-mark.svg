@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Walking tortoise">
+  <path d="M10 41c0-12.2 9.4-22 21-22s21 9.8 21 22z" fill="#5E7F3A"/>
+  <path d="M17 40c.6-8.6 6.6-15.5 14-15.5S44.4 31.4 45 40" fill="none" stroke="#3B5323" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M31 24.5V40M22.5 29l3.5 11M39.5 29 36 40" stroke="#3B5323" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M8 41h46" stroke="#3B5323" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 36c1.5-5 5-7.5 8-6.5s3.5 5 .5 7.8c-1.6 1.5-4.5 2-8.5 1.2z" fill="#8FA86A"/>
+  <circle cx="57" cy="32.6" r="1.1" fill="#1F2418"/>
+  <path d="M15 41.5l-3 7.5h5l2.5-7M41 41.5l1.5 7.5h5l-1-7.5M26 41.5l-1 6.5h4.5l1-6.5" fill="#8FA86A"/>
+  <path d="M10.5 39.5 5 42" stroke="#8FA86A" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

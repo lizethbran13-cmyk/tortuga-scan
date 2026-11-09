@@ -1,0 +1,1 @@
+`html5-qrcode.min.js` is html5-qrcode v2.3.8 by Minhaz (https://github.com/mebjas/html5-qrcode), Apache License 2.0, vendored unmodified from https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js so the scanner works without a third-party CDN and can be cached offline.

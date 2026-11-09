@@ -11,8 +11,13 @@
   var RECENT_KEY = 'tortuga.recent.v1';
 
   var $ = function (id) { return document.getElementById(id); };
-  var views = { home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result') };
-  var scanner = null, scanning = false, lastProduct = null;
+  var views = {
+    home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result'),
+    catalog: $('view-catalog'), labs: $('view-labs'), news: $('view-news')
+  };
+  var scanner = null, scanning = false, lastProduct = null, currentTab = 'scan';
+  var catalog = [], catalogByCode = {}, labTests = [], newsReports = [];
+  var catalogFilter = { q: '', sos: '', gmo: '', brand: '' };
 
   // ------------------------------------------------------------ helpers
   function esc(s) {
@@ -20,11 +25,52 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  function setTabCurrent(name) {
+    document.querySelectorAll('.tabbar button').forEach(function (b) {
+      if (b.dataset.tab === name) b.setAttribute('aria-current', 'page');
+      else b.removeAttribute('aria-current');
+    });
+  }
+  function updateUrl() {
+    var params = new URLSearchParams(location.search);
+    if (currentTab === 'scan') params.delete('tab');
+    else params.set('tab', currentTab);
+    if (!(currentTab === 'scan' && lastProduct && lastProduct.code)) params.delete('code');
+    var qs = params.toString();
+    var next = location.pathname + (qs ? '?' + qs : '') + location.hash;
+    if (next !== location.pathname + location.search + location.hash) history.replaceState(null, '', next);
+  }
   function show(name) {
+    currentTab = 'scan';
     Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
     document.body.classList.toggle('scanning', name === 'scan');
-    $('scanBtnLabel').textContent = (name === 'result' || name === 'status') ? 'Scan another' : 'Scan barcode';
+    setTabCurrent('scan');
     window.scrollTo(0, 0);
+    var params = new URLSearchParams(location.search);
+    params.delete('tab');
+    if (name === 'result' && lastProduct && lastProduct.code) params.set('code', lastProduct.code);
+    else params.delete('code');
+    var qs = params.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+  function showTab(name) {
+    if (name === 'lab' || name === 'lab-tests' || name === 'tests') name = 'labs';
+    if (!name || name === 'home' || name === 'scan' || !views[name]) {
+      if (scanning) stopScan();
+      show('home');
+      renderRecent();
+      return;
+    }
+    if (scanning) stopScan();
+    currentTab = name;
+    Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
+    document.body.classList.remove('scanning');
+    setTabCurrent(name);
+    window.scrollTo(0, 0);
+    updateUrl();
+    if (name === 'catalog') renderCatalog();
+    if (name === 'labs') renderLabs();
+    if (name === 'news') renderNews();
   }
   function validGtin(code) {
     if (!/^\d{8}$|^\d{12,14}$/.test(code)) return false;
@@ -136,7 +182,39 @@
     });
   }
 
+  function findCatalog(raw) {
+    var candidates = R.barcodeCandidates(raw);
+    for (var i = 0; i < candidates.length; i++) {
+      if (catalogByCode[candidates[i]]) return catalogByCode[candidates[i]];
+    }
+    return null;
+  }
+  function fromCatalog(entry) {
+    var nuts = entry.nutriments || {};
+    return {
+      code: entry.barcode,
+      name: entry.name,
+      brand: entry.brand || '',
+      quantity: entry.quantity || '',
+      image: entry.image || '',
+      ingredients: entry.ingredients || '',
+      ingredientsLang: entry.ingredientsLang || 'en',
+      source: 'catalog',
+      novaGroup: entry.nova || null,
+      sugars100g: nuts.sugars100g != null ? nuts.sugars100g : null,
+      labels: entry.labels || '',
+      labelsTags: entry.labelsTags || [],
+      added: entry.added || '',
+      offUrl: entry.offUrl || ''
+    };
+  }
   function lookup(raw) {
+    var ready = window.__tortugaData || Promise.resolve();
+    ready.then(function () { lookupNow(raw); });
+  }
+  function lookupNow(raw) {
+    var hit = findCatalog(raw);
+    if (hit) { renderProduct(fromCatalog(hit)); return; }
     var candidates = R.barcodeCandidates(raw);
     if (!candidates.length) return;
     show('status');
@@ -239,13 +317,38 @@
     var img = p.image
       ? '<img class="thumb" src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<div class=&quot;thumb empty&quot;>No photo</div>\'">'
       : '<div class="thumb empty">No photo</div>';
-    var src = p.source === 'off' ? 'Open Food Facts' : p.source === 'pasted' ? 'Ingredients you pasted' : '';
+    var src = '', srcClass = '';
+    if (p.source === 'catalog') { src = 'In the Tortuga catalog'; srcClass = ' catalog'; }
+    else if (p.source === 'off') { src = 'Not in our catalog · live Open Food Facts'; srcClass = ' live'; }
+    else if (p.source === 'pasted') { src = 'Ingredients you pasted'; }
+    var note = p.source === 'catalog'
+      ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>. Graded with our rules, not a lab test.</p>'
+      : '';
     return '<div class="card product">' + img + '<div>' +
       '<h2>' + esc(p.name) + '</h2>' +
       (p.brand || p.quantity ? '<p class="brand-line">' + esc([p.brand, p.quantity].filter(Boolean).join(' · ')) + '</p>' : '') +
       (p.code ? '<p class="code">' + esc(p.code) + '</p>' : '') +
-      (src ? '<span class="source-tag">' + esc(src) + '</span>' : '') +
+      (src ? '<span class="source-tag' + srcClass + '">' + esc(src) + '</span>' : '') +
+      note +
       '</div></div>';
+  }
+  function formatDate(iso) {
+    if (!iso) return '';
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    if (!m) return iso;
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return months[Number(m[2]) - 1] + ' ' + Number(m[3]) + ', ' + m[1];
+  }
+  function renderIngList(items) {
+    return '<ul class="ing-list">' + items.map(function (it) {
+      var word = { green: 'OK', yellow: 'Limit', red: 'Avoid', none: 'Note' }[it.color] || '';
+      var why = (it.color === 'yellow' || it.color === 'red') && it.reasons && it.reasons.length
+        ? '<span class="why">' + esc(it.reasons.slice(0, 2).map(function (r) { return r.label; }).join(' · ')) + '</span>' : '';
+      var dot = it.color === 'none' ? '' : '<span class="dot ' + it.color + '" aria-hidden="true"></span>';
+      var kids = it.children && it.children.length ? renderIngList(it.children) : '';
+      return '<li class="ing-item ' + it.color + '"><div class="ing-main">' + dot +
+        '<span class="name"><span class="visually-hidden">' + word + '. </span>' + esc(it.text) + why + '</span></div>' + kids + '</li>';
+    }).join('') + '</ul>';
   }
 
   function renderProduct(p) {
@@ -325,20 +428,36 @@
 
     var langNote = p.ingredientsLang === 'fr' ? ' Only a French ingredient list was available; our rules are written for English, so results may miss things.'
       : p.ingredientsLang === 'default' ? ' This is the main-language list on Open Food Facts; if it isn’t English, results may miss things.' : '';
-    var ingHtml = '<div class="card ingredients"><h2>Ingredients</h2><p class="ing-text">' + esc(p.ingredients) + '</p>' +
-      '<p class="meta">' + (p.source === 'pasted' ? 'From what you pasted.' : 'From Open Food Facts, which can be incomplete or out of date. Check the package.') + langNote + '</p>' +
-      '<details class="disclosure" style="margin-top:12px"><summary>Label looks different? Fix the ingredients</summary>' + pasteBox(p.code, p.ingredients) + '</details>' +
+    var light = R.classifyIngredients(p.ingredients);
+    var counts = light.counts || { red: 0, yellow: 0, green: 0 };
+    var sourceLine = p.source === 'pasted' ? 'From what you pasted.'
+      : p.source === 'catalog' ? 'From our catalog (copied from Open Food Facts). It can be out of date — check the package.'
+      : 'From a live Open Food Facts lookup, which can be incomplete or out of date. Check the package.';
+    var ingHtml = '<div class="card ingredients"><h2>Ingredients</h2>' +
+      '<div class="legend" aria-hidden="true"><span><i class="dot green"></i> OK</span><span><i class="dot yellow"></i> Limit</span><span><i class="dot red"></i> Avoid</span></div>' +
+      '<p class="legend-note">Green means that ingredient didn’t match an avoid or limit rule. Not a lab test or a certification.</p>' +
+      '<p class="ing-counts"><strong>' + counts.red + '</strong> to avoid · <strong>' + counts.yellow + '</strong> to limit · <strong>' + counts.green + '</strong> OK</p>' +
+      renderIngList(light.items) +
+      '<p class="meta">' + sourceLine + langNote + '</p>' +
+      '<details class="disclosure"><summary>Original ingredient text</summary><p class="ing-text">' + esc(p.ingredients) + '</p></details>' +
+      '<details class="disclosure"><summary>Label looks different? Fix the ingredients</summary>' + pasteBox(p.code, p.ingredients) + '</details>' +
       '</div>';
 
-    views.result.innerHTML = productHeader(p) + sosHtml + gmoHtml + scoreHtml + flagsHtml + ingHtml +
-      '<div class="result-actions"><button type="button" class="btn btn-outline btn-block" data-act="standards">How we grade</button></div>';
+    var linkedLabs = labsForProduct(p);
+    var labHtml = linkedLabs.length
+      ? '<h2 class="small-title">Public lab test for this barcode</h2>' + linkedLabs.map(labCard).join('') +
+        '<p class="help">The published test names this barcode. It is not a test we ran.</p>'
+      : '';
+    views.result.innerHTML = productHeader(p) + sosHtml + gmoHtml + scoreHtml + flagsHtml + ingHtml + labHtml +
+      '<div class="result-actions"><button type="button" class="btn btn-secondary btn-block" data-act="start-scan">Scan another</button>' +
+      '<button type="button" class="btn btn-outline btn-block" data-act="standards">How we grade</button></div>';
     bindPaste();
   }
 
   // ------------------------------------------------------------ recent scans
   function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; } }
   function saveRecent(p, g) {
-    if (!p.code || p.source !== 'off') return;
+    if (!p.code || (p.source !== 'off' && p.source !== 'catalog')) return;
     var list = loadRecent().filter(function (r) { return r.code !== p.code; });
     list.unshift({ code: p.code, name: p.name, brand: p.brand, score: g.score, band: g.band.id, pass: g.sos.pass });
     try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 8))); } catch (e) { /* private mode */ }
@@ -393,7 +512,170 @@
       '</tbody></table>' +
       '<p>The high-sugar extra only applies when added sugar is listed, so fruit’s natural sugar isn’t penalized. NOVA comes from Open Food Facts; pasted labels have no NOVA deduction.</p>' +
       '<p><strong>Bands:</strong> 80–100 Cleaner · 50–79 Mixed · 0–49 Poor.</p>' +
-      '<h3>Data</h3><p>Product data comes from <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food Facts</a>, a free, volunteer-built database (ODbL). It can be incomplete or out of date, so check the package when it matters.</p>';
+      '<h3>4. Ingredient colors (OK / limit / avoid)</h3>' +
+      '<p>Each ingredient on the label gets a color. This is our aisle guide. It is not a Seed Oil Safe badge, not an Olive score, and not a lab test. A product can <em>pass</em> the Seed Oil Safe-style check and still have red ingredients (plain sugar and corn starch are the usual ones). A gum or natural flavor is yellow here and still fails that pass/fail check.</p>' +
+      '<ul>' +
+        '<li><strong>Green — OK.</strong> Nothing in the avoid or limit lists matched. Olive, avocado, coconut, and animal fats, salt, water, herbs, spices, whole foods, and organic Dirty Dozen produce land here.</li>' +
+        '<li><strong>Yellow — limit.</strong> Natural flavors and other unnamed flavors, gums (including carrageenan), plant lecithins that aren’t a soy derivative, soy foods such as tofu or tamari, added sugars that name a source (cane, honey, maple, coconut, and organic or non-GMO sugar), sugar alcohols, enriched or bleached flour, caramel color, hydrogenated fat that isn’t already a seed oil, conventional corn that isn’t a refined starch or syrup, and non-organic produce from the Dirty Dozen.</li>' +
+        '<li><strong>Red — avoid.</strong> Seed oils (same list as the pass/fail check, including organic canola or sunflower oil), artificial sweeteners, artificial dyes, artificial flavors, confirmed GMO or bioengineered wording, conventional corn starch, corn syrup, dextrose, and maltodextrin, modified food starch when the source isn’t named as something else, conventional sugar that doesn’t say cane (or another named non-beet source), beet sugar, refined soy derivatives (soy protein, soy flour, soy lecithin, TVP), and the other additives in the clean score (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).</li>' +
+      '</ul>' +
+      '<p><strong>Dirty Dozen, ' + s.dirtyDozen.year + '.</strong> Non-organic ' + s.dirtyDozen.items.join('; ') + '. List published by the <a href="' + s.dirtyDozen.url + '" target="_blank" rel="noopener">' + esc(s.dirtyDozen.source) + '</a>. If that ingredient phrase says organic, we mark it green. Non-GMO alone does not — the list is about pesticide residue, not genetic engineering. We only look at the ingredient line, not the brand name, because a certified-organic product can still include a small non-organic share.</p>' +
+      '<p>Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make that additive green, and it does not make a seed oil okay. Added sugar stays yellow even when it says cane: we don’t call added sugar completely OK, and we don’t try to guess whether it’s a small amount. Raisins and sultanas count as grapes. Sweet potatoes, mustard (the condiment), green beans, and bell peppers are not on the ' + s.dirtyDozen.year + ' list. Potato starch counts as potatoes.</p>' +
+      '<h3>Data</h3><p>Our catalog is seeded from <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food Facts</a>, a free, volunteer-built database (ODbL). A scan checks the catalog first, then a live lookup. Either can be incomplete or out of date, so check the package when it matters. Lab tests elsewhere in the app are other organizations’ published tests.</p>';
+  }
+
+  function labsForProduct(p) {
+    if (!p || !p.code) return [];
+    var mine = {};
+    R.barcodeCandidates(p.code).forEach(function (c) { mine[c] = 1; });
+    return labTests.filter(function (t) {
+      return t.barcode && R.barcodeCandidates(t.barcode).some(function (c) { return mine[c]; });
+    });
+  }
+  function formatWhen(iso) {
+    if (!iso) return '';
+    if (/^\d{4}$/.test(iso)) return iso;
+    return formatDate(iso) || iso;
+  }
+  function labCard(t) {
+    var findings = (t.findings || []).map(function (f) {
+      return '<li><span class="analyte">' + esc(f.analyte) + '</span><span class="value">' + esc(f.value) + '</span>' +
+        (f.note ? '<span class="why">' + esc(f.note) + '</span>' : '') + '</li>';
+    }).join('');
+    var links = '<div class="links"><a class="btn btn-outline" href="' + esc(t.sourceUrl) + '" target="_blank" rel="noopener">' + esc(t.sourceName || 'Source') + '</a>';
+    (t.alsoSee || []).forEach(function (a) {
+      links += '<a class="btn btn-outline" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>';
+    });
+    if (t.barcode) links += '<button type="button" class="btn btn-secondary" data-act="lookup" data-code="' + esc(t.barcode) + '">Look up this barcode</button>';
+    (t.brands || []).forEach(function (b) {
+      links += '<button type="button" class="btn btn-outline" data-act="catalog-brand" data-brand="' + esc(b) + '">' + esc(b) + ' in the catalog</button>';
+    });
+    links += '</div>';
+    return '<article class="card lab-card" id="lab-' + esc(t.id) + '">' +
+      '<p class="kicker-row"><span class="tag lab">' + esc(t.match === 'sku' ? 'Specific product' : t.match === 'category' ? 'Category' : 'Brand or line') + '</span><span>' + esc(formatWhen(t.date)) + '</span></p>' +
+      '<h3>' + esc(t.product) + '</h3>' +
+      '<p class="help" style="margin:0">' + esc([t.brand, t.lab].filter(Boolean).join(' · ')) + (t.publisher ? ' · Published by ' + esc(t.publisher) : '') + '</p>' +
+      '<p class="scope">' + esc(t.scopeNote || '') + '</p>' +
+      '<p>' + esc(t.summary) + '</p>' +
+      '<ul class="findings">' + findings + '</ul>' + links + '</article>';
+  }
+  function renderLabs() {
+    $('labList').innerHTML = labTests.length
+      ? labTests.map(labCard).join('')
+      : '<div class="card"><p>Lab tests didn’t load. Check your connection and reload.</p></div>';
+  }
+  function renderNews() {
+    if (!newsReports.length) {
+      $('newsList').innerHTML = '<div class="card"><p>News didn’t load. Check your connection and reload.</p></div>';
+      return;
+    }
+    $('newsList').innerHTML = newsReports.map(function (report) {
+      var items = (report.items || []).map(function (item) {
+        var more = (item.alsoSee || []).map(function (a) {
+          return '<a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>';
+        }).join(' · ');
+        var labBtn = item.labTestId
+          ? '<button type="button" class="btn btn-outline" data-act="open-lab" data-lab="' + esc(item.labTestId) + '">Open the lab test</button>' : '';
+        return '<article class="card story">' +
+          '<p class="kicker-row"><span class="tag ' + esc(item.category || '') + '">' + esc(item.category || 'note') + '</span>' +
+          (item.sourceDate ? '<span>' + esc(formatWhen(item.sourceDate)) + '</span>' : '') + '</p>' +
+          '<h3>' + esc(item.headline) + '</h3>' +
+          '<p>' + esc(item.summary) + '</p>' +
+          '<div class="links"><a class="btn btn-outline" href="' + esc(item.sourceUrl) + '" target="_blank" rel="noopener">' + esc(item.sourceName || 'Source') + '</a>' + labBtn + '</div>' +
+          (more ? '<p class="help">Also: ' + more + '</p>' : '') +
+          '</article>';
+      }).join('');
+      return '<article class="card intro"><p class="kicker-row"><span>' + esc(report.timezone || 'America/Los_Angeles') + '</span></p>' +
+        '<h2>' + esc(report.title) + '</h2><p>' + esc(report.dek || '') + '</p></article>' + items;
+    }).join('');
+  }
+  function gmoPill(status) {
+    if (status === 'gmo') return '<span class="pill gmo-bad">GMO</span>';
+    if (status === 'possible') return '<span class="pill gmo-maybe">Possible GMO</span>';
+    if (status === 'non-gmo') return '<span class="pill gmo-ok">Not GMO</span>';
+    return '<span class="pill">No GMO flag</span>';
+  }
+  function catalogCard(p) {
+    var g = p.grade || {};
+    var img = p.image
+      ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
+      : '<span class="thumb">No photo</span>';
+    return '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '">' + img +
+      '<span><span class="name">' + esc(p.name) + '</span>' +
+      (p.brand ? '<span class="brand">' + esc(p.brand) + '</span>' : '') +
+      '<span class="pills"><span class="pill ' + (g.sosPass ? 'pass' : 'fail') + '">' + (g.sosPass ? 'Pass' : 'Fail') + '</span>' +
+      '<span class="pill">' + (g.score != null ? g.score : '—') + '</span>' + gmoPill(g.gmoStatus) + '</span></span></button>';
+  }
+  function filteredCatalog() {
+    var q = catalogFilter.q.trim().toLowerCase();
+    return catalog.filter(function (p) {
+      if (catalogFilter.sos === 'pass' && !(p.grade && p.grade.sosPass)) return false;
+      if (catalogFilter.sos === 'fail' && !(p.grade && p.grade.sosPass === false)) return false;
+      if (catalogFilter.gmo && (!p.grade || p.grade.gmoStatus !== catalogFilter.gmo)) return false;
+      if (catalogFilter.brand && (p.brand || '') !== catalogFilter.brand) return false;
+      if (!q) return true;
+      var blob = (p.name + ' ' + (p.brand || '') + ' ' + p.barcode).toLowerCase();
+      return blob.indexOf(q) >= 0 || R.barcodeCandidates(q).some(function (c) { return p.barcode.indexOf(c) >= 0 || c.indexOf(p.barcode) >= 0; });
+    });
+  }
+  function renderCatalog() {
+    var list = filteredCatalog();
+    $('catalogMeta').textContent = catalog.length
+      ? (list.length + ' of ' + catalog.length + ' products')
+      : 'Catalog is still loading, or it didn’t load.';
+    $('catalogList').innerHTML = list.length ? list.map(catalogCard).join('')
+      : '<div class="card"><p>' + (catalog.length ? 'Nothing matches those filters.' : 'The catalog file didn’t load.') + '</p></div>';
+  }
+  function fillBrandSelect() {
+    var brands = [];
+    var seen = {};
+    catalog.forEach(function (p) {
+      var b = p.brand || '';
+      if (b && !seen[b]) { seen[b] = 1; brands.push(b); }
+    });
+    brands.sort(function (a, b) { return a.localeCompare(b); });
+    $('catalogBrand').innerHTML = '<option value="">All brands</option>' + brands.map(function (b) {
+      return '<option value="' + esc(b) + '">' + esc(b) + '</option>';
+    }).join('');
+  }
+  function renderWelcome() {
+    var box = $('catalogWelcome');
+    if (!catalog.length) { box.hidden = true; return; }
+    var passes = catalog.filter(function (p) { return p.grade && p.grade.sosPass; }).length;
+    $('catalogWelcomeText').textContent = catalog.length + ' products and ' + labTests.length + ' public lab tests. The catalog was seeded ' + formatDate(catalog[0].added) + ' from Open Food Facts. ' + passes + ' pass our Seed Oil Safe-style check.';
+    var want = ['041570054161', '0016000275287', '3017624010701', '049000006346'];
+    var picked = [];
+    want.forEach(function (code) {
+      var hit = findCatalog(code);
+      if (hit) picked.push(hit);
+    });
+    catalog.forEach(function (p) {
+      if (picked.length >= 6) return;
+      if (picked.some(function (x) { return x.barcode === p.barcode; })) return;
+      if (p.grade && p.grade.sosPass && p.grade.score >= 80) picked.push(p);
+    });
+    $('catalogWelcomeList').innerHTML = picked.slice(0, 6).map(function (p) {
+      var g = p.grade || {};
+      return '<li><button type="button" data-act="lookup" data-code="' + esc(p.barcode) + '"><span class="r-name">' + esc(p.name) + '</span>' +
+        '<span class="r-meta">' + (g.sosPass ? 'Pass' : 'Fail') + ' · ' + (g.score != null ? g.score : '') + '</span></button></li>';
+    }).join('');
+    box.hidden = false;
+  }
+  function indexCatalog(products) {
+    catalog = products || [];
+    catalogByCode = {};
+    catalog.forEach(function (p) {
+      catalogByCode[String(p.barcode)] = p;
+      R.barcodeCandidates(p.barcode).forEach(function (c) { catalogByCode[c] = p; });
+    });
+    fillBrandSelect();
+    renderWelcome();
+  }
+  function loadJson(file) {
+    return fetch(new URL(file, document.baseURI).href).then(function (res) {
+      if (!res.ok) throw new Error(file + ' ' + res.status);
+      return res.json();
+    });
   }
 
   // ------------------------------------------------------------ events
@@ -419,12 +701,40 @@
     var b = e.target.closest('[data-act]');
     if (!b) return;
     var act = b.dataset.act;
-    if (act === 'retry-scan') startScan();
+    if (act === 'retry-scan' || act === 'start-scan') startScan();
     else if (act === 'home') { show('home'); renderRecent(); $('manualCode').focus(); }
     else if (act === 'lookup') lookup(b.dataset.code);
     else if (act === 'standards') openStandards();
     else if (act === 'paste-blank') notFound(b.dataset.code);
+    else if (act === 'open-lab') {
+      showTab('labs');
+      var el = document.getElementById('lab-' + b.dataset.lab);
+      if (el) el.scrollIntoView({ block: 'start' });
+    } else if (act === 'catalog-brand') {
+      catalogFilter.brand = b.dataset.brand || '';
+      catalogFilter.q = '';
+      $('catalogQ').value = '';
+      $('catalogBrand').value = catalogFilter.brand;
+      showTab('catalog');
+    }
   });
+  document.querySelectorAll('.tabbar button, [data-tab]').forEach(function (b) {
+    b.addEventListener('click', function () { showTab(b.dataset.tab); });
+  });
+  $('catalogQ').addEventListener('input', function () {
+    catalogFilter.q = $('catalogQ').value;
+    renderCatalog();
+  });
+  $('catalogForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  document.querySelectorAll('#catalogForm [data-sos]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      catalogFilter.sos = chip.dataset.sos;
+      document.querySelectorAll('#catalogForm [data-sos]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      renderCatalog();
+    });
+  });
+  $('catalogGmo').addEventListener('change', function () { catalogFilter.gmo = $('catalogGmo').value; renderCatalog(); });
+  $('catalogBrand').addEventListener('change', function () { catalogFilter.brand = $('catalogBrand').value; renderCatalog(); });
 
   var dlg = $('standards');
   function openStandards() {
@@ -440,10 +750,27 @@
     if (document.hidden && scanning) stopScan().then(function () { show('home'); renderRecent(); });
   });
 
-  // Deep link: ?code=0123456789012
+  // Deep link: ?code=0123456789012  ?tab=news|catalog|labs
   var qs = new URLSearchParams(location.search);
   renderRecent();
-  if (qs.get('code')) lookup(qs.get('code'));
+  window.__tortugaData = Promise.all([
+    loadJson('data/catalog.json').catch(function () { return { products: [] }; }),
+    loadJson('data/lab-tests.json').catch(function () { return { tests: [] }; }),
+    loadJson('data/news.json').catch(function () { return { reports: [] }; })
+  ]).then(function (all) {
+    indexCatalog((all[0] && all[0].products) || []);
+    labTests = (all[1] && all[1].tests) || [];
+    newsReports = (all[2] && all[2].reports) || [];
+    renderWelcome();
+    var intro = document.querySelector('#view-home .intro p');
+    if (intro && catalog.length) {
+      intro.insertAdjacentHTML('beforeend', ' <span id="homeCounts">' + catalog.length + ' catalog products · ' + labTests.length + ' public lab tests.</span>');
+    }
+  });
+  window.__tortugaData.then(function () {
+    if (qs.get('code')) lookup(qs.get('code'));
+    else if (qs.get('tab')) showTab(qs.get('tab'));
+  });
 
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });

@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "about": "Public lab tests cited by Tortuga Scan. Add a test by copying an object into tests[]. Every number must come from the linked source. See README.md. These are not tests we ran.",
+  "tests": [
+    {
+      "id": "wise-wife-cinnamon-2026",
+      "product": "Wise Wife Brand Ground Cinnamon, 110 g (3.88 oz), best before 4/25/2027",
+      "brand": "Wise Wife",
+      "barcode": "0688474302754",
+      "match": "sku",
+      "scopeNote": "This result is the recalled 110 g jar (UPC 0688474302754, best before April 25, 2027), sold in 14 states. It is not a test of every Wise Wife product. A different Wise Wife cinnamon is listed separately.",
+      "date": "2026-11-04",
+      "lab": "Connecticut Agricultural Experiment Station",
+      "publisher": "U.S. Food and Drug Administration",
+      "summary": "Connecticut’s state lab tested a Wise Wife ground cinnamon sample and found lead high enough that FDA added the jar to its ground-cinnamon alert on November 4, 2026. SLR Food Distribution recalled that jar on October 29, 2026. The company said no illnesses had been reported.",
+      "findings": [
+        {
+          "analyte": "Lead",
+          "value": "2.118 ppm",
+          "note": "Listed by FDA for the Connecticut sample of Wise Wife cinnamon with best before 4/25/2027."
+        }
+      ],
+      "sourceName": "FDA ground cinnamon public health alert",
+      "sourceUrl": "https://www.fda.gov/food/alerts-advisories-safety-information/more-ground-cinnamon-products-added-fda-public-health-alert-due-presence-elevated-levels-lead",
+      "alsoSee": [
+        {
+          "name": "FDA recall announcement (SLR Food Distribution, October 29, 2026)",
+          "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/slr-food-distribution-inc-recalls-wise-wife-brand-ground-cinnamon-due-elevated-lead-levels"
+        }
+      ]
+    },
+    {
+      "id": "wise-wife-cinnamon-upc-302853",
+      "product": "Wise Wife ground cinnamon, UPC 0 688474 302853",
+      "brand": "Wise Wife",
+      "barcode": "0688474302853",
+      "match": "sku",
+      "scopeNote": "A different Wise Wife listing from the 110 g jar recalled in October 2026. FDA’s table ties this UPC to retail distribution from February 15, 2024 through June 28, 2025 in New Jersey, New York, Florida, Maryland, Minnesota, Oklahoma, and Ohio.",
+      "date": "2025-10-08",
+      "lab": "U.S. Food and Drug Administration (retail sample)",
+      "publisher": "U.S. Food and Drug Administration",
+      "summary": "FDA’s ground-cinnamon alert lists this Wise Wife UPC at 2.49 ppm lead. The October 8, 2025 update says the samples were collected at retail by FDA. That is a different lot from the November 2026 Connecticut result.",
+      "findings": [
+        {
+          "analyte": "Lead",
+          "value": "2.49 ppm",
+          "note": "FDA alert table row for UPC 0 688474 302853."
+        }
+      ],
+      "sourceName": "FDA ground cinnamon public health alert",
+      "sourceUrl": "https://www.fda.gov/food/alerts-advisories-safety-information/more-ground-cinnamon-products-added-fda-public-health-alert-due-presence-elevated-levels-lead"
+    },
+    {
+      "id": "wanabana-cinnamon-applesauce-2023",
+      "product": "WanaBana apple cinnamon fruit puree pouches (cinnamon used in the recalled pouches)",
+      "brand": "WanaBana",
+      "barcode": null,
+      "match": "product-line",
+      "scopeNote": "FDA is describing the cinnamon in the apple-cinnamon pouches recalled in fall 2023, not a new 2026 test and not every applesauce. No barcode was published in the alert we cited.",
+      "date": "2023",
+      "lab": "Reported by the U.S. Food and Drug Administration",
+      "publisher": "U.S. Food and Drug Administration",
+      "summary": "On the same cinnamon alert, FDA compared later ground-cinnamon findings with the 2023 WanaBana apple-cinnamon puree recall. The cinnamon in those pouches was far higher in lead than the ground cinnamon still being recalled in 2025 and 2026.",
+      "findings": [
+        {
+          "analyte": "Lead in the cinnamon",
+          "value": "2,270 ppm to 5,110 ppm",
+          "note": "Range FDA states for the cinnamon in the fall 2023 WanaBana applesauce recall."
+        }
+      ],
+      "sourceName": "FDA ground cinnamon public health alert",
+      "sourceUrl": "https://www.fda.gov/food/alerts-advisories-safety-information/more-ground-cinnamon-products-added-fda-public-health-alert-due-presence-elevated-levels-lead"
+    },
+    {
+      "id": "hands-cocoa-metals-2024",
+      "product": "72 cocoa products bought in the U.S. (dark chocolate and other cocoa foods)",
+      "brand": null,
+      "barcode": null,
+      "match": "category",
+      "scopeNote": "A multi-year survey of 72 products tested in 2014, 2016, 2019, and 2022. The paper does not list barcodes, so this is not tied to one catalog SKU. Organic products in the study ran higher in lead and cadmium; that is about those samples, not a rule that every organic bar is higher.",
+      "date": "2024-07-31",
+      "lab": "Two U.S. commercial laboratories using ICP-MS, for ConsumerLab.com",
+      "publisher": "Frontiers in Nutrition (Hands, Anderson, Cooperman, Balsky, and Frame)",
+      "summary": "Researchers looked at lead, cadmium, and arsenic in 72 popular U.S. cocoa products across eight years. Averages were pulled up by the dirtiest products. Most bars were under FDA’s interim lead level for children and pregnancy, but a large share still passed California’s much tighter daily limits if you ate one serving.",
+      "findings": [
+        {
+          "analyte": "Lead",
+          "value": "mean 0.615 mcg per serving; median 0.375 mcg per serving",
+          "note": "31 of 72 products (43%) were over California’s Proposition 65 level of 0.5 mcg per day. 70 of 72 (97.2%) were under FDA’s interim reference level for lead."
+        },
+        {
+          "analyte": "Cadmium",
+          "value": "mean 4.358 mcg per day; median 2.725 mcg per day",
+          "note": "Per-day cadmium was reported for 37 products. 13 of those 37 (35%) were over the Proposition 65 level of 4.1 mcg per day."
+        },
+        {
+          "analyte": "Arsenic",
+          "value": "mean 0.931 mcg per serving",
+          "note": "No product in the study exceeded the Proposition 65 level of 10 mcg per day."
+        }
+      ],
+      "sourceName": "Frontiers in Nutrition",
+      "sourceUrl": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2024.1366231/full"
+    },
+    {
+      "id": "ucdavis-avocado-oil-2020",
+      "product": "22 avocado oils sold in the U.S.",
+      "brand": null,
+      "brands": ["Chosen Foods", "Marianne's", "CalPure"],
+      "barcode": null,
+      "match": "brand-samples",
+      "scopeNote": "University of California, Davis tested 22 bottles they could buy in stores and online, plus oil they pressed themselves. Chosen Foods and Marianne’s were the refined samples that were both pure and not oxidized. CalPure was the fresher pure virgin sample. Those were the bottles in that study, not a standing certificate for every bottle those brands sell now. The study did not publish barcodes.",
+      "date": "2020-06-15",
+      "lab": "Wang laboratory, University of California, Davis (Hilary S. Green and Selina C. Wang)",
+      "publisher": "UC Davis; study in Food Control",
+      "summary": "UC Davis tested avocado oil sold in the U.S. and found most bottles were already stale or cut with cheaper oil. Three bottles labeled pure or extra virgin were nearly all soybean oil. The campus news release names the samples that tested pure and not oxidized.",
+      "findings": [
+        {
+          "analyte": "Samples stale or mixed with other oil",
+          "value": "at least 82% of 22 samples",
+          "note": "UC Davis summary of the study. Fifteen samples were oxidized before the expiration date."
+        },
+        {
+          "analyte": "Adulteration",
+          "value": "6 of 22 samples mixed with other oils; 3 of those were nearly 100% soybean oil",
+          "note": "Other oils named in the write-up include sunflower, safflower, and soybean. The near-100% soybean bottles were labeled pure or extra virgin."
+        }
+      ],
+      "sourceName": "UC Davis news release",
+      "sourceUrl": "https://www.ucdavis.edu/food/news/study-finds-82-percent-avocado-oil-rancid-or-mixed-other-oils",
+      "alsoSee": [
+        {
+          "name": "Food Control paper (Green and Wang, 2020)",
+          "url": "https://doi.org/10.1016/j.foodcont.2020.107328"
+        }
+      ]
+    },
+    {
+      "id": "fda-infant-rice-arsenic-2020",
+      "product": "Infant rice cereals (white rice and brown rice)",
+      "brand": null,
+      "barcode": null,
+      "match": "category",
+      "scopeNote": "FDA sampling of infant rice cereal as a category. The update does not name brands or barcodes, so this is not a result for a box in our catalog.",
+      "date": "2020-08-05",
+      "lab": "U.S. Food and Drug Administration",
+      "publisher": "U.S. Food and Drug Administration",
+      "summary": "FDA set a guidance level of 100 ppb inorganic arsenic for infant rice cereal and published how its own samples compared over the decade. More cereals met that level in 2018 than in earlier years. The level is guidance FDA uses when deciding whether a food may be adulterated. It is not a test we performed.",
+      "findings": [
+        {
+          "analyte": "Inorganic arsenic action level",
+          "value": "100 µg/kg (100 ppb)",
+          "note": "FDA guidance for infant rice cereals, issued August 5, 2020."
+        },
+        {
+          "analyte": "Samples at or below 100 ppb",
+          "value": "76% in 2018; 47% in 2014; 36% in 2011–2013",
+          "note": "FDA’s comparison of its infant rice cereal sampling. White rice cereals improved more than brown rice cereals."
+        }
+      ],
+      "sourceName": "FDA constituent update",
+      "sourceUrl": "https://www.fda.gov/food/hfp-constituent-updates/fda-issues-final-guidance-industry-action-level-inorganic-arsenic-infant-rice-cereals"
+    }
+  ]
+}

@@ -370,6 +370,255 @@
   var SUGAR_BASE = 8, SUGAR_HIGH = { at: 15, extra: 7 }, SUGAR_VERY_HIGH = { at: 25, extra: 12 };
   var NOVA = { 4: 15, 3: 5 };
 
+  // ---------------------------------------------------------------- traffic light
+  // Per-ingredient colors for Lizeth's aisle rule. Not a certification.
+  // Red = avoid. Yellow = limit. Green = nothing in those buckets hit.
+  // Organic on the ingredient phrase clears a Dirty Dozen item to green.
+  // Organic or non-GMO clears a GMO-red refined additive down to yellow, not green.
+  // Seed oils stay red even when the phrase says organic.
+  var DIRTY_DOZEN_2026 = [
+    { re: /\bspinach\b/, name: 'Spinach' },
+    { re: /\bkale\b/, name: 'Kale' },
+    { re: /\bcollards?\b|\bcollard greens?\b/, name: 'Collard greens' },
+    { re: /\bmustard greens?\b/, name: 'Mustard greens' },
+    { re: /\bstrawberr(?:y|ies)\b/, name: 'Strawberries' },
+    { re: /\bgrapes?\b|\braisins?\b|\bsultanas?\b/, name: 'Grapes' },
+    { re: /\bnectarines?\b/, name: 'Nectarines' },
+    { re: /\bpeaches?\b/, name: 'Peaches' },
+    { re: /\bcherries\b|\bcherry\b/, name: 'Cherries' },
+    { re: /\bapples?\b/, name: 'Apples' },
+    { re: /\bblackberr(?:y|ies)\b/, name: 'Blackberries' },
+    { re: /\bpears?\b/, name: 'Pears' },
+    { re: /\bpotatoes?\b/, name: 'Potatoes' },
+    { re: /\bblueberr(?:y|ies)\b/, name: 'Blueberries' }
+  ];
+
+  function hasOrganicWord(text) {
+    return /\borganic\b/.test(String(text || '').replace(/\bnon[\s-]+organic\b/g, ' '));
+  }
+  function hasNonGmoWord(text) {
+    return /\bnon[\s-]?gmo\b|\bnongmo\b/.test(text);
+  }
+  function clearsGmoRed(text) {
+    return hasOrganicWord(text) || hasNonGmoWord(text);
+  }
+
+  function dirtyDozenHits(text) {
+    var t = mergeOilNames(text)
+      .replace(/\bsweet[\s-]?potatoes?\b/g, ' ')
+      .replace(/\bapple cider vinegar\b|\bapple vinegar\b|\bapple pectin\b/g, ' ')
+      .replace(/\bcherry tomatoes?\b/g, ' ')
+      .replace(/\bgrape seeds?\b/g, ' ');
+    var hits = [];
+    DIRTY_DOZEN_2026.forEach(function (d) {
+      var re = new RegExp(d.re.source, 'g');
+      var m;
+      while ((m = re.exec(t))) {
+        var after = t.slice(m.index + m[0].length, m.index + m[0].length + 18);
+        if (/^\s*flavou?r/.test(after)) continue;
+        if (hits.indexOf(d.name) < 0) hits.push(d.name);
+      }
+    });
+    return hits;
+  }
+
+  function isFillerPhrase(t) {
+    if (!t) return true;
+    if (/^[\d.\s%]+$/.test(t)) return true;
+    if (/^(and|or|&)$/.test(t)) return true;
+    if (/^(contains|including|with)\s+(less than\s+)?\d+(\.\d+)?\s*%?\s*(or less)?(\s+of)?(\s+the following)?$/.test(t)) return true;
+    if (/^(less than\s+)?\d+(\.\d+)?\s*%?\s*(or less)?(\s+of)?(\s+the following)?$/.test(t)) return true;
+    return false;
+  }
+
+  function uniquePush(list, level, label) {
+    if (list.some(function (r) { return r.level === level && r.label === label; })) return;
+    list.push({ level: level, label: label });
+  }
+
+  function classifyText(display) {
+    var norm = normalize(display);
+    var stripped = stripCrossContact(norm);
+    if (!stripped.text) return { color: 'none', reasons: [{ level: 'none', label: 'Cross-contact line, not graded' }] };
+    if (isFillerPhrase(stripped.text)) return { color: 'none', reasons: [{ level: 'none', label: 'Label note, not an ingredient' }] };
+    var text = stripped.text;
+    var reasons = [];
+
+    findSeedOils(text).forEach(function (h) { uniquePush(reasons, 'red', 'Seed oil · ' + h.rule); });
+
+    var gmoHits = scan(text.replace(GMO_NEGATIONS, ' '), GMO_CONFIRMED);
+    if (gmoHits.length) uniquePush(reasons, 'red', 'GMO / bioengineered');
+
+    scan(text, SWEETENERS).forEach(function (h) { uniquePush(reasons, 'red', 'Artificial sweetener · ' + h.rule); });
+    scan(text, DYES).forEach(function (h) { uniquePush(reasons, 'red', 'Artificial dye · ' + h.rule); });
+    scan(text, ADDITIVES).forEach(function (h) { uniquePush(reasons, 'red', 'Additive · ' + h.rule); });
+
+    var cornRefined = /\b(?:modified\s+)?corn[\s-]?starch\b|\bcornstarch\b|\bmaize[\s-]?starch\b|\bcorn syrup(?:\s+solids)?\b|\bhigh[\s-]fructose\s+corn syrup\b|\bhfcs\b/;
+    if (cornRefined.test(text)) {
+      uniquePush(reasons, clearsGmoRed(text) ? 'yellow' : 'red',
+        clearsGmoRed(text) ? 'Refined corn (organic or non-GMO on this phrase)' : 'Refined corn (starch or syrup, usually GMO)');
+    }
+    var namedOtherStarch = /\b(?:tapioca|arrowroot|cassava|rice|wheat|potato)\b/.test(text);
+    if (/\bmodified food starch\b/.test(text) && !namedOtherStarch && !cornRefined.test(text)) {
+      uniquePush(reasons, clearsGmoRed(text) ? 'yellow' : 'red',
+        clearsGmoRed(text) ? 'Modified starch (organic or non-GMO on this phrase)' : 'Modified food starch (often corn)');
+    }
+    var namedMaltodextrin = /\b(?:tapioca|rice|potato|wheat|cassava)\s+maltodextrin\b|\bmaltodextrin\s*\(\s*(?:tapioca|rice|potato|wheat|cassava)\b/;
+    if (/\bdextrose\b/.test(text) || (/\bmaltodextrin\b/.test(text) && !namedMaltodextrin.test(text))) {
+      uniquePush(reasons, clearsGmoRed(text) ? 'yellow' : 'red',
+        clearsGmoRed(text) ? 'Dextrose / maltodextrin (organic or non-GMO on this phrase)' : 'Dextrose / maltodextrin (usually corn)');
+    } else if (namedMaltodextrin.test(text)) {
+      uniquePush(reasons, 'yellow', 'Maltodextrin (source named)');
+    }
+
+    var soyDerivative = /\b(?:soy|soya|soybean)[\s-]+(?:protein|flour|lecithin|fiber|fibre)s?\b|\bsoy[\s-]?protein[\s-]?isolate\b|\bhydrolyzed[\s-]+(?:soy|soya)(?:[\s-]+protein)?\b|\btextured[\s-]+(?:soy|vegetable)[\s-]+protein\b|\btvp\b/;
+    if (soyDerivative.test(text)) {
+      uniquePush(reasons, clearsGmoRed(text) ? 'yellow' : 'red',
+        clearsGmoRed(text) ? 'Soy derivative (organic or non-GMO on this phrase)' : 'Soy derivative (protein, flour, or lecithin)');
+    }
+
+    var sugarWord = /\bsugars?\b/.test(text)
+      && !/\b(?:no|without|zero)\s+(?:added\s+)?sugars?\b/.test(text)
+      && !/\bsugars?\s+snap\b/.test(text)
+      && !/\bsugar\s+alcohol/.test(text);
+    var namedSugar = /\b(?:cane|coconut|date|maple|palm|turbinado|demerara|muscovado|panela|jaggery|sucanat|rapadura)\b/.test(text);
+    if (sugarWord && !namedSugar) {
+      if (clearsGmoRed(text)) uniquePush(reasons, 'yellow', 'Added sugar (organic or non-GMO on this phrase)');
+      else uniquePush(reasons, 'red', /\bbeet\b/.test(text) ? 'Sugar from beets' : 'Sugar (not named as cane)');
+    }
+
+    var alreadyRed = reasons.some(function (r) { return r.level === 'red'; });
+    if (!alreadyRed) {
+      scan(text, NATURAL_FLAVORS).forEach(function (h) { uniquePush(reasons, 'yellow', 'Natural flavor'); });
+      if (!reasons.some(function (r) { return r.label === 'Natural flavor'; }) && /\bflavou?r(?:s|ing|ings)?\b/.test(text)) {
+        uniquePush(reasons, 'yellow', 'Flavor');
+      }
+      scan(text, GUMS).forEach(function (h) { uniquePush(reasons, 'yellow', 'Gum · ' + h.rule); });
+      scan(text, LECITHINS).forEach(function (h) { uniquePush(reasons, 'yellow', 'Lecithin · ' + h.rule); });
+      if (!soyDerivative.test(text)) {
+        scan(text, SOY).forEach(function (h) { uniquePush(reasons, 'yellow', 'Soy · ' + h.rule); });
+      }
+      if (!cornRefined.test(text) && !/\b(?:dextrose|maltodextrin)\b/.test(text)) {
+        if (/\b(?:corn|maize|popcorn|polenta|hominy|masa|cornmeal|corn[\s-]?flour|cornflour)\b/.test(text)) {
+          uniquePush(reasons, clearsGmoRed(text) ? 'green' : 'yellow',
+            clearsGmoRed(text) ? 'Corn (organic or non-GMO on this phrase)' : 'Corn (possible GMO — not confirmed)');
+        }
+      }
+      var dozen = dirtyDozenHits(text);
+      if (dozen.length) {
+        if (hasOrganicWord(text)) uniquePush(reasons, 'green', 'Organic · ' + dozen.join(', '));
+        else uniquePush(reasons, 'yellow', 'Dirty Dozen 2026 · ' + dozen.join(', '));
+      }
+      scan(text, SUGARS).forEach(function (h) {
+        if (reasons.some(function (r) { return r.level === 'red' && /sugar|corn syrup|dextrose|maltodextrin/i.test(r.label); })) return;
+        uniquePush(reasons, 'yellow', 'Added sugar · ' + h.rule);
+      });
+      if (/\b(?:erythritol|xylitol|allulose|sorbitol|maltitol|mannitol)\b/.test(text)) uniquePush(reasons, 'yellow', 'Sugar alcohol');
+      if (/\b(?:enriched|bleached)\s+(?:wheat\s+|white\s+|unbleached\s+)*(?:flour|macaroni|pasta|corn\s*meal|cornmeal|rice)\b/.test(text)
+        || /\bunbleached\s+enriched\b/.test(text)) {
+        uniquePush(reasons, 'yellow', 'Enriched or bleached grain');
+      }
+      if (/\bcaramel colou?r\b/.test(text)) uniquePush(reasons, 'yellow', 'Caramel color');
+      if (/\b(?:partially\s+)?hydrogenated\b/.test(text)) uniquePush(reasons, 'yellow', 'Hydrogenated fat');
+    }
+
+    var rank = { red: 3, yellow: 2, green: 1, none: 0 };
+    var color = 'green';
+    reasons.forEach(function (r) { if (rank[r.level] > rank[color]) color = r.level; });
+    if (color === 'green') reasons = [];
+    else reasons = reasons.filter(function (r) { return r.level === color; });
+    return { color: color, reasons: reasons };
+  }
+
+  function tokenizeIngredients(s) {
+    var parts = [], buf = '', depth = 0;
+    function flush() {
+      var t = buf.replace(/\s+/g, ' ').trim().replace(/^[\s,;:–—-]+|[\s,;:.–—-]+$/g, '').trim();
+      if (t) parts.push(t);
+      buf = '';
+    }
+    for (var i = 0; i < s.length; i++) {
+      var c = s[i];
+      if (c === '(' || c === '[') { depth++; buf += c; }
+      else if (c === ')' || c === ']') { depth = Math.max(0, depth - 1); buf += c; }
+      else if ((c === ',' || c === ';' || c === '·' || c === '•') && depth === 0) flush();
+      else buf += c;
+    }
+    flush();
+    return parts;
+  }
+
+  function splitParen(part) {
+    var s = part.trim(), depth = 0, start = -1, end = -1;
+    for (var i = 0; i < s.length; i++) {
+      if (s[i] === '(') { if (depth === 0) start = i; depth++; }
+      else if (s[i] === ')') { depth--; if (depth === 0) { end = i; break; } }
+    }
+    if (start < 0 || end < 0) return null;
+    var name = s.slice(0, start).trim();
+    var inner = s.slice(start + 1, end).trim();
+    var trailing = s.slice(end + 1).trim().replace(/^[).]+/, '').trim();
+    if (!inner) return null;
+    var children = tokenizeIngredients(inner);
+    if (!children.length) return null;
+    if (trailing) name = (name + ' ' + trailing).trim();
+    return { name: name, children: children };
+  }
+
+  function worstColor(list) {
+    var rank = { red: 3, yellow: 2, green: 1, none: 0 };
+    var best = 'none';
+    list.forEach(function (c) { if (c && rank[c] > rank[best]) best = c; });
+    return best === 'none' ? 'green' : best;
+  }
+
+  function classifyNode(raw) {
+    var display = String(raw || '').replace(/\s+/g, ' ').trim();
+    if (!display) return null;
+    var parsed = splitParen(display);
+    if (parsed && parsed.children.length && parsed.name) {
+        var children = parsed.children.map(classifyNode).filter(Boolean);
+        var onlyNotes = children.length && children.every(function (ch) { return ch.color === 'none'; });
+        if (!onlyNotes && children.length) {
+          var nameForRules = parsed.name;
+          if (/\bmodified food starch\b|\bmaltodextrin\b|\bdextrose\b/i.test(parsed.name)) {
+            nameForRules = parsed.name + ' ' + parsed.children.join(' ');
+          }
+          var self = classifyText(nameForRules);
+        var color = self.color === 'none'
+          ? 'none'
+          : worstColor([self.color].concat(children.map(function (ch) { return ch.color; })));
+        var reasons = self.reasons.filter(function (r) { return r.level === color; });
+        if (!reasons.length && color !== 'green' && color !== 'none') {
+          children.forEach(function (ch) {
+            ch.reasons.forEach(function (r) {
+              if (r.level === color) uniquePush(reasons, r.level, r.label);
+            });
+          });
+        }
+        return { text: parsed.name, color: color, reasons: reasons.slice(0, 3), children: children };
+      }
+    }
+    var leaf = classifyText(display);
+    return { text: display, color: leaf.color, reasons: leaf.reasons.slice(0, 3), children: [] };
+  }
+
+  function tallyColors(items, acc) {
+    acc = acc || { green: 0, yellow: 0, red: 0, none: 0 };
+    items.forEach(function (it) {
+      if (it.children && it.children.length) tallyColors(it.children, acc);
+      else acc[it.color] = (acc[it.color] || 0) + 1;
+    });
+    return acc;
+  }
+
+  function classifyIngredients(ingredientsText) {
+    var original = String(ingredientsText || '').replace(/\r/g, '').replace(/\n+/g, ', ');
+    original = original.replace(/^\s*ingredients?\s*[:\-]\s*/i, '');
+    var items = tokenizeIngredients(original).map(classifyNode).filter(Boolean);
+    return { items: items, counts: tallyColors(items) };
+  }
+
   function band(score) {
     if (score >= 80) return { id: 'cleaner', label: 'Cleaner' };
     if (score >= 50) return { id: 'mixed', label: 'Mixed' };
@@ -486,7 +735,13 @@
       seedOils: Object.keys(SEED_OIL_NAMES).map(function (k) { return SEED_OIL_NAMES[k]; })
         .filter(function (v, i, a) { return a.indexOf(v) === i; }),
       notSeedOils: ['olive', 'avocado', 'coconut', 'MCT', 'butter', 'ghee', 'tallow', 'lard', 'palm', 'sesame', 'flax / linseed', 'walnut', 'almond', 'peanut', 'macadamia'],
-      points: { gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 35, otherCategory: 12, additiveEach: ADDITIVE_EACH, additiveCap: ADDITIVE_CAP, sugarBase: SUGAR_BASE, sugarHigh: SUGAR_HIGH, sugarVeryHigh: SUGAR_VERY_HIGH, nova: NOVA }
+      points: { gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 35, otherCategory: 12, additiveEach: ADDITIVE_EACH, additiveCap: ADDITIVE_CAP, sugarBase: SUGAR_BASE, sugarHigh: SUGAR_HIGH, sugarVeryHigh: SUGAR_VERY_HIGH, nova: NOVA },
+      dirtyDozen: {
+        year: 2026,
+        source: 'Environmental Working Group, Shopper’s Guide to Pesticides in Produce',
+        url: 'https://www.ewg.org/foodnews/dirty-dozen.php',
+        items: ['Spinach', 'Kale, collard, and mustard greens', 'Strawberries', 'Grapes', 'Nectarines', 'Peaches', 'Cherries', 'Apples', 'Blackberries', 'Pears', 'Potatoes', 'Blueberries']
+      }
     };
   }
 
@@ -499,6 +754,8 @@
     upcEtoUpcA: upcEtoUpcA,
     band: band,
     rulesSummary: rulesSummary,
+    classifyIngredients: classifyIngredients,
+    DIRTY_DOZEN_YEAR: 2026,
     CATEGORIES: CATEGORIES.map(function (c) { return { id: c.id, name: c.name, points: c.points }; })
   };
 });

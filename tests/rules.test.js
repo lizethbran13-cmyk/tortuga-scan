@@ -189,5 +189,150 @@ test('EAN-13 with leading 0 also tries UPC-A', () => assert.deepEqual(R.barcodeC
 test('UPC-E expands to UPC-A', () => assert.equal(R.upcEtoUpcA('04252614'), '042100005264'));
 test('non-digits are stripped', () => assert.equal(R.barcodeCandidates(' 3017-6240 10701 ')[0], '3017624010701'));
 
+console.log('Traffic light');
+const leaf = (text) => {
+  const out = [];
+  (function walk(items) {
+    items.forEach(i => {
+      if (i.children && i.children.length) walk(i.children);
+      else out.push(i.color);
+    });
+  })(R.classifyIngredients(text).items);
+  return out;
+};
+const one = (text) => R.classifyIngredients(text).items[0];
+
+test('olive, avocado, coconut, butter, ghee, tallow stay green', () => {
+  for (const s of ['extra virgin olive oil', 'avocado oil', 'coconut oil', 'butter', 'ghee', 'beef tallow', 'lard', 'palm oil', 'toasted sesame oil', 'sea salt', 'filtered water', 'whole milk', 'oats'])
+    assert.equal(one(s).color, 'green', s);
+});
+test('seed oils are red, including organic canola', () => {
+  for (const s of ['canola oil', 'organic canola oil', 'high oleic sunflower oil', 'vegetable oil', 'soybean oil', 'grapeseed oil', 'rice bran oil'])
+    assert.equal(one(s).color, 'red', s);
+});
+test('sunflower seeds and sunflower lecithin are not red seed oil', () => {
+  assert.equal(one('sunflower seeds').color, 'green');
+  assert.equal(one('sunflower lecithin').color, 'yellow');
+});
+test('olive and/or canola oil is red', () => assert.equal(one('olive and/or canola oil').color, 'red'));
+test('ground corn is not red corn oil; corn starch is red', () => {
+  assert.equal(one('ground corn').color, 'yellow');
+  assert.equal(one('corn starch').color, 'red');
+  assert.equal(one('organic corn starch').color, 'yellow');
+  assert.equal(one('non-gmo corn starch').color, 'yellow');
+  assert.equal(one('organic corn').color, 'green');
+});
+test('plain sugar is red; cane, honey, and organic sugar are yellow', () => {
+  assert.equal(one('sugar').color, 'red');
+  assert.equal(one('brown sugar').color, 'red');
+  assert.equal(one('beet sugar').color, 'red');
+  assert.equal(one('cane sugar').color, 'yellow');
+  assert.equal(one('organic cane sugar').color, 'yellow');
+  assert.equal(one('organic sugar').color, 'yellow');
+  assert.equal(one('honey').color, 'yellow');
+  assert.equal(one('maple syrup').color, 'yellow');
+  assert.equal(one('coconut sugar').color, 'yellow');
+  assert.equal(one('sugar snap peas').color, 'green');
+});
+test('artificial sweeteners, dyes, and flavors are red; natural flavors and stevia are not', () => {
+  assert.equal(one('sucralose').color, 'red');
+  assert.equal(one('red 40').color, 'red');
+  assert.equal(one('artificial flavors').color, 'red');
+  assert.equal(one('natural and artificial flavors').color, 'red');
+  assert.equal(one('natural flavors').color, 'yellow');
+  assert.equal(one('natural vanilla flavor').color, 'yellow');
+  assert.equal(one('stevia leaf extract').color, 'green');
+  assert.equal(one('monk fruit extract').color, 'green');
+  assert.equal(one('erythritol').color, 'yellow');
+});
+test('gums and carrageenan are yellow; carob powder is green', () => {
+  assert.equal(one('xanthan gum').color, 'yellow');
+  assert.equal(one('gellan gum').color, 'yellow');
+  assert.equal(one('carrageenan').color, 'yellow');
+  assert.equal(one('carob powder').color, 'green');
+  assert.equal(one('acacia honey').color, 'yellow');
+});
+test('soy lecithin and soy protein are red; tofu and organic soy lecithin are yellow', () => {
+  assert.equal(one('soy lecithin').color, 'red');
+  assert.equal(one('soy protein isolate').color, 'red');
+  assert.equal(one('textured vegetable protein').color, 'red');
+  assert.equal(one('tofu').color, 'yellow');
+  assert.equal(one('organic soy lecithin').color, 'yellow');
+  assert.equal(one('egg lecithin').color, 'green');
+});
+test('confirmed GMO wording is red; non-GMO is not', () => {
+  assert.equal(one('bioengineered corn').color, 'red');
+  assert.equal(one('non-gmo corn').color, 'green');
+});
+test('2026 Dirty Dozen: conventional yellow, organic green, sweet potato and mustard are not', () => {
+  for (const s of ['spinach', 'kale', 'strawberries', 'grapes', 'raisins', 'nectarines', 'peaches', 'cherries', 'apples', 'blackberries', 'pears', 'potatoes', 'blueberries', 'collard greens', 'mustard greens'])
+    assert.equal(one(s).color, 'yellow', s);
+  assert.equal(one('organic strawberries').color, 'green');
+  assert.equal(one('organic baby spinach').color, 'green');
+  assert.equal(one('non-gmo strawberries').color, 'yellow');
+  assert.equal(one('sweet potato').color, 'green');
+  assert.equal(one('dijon mustard').color, 'green');
+  assert.equal(one('green beans').color, 'green');
+  assert.equal(one('bell peppers').color, 'green');
+  assert.equal(one('cherry tomatoes').color, 'green');
+  assert.equal(one('apple cider vinegar').color, 'green');
+  assert.equal(one('pineapple').color, 'green');
+  assert.ok(/Dirty Dozen 2026/.test(one('spinach').reasons[0].label));
+});
+test('grapeseed oil is red, not a Dirty Dozen grape', () => {
+  const item = one('grapeseed oil');
+  assert.equal(item.color, 'red');
+  assert.ok(item.reasons.every(r => !/Dirty Dozen/.test(r.label)));
+});
+test('worse additives are red; enriched flour and caramel color are yellow', () => {
+  for (const s of ['bha', 'tbhq', 'monosodium glutamate', 'titanium dioxide', 'dextrose', 'maltodextrin'])
+    assert.equal(one(s).color, 'red', s);
+  assert.equal(one('organic maltodextrin').color, 'yellow');
+  assert.equal(one('tapioca maltodextrin').color, 'yellow');
+  assert.equal(one('enriched flour').color, 'yellow');
+  assert.equal(one('whole wheat flour').color, 'green');
+  assert.equal(one('caramel color').color, 'yellow');
+  assert.equal(one('paprika').color, 'green');
+});
+test('modified food starch is red unless a non-corn source is named', () => {
+  assert.equal(one('modified food starch').color, 'red');
+  const tapioca = one('modified food starch (tapioca)');
+  assert.equal(tapioca.color, 'green');
+});
+test('parent color follows the worst child, and cross-contact is not graded', () => {
+  const chips = one('chocolate chips (cane sugar, cocoa butter, soy lecithin)');
+  assert.equal(chips.color, 'red');
+  assert.equal(chips.children[0].color, 'yellow');
+  assert.equal(chips.children[1].color, 'green');
+  assert.equal(chips.children[2].color, 'red');
+  assert.equal(one('may contain traces of soy and peanuts').color, 'none');
+});
+test('almondmilk label: natural flavors, lecithin, and gum are yellow; water is green', () => {
+  const text = 'ALMONDMILK (FILTERED WATER, ALMONDS), CALCIUM CARBONATE, NATURAL FLAVORS, SEA SALT, SUNFLOWER LECITHIN, GELLAN GUM, VITAMIN D2.';
+  const items = R.classifyIngredients(text).items;
+  const by = {};
+  items.forEach(i => { by[i.text.toLowerCase()] = i; });
+  assert.equal(by['almondmilk'].color, 'green');
+  assert.equal(by['almondmilk'].children[0].color, 'green');
+  assert.equal(by['natural flavors'].color, 'yellow');
+  assert.equal(by['sunflower lecithin'].color, 'yellow');
+  assert.equal(by['gellan gum'].color, 'yellow');
+  assert.equal(by['sea salt'].color, 'green');
+});
+test('cheerios-style list can pass SOS and still have red ingredients', () => {
+  const text = 'whole grain oats, corn starch, sugar, salt, tripotassium phosphate';
+  const g = R.grade(text);
+  assert.equal(g.sos.pass, true);
+  const cols = leaf(text);
+  assert.deepEqual(cols, ['green', 'red', 'red', 'green', 'green']);
+});
+test('rules summary cites the 2026 Dirty Dozen', () => {
+  const d = R.rulesSummary().dirtyDozen;
+  assert.equal(d.year, 2026);
+  assert.equal(d.items.length, 12);
+  assert.ok(d.items[0].indexOf('Spinach') === 0);
+  assert.ok(/ewg\.org\/foodnews\/dirty-dozen/.test(d.url));
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

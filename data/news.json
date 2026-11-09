@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "timezone": "America/Los_Angeles",
+  "about": "Daily Tortuga Scan notes. Add a new object at the start of reports[]. Date is the local day in America/Los_Angeles. Every item needs a real source URL. See README.md.",
+  "reports": [
+    {
+      "id": "2026-11-09",
+      "date": "2026-11-09",
+      "timezone": "America/Los_Angeles",
+      "title": "Monday, November 9, 2026",
+      "dek": "First Tortuga Scan daily note. Recalls and public lab alerts from the past week, in our words. Older studies — avocado oil, cocoa metals, infant rice arsenic — are filed under Lab tests, not as today’s headlines.",
+      "items": [
+        {
+          "id": "brads-kale-thallium",
+          "category": "recall",
+          "headline": "Brad’s kale chips recalled after thallium testing",
+          "summary": "Snack Right Super Foods, which sells Brad’s Raw Chips, is recalling about 25,000 bags of Brad’s Plant Based Crunchy Kale (2 oz) and Veggie Chips Kale (3 oz). FDA posted the notice on November 3. The chips went out through KeHE and UNFI between October and December 2025, and best-by dates run into February 2027. California’s health department tested store samples in the Sacramento area after one person had high thallium, and FDA then told the company. The notice says drying removes about 85 to 90 percent of the water and concentrates metal already in the kale. It does not publish a thallium number. The company is not giving refunds. Don’t eat the listed lots.",
+          "sourceName": "U.S. FDA recall announcement",
+          "sourceUrl": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/snack-right-super-foods-inc-dba-brads-raw-chips-recalls-brads-crunchy-kale-veggie-chips-due",
+          "sourceDate": "2026-11-03"
+        },
+        {
+          "id": "once-upon-a-farm-tractor-wheels",
+          "category": "recall",
+          "headline": "Once Upon a Farm recalls Tractor Wheels toddler bars",
+          "summary": "Once Upon a Farm is recalling every lot and flavor of Tractor Wheels Organic Toddler Soft-Baked Bars. FDA published the company notice on November 2; the company dated it October 30. The firm says three choking complaints were reported to FDA and that no injuries have been reported to the company. FDA’s own advisory, updated November 3, says it has several reports of toddlers about 1.5 to 2.5 years old whose airway was fully blocked, and that some incidents needed emergency care and hospital observation. Both say the bar can turn into a dry, sticky mass when chewed. Other Once Upon a Farm products are not part of this recall. The company says it is reformulating. Don’t serve the bars; take them back or throw them out.",
+          "sourceName": "U.S. FDA recall announcement",
+          "sourceUrl": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/once-upon-farm-recalls-all-lots-and-varieties-tractor-wheels-organic-toddler-soft-baked-bars-due",
+          "sourceDate": "2026-11-02",
+          "alsoSee": [
+            {
+              "name": "FDA consumer advisory (updated November 3, 2026)",
+              "url": "https://www.fda.gov/food/alerts-advisories-safety-information/fda-advises-consumers-not-buy-or-serve-once-upon-a-farm-tractor-wheels-organic-toddler-soft-baked-bars"
+            }
+          ]
+        },
+        {
+          "id": "betterballen-allergens",
+          "category": "alert",
+          "headline": "USDA alert: Betterballen snacks left sesame and fish off the label",
+          "summary": "On November 6, USDA’s food safety service issued a public health alert for frozen Betterballen Bami Rolls, Saté Kroketten, and Bitterballen. The labels don’t say sesame. The beef bitterballen also contain anchovy in the Worcestershire sauce and don’t say fish. A recall was not asked for because the products are no longer for sale, but some may still be in freezers. They were made October 15, 16, and 27, 2026, sold online by Lowlands House, and may have been sold at a festival and farmers market in Greer, South Carolina. No illnesses were confirmed. Throw them out or take them back.",
+          "sourceName": "USDA FSIS bulletin",
+          "sourceUrl": "https://content.govdelivery.com/accounts/USFSIS/bulletins/431fbac",
+          "sourceDate": "2026-11-06"
+        },
+        {
+          "id": "wise-wife-cinnamon-news",
+          "category": "lab",
+          "headline": "FDA lists Wise Wife cinnamon at 2.118 ppm lead",
+          "summary": "On November 4, FDA added a Wise Wife ground cinnamon to its public alert after the Connecticut Agricultural Experiment Station measured 2.118 ppm lead. The jar is 110 g, UPC 0688474302754, best before April 25, 2027, and was recalled October 29. The same FDA table lists an older Wise Wife UPC at 2.49 ppm. FDA says those levels are much lower than the 2,270 to 5,110 ppm lead in cinnamon from the 2023 WanaBana applesauce recall, and still says to throw the listed cinnamon out. Figures and links are in Lab tests.",
+          "sourceName": "U.S. FDA public health alert",
+          "sourceUrl": "https://www.fda.gov/food/alerts-advisories-safety-information/more-ground-cinnamon-products-added-fda-public-health-alert-due-presence-elevated-levels-lead",
+          "sourceDate": "2026-11-04",
+          "labTestId": "wise-wife-cinnamon-2026"
+        }
+      ]
+    }
+  ]
+}

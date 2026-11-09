@@ -36,7 +36,7 @@
       </span>
       <div class="brand-text">
         <h1>Tortuga Scan</h1>
-        <p class="sub">Clean eating scanner<span aria-hidden="true"> · </span><br>prototype</p>
+        <p class="sub">Clean eating scanner</p>
       </div>
     </div>
     <button type="button" class="btn-ghost" id="openStandards" aria-haspopup="dialog">How we grade</button>
@@ -47,7 +47,11 @@
     <section id="view-home" class="view" aria-labelledby="homeTitle">
       <div class="card intro">
         <h2 id="homeTitle">Scan a package</h2>
-        <p>Point your camera at the barcode. You’ll get a <strong>Seed Oil Safe-style</strong> pass or fail, a <strong>GMO</strong> status, and our <strong>clean score</strong> out of 100, with every flag explained.</p>
+        <p>Point your camera at the barcode, or browse our catalog. You’ll get a <strong>Seed Oil Safe-style</strong> pass or fail, a <strong>GMO</strong> status, our <strong>clean score</strong>, and a green / yellow / red read of each ingredient.</p>
+        <button type="button" class="btn btn-scan" id="scanBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4.5A1.5 1.5 0 0 1 4.5 3H7M17 3h2.5A1.5 1.5 0 0 1 21 4.5V7M21 17v2.5a1.5 1.5 0 0 1-1.5 1.5H17M7 21H4.5A1.5 1.5 0 0 1 3 19.5V17M7 8v8M10 8v8M13 8v8M16.5 8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span id="scanBtnLabel">Scan barcode</span>
+        </button>
       </div>
 
       <form id="manualForm" class="card" autocomplete="off" novalidate>
@@ -67,6 +71,13 @@
           <button type="submit" class="btn btn-secondary">Grade these ingredients</button>
         </form>
       </details>
+
+      <div id="catalogWelcome" class="card" hidden>
+        <h2 class="small-title">Our catalog</h2>
+        <p id="catalogWelcomeText" class="help"></p>
+        <ul id="catalogWelcomeList" class="recent"></ul>
+        <button type="button" class="btn btn-outline btn-block" data-tab="catalog">Browse the catalog</button>
+      </div>
 
       <div id="recent" class="card" hidden>
         <h2 class="small-title">Recent</h2>
@@ -90,17 +101,77 @@
 
     <!-- RESULT -->
     <section id="view-result" class="view" hidden aria-live="polite"></section>
+
+    <!-- CATALOG -->
+    <section id="view-catalog" class="view" hidden aria-labelledby="catalogTitle">
+      <div class="card intro">
+        <h2 id="catalogTitle">Catalog</h2>
+        <p>Our own list, seeded from Open Food Facts and graded with our rules. A scan checks here before a live lookup.</p>
+      </div>
+      <form id="catalogForm" class="card filters" autocomplete="off" role="search">
+        <label class="label" for="catalogQ">Search</label>
+        <input id="catalogQ" type="search" placeholder="Name, brand, or barcode" enterkeyhint="search">
+        <p class="label" id="sosFilterLabel">Seed Oil Safe-style</p>
+        <div class="filter-row" role="group" aria-labelledby="sosFilterLabel">
+          <button type="button" class="chip on" data-sos="">Any</button>
+          <button type="button" class="chip" data-sos="pass">Pass</button>
+          <button type="button" class="chip" data-sos="fail">Fail</button>
+        </div>
+        <label class="label" for="catalogGmo">GMO status</label>
+        <select id="catalogGmo">
+          <option value="">Any</option>
+          <option value="non-gmo">Not GMO / organic</option>
+          <option value="possible">Possible GMO</option>
+          <option value="gmo">GMO / bioengineered</option>
+          <option value="none">No GMO indicators</option>
+        </select>
+        <label class="label" for="catalogBrand">Brand</label>
+        <select id="catalogBrand"><option value="">All brands</option></select>
+      </form>
+      <p id="catalogMeta" class="help" role="status"></p>
+      <div id="catalogList" class="catalog-list"></div>
+    </section>
+
+    <!-- LAB TESTS -->
+    <section id="view-labs" class="view" hidden aria-labelledby="labsTitle">
+      <div class="card intro">
+        <h2 id="labsTitle">Lab tests</h2>
+        <p>Public tests from agencies, journals, and universities. We didn’t run them. A brand name here is not a grade for every jar of that brand.</p>
+      </div>
+      <div id="labList" class="stack"></div>
+    </section>
+
+    <!-- NEWS -->
+    <section id="view-news" class="view" hidden aria-labelledby="newsTitle">
+      <div class="card intro">
+        <h2 id="newsTitle">News</h2>
+        <p>Short notes with sources. We don’t invent recalls, studies, or product launches.</p>
+      </div>
+      <div id="newsList" class="stack"></div>
+    </section>
   </main>
 
   <footer class="foot">
-    <p class="disclaimer"><strong>Not affiliated with Olive or Seed Oil Scout.</strong> Grades come from the ingredient list on Open Food Facts (which can be incomplete or out of date) or what you pasted. We can’t verify manufacturing processes, cross-contact, or lab contaminants. Always read the package.</p>
+    <p class="disclaimer"><strong>Not affiliated with Olive or Seed Oil Scout.</strong> Grades and the green / yellow / red ingredient colors come from the ingredient list in our catalog, on Open Food Facts (which can be incomplete or out of date), or what you pasted. We can’t verify manufacturing processes, cross-contact, or what a lab would find in your box. Lab tests in this app are other people’s published tests. Always read the package.</p>
     <p class="credit">Product data © <a href="https://world.openfoodfacts.org/" rel="noopener" target="_blank">Open Food Facts</a> contributors, under the Open Database License.</p>
   </footer>
 
-  <nav class="dock" aria-label="Scan">
-    <button type="button" class="btn btn-scan" id="scanBtn">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4.5A1.5 1.5 0 0 1 4.5 3H7M17 3h2.5A1.5 1.5 0 0 1 21 4.5V7M21 17v2.5a1.5 1.5 0 0 1-1.5 1.5H17M7 21H4.5A1.5 1.5 0 0 1 3 19.5V17M7 8v8M10 8v8M13 8v8M16.5 8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <span id="scanBtnLabel">Scan barcode</span>
+  <nav class="tabbar" aria-label="Sections">
+    <button type="button" data-tab="scan" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M8 9v6M12 9v6M16 9v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Scan
+    </button>
+    <button type="button" data-tab="catalog">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h9.5A2.5 2.5 0 0 1 18 7v13H8.5A2.5 2.5 0 0 0 6 17.5v-13zM6 17.5A2.5 2.5 0 0 1 8.5 15H18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Catalog
+    </button>
+    <button type="button" data-tab="labs">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v5.2L5.8 18.2A3 3 0 0 0 8.4 22h7.2a3 3 0 0 0 2.6-3.8L14 8.2V3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.2 14h7.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Lab tests
+    </button>
+    <button type="button" data-tab="news">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H16v14.5H6.5A1.5 1.5 0 0 0 5 20V5.5zM16 8h2.5A1.5 1.5 0 0 1 20 9.5V18a2 2 0 0 1-2 2h-.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 8h5M8 12h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      News
     </button>
   </nav>
 

@@ -15,15 +15,20 @@ Every flag lists the rule that hit and the matched ingredient snippet.
 ## Files
 
 ```
-index.html             App shell (PWA meta, header, views, dialog)
+index.html             App shell (PWA meta, header, views, bottom nav, dialog)
 styles.css             Natural green / cream design, mobile-first
-app.js                 Camera scanning, Open Food Facts lookup, rendering
-rules.js               Rules engine (browser + Node), no dependencies
-sw.js                  Service worker: caches the app shell (lookups still need network)
+app.js                 Camera, catalog-first lookup, catalog / lab / news screens
+rules.js               Rules engine and ingredient colors (browser + Node)
+sw.js                  Service worker: caches the app shell and the JSON data
 manifest.webmanifest   PWA manifest (Add to Home Screen)
+data/catalog.json      Our product catalog (static JSON)
+data/lab-tests.json    Public lab tests we cite
+data/news.json         Daily news reports
+scripts/seed-catalog.js  Optional: rebuild the catalog from Open Food Facts
 icons/                 tortuga-logo.png (header), icon-192/512.png, apple-touch-icon.png, tortoise-mark.svg (fallback)
 vendor/                html5-qrcode 2.3.8 (Apache-2.0), vendored
-tests/rules.test.js    Node tests for the rules engine
+tests/rules.test.js    Rules engine and ingredient colors
+tests/data.test.js     Catalog, lab tests, and news files
 .nojekyll              Serve files as-is on GitHub Pages
 ```
 
@@ -34,13 +39,13 @@ No build step.
 - **Local:** `python3 -m http.server 8000` in this folder, then open <http://localhost:8000>. (Camera works on `localhost`; on a phone you need HTTPS.)
 - **GitHub Pages:** push this folder as the repo root, then Settings → Pages → *Deploy from a branch* → `main` / `(root)`. Open the `https://<user>.github.io/<repo>/` link on the iPhone.
 - **Add to Home Screen (iPhone):** open the link in Safari → Share → *Add to Home Screen*.
-- **Tests:** `node tests/rules.test.js` (Node 18+; uses only `node:assert`).
-- Deep link to a product: `?code=041570054161`.
+- **Tests:** `node tests/rules.test.js` and `node tests/data.test.js` (Node 18+; uses only `node:assert`).
+- Deep link to a product: `?code=041570054161`. Deep link to a section: `?tab=catalog`, `?tab=labs`, or `?tab=news`.
 
 ## How it works
 
 1. **Scan.** Tapping *Scan barcode* calls `Html5Qrcode.start({ facingMode: "environment" })` directly from the tap (required on iOS). The video is `playsinline` + `muted`. Formats: EAN-13, EAN-8, UPC-A, UPC-E. A code must pass the GTIN checksum and read the same twice in a row before we accept it. *Stop scanning* releases the camera; it's also released when the app goes to the background.
-2. **Look up.** `GET https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=code,product_name,product_name_en,brands,image_front_url,image_front_small_url,ingredients_text,ingredients_text_en,ingredients_text_fr,nova_group,nutriments,labels,labels_tags,quantity` with `User-Agent: TortugaScan/0.1 (personal clean-eating scanner prototype)`. (Browsers usually drop a custom `User-Agent` from `fetch`; OFF's CORS allows it, so it is sent where the browser permits.) We try the code as scanned, then the UPC-A ⇄ EAN-13 variant (add / remove a leading `0`), and UPC-E expanded to UPC-A.
+2. **Look up.** The barcode is checked against `data/catalog.json` first (including the UPC-A ⇄ EAN-13 form). A hit is labeled **In the Tortuga catalog**. If it isn’t in the catalog, we ask Open Food Facts and label it **Not in our catalog · live Open Food Facts**. Live request: `GET https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=code,product_name,product_name_en,brands,image_front_url,image_front_small_url,ingredients_text,ingredients_text_en,ingredients_text_fr,nova_group,nutriments,labels,labels_tags,quantity` with `User-Agent: TortugaScan/0.1 (personal clean-eating scanner prototype)`. (Browsers usually drop a custom `User-Agent` from `fetch`; OFF's CORS allows it, so it is sent where the browser permits.) We try the code as scanned, then the UPC-A ⇄ EAN-13 variant (add / remove a leading `0`), and UPC-E expanded to UPC-A.
 3. **Missing data.** If the product isn't on Open Food Facts, or has no ingredient list, you get a paste-in box (with an optional product name, so “Organic” / “Non-GMO” claims count) and can grade any label by hand.
 4. **Grade.** `rules.js` normalizes the text (lowercase, accents, OFF's `_allergen_` markup), drops cross-contact lines (“may contain…”, “made in a facility…”), and runs the rules below. Ingredient language preference: English, then the main list, then French (with a warning).
 
@@ -93,6 +98,138 @@ Bands: **80–100 Cleaner**, **50–79 Mixed**, **0–49 Poor**.
 - Permission is requested on the first tap of *Scan barcode*. If it was denied: Safari `aA` → Website Settings → Camera → Allow (or Settings → Safari → Camera). Home Screen apps keep their own permission and may ask again.
 - iPhone Safari has no `BarcodeDetector`, so decoding uses html5-qrcode's built-in ZXing decoder. Hold the barcode flat, fill the frame, and use good light; manual entry is always available.
 - Open Food Facts coverage of US products is good but not complete; ingredient lists can be stale.
+
+## Ingredient colors
+
+Each ingredient line is **green (OK)**, **yellow (limit)**, or **red (avoid)**. This is separate from the Seed Oil Safe-style pass/fail. A gum fails that check and is still yellow. Corn starch can pass that check and still be red.
+
+- **Red:** seed oils (same list as the pass/fail rules, even if the line says organic); artificial sweeteners, dyes, and flavors; confirmed GMO / bioengineered wording; conventional corn starch, corn syrup, dextrose, and maltodextrin; modified food starch when the source isn’t named; conventional sugar that doesn’t say cane (or coconut, date, maple, palm, turbinado, demerara, muscovado, panela, jaggery, sucanat, or rapadura); beet sugar; soy protein, soy flour, soy lecithin, and TVP; and the clean-score additives (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).
+- **Yellow:** natural flavors and other flavors; gums and carrageenan; other plant lecithins; soy foods such as tofu, tamari, and edamame; added sugar that names a non-beet source, plus honey, maple, and organic or non-GMO sugar (added sugar is never green — we don’t guess whether the amount is small); sugar alcohols; enriched or bleached flour; caramel color; hydrogenated fat that isn’t already a seed oil; conventional corn that isn’t a refined starch or syrup; non-organic produce on the Dirty Dozen.
+- **Green:** everything else those rules don’t hit, including olive, avocado, coconut, and animal fats, salt, water, herbs, spices, and organic Dirty Dozen produce.
+
+**Dirty Dozen (2026).** Environmental Working Group, [Shopper’s Guide to Pesticides in Produce](https://www.ewg.org/foodnews/dirty-dozen.php): spinach; kale, collard, and mustard greens; strawberries; grapes; nectarines; peaches; cherries; apples; blackberries; pears; potatoes; blueberries. Organic on that ingredient phrase turns it green. Non-GMO does not, because this list is about pesticide residue. We don’t paint an item green just because the product name says organic. Raisins and sultanas count as grapes. Sweet potatoes, mustard the condiment, green beans, and bell peppers are not on the 2026 list. Potato starch counts as potatoes.
+
+Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make a seed oil okay.
+
+## Catalog, lab tests, and news
+
+The bottom nav opens **Scan**, **Catalog**, **Lab tests**, and **News**. The catalog is static JSON in the repo. There is no server. Scans use it first, then Open Food Facts.
+
+Lab tests are public results we looked up and summarized. Each one names the lab or publisher, the date, the findings with units, and a source link. A barcode is set only when the source names that product. Brand-only studies say so and do not pretend a catalog SKU was the bottle in the study.
+
+News is a list of daily reports. The first one is **Monday, November 9, 2026** (`America/Los_Angeles`).
+
+### `data/catalog.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-09",
+  "products": [
+    {
+      "barcode": "041570054161",
+      "name": "Product name",
+      "brand": "Brand",
+      "image": "https://images.openfoodfacts.org/...",
+      "ingredients": "Water, almonds, sea salt",
+      "ingredientsLang": "en",
+      "labels": "Organic, Non-GMO Project",
+      "labelsTags": ["en:organic"],
+      "nova": 3,
+      "nutriments": { "sugars100g": 0, "fat100g": 1.1 },
+      "offUrl": "https://world.openfoodfacts.org/product/041570054161",
+      "added": "2026-11-09",
+      "quantity": "32 fl oz",
+      "grade": {
+        "sosPass": false,
+        "gmoStatus": "non-gmo",
+        "gmoLabel": "Non-GMO",
+        "score": 76,
+        "band": "mixed",
+        "bandLabel": "Mixed"
+      }
+    }
+  ]
+}
+```
+
+`image`, `nova`, and `quantity` may be null or omitted. `grade` must match `rules.js` for the stored ingredients (the data test checks this). The phone grades again when you open a product, so the flags and colors always come from the engine.
+
+**Add a product by hand**
+
+1. Open the product on Open Food Facts and copy the real ingredient list. Don’t invent one.
+2. Add an object to `products` with the fields above. `added` is the day you added it (`YYYY-MM-DD`).
+3. Grade it with Node: `node -e "const R=require('./rules.js'); console.log(JSON.stringify(R.grade(process.argv[1],{novaGroup:3,sugars100g:0}),null,2))" "paste ingredients here"` and copy `sos.pass`, `gmo.status`, `gmo.label`, `score`, `band.id`, and `band.label` into `grade`.
+4. Run `node tests/data.test.js`.
+
+**Reseed from Open Food Facts** (optional, needs a network): `node scripts/seed-catalog.js`. It overwrites `data/catalog.json`. Don’t run it on a schedule unless you mean to replace hand-added products.
+
+### `data/lab-tests.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "tests": [
+    {
+      "id": "short-unique-id",
+      "product": "What was tested, in plain language",
+      "brand": "Brand or null",
+      "barcode": "digits or null",
+      "match": "sku",
+      "scopeNote": "Say if this is one jar, a brand line, or a whole category.",
+      "date": "2026-11-04",
+      "lab": "Who measured it",
+      "publisher": "Who published it",
+      "summary": "A few sentences in our own words.",
+      "findings": [{ "analyte": "Lead", "value": "2.118 ppm", "note": "Which sample." }],
+      "sourceName": "FDA",
+      "sourceUrl": "https://www.fda.gov/..."
+    }
+  ]
+}
+```
+
+`match` is `sku` (barcode or exact product in the source), `brand-samples` (named brands, no barcode), `product-line`, or `category`. `brands` is an optional array when several brands were named and none has a barcode. `alsoSee` is an optional list of `{ "name", "url" }`.
+
+Never type a number that isn’t in the source you opened. Don’t paste the article. Summarize and link.
+
+### `data/news.json` — daily report
+
+A daily routine should add **one report object at the start** of `reports` and publish the site (this repo’s GitHub Pages branch is `main`).
+
+```json
+{
+  "id": "2026-11-10",
+  "date": "2026-11-10",
+  "timezone": "America/Los_Angeles",
+  "title": "Tuesday, November 10, 2026",
+  "dek": "One sentence on what today’s note covers.",
+  "items": [
+    {
+      "id": "short-unique-id",
+      "category": "recall",
+      "headline": "Short headline",
+      "summary": "A short paragraph in our own words. No invented products, quotes, or numbers.",
+      "sourceName": "U.S. FDA",
+      "sourceUrl": "https://www.fda.gov/...",
+      "sourceDate": "2026-11-10",
+      "labTestId": "optional-id-from-lab-tests.json"
+    }
+  ]
+}
+```
+
+`category` is one of `launch`, `recall`, `alert`, `study`, `policy`, `lab`. `labTestId` is optional and opens that test from the News screen. `alsoSee` is an optional array of `{ "name", "url" }`.
+
+**What the daily update should do**
+
+1. Use the calendar date in **America/Los_Angeles**, including the weekday in `title`.
+2. Open real sources (FDA, USDA, a journal, a publisher). Skip anything you can’t open.
+3. Write a short summary. Don’t copy the article. Don’t invent a launch, a recall, a study, or a lab number.
+4. Insert the report at the **top** of `reports` in `data/news.json`. Leave older reports in place.
+5. If a story has a new public lab result with units, add that test to `data/lab-tests.json` too and set `labTestId`.
+6. Run `node tests/data.test.js`.
+7. Commit and push to the branch GitHub Pages serves (`main` for this repo). The phone loads JSON from the network first, so a reload shows the new report. If the screen looks stale, reload once so the service worker can replace the cached file.
 
 ## Credits
 

@@ -1,7 +1,7 @@
 {
   "name": "Tortuga Scan",
   "short_name": "Tortuga",
-  "description": "Clean eating scanner. Grades packaged foods with Seed Oil Safe-style rules, a GMO check, a clean score, and green/yellow/red ingredients. Includes a catalog, public lab tests, and a news note. Not affiliated with Seed Oil Scout or Olive.",
+  "description": "Tortuga Scan grades packaged food and household products on an Olive-style meter. Inspired by published Bobby Approved standards. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

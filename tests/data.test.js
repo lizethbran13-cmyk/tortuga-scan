@@ -51,10 +51,13 @@ test('every product has ingredients, a source URL, and a grade that matches rule
       labels: p.labels,
       labelsTags: p.labelsTags
     });
-    assert.equal(p.grade.sosPass, g.sos.pass, p.barcode + ' sos');
+    assert.equal(p.grade.pass, g.pass, p.barcode + ' pass');
+    assert.equal(p.grade.pass, g.score >= 45, p.barcode + ' pass cutoff');
+    assert.equal(p.grade.avoidPass, g.sos.pass, p.barcode + ' avoid categories');
     assert.equal(p.grade.gmoStatus, g.gmo.status, p.barcode + ' gmo');
     assert.equal(p.grade.score, g.score, p.barcode + ' score');
     assert.equal(p.grade.band, g.band.id, p.barcode + ' band');
+    assert.ok(['avoid', 'limit', 'eat'].includes(p.grade.band), p.barcode + ' meter');
     const light = R.classifyIngredients(p.ingredients);
     assert.ok(light.items.length > 0, p.barcode + ' colors');
   });
@@ -62,27 +65,37 @@ test('every product has ingredients, a source URL, and a grade that matches rule
 
 console.log('Household');
 const household = read('household.json');
-test('starter household catalog uses real cited lists and matching grades', () => {
-  assert.ok(household.products.length >= 8, 'count ' + household.products.length);
+test('household catalog is dozens of real cited lists with matching grades', () => {
+  assert.ok(household.products.length >= 40, 'count ' + household.products.length);
   assert.match(household.about, /not an official Bobby Approved/i);
+  assert.match(household.about, /Olive-style/i);
   assert.match(household.standard, /shopflavcity\.com\/pages\/bobby-approved-app/);
   const seen = new Set();
-  let fragranceFail = 0, pass = 0;
+  const cats = new Set();
+  let fragranceFail = 0, pass = 0, images = 0;
   household.products.forEach(p => {
     assert.ok(p.barcode && p.name && p.brand, p.barcode);
-    assert.ok(p.ingredients && p.ingredients.length >= 40, p.barcode);
-    assert.match(p.sourceUrl, /^https:\/\/world\.openbeautyfacts\.org\/product\//);
+    assert.ok(p.ingredients && p.ingredients.length >= 40, p.barcode + ' ingredients');
+    assert.match(p.sourceUrl, /^https:\/\/world\.open(?:beauty|products)facts\.org\/product\//);
     assert.ok(!seen.has(p.barcode), 'duplicate ' + p.barcode);
     seen.add(p.barcode);
+    cats.add(p.category);
+    if (p.image) {
+      images++;
+      assert.match(p.image, /^https:\/\/images\.open(?:beauty|products)facts\.org\//, p.barcode);
+    }
     const g = R.gradeHousehold(p.ingredients);
     assert.equal(p.grade.pass, g.pass, p.barcode + ' pass');
+    assert.equal(p.grade.pass, g.score >= 45, p.barcode + ' cutoff');
     assert.equal(p.grade.score, g.score, p.barcode + ' score');
     assert.equal(p.grade.band, g.band.id, p.barcode);
     if (!g.pass && g.deductions.some(d => /fragrance/i.test(d.label))) fragranceFail++;
     if (g.pass) pass++;
   });
   assert.ok(fragranceFail >= 3, 'fragrance fails ' + fragranceFail);
-  assert.ok(pass >= 2, 'passes ' + pass);
+  assert.ok(pass >= 8, 'passes ' + pass);
+  assert.ok(images >= 30, 'photos ' + images);
+  assert.ok(cats.has('Laundry detergent') && cats.has('Dish soap') && cats.has('Hand soap'));
 });
 
 console.log('Lab tests');
@@ -119,8 +132,38 @@ test('the app lets you attach certifications when grading or adding a product', 
   assert.match(app, /mergeCertifications/);
   assert.match(app, /tortuga\.mine\.v1/);
   assert.match(app, /certPickerHtml/);
-  assert.match(sw, /tortuga-shell-v5/);
+  assert.match(sw, /tortuga-shell-v6/);
+  assert.match(html + app, /icons\/torty-portrait\.png/);
+  assert.match(app, /grokbot:\/\/app\/v1\/agent\?id=a4483b75-73bb-47ac-8893-938cbf85736a/);
+  assert.match(html, /Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout/);
+  assert.match(app, /indexedDB\.open/);
+  assert.match(app, /tortuga-photos/);
+  assert.doesNotMatch(html + app, /Seed Oil Safe/i);
   assert.doesNotMatch(html + app, /Bobby Approved certification/i);
+  assert.match(html, /id="view-store"/);
+  assert.match(html, /id="view-book"/);
+  assert.match(html, /data-tab="book"/);
+});
+
+test('Cheerios fails the new meter and photos are real URLs when present', () => {
+  const cheer = catalog.products.find(p => p.barcode === '0016000275287');
+  assert.ok(cheer, 'cheerios');
+  assert.equal(cheer.grade.score, 11);
+  assert.equal(cheer.grade.pass, false);
+  assert.equal(cheer.grade.band, 'avoid');
+  let foodImg = 0;
+  catalog.products.forEach(p => {
+    if (!p.image) return;
+    foodImg++;
+    assert.match(p.image, /^https:\/\/images\.openfoodfacts\.org\//, p.barcode);
+  });
+  assert.ok(foodImg >= 200, 'food photos ' + foodImg);
+  const sites = read('websites.json');
+  assert.match(sites.sites.cheerios, /^https:\/\/www\.cheerios\.com/);
+  assert.match(sites.sites.tide, /^https:\/\/tide\.com/);
+  Object.keys(sites.sites).forEach(slug => {
+    assert.match(sites.sites[slug], /^https:\/\//, slug);
+  });
 });
 
 console.log('News');

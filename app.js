@@ -3,77 +3,76 @@
   'use strict';
 
   var R = window.ScoutRules;
-  var UA = 'TortugaScan/0.1 (personal clean-eating scanner prototype)';
+  var UA = 'TortugaScan/0.3 (personal clean-eating scanner)';
   var OFF = 'https://world.openfoodfacts.org/api/v2/product/';
   var FIELDS = ['code', 'product_name', 'product_name_en', 'brands', 'image_front_url', 'image_front_small_url',
     'ingredients_text', 'ingredients_text_en', 'ingredients_text_fr', 'nova_group', 'nutriments', 'labels',
     'labels_tags', 'quantity'].join(',');
   var RECENT_KEY = 'tortuga.recent.v1';
   var MINE_KEY = 'tortuga.mine.v1';
+  var GROK_BOT = 'grokbot://app/v1/agent?id=a4483b75-73bb-47ac-8893-938cbf85736a';
+  var PHOTO_DB = 'tortuga-photos';
+  var PHOTO_STORE = 'photos';
 
   var $ = function (id) { return document.getElementById(id); };
   var views = {
     home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result'),
-    catalog: $('view-catalog'), labs: $('view-labs'), news: $('view-news'), household: $('view-household')
+    catalog: $('view-catalog'), store: $('view-store'), book: $('view-book'), brand: $('view-brand'), more: $('view-more')
   };
   var scanner = null, scanning = false, lastProduct = null, currentTab = 'scan';
   var catalog = [], catalogByCode = {}, household = [], householdByCode = {}, labTests = [], newsReports = [];
-  var catalogFilter = { q: '', sos: '', gmo: '', brand: '' };
+  var websites = {};
+  var catalogFilter = { q: '', kind: '', band: '', brand: '' };
+  var storeFilter = { q: '', kind: '' };
+  var bookFilter = { q: '', color: '' };
+  var bookCache = null;
+  var pendingAddPhoto = null;
+  var activePhotoUrl = '';
 
-  // ------------------------------------------------------------ helpers
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  function baseDir() {
+    var fromDom = document.documentElement.dataset.base;
+    if (fromDom) return fromDom;
+    return './';
+  }
   function setTabCurrent(name) {
+    var tab = name === 'home' || name === 'result' || name === 'brand' || name === 'bookDetail' ? 'scan' : name;
+    if (name === 'catalog') tab = 'catalog';
+    if (name === 'store') tab = 'store';
+    if (name === 'book') tab = 'book';
+    if (name === 'more') tab = 'more';
+    if (name === 'brand' || name === 'result') tab = currentTab === 'store' || currentTab === 'catalog' || currentTab === 'book' || currentTab === 'more' ? currentTab : 'scan';
     document.querySelectorAll('.tabbar button').forEach(function (b) {
-      if (b.dataset.tab === name) b.setAttribute('aria-current', 'page');
+      if (b.dataset.tab === tab) b.setAttribute('aria-current', 'page');
       else b.removeAttribute('aria-current');
     });
   }
-  function updateUrl() {
-    var params = new URLSearchParams(location.search);
-    if (currentTab === 'scan') params.delete('tab');
-    else params.set('tab', currentTab);
-    if (!(currentTab === 'scan' && lastProduct && lastProduct.code)) params.delete('code');
-    var qs = params.toString();
-    var next = location.pathname + (qs ? '?' + qs : '') + location.hash;
-    if (next !== location.pathname + location.search + location.hash) history.replaceState(null, '', next);
-  }
-  function show(name) {
-    currentTab = 'scan';
-    Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
+  function showView(name) {
+    Object.keys(views).forEach(function (k) { if (views[k]) views[k].hidden = k !== name; });
     document.body.classList.toggle('scanning', name === 'scan');
-    setTabCurrent('scan');
     window.scrollTo(0, 0);
-    var params = new URLSearchParams(location.search);
-    params.delete('tab');
-    if (name === 'result' && lastProduct && lastProduct.code) params.set('code', lastProduct.code);
-    else params.delete('code');
-    var qs = params.toString();
-    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    var main = $('main');
+    if (main) main.focus({ preventScroll: true });
   }
-  function showTab(name) {
-    if (name === 'lab' || name === 'lab-tests' || name === 'tests') name = 'labs';
-    if (!name || name === 'home' || name === 'scan' || !views[name]) {
-      if (scanning) stopScan();
-      show('home');
-      renderRecent();
-      return;
-    }
-    if (scanning) stopScan();
-    currentTab = name;
-    Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
-    document.body.classList.remove('scanning');
-    setTabCurrent(name);
-    window.scrollTo(0, 0);
-    updateUrl();
-    if (name === 'catalog') renderCatalog();
-    if (name === 'household') renderHouseholdList();
-    if (name === 'labs') renderLabs();
-    if (name === 'news') renderNews();
+  function writeUrl(path, replace) {
+    var next = path || baseDir();
+    if (next === location.pathname + location.search + location.hash) return;
+    if (replace) history.replaceState(null, '', next);
+    else history.pushState(null, '', next);
   }
+  function productPath(code) { return baseDir() + 'product/' + encodeURIComponent(code); }
+  function brandPath(slug) { return baseDir() + 'brand/' + encodeURIComponent(slug); }
+  function ingredientPath(slug) { return baseDir() + 'ingredient/' + encodeURIComponent(slug); }
+  function tabPath(tab) {
+    if (!tab || tab === 'scan' || tab === 'home') return baseDir();
+    if (tab === 'store') return baseDir() + 'store';
+    return baseDir() + '?tab=' + encodeURIComponent(tab);
+  }
+
   function validGtin(code) {
     if (!/^\d{8}$|^\d{12,14}$/.test(code)) return false;
     var digits = code.split('').map(Number), check = digits.pop(), sum = 0;
@@ -127,9 +126,9 @@
   }
   function removeMine(id) {
     writeMine(loadMine().filter(function (p) { return p.id !== id; }));
+    idbDelete(photoKey({ id: id }));
     renderMine();
-    show('home');
-    renderRecent();
+    showHome();
   }
   function findMine(raw) {
     var wanted = {};
@@ -188,15 +187,86 @@
     };
   }
 
-  // ------------------------------------------------------------ logo fallback
+  function photoKey(p) {
+    if (p && p.id) return 'id:' + p.id;
+    if (p && p.code) return 'code:' + String(p.code);
+    return '';
+  }
+  function openPhotoDb() {
+    return new Promise(function (resolve, reject) {
+      if (!window.indexedDB) return reject(new Error('no idb'));
+      var req = indexedDB.open(PHOTO_DB, 1);
+      req.onupgradeneeded = function () { req.result.createObjectStore(PHOTO_STORE); };
+      req.onsuccess = function () { resolve(req.result); };
+      req.onerror = function () { reject(req.error); };
+    });
+  }
+  function idbPut(key, blob) {
+    if (!key || !blob) return Promise.resolve();
+    return openPhotoDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(PHOTO_STORE, 'readwrite');
+        tx.objectStore(PHOTO_STORE).put(blob, key);
+        tx.oncomplete = function () { resolve(); };
+        tx.onerror = function () { reject(tx.error); };
+      });
+    });
+  }
+  function idbGet(key) {
+    if (!key) return Promise.resolve(null);
+    return openPhotoDb().then(function (db) {
+      return new Promise(function (resolve) {
+        var tx = db.transaction(PHOTO_STORE, 'readonly');
+        var req = tx.objectStore(PHOTO_STORE).get(key);
+        req.onsuccess = function () { resolve(req.result || null); };
+        req.onerror = function () { resolve(null); };
+      });
+    }).catch(function () { return null; });
+  }
+  function idbDelete(key) {
+    if (!key) return;
+    openPhotoDb().then(function (db) {
+      var tx = db.transaction(PHOTO_STORE, 'readwrite');
+      tx.objectStore(PHOTO_STORE).delete(key);
+    }).catch(function () {});
+  }
+  function fileToPhoto(file) {
+    return new Promise(function (resolve) {
+      if (!file) return resolve(null);
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var max = 1280;
+        var scale = Math.min(1, max / Math.max(img.width || 1, img.height || 1));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round((img.width || 1) * scale));
+        canvas.height = Math.max(1, Math.round((img.height || 1) * scale));
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#FCF5E3';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(function (blob) { resolve(blob || file); }, 'image/jpeg', 0.84);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+  function biggerImage(url) {
+    return String(url || '').replace(/\.(\d+)\.jpg(\?.*)?$/, '.400.jpg$2');
+  }
+  function placeholderHtml(label) {
+    return '<div class="pack-empty"><svg viewBox="0 0 80 48" aria-hidden="true"><path d="M8 30c0-10 10-18 24-18 8 0 14 3 18 8 6-1 14 3 16 10" fill="none" stroke="#8FA86A" stroke-width="3" stroke-linecap="round"/><path d="M6 32h68" stroke="#3B5323" stroke-width="3" stroke-linecap="round"/><circle cx="62" cy="22" r="1.4" fill="#1C2416"/></svg><strong>' + esc(label || 'No package photo yet') + '</strong><p>Take one of the front of the box. It stays on this phone.</p></div>';
+  }
+
   var logo = $('logoImg');
-  function logoFail() { logo.hidden = true; $('logoFallback').hidden = false; }
-  logo.addEventListener('error', logoFail);
-  if (logo.complete && logo.naturalWidth === 0) logoFail();
+  function logoFail() { if (logo) logo.hidden = true; var f = $('logoFallback'); if (f) f.hidden = false; }
+  if (logo) {
+    logo.addEventListener('error', logoFail);
+    if (logo.complete && logo.naturalWidth === 0) logoFail();
+  }
 
-  // ------------------------------------------------------------ camera scanner
-  function scanHint(msg) { $('scanHint').textContent = msg; }
-
+  function scanHint(msg) { if ($('scanHint')) $('scanHint').textContent = msg; }
   function cameraErrorMessage(err) {
     var name = (err && (err.name || '')) + ' ' + String(err && err.message || err || '');
     if (!window.isSecureContext) return { title: 'Camera needs a secure page', body: 'Open Tortuga Scan from its https:// address (for example the GitHub Pages link). Cameras are blocked on plain http pages.' };
@@ -206,15 +276,15 @@
     if (/library|Html5Qrcode/i.test(name)) return { title: 'Scanner didn’t load', body: 'The scanner code failed to load. Check your connection and reload, or type the barcode.' };
     return { title: 'Couldn’t start the camera', body: 'Something went wrong starting the camera (' + esc(String(err && err.message || err).slice(0, 120)) + '). Try again, or type the barcode.' };
   }
-
   function startScan() {
     if (scanning) return;
     if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       return showCameraError(cameraErrorMessage(new Error('insecure')));
     }
     if (!window.Html5Qrcode) return showCameraError(cameraErrorMessage(new Error('Html5Qrcode library missing')));
-
-    show('scan');
+    showView('scan');
+    currentTab = 'scan';
+    setTabCurrent('scan');
     scanHint('Starting camera…');
     var F = window.Html5QrcodeSupportedFormats;
     try {
@@ -227,10 +297,8 @@
         });
       }
     } catch (e) { return showCameraError(cameraErrorMessage(e)); }
-
     scanning = true;
     var lastRead = '', readCount = 0;
-    // Must be called directly from the tap handler so iOS Safari will show the permission prompt.
     scanner.start(
       { facingMode: 'environment' },
       {
@@ -241,13 +309,12 @@
       function onDecode(text) {
         var code = String(text).replace(/\D/g, '');
         if (!validGtin(code)) return;
-        // Require two matching reads in a row to avoid misreads.
         if (code === lastRead) readCount++; else { lastRead = code; readCount = 1; }
         if (readCount < 2) return;
         if (navigator.vibrate) navigator.vibrate(40);
-        stopScan().then(function () { lookup(code); });
+        stopScan().then(function () { openCode(code, true); });
       },
-      function () { /* per-frame "not found" — ignore */ }
+      function () {}
     ).then(function () {
       scanHint('Line up the barcode inside the frame. Hold steady.');
       var v = document.querySelector('#reader video');
@@ -257,16 +324,14 @@
       showCameraError(cameraErrorMessage(err));
     });
   }
-
   function stopScan() {
     if (!scanner || !scanning) { scanning = false; return Promise.resolve(); }
     scanning = false;
-    return scanner.stop().then(function () { try { scanner.clear(); } catch (e) { /* ignore */ } })
-      .catch(function () { /* already stopped */ });
+    return scanner.stop().then(function () { try { scanner.clear(); } catch (e) {} })
+      .catch(function () {});
   }
-
   function showCameraError(m) {
-    show('status');
+    showView('status');
     views.status.innerHTML =
       '<div class="card status-card error-card" role="alert">' +
         '<h2>' + esc(m.title) + '</h2><p>' + m.body + '</p>' +
@@ -276,11 +341,9 @@
         '</div></div>';
   }
 
-  // ------------------------------------------------------------ Open Food Facts
   function fetchProduct(code) {
     var url = OFF + encodeURIComponent(code) + '.json?fields=' + FIELDS;
     var opts = { headers: { 'User-Agent': UA, 'Accept': 'application/json' } };
-    // Browsers may silently drop User-Agent; OFF allows it in CORS either way.
     return fetch(url, opts).catch(function () { return fetch(url); }).then(function (res) {
       if (res.status === 404) return null;
       if (!res.ok) throw new Error('Open Food Facts returned ' + res.status);
@@ -290,52 +353,32 @@
       return data.product;
     });
   }
-
   function findCatalog(raw) {
     var candidates = R.barcodeCandidates(raw);
-    for (var i = 0; i < candidates.length; i++) {
-      if (catalogByCode[candidates[i]]) return catalogByCode[candidates[i]];
-    }
+    for (var i = 0; i < candidates.length; i++) if (catalogByCode[candidates[i]]) return catalogByCode[candidates[i]];
     return null;
   }
   function findHousehold(raw) {
     var candidates = R.barcodeCandidates(raw);
-    for (var i = 0; i < candidates.length; i++) {
-      if (householdByCode[candidates[i]]) return householdByCode[candidates[i]];
-    }
+    for (var i = 0; i < candidates.length; i++) if (householdByCode[candidates[i]]) return householdByCode[candidates[i]];
     return null;
   }
   function fromHousehold(entry) {
     return {
-      code: entry.barcode,
-      name: entry.name,
-      brand: entry.brand || '',
-      quantity: entry.quantity || '',
-      image: entry.image || '',
-      ingredients: entry.ingredients || '',
-      source: 'household',
-      category: entry.category || '',
-      sourceName: entry.sourceName || 'Open Beauty Facts',
-      sourceUrl: entry.sourceUrl || '',
-      added: entry.added || ''
+      code: entry.barcode, name: entry.name, brand: entry.brand || '', quantity: entry.quantity || '',
+      image: entry.image || '', ingredients: entry.ingredients || '', source: 'household', kind: 'household',
+      category: entry.category || '', sourceName: entry.sourceName || 'Open Beauty Facts',
+      sourceUrl: entry.sourceUrl || '', added: entry.added || '', labels: entry.labels || '', labelsTags: entry.labelsTags || []
     };
   }
   function fromCatalog(entry) {
     var nuts = entry.nutriments || {};
     return {
-      code: entry.barcode,
-      name: entry.name,
-      brand: entry.brand || '',
-      quantity: entry.quantity || '',
-      image: entry.image || '',
-      ingredients: entry.ingredients || '',
-      ingredientsLang: entry.ingredientsLang || 'en',
-      source: 'catalog',
-      novaGroup: entry.nova || null,
+      code: entry.barcode, name: entry.name, brand: entry.brand || '', quantity: entry.quantity || '',
+      image: entry.image || '', ingredients: entry.ingredients || '', ingredientsLang: entry.ingredientsLang || 'en',
+      source: 'catalog', kind: 'food', novaGroup: entry.nova || null,
       sugars100g: nuts.sugars100g != null ? nuts.sugars100g : null,
-      labels: entry.labels || '',
-      labelsTags: entry.labelsTags || [],
-      added: entry.added || '',
+      labels: entry.labels || '', labelsTags: entry.labelsTags || [], added: entry.added || '',
       offUrl: entry.offUrl || ''
     };
   }
@@ -352,9 +395,8 @@
     if (mineHit) { renderProduct(fromMine(mineHit)); return; }
     var candidates = R.barcodeCandidates(raw);
     if (!candidates.length) return;
-    show('status');
+    showView('status');
     views.status.innerHTML = '<div class="card status-card"><div class="spinner" aria-hidden="true"></div><h2>Looking it up…</h2><p>Barcode ' + esc(candidates[0]) + '</p></div>';
-
     var i = 0;
     (function next() {
       if (i >= candidates.length) return notFound(candidates[0]);
@@ -362,7 +404,7 @@
       fetchProduct(c).then(function (p) {
         if (p) renderProduct(normalizeProduct(p, c)); else next();
       }).catch(function (err) {
-        show('status');
+        showView('status');
         views.status.innerHTML =
           '<div class="card status-card error-card" role="alert"><h2>Couldn’t reach Open Food Facts</h2>' +
           '<p>' + (navigator.onLine === false ? 'You look offline. Lookups need a connection.' : 'The lookup failed (' + esc(err.message) + ').') + ' You can try again, or paste the ingredients from the package.</p>' +
@@ -371,7 +413,6 @@
       });
     })();
   }
-
   function normalizeProduct(p, code) {
     var ing = '', lang = null;
     if (p.ingredients_text_en && p.ingredients_text_en.trim()) { ing = p.ingredients_text_en; lang = 'en'; }
@@ -383,27 +424,26 @@
       name: (p.product_name || p.product_name_en || '').trim() || 'Unnamed product',
       brand: (p.brands || '').split(',')[0].trim(),
       quantity: p.quantity || '',
-      image: p.image_front_small_url || p.image_front_url || '',
+      image: p.image_front_url || p.image_front_small_url || '',
       ingredients: ing.trim(),
       ingredientsLang: lang,
       source: 'off',
+      kind: 'food',
       novaGroup: p.nova_group || null,
       sugars100g: n.sugars_100g != null ? n.sugars_100g : null,
       labels: p.labels || '',
       labelsTags: p.labels_tags || []
     };
   }
-
   function notFound(code) {
-    lastProduct = { code: code, name: 'Not in Open Food Facts', brand: '', ingredients: '', source: 'none', labels: '', labelsTags: [] };
-    show('status');
+    lastProduct = { code: code, name: 'Not in Open Food Facts', brand: '', ingredients: '', source: 'none', kind: 'food', labels: '', labelsTags: [] };
+    showView('status');
     views.status.innerHTML =
       '<div class="card status-card"><h2>We couldn’t find this one</h2>' +
-      '<p>Barcode <strong>' + esc(code) + '</strong> isn’t in Open Food Facts yet, or it isn’t in a catalog on this phone. Grade it from the package: paste the ingredients and mark the certifications.</p></div>' +
+      '<p>Barcode <strong>' + esc(code) + '</strong> isn’t in Open Food Facts yet, and it isn’t in a catalog on this phone. Grade it from the package.</p></div>' +
       pasteBox({ code: code, ingredients: '', name: '', brand: '', labels: '', labelsTags: [] });
     bindPaste();
   }
-
   function pasteBox(p) {
     p = p || {};
     var selected = R.certificationsPresent({
@@ -416,14 +456,12 @@
       '<input id="pasteBrand" type="text" autocomplete="off" placeholder="Optional" value="' + esc(p.brand || '') + '">' +
       '<fieldset class="certs"><legend class="label">Certifications on the package</legend>' +
       '<div class="cert-grid">' + certPickerHtml('pasteCert', R.foodCertifications, selected) + '</div>' +
-      '<p class="help">Mark what is printed on the package. Organic, Non-GMO, grass-fed, and pasture-raised change the score and the ingredient colors. Words already in the name or brand, such as Organic, still count. This is not a lab test.</p></fieldset>' +
+      '<p class="help">Mark what is printed on the package. Organic, Non-GMO, grass-fed, and pasture-raised change the score and the ingredient colors. Words already in the name or brand still count. This is not a lab test.</p></fieldset>' +
       '<label class="label" for="pasteText">Ingredients from the label</label>' +
       '<textarea id="pasteText" rows="6" placeholder="Copy the ingredient list exactly, commas and all.">' + esc(p.ingredients || '') + '</textarea>' +
-      '<p class="help">On iPhone you can use Live Text: point the Camera at the label, tap the text icon, then copy and paste here.</p>' +
       '<label class="save-line" for="pasteSave"><input type="checkbox" id="pasteSave"> Save this food on this phone</label>' +
       '<button type="submit" class="btn btn-secondary">Grade these ingredients</button></form>';
   }
-
   function bindPaste() {
     var f = $('pasteForm');
     if (!f || f.dataset.bound) return;
@@ -447,6 +485,7 @@
         ingredients: text,
         ingredientsLang: 'pasted',
         source: 'pasted',
+        kind: 'food',
         novaGroup: keepOff ? base.novaGroup : null,
         sugars100g: keepOff ? base.sugars100g : null,
         labels: merged.labels,
@@ -455,9 +494,7 @@
         offUrl: base.offUrl || ''
       };
       if ($('pasteSave') && $('pasteSave').checked) {
-        var stored = storedFromForm('food', {
-          code: product.code, name: product.name, brand: product.brand, ingredients: text
-        }, ids);
+        var stored = storedFromForm('food', { code: product.code, name: product.name, brand: product.brand, ingredients: text }, ids);
         stored.labels = merged.labels;
         stored.labelsTags = merged.labelsTags;
         stored.nova = product.novaGroup;
@@ -469,90 +506,6 @@
     });
   }
 
-  // ------------------------------------------------------------ result rendering
-  function highlight(context, match) {
-    var c = esc(context), m = esc(match);
-    var idx = c.indexOf(m);
-    if (!m || idx < 0) return c;
-    return c.slice(0, idx) + '<mark>' + m + '</mark>' + c.slice(idx + m.length);
-  }
-
-  function productHeader(p) {
-    var img = p.image
-      ? '<img class="thumb" src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<div class=&quot;thumb empty&quot;>No photo</div>\'">'
-      : '<div class="thumb empty">No photo</div>';
-    var src = '', srcClass = '';
-    if (p.source === 'catalog') { src = 'In the Tortuga catalog'; srcClass = ' catalog'; }
-    else if (p.source === 'household') { src = 'In the Tortuga household catalog'; srcClass = ' catalog'; }
-    else if (p.source === 'device') { src = 'Saved on this phone'; srcClass = ' catalog'; }
-    else if (p.source === 'off') { src = 'Not in our catalog · live Open Food Facts'; srcClass = ' live'; }
-    else if (p.source === 'pasted') { src = 'Ingredients you pasted'; }
-    var note = p.source === 'catalog'
-      ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>. Graded with our rules, not a lab test.</p>'
-      : p.source === 'household'
-      ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'the source') + '</a>. Tortuga household grade, not an official Bobby Approved score.</p>'
-      : p.source === 'device'
-      ? '<p class="catalog-note">Saved on this phone ' + esc(formatDate(p.added)) + '. Not uploaded. ' +
-        (p.shadowed ? 'This barcode is already in the shared catalog, so a scan opens that product. This is your copy.' : 'A scan opens this when the barcode isn’t already in the shared catalog.') +
-        '</p>'
-      : '';
-    return '<div class="card product">' + img + '<div>' +
-      '<h2>' + esc(p.name) + '</h2>' +
-      (p.brand || p.quantity ? '<p class="brand-line">' + esc([p.brand, p.quantity].filter(Boolean).join(' · ')) + '</p>' : '') +
-      (p.code ? '<p class="code">' + esc(p.code) + '</p>' : '') +
-      (src ? '<span class="source-tag' + srcClass + '">' + esc(src) + '</span>' : '') +
-      claimPillsHtml(p) +
-      note +
-      '</div></div>';
-  }
-  function claimPillsHtml(p) {
-    var kind = (p.kind === 'household' || p.source === 'household') ? 'household' : 'food';
-    var list = R.certificationsPresent({
-      productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags,
-      ingredients: kind === 'household' ? p.ingredients : ''
-    }, kind);
-    if (!list.length) return '';
-    return '<p class="claim-row">' + list.map(function (c) {
-      return '<span class="pill claim">' + esc(c.name) + '</span>';
-    }).join('') + '</p><p class="claim-note">These package claims are part of this grade.</p>';
-  }
-  function publishBlock(p, grade) {
-    if (p.source !== 'device') return '';
-    var entry = p.kind === 'household' ? {
-      barcode: p.code || '',
-      name: p.name,
-      brand: p.brand || '',
-      category: p.category || '',
-      ingredients: p.ingredients,
-      labels: p.labels || '',
-      sourceName: 'Added on this phone',
-      added: p.added || todayISO(),
-      grade: { pass: grade.pass, score: grade.score, band: grade.band.id, bandLabel: grade.band.label }
-    } : {
-      barcode: p.code || '',
-      name: p.name,
-      brand: p.brand || '',
-      ingredients: p.ingredients,
-      ingredientsLang: 'en',
-      labels: p.labels || '',
-      labelsTags: p.labelsTags || [],
-      nova: p.novaGroup || null,
-      nutriments: p.sugars100g != null ? { sugars100g: p.sugars100g } : {},
-      added: p.added || todayISO(),
-      grade: {
-        sosPass: grade.sos.pass,
-        gmoStatus: grade.gmo.status,
-        gmoLabel: grade.gmo.label,
-        score: grade.score,
-        band: grade.band.id,
-        bandLabel: grade.band.label
-      }
-    };
-    return '<details class="card disclosure"><summary>Copy for the shared catalog</summary>' +
-      '<p class="help">Paste this into <code>data/' + (p.kind === 'household' ? 'household' : 'catalog') + '.json</code> when you publish it. Add a real source URL first. Don’t invent ingredients or lab results.</p>' +
-      '<textarea class="json-out" readonly>' + esc(JSON.stringify(entry, null, 2)) + '</textarea></details>' +
-      '<button type="button" class="btn btn-outline btn-block" data-act="remove-mine" data-id="' + esc(p.id) + '">Remove from this phone</button>';
-  }
   function formatDate(iso) {
     if (!iso) return '';
     var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
@@ -560,284 +513,541 @@
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return months[Number(m[2]) - 1] + ' ' + Number(m[3]) + ', ' + m[1];
   }
-  function renderIngList(items) {
+  function highlight(context, match) {
+    var c = esc(context), m = esc(match);
+    var idx = c.indexOf(m);
+    if (!m || idx < 0) return c;
+    return c.slice(0, idx) + '<mark>' + m + '</mark>' + c.slice(idx + m.length);
+  }
+  function websiteFor(brand) {
+    var slug = R.brandSlug(brand || '');
+    return websites[slug] || '';
+  }
+  function grokHref(name) {
+    var q = encodeURIComponent(String(name || '').slice(0, 140));
+    return GROK_BOT + (q ? '&q=' + q : '');
+  }
+  function buyHtml(p, score) {
+    var site = websiteFor(p.brand);
+    var buttons = '<a class="btn btn-secondary" href="' + esc(grokHref(p.name)) + '">Buy with Grok Bot</a>';
+    if (site) buttons += '<a class="btn btn-outline" href="' + esc(site) + '" target="_blank" rel="noopener">Go to website</a>';
+    var note = '<p class="help">Buy with Grok Bot is a Grok Bot app link' + (score >= 60 ? '' : '') + '. This page cannot check out or charge a card. ' +
+      (site ? 'Go to website opens the brand’s site.' : 'No official product website is on file for this brand, so there is no website button.') + '</p>';
+    if (score < 60) {
+      return '<div class="card"><h2 class="small-title">Not on the approved shelf</h2><p>The store lists products that score 60 or more. You can still open Grok Bot with this name.</p><div class="buy-row">' + buttons + '</div>' + note + '</div>';
+    }
+    return '<div class="card"><h2 class="small-title">Get it</h2><div class="buy-row">' + buttons + '</div>' + note + '</div>';
+  }
+  function meterHtml(score) {
+    var meter = R.meterFor(score);
+    function pt(deg, r) {
+      var rad = deg * Math.PI / 180;
+      return [(160 + r * Math.cos(rad)).toFixed(1), (148 - r * Math.sin(rad)).toFixed(1)];
+    }
+    function arc(fromScore, toScore) {
+      var a0 = 180 - (fromScore / 100) * 180;
+      var a1 = 180 - (toScore / 100) * 180;
+      var p0 = pt(a0, 104), p1 = pt(a1, 104);
+      return 'M ' + p0[0] + ' ' + p0[1] + ' A 104 104 0 0 1 ' + p1[0] + ' ' + p1[1];
+    }
+    var label = 'Score ' + meter.score + ' out of 100. ' + meter.verdict + '. ' + meter.band.label + '.';
+    return '<section class="meter-panel" role="img" aria-label="' + esc(label) + '">' +
+      '<svg class="meter-svg" viewBox="0 0 320 168" aria-hidden="true">' +
+        '<path d="' + arc(0, 44) + '" fill="none" stroke="#C4533A" stroke-width="18" stroke-linecap="butt"/>' +
+        '<path d="' + arc(45, 59) + '" fill="none" stroke="#E0A83A" stroke-width="18" stroke-linecap="butt"/>' +
+        '<path d="' + arc(60, 100) + '" fill="none" stroke="#6E9A4E" stroke-width="18" stroke-linecap="round"/>' +
+        '<g class="needle" data-score="' + meter.score + '" transform="rotate(-90 160 148)">' +
+          '<line x1="160" y1="148" x2="160" y2="58" stroke="#243516" stroke-width="4" stroke-linecap="round"/>' +
+          '<circle cx="160" cy="148" r="7" fill="#243516"/>' +
+        '</g>' +
+      '</svg>' +
+      '<div class="meter-words"><span class="w-avoid">Avoid</span><span class="w-limit">Limit</span><span class="w-eat">Eat as you like</span></div>' +
+      '<div class="meter-score"><span class="num">' + meter.score + '</span><span class="of">/ 100</span>' +
+        '<span class="verdict-word ' + (meter.pass ? 'pass' : 'fail') + '">' + meter.verdict + '</span></div>' +
+      '</section>';
+  }
+  function animateNeedles(root) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Array.prototype.forEach.call((root || document).querySelectorAll('.needle'), function (el) {
+      var score = Number(el.getAttribute('data-score')) || 0;
+      var target = score * 1.8 - 90;
+      if (reduce) { el.setAttribute('transform', 'rotate(' + target + ' 160 148)'); return; }
+      var start = null;
+      function frame(now) {
+        if (start === null) start = now;
+        var t = Math.min(1, (now - start) / 720);
+        var e = 1 - Math.pow(1 - t, 3);
+        el.setAttribute('transform', 'rotate(' + (-90 + (target + 90) * e) + ' 160 148)');
+        if (t < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+  function attachPhoto(p, frame) {
+    var key = photoKey(p);
+    var remote = p.image || '';
+    function showRemote() {
+      if (!remote) { frame.innerHTML = placeholderHtml(); return; }
+      var big = biggerImage(remote);
+      frame.innerHTML = '<img alt="Front of the ' + esc(p.name) + ' package" src="' + esc(big) + '" decoding="async">';
+      var img = frame.querySelector('img');
+      img.addEventListener('error', function () {
+        if (img.src.indexOf(remote) === -1 && remote !== big) { img.src = remote; return; }
+        frame.innerHTML = placeholderHtml('Photo didn’t load');
+      });
+    }
+    idbGet(key).then(function (blob) {
+      if (activePhotoUrl) { URL.revokeObjectURL(activePhotoUrl); activePhotoUrl = ''; }
+      if (blob) {
+        activePhotoUrl = URL.createObjectURL(blob);
+        frame.innerHTML = '<img alt="Package photo saved on this phone" src="' + activePhotoUrl + '">';
+      } else showRemote();
+    });
+  }
+  function photoButtons(p) {
+    return '<div class="photo-actions">' +
+      '<label class="btn btn-outline file-btn">Take a photo<input class="shot" data-shot="camera" data-key="' + esc(photoKey(p)) + '" type="file" accept="image/*" capture="environment"></label>' +
+      '<label class="btn btn-outline file-btn">Choose a photo<input class="shot" data-shot="file" data-key="' + esc(photoKey(p)) + '" type="file" accept="image/*"></label>' +
+      '</div><p class="help">A photo you take overrides the catalog picture on this phone only. It is stored in IndexedDB, not uploaded.</p>';
+  }
+  function renderIngList(items, link) {
     return '<ul class="ing-list">' + items.map(function (it) {
       var word = { green: 'OK', yellow: 'Limit', red: 'Avoid', none: 'Note' }[it.color] || '';
       var why = (it.color === 'yellow' || it.color === 'red') && it.reasons && it.reasons.length
         ? '<span class="why">' + esc(it.reasons.slice(0, 2).map(function (r) { return r.label; }).join(' · ')) + '</span>' : '';
       var dot = it.color === 'none' ? '' : '<span class="dot ' + it.color + '" aria-hidden="true"></span>';
-      var kids = it.children && it.children.length ? renderIngList(it.children) : '';
+      var kids = it.children && it.children.length ? renderIngList(it.children, link) : '';
+      var name = link && it.color !== 'none'
+        ? '<button type="button" class="ing-link" data-act="ingredient" data-name="' + esc(it.text) + '">' + esc(it.text) + '</button>'
+        : esc(it.text);
       return '<li class="ing-item ' + it.color + '"><div class="ing-main">' + dot +
-        '<span class="name"><span class="visually-hidden">' + word + '. </span>' + esc(it.text) + why + '</span></div>' + kids + '</li>';
+        '<span class="name"><span class="visually-hidden">' + word + '. </span>' + name + why + '</span></div>' + kids + '</li>';
     }).join('') + '</ul>';
   }
-
-  function renderHousehold(p) {
-    var g = R.gradeHousehold(p.ingredients);
-    var light = R.classifyHousehold(p.ingredients);
-    var scoreClass = g.band.id === 'cleaner' ? 'v-pass' : g.band.id === 'mixed' ? 'v-caution' : 'v-fail';
-    var verdict = '<div class="verdict ' + (g.pass ? 'v-pass' : 'v-fail') + '"><p class="kicker">Household check</p>' +
-      '<p class="big">' + (g.pass ? 'PASS' : 'FAIL') + '</p>' +
-      '<p style="margin:0">Tortuga’s own grade, using the published Bobby Approved ingredient standards (no harmful fragrances, and the other label checks below). Not an official Bobby Approved score or badge.</p></div>';
-    var math = '<ul class="math"><li><span>Start</span><span class="pts">100</span></li>' +
-      g.deductions.map(function (d) {
+  function shortFlags(deductions) {
+    return (deductions || []).map(function (d) { return d.label; }).slice(0, 3);
+  }
+  function claimNames(p) {
+    var kind = (p.kind === 'household' || p.source === 'household') ? 'household' : 'food';
+    return R.certificationsPresent({
+      productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags,
+      ingredients: kind === 'household' ? p.ingredients : ''
+    }, kind).map(function (c) { return c.name; });
+  }
+  function tortyHtml(p, grade) {
+    var flags = shortFlags(grade.deductions);
+    var line = R.tortySays({
+      name: p.name,
+      kind: (p.kind === 'household' || p.source === 'household') ? 'household' : 'food',
+      score: grade.score,
+      flags: flags,
+      certifications: claimNames(p),
+      mainstream: !!(grade.mainstream),
+      hasIngredients: grade.hasIngredients !== false && !!(p.ingredients)
+    });
+    return '<div class="card torty-card"><img src="icons/torty-portrait.png" alt="Torty, a smiling tortoise" width="280" height="200">' +
+      '<div class="speech"><span class="who">Torty thinks</span><p>' + esc(line) + '</p></div></div>';
+  }
+  function headerBlock(p) {
+    var kind = (p.kind === 'household' || p.source === 'household') ? 'household' : 'food';
+    var src = '', srcClass = '';
+    if (p.source === 'catalog') { src = 'In the Tortuga catalog'; srcClass = ' catalog'; }
+    else if (p.source === 'household') { src = 'In the Tortuga household catalog'; srcClass = ' catalog'; }
+    else if (p.source === 'device') { src = 'Saved on this phone'; srcClass = ' catalog'; }
+    else if (p.source === 'off') { src = 'Live Open Food Facts'; srcClass = ' live'; }
+    else if (p.source === 'pasted') { src = 'Ingredients you pasted'; }
+    var note = '';
+    if (p.source === 'catalog') note = '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>.</p>';
+    else if (p.source === 'household') note = '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'the source') + '</a>.</p>';
+    else if (p.source === 'device') note = '<p class="catalog-note">Saved on this phone ' + esc(formatDate(p.added)) + '. Not uploaded.</p>';
+    var brandBtn = p.brand
+      ? '<button type="button" class="brand-link" data-act="brand" data-brand="' + esc(R.brandSlug(p.brand)) + '">' + esc(p.brand) + '</button>'
+      : '';
+    var claims = claimNames(p);
+    return '<div class="hero-photo"><div class="pack-frame" id="packFrame">' + (p.image ? '' : placeholderHtml()) + '</div>' + photoButtons(p) + '</div>' +
+      '<div class="product-head"><p class="back-row"><button type="button" class="btn btn-outline back-btn" data-act="back">Back</button></p>' +
+      '<h2>' + esc(p.name) + '</h2>' +
+      (brandBtn || p.quantity ? '<p class="brand-line">' + brandBtn + (p.quantity ? (brandBtn ? ' · ' : '') + esc(p.quantity) : '') + '</p>' : '') +
+      (p.code ? '<p class="code">' + esc(p.code) + '</p>' : '') +
+      (src ? '<span class="source-tag' + srcClass + '">' + esc(src) + (kind === 'household' ? ' · Household' : '') + '</span>' : '') +
+      (claims.length ? '<p class="claim-row">' + claims.map(function (c) { return '<span class="pill claim">' + esc(c) + '</span>'; }).join('') + '</p><p class="claim-note">These package claims are part of this grade.</p>' : '') +
+      note + '</div>';
+  }
+  function mathHtml(grade, title) {
+    return '<ul class="math"><li><span>Start</span><span class="pts">100</span></li>' +
+      (grade.deductions || []).map(function (d) {
         return '<li><span>' + esc(d.label) + (d.detail ? '<span class="detail">' + esc(d.detail) + '</span>' : '') + '</span><span class="pts">−' + d.points + '</span></li>';
       }).join('') +
-      '<li class="total"><span>Tortuga household score</span><span class="pts">' + g.score + '</span></li></ul>';
-    var scoreHtml = '<div class="verdict ' + scoreClass + '"><p class="kicker">Tortuga household score</p>' +
-      '<div class="score-row"><p class="big">' + g.score + '<small> / 100</small></p><span class="band ' + g.band.id + '">' + g.band.label + '</span></div>' +
-      math + '</div>';
-    var ingHtml = '<div class="card ingredients"><h2>Ingredients</h2>' +
-      '<p class="legend"><span class="dot green"></span> OK <span class="dot yellow"></span> Limit <span class="dot red"></span> Avoid</p>' +
-      renderIngList(light.items) +
-      '<p class="ing-text">' + esc(p.ingredients) + '</p>' +
-      '<p class="meta">' + (p.source === 'device'
-        ? 'Ingredient list you entered on this phone. '
-        : 'Copied from ' + esc(p.sourceName || 'the cited source') + '. ' +
-          (p.sourceUrl ? '<a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">Source</a>. ' : '')) +
-      'Artificial fragrance (fragrance, parfum, perfume) is a hard avoid. Named essential oils are not that umbrella term. Fragrance-free and unscented do not erase a fragrance ingredient, and they are not a Bobby Approved badge.</p></div>';
-    views.result.innerHTML = productHeader(p) + verdict + scoreHtml + ingHtml + publishBlock(p, g) +
-      '<div class="result-actions"><button type="button" class="btn btn-secondary btn-block" data-act="start-scan">Scan another</button>' +
-      '<button type="button" class="btn btn-outline btn-block" data-tab="household">Back to household</button></div>';
+      '<li class="total"><span>' + esc(title) + '</span><span class="pts">' + grade.score + '</span></li></ul>';
+  }
+  function publishBlock(p, grade) {
+    if (p.source !== 'device') return '';
+    var entry = p.kind === 'household' ? {
+      barcode: p.code || '', name: p.name, brand: p.brand || '', category: p.category || '',
+      ingredients: p.ingredients, labels: p.labels || '', sourceName: 'Added on this phone', added: p.added || todayISO(),
+      grade: { pass: grade.pass, score: grade.score, band: grade.band.id, bandLabel: grade.band.label }
+    } : {
+      barcode: p.code || '', name: p.name, brand: p.brand || '', ingredients: p.ingredients, ingredientsLang: 'en',
+      labels: p.labels || '', labelsTags: p.labelsTags || [], nova: p.novaGroup || null,
+      nutriments: p.sugars100g != null ? { sugars100g: p.sugars100g } : {}, added: p.added || todayISO(),
+      grade: {
+        pass: grade.pass, avoidPass: grade.sos.pass, gmoStatus: grade.gmo.status, gmoLabel: grade.gmo.label,
+        score: grade.score, band: grade.band.id, bandLabel: grade.band.label
+      }
+    };
+    return '<details class="card disclosure"><summary>Copy for the shared catalog</summary>' +
+      '<p class="help">Paste this into <code>data/' + (p.kind === 'household' ? 'household' : 'catalog') + '.json</code> when you publish it. Add a real source URL first. Don’t invent ingredients.</p>' +
+      '<textarea class="json-out" readonly>' + esc(JSON.stringify(entry, null, 2)) + '</textarea></details>' +
+      '<button type="button" class="btn btn-outline btn-block" data-act="remove-mine" data-id="' + esc(p.id) + '">Remove from this phone</button>';
   }
 
   function renderProduct(p) {
     lastProduct = p;
-    show('result');
-    if (p.source === 'household' || p.kind === 'household') { renderHousehold(p); return; }
-
+    if (p.code) writeUrl(productPath(p.code), true);
+    showView('result');
+    setTabCurrent('result');
+    var householdKind = p.source === 'household' || p.kind === 'household';
     if (!p.ingredients) {
-      views.result.innerHTML = productHeader(p) +
-        '<div class="notice" role="status"><strong>No ingredient list on Open Food Facts</strong>We found the product but not its ingredients, so we can’t grade it yet. Paste them from the package and mark any certifications.</div>' +
+      views.result.innerHTML = headerBlock(p) +
+        '<div class="notice" role="status"><strong>No ingredient list yet</strong>Paste the list from the package and mark any certifications.</div>' +
         pasteBox(p);
+      attachPhoto(p, $('packFrame'));
       bindPaste();
       return;
     }
-
+    if (householdKind) return renderHousehold(p);
     var gradeOpts = { novaGroup: p.novaGroup, sugars100g: p.sugars100g, productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags };
     var g = R.grade(p.ingredients, gradeOpts);
     saveRecent(p, g);
-
-    var sosCats = g.sos.categories;
-    var sosHtml =
-      '<div class="verdict ' + (g.sos.pass ? 'v-pass' : 'v-fail') + '">' +
-        '<p class="kicker">Seed Oil Safe-style check</p>' +
-        '<p class="big">' + (g.sos.pass ? 'PASS' : 'FAIL') + '</p>' +
-        '<p style="margin:0;font-weight:600">' + (g.sos.pass ? 'Nothing on the published Seed Oil Safe list found in these ingredients.' :
-          sosCats.filter(function (c) { return c.failed; }).length + ' of ' + sosCats.length + ' categories hit.') + '</p>' +
-        '<ul class="checklist">' + sosCats.map(function (c) {
-          return '<li><span class="mark ' + (c.failed ? 'bad' : 'ok') + '" aria-hidden="true">' + (c.failed ? '✕' : '✓') + '</span>' +
-            '<span>' + esc(c.name) + '<span class="visually-hidden">: ' + (c.failed ? 'found' : 'not found') + '</span></span></li>';
-        }).join('') +
-        '<li class="sep">Tortuga Scan check (not on the SOS list)</li>' +
-        '<li><span class="mark ' + (g.gmo.status === 'gmo' ? 'bad' : g.gmo.status === 'possible' ? 'warn' : 'ok') + '" aria-hidden="true">' +
-          (g.gmo.status === 'gmo' ? '✕' : g.gmo.status === 'possible' ? '!' : '✓') + '</span><span>GMO: ' + esc(g.gmo.label) + '</span></li>' +
-        '<li><span class="mark ' + (g.glyphosate.pass ? 'ok' : g.glyphosate.status === 'limit' ? 'warn' : 'bad') + '" aria-hidden="true">' +
-          (g.glyphosate.pass ? '✓' : g.glyphosate.status === 'limit' ? '!' : '✕') + '</span><span>Glyphosate-prone crops: ' +
-          esc(g.glyphosate.pass ? (g.glyphosate.cleared ? 'Pass — organic' : 'None found') : g.glyphosate.status === 'limit' ? 'Limit — non-GMO, not organic' : 'Fail') + '</span></li>' +
-        '</ul>' +
-        '<p class="fine">Our implementation of Seed Oil Scout’s published Seed Oil Safe guidelines. Not an official certification or badge. We can’t check manufacturing processes.</p>' +
-      '</div>';
-
-    var gmoClass = g.gmo.status === 'gmo' ? 'v-fail' : g.gmo.status === 'possible' ? 'v-caution' : g.gmo.status === 'non-gmo' ? 'v-pass' : 'v-neutral';
-    var gmoText = {
-      gmo: 'The label or Open Food Facts data says GMO, genetically engineered, or bioengineered.',
-      'non-gmo': 'Shows ' + esc(g.gmo.claims.join(' and ')) + '. Organic and Non-GMO standards don’t allow GMO ingredients.',
-      possible: 'Contains conventional crops that are usually GMO in the US, with no organic or non-GMO claim we can see. This is a caution, not a confirmed GMO.',
-      none: 'No GMO wording, and no high-risk GMO crops in the ingredients.'
-    }[g.gmo.status];
-    var gmoHtml = '<div class="verdict v-gmo ' + gmoClass + '"><p class="kicker">GMO status · Tortuga Scan check</p>' +
-      '<p class="big">' + esc(g.gmo.label) + '</p><p style="margin:0">' + gmoText + '</p>' +
-      (g.gmo.status === 'possible' ? '<p class="fine">If the package is organic or non-GMO, mark that certification below and grade again. Grass-fed and pasture-raised change dairy, egg, and meat colors. They don’t change this GMO status.</p>' : '') +
-      '</div>';
-
-    var scoreClass = g.band.id === 'cleaner' ? 'v-pass' : g.band.id === 'mixed' ? 'v-caution' : 'v-fail';
-    var mathHtml = '<ul class="math"><li><span>Start</span><span class="pts">100</span></li>' +
-      g.deductions.map(function (d) {
-        return '<li><span>' + esc(d.label) + (d.detail ? '<span class="detail">' + esc(d.detail) + '</span>' : '') + '</span><span class="pts">−' + d.points + '</span></li>';
-      }).join('') +
-      (100 - g.deductions.reduce(function (s, d) { return s + d.points; }, 0) < 0 ? '<li><span>Floor (score can’t go below 0)</span><span class="pts"></span></li>' : '') +
-      '<li class="total"><span>Tortuga Scan clean score</span><span class="pts">' + g.score + '</span></li></ul>';
-    var scoreHtml = '<div class="verdict ' + scoreClass + '"><p class="kicker">Tortuga Scan clean score</p>' +
-      '<div class="score-row"><p class="big">' + g.score + '<small> / 100</small></p><span class="band ' + g.band.id + '">' + g.band.label + '</span></div>' +
-      '<p class="fine" style="margin-top:0">Our own score, inspired by the categories Olive publicly describes (seed oils, additives, processing, sugar). Not an official Olive score and not based on lab tests.' +
-      (g.novaGroup ? '' : ' No NOVA processing group available, so no processing deduction.') + '</p>' +
-      mathHtml + '</div>';
-
-    // Flags
-    var flags = [];
-    sosCats.forEach(function (c) { c.hits.forEach(function (h) { flags.push({ cat: 'Seed Oil Safe · ' + c.name, h: h, cls: '' }); }); });
-    g.gmo.confirmed.forEach(function (h) { flags.push({ cat: 'GMO · Tortuga Scan check', h: h, cls: '' }); });
-    g.gmo.risky.forEach(function (h) { flags.push({ cat: 'Possible GMO · caution', h: h, cls: 'f-warn' }); });
-    (g.glyphosate.hits || []).forEach(function (h) { flags.push({ cat: 'Glyphosate-prone crop · Tortuga Scan check', h: h, cls: '' }); });
-    g.additives.forEach(function (h) { flags.push({ cat: 'Other additive · score only', h: h, cls: 'f-warn' }); });
-    g.sugars.forEach(function (h) { flags.push({ cat: 'Added sugar · score only', h: h, cls: 'f-warn' }); });
-    var flagsHtml = '<div class="card flags"><h2>What we found</h2>' + (flags.length
-      ? '<ul class="flag-list">' + flags.map(function (f) {
-          return '<li class="flag ' + f.cls + '"><div class="cat">' + esc(f.cat) + '</div>' +
-            '<div class="rule">' + esc(f.h.rule) + '</div>' +
-            '<p class="ctx">“' + highlight(f.h.context || f.h.match, f.h.match) + '”</p>' +
-            (f.h.note ? '<p class="note">' + esc(f.h.note) + '</p>' : '') + '</li>';
-        }).join('') + '</ul>'
-      : '<p class="no-flags">No flags. Nothing from our rules matched these ingredients.</p>') +
-      (g.ignored.length ? '<p class="help">Not graded (cross-contact warning): “' + esc(g.ignored.join(' ')) + '”</p>' : '') +
-      '</div>';
-
-    var langNote = p.ingredientsLang === 'fr' ? ' Only a French ingredient list was available; our rules are written for English, so results may miss things.'
-      : p.ingredientsLang === 'default' ? ' This is the main-language list on Open Food Facts; if it isn’t English, results may miss things.' : '';
     var light = R.classifyIngredients(p.ingredients, gradeOpts);
+    var flags = [];
+    g.sos.categories.forEach(function (c) {
+      c.hits.forEach(function (h) { flags.push({ cat: 'Tortuga rule · ' + c.name, h: h }); });
+    });
+    g.gmo.confirmed.forEach(function (h) { flags.push({ cat: 'GMO', h: h }); });
+    g.gmo.risky.forEach(function (h) { flags.push({ cat: 'Possible GMO', h: h, cls: 'f-warn' }); });
+    (g.glyphosate.hits || []).forEach(function (h) { flags.push({ cat: 'Glyphosate-prone crop', h: h }); });
+    g.additives.forEach(function (h) { flags.push({ cat: 'Additive', h: h, cls: 'f-warn' }); });
+    g.sugars.forEach(function (h) { flags.push({ cat: 'Added sugar', h: h, cls: 'f-warn' }); });
+    var flagsHtml = '<section class="card flags"><h2>Flags</h2>' + (flags.length
+      ? '<ul class="flag-list">' + flags.map(function (f) {
+          return '<li class="flag ' + (f.cls || '') + '"><div class="cat">' + esc(f.cat) + '</div><div class="rule">' + esc(f.h.rule) + '</div>' +
+            '<p class="ctx">“' + highlight(f.h.context || f.h.match, f.h.match) + '”</p></li>';
+        }).join('') + '</ul>'
+      : '<p class="no-flags">No ingredient flags on this list.</p>') + '</section>';
     var counts = light.counts || { red: 0, yellow: 0, green: 0 };
-    var sourceLine = p.source === 'pasted' ? 'From what you pasted.'
-      : p.source === 'catalog' ? 'From our catalog (copied from Open Food Facts). It can be out of date — check the package.'
-      : 'From a live Open Food Facts lookup, which can be incomplete or out of date. Check the package.';
-    var ingHtml = '<div class="card ingredients"><h2>Ingredients</h2>' +
-      '<div class="legend" aria-hidden="true"><span><i class="dot green"></i> OK</span><span><i class="dot yellow"></i> Limit</span><span><i class="dot red"></i> Avoid</span></div>' +
-      '<p class="legend-note">Green means that ingredient didn’t match an avoid or limit rule. Not a lab test or a certification.</p>' +
-      '<p class="ing-counts"><strong>' + counts.red + '</strong> to avoid · <strong>' + counts.yellow + '</strong> to limit · <strong>' + counts.green + '</strong> OK</p>' +
-      renderIngList(light.items) +
-      '<p class="meta">' + sourceLine + langNote + '</p>' +
-      '<details class="disclosure"><summary>Original ingredient text</summary><p class="ing-text">' + esc(p.ingredients) + '</p></details>' +
-      '<details class="disclosure"><summary>Label looks different? Fix the ingredients</summary>' + pasteBox(p) + '</details>' +
-      '</div>';
-
-    var linkedLabs = labsForProduct(p);
-    var labHtml = linkedLabs.length
-      ? '<h2 class="small-title">Public lab test for this barcode</h2>' + linkedLabs.map(labCard).join('') +
-        '<p class="help">The published test names this barcode. It is not a test we ran.</p>'
-      : '';
-    views.result.innerHTML = productHeader(p) + sosHtml + gmoHtml + scoreHtml + flagsHtml + ingHtml + labHtml + publishBlock(p, g) +
-      '<div class="result-actions"><button type="button" class="btn btn-secondary btn-block" data-act="start-scan">Scan another</button>' +
-      '<button type="button" class="btn btn-outline btn-block" data-act="standards">How we grade</button></div>';
+    var nut = p.sugars100g != null ? '<p class="help">Sugars ' + esc(String(p.sugars100g)) + ' g / 100 g, from the source nutrition.</p>' : '';
+    var gmoLine = '<p><strong>GMO status.</strong> ' + esc(g.gmo.label) + '. Tortuga’s own check, not a lab test.</p>';
+    var glyLine = '<p><strong>Glyphosate-prone crops.</strong> ' + esc(g.glyphosate.pass ? (g.glyphosate.cleared ? 'Cleared because the product is organic.' : 'None found.') : (g.glyphosate.status === 'limit' ? 'Non-GMO, not organic.' : 'Conventional crop on the list.')) + '</p>';
+    var more = '<section class="card more-panel"><h2>More</h2>' +
+      '<div class="legend"><span><i class="dot green"></i> Green</span><span><i class="dot yellow"></i> Yellow</span><span><i class="dot red"></i> Red</span></div>' +
+      '<p class="help">' + counts.red + ' to avoid · ' + counts.yellow + ' to limit · ' + counts.green + ' with no flag. Tap an ingredient for the book.</p>' +
+      renderIngList(light.items, true) + nut + gmoLine + glyLine +
+      (p.novaGroup ? '<p><strong>NOVA group.</strong> ' + esc(String(p.novaGroup)) + ', from Open Food Facts.</p>' : '<p>No NOVA group on this record, so processing was not deducted from that field.</p>') +
+      (p.offUrl ? '<p><a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts source</a></p>' : '') +
+      '<details class="disclosure"><summary>Original ingredient text</summary><p class="help">' + esc(p.ingredients) + '</p></details>' +
+      mathHtml(g, 'Tortuga score') +
+      '</section>';
+    var labs = labsForProduct(p);
+    var labHtml = labs.length ? labs.map(labCard).join('') : '';
+    views.result.innerHTML = headerBlock(p) + meterHtml(g.score) + tortyHtml(p, g) + flagsHtml + more + buyHtml(p, g.score) + labHtml + publishBlock(p, g) +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="start-scan">Scan another</button></div>';
+    animateNeedles(views.result);
+    attachPhoto(p, $('packFrame'));
     bindPaste();
   }
+  function renderHousehold(p) {
+    var g = R.gradeHousehold(p.ingredients);
+    var light = R.classifyHousehold(p.ingredients);
+    var flags = (g.deductions || []).filter(function (d) { return d.level !== 'stack'; });
+    var flagsHtml = '<section class="card flags"><h2>Flags</h2>' + (flags.length
+      ? flags.map(function (d) {
+          return '<div class="flag ' + (d.level === 'yellow' ? 'f-warn' : '') + '"><div class="cat">Tortuga household rule</div><div class="rule">' + esc(d.label) + '</div><p class="ctx">' + esc(d.detail || '') + '</p></div>';
+        }).join('')
+      : '<p class="no-flags">No fragrance, preservative, color, brightener, seed-oil, or flavor flag on this list.</p>') + '</section>';
+    var more = '<section class="card more-panel"><h2>More</h2>' +
+      '<div class="legend"><span><i class="dot green"></i> Green</span><span><i class="dot yellow"></i> Yellow</span><span><i class="dot red"></i> Red</span></div>' +
+      renderIngList(light.items, true) +
+      (p.sourceUrl ? '<p><a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'Source') + '</a></p>' : '') +
+      '<p class="help">' + esc(g.standard) + '</p>' +
+      '<details class="disclosure"><summary>Original ingredient text</summary><p class="help">' + esc(p.ingredients) + '</p></details>' +
+      mathHtml(g, 'Tortuga household score') +
+      '</section>';
+    views.result.innerHTML = headerBlock(p) + meterHtml(g.score) + tortyHtml(p, g) + flagsHtml + more + buyHtml(p, g.score) + publishBlock(p, g) +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="start-scan">Scan another</button></div>';
+    animateNeedles(views.result);
+    attachPhoto(p, $('packFrame'));
+  }
 
-  // ------------------------------------------------------------ recent scans
   function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; } }
   function saveRecent(p, g) {
     if (!p.code || (p.source !== 'off' && p.source !== 'catalog' && p.source !== 'device')) return;
     var list = loadRecent().filter(function (r) { return r.code !== p.code; });
-    list.unshift({ code: p.code, name: p.name, brand: p.brand, score: g.score, band: g.band.id, pass: g.sos.pass });
-    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 8))); } catch (e) { /* private mode */ }
+    list.unshift({ code: p.code, name: p.name, brand: p.brand, score: g.score, band: g.band.id, pass: g.pass });
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 8))); } catch (e) {}
   }
   function mineGrade(entry) {
     if (entry.kind === 'household') return R.gradeHousehold(entry.ingredients);
-    return R.grade(entry.ingredients, {
-      productName: entry.name, brand: entry.brand, labels: entry.labels, labelsTags: entry.labelsTags, novaGroup: entry.nova
-    });
+    return R.grade(entry.ingredients, { productName: entry.name, brand: entry.brand, labels: entry.labels, labelsTags: entry.labelsTags, novaGroup: entry.nova });
   }
   function mineListHtml(entries) {
     return entries.map(function (p) {
       var g = mineGrade(p);
-      var claims = R.certificationsPresent({
-        productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags,
-        ingredients: p.kind === 'household' ? p.ingredients : ''
-      }, p.kind === 'household' ? 'household' : 'food').map(function (c) { return c.name; }).join(', ');
-      var meta = (p.kind === 'household' ? 'Household' : 'Food') + ' · ' + g.score + (claims ? ' · ' + claims : '');
       return '<li><button type="button" data-act="open-mine" data-id="' + esc(p.id) + '"><span class="r-name">' + esc(p.name) + '</span>' +
-        '<span class="r-meta">' + esc(meta) + '</span></button></li>';
+        '<span class="r-meta">' + (g.pass ? 'Pass' : 'Fail') + ' · ' + g.score + '</span></button></li>';
     }).join('');
   }
   function renderMine() {
     var list = loadMine();
     var card = $('mineCard');
-    if (card) {
-      card.hidden = !list.length;
-      $('mineList').innerHTML = mineListHtml(list);
-    }
+    if (card) { card.hidden = !list.length; $('mineList').innerHTML = mineListHtml(list); }
     var food = list.filter(function (p) { return p.kind !== 'household'; });
-    var home = list.filter(function (p) { return p.kind === 'household'; });
     if ($('catalogMine')) {
       $('catalogMine').innerHTML = food.length
-        ? '<div class="card"><h2 class="small-title">My products</h2><p class="help">Saved on this phone. A scan still opens the shared catalog when the barcode is already there.</p><ul class="recent">' + mineListHtml(food) + '</ul></div>'
-        : '';
-    }
-    if ($('householdMine')) {
-      $('householdMine').innerHTML = home.length
-        ? '<div class="card"><h2 class="small-title">My household products</h2><p class="help">Saved on this phone. Not an official Bobby Approved score.</p><ul class="recent">' + mineListHtml(home) + '</ul></div>'
+        ? '<div class="card"><h2 class="small-title">My products</h2><ul class="recent">' + mineListHtml(food) + '</ul></div>'
         : '';
     }
   }
   function renderRecent() {
     renderMine();
     var list = loadRecent();
+    if (!$('recent')) return;
     $('recent').hidden = !list.length;
-    var colors = { cleaner: 'background:#E3EDD2;color:#2F6B2A', mixed: 'background:#F7E8C4;color:#6B4600', poor: 'background:#F6E0D6;color:#A2361C' };
     $('recentList').innerHTML = list.map(function (r) {
       return '<li><button type="button" data-act="lookup" data-code="' + esc(r.code) + '"><span class="r-name">' + esc(r.name) + '</span>' +
-        '<span class="r-meta" style="' + (colors[r.band] || '') + '">' + (r.pass ? 'Pass' : 'Fail') + ' · ' + r.score + '</span></button></li>';
+        '<span class="r-meta">' + (r.pass ? 'Pass' : 'Fail') + ' · ' + r.score + '</span></button></li>';
     }).join('');
   }
 
-  // ------------------------------------------------------------ standards panel
+  function cardHtml(p, kind) {
+    var g = p.grade || {};
+    var img = p.image
+      ? '<img src="' + esc(biggerImage(p.image)) + '" alt="" loading="lazy" data-fallback="' + esc(p.image) + '">'
+      : '<span class="thumb">No photo</span>';
+    var band = g.band || '';
+    var pass = g.pass ? 'Pass' : 'Fail';
+    return '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '">' + img +
+      '<span><span class="name">' + esc(p.name) + '</span>' +
+      '<span class="brand">' + esc(p.brand || '') + (kind === 'household' ? ' · Household' : '') + '</span>' +
+      '<span class="pills"><span class="pill ' + (g.pass ? 'pass' : 'fail') + '">' + pass + '</span>' +
+      '<span class="pill ' + esc(band) + '">' + esc(g.bandLabel || band) + '</span>' +
+      '<span class="pill">' + (g.score != null ? g.score : '—') + '</span></span></span></button>';
+  }
+  function combined() {
+    return catalog.map(function (p) { return { raw: p, kind: 'food' }; }).concat(household.map(function (p) { return { raw: p, kind: 'household' }; }));
+  }
+  function filteredCatalog() {
+    var q = catalogFilter.q.trim().toLowerCase();
+    return combined().filter(function (row) {
+      var p = row.raw;
+      if (catalogFilter.kind && row.kind !== catalogFilter.kind) return false;
+      if (catalogFilter.band && (!p.grade || p.grade.band !== catalogFilter.band)) return false;
+      if (catalogFilter.brand && R.brandSlug(p.brand) !== catalogFilter.brand && (p.brand || '') !== catalogFilter.brand) return false;
+      if (!q) return true;
+      return (p.name + ' ' + (p.brand || '') + ' ' + p.barcode).toLowerCase().indexOf(q) >= 0;
+    });
+  }
+  function renderCatalog() {
+    renderMine();
+    var list = filteredCatalog();
+    $('catalogMeta').textContent = (catalog.length + household.length)
+      ? (list.length + ' of ' + (catalog.length + household.length))
+      : 'Catalog is still loading.';
+    $('catalogList').innerHTML = list.length
+      ? list.map(function (row) { return cardHtml(row.raw, row.kind); }).join('')
+      : '<div class="card"><p>' + (catalog.length ? 'Nothing matches those filters.' : 'The catalog didn’t load.') + '</p></div>';
+    bindBrokenThumbs($('catalogList'));
+  }
+  function bindBrokenThumbs(root) {
+    if (!root) return;
+    Array.prototype.forEach.call(root.querySelectorAll('img[data-fallback]'), function (img) {
+      img.addEventListener('error', function () {
+        if (img.dataset.tried) { img.outerHTML = '<span class="thumb">No photo</span>'; return; }
+        img.dataset.tried = '1';
+        img.src = img.dataset.fallback;
+      });
+    });
+  }
+  function fillBrandSelect() {
+    var seen = {}, brands = [];
+    combined().forEach(function (row) {
+      var b = row.raw.brand || '';
+      var slug = R.brandSlug(b);
+      if (b && !seen[slug]) { seen[slug] = b; brands.push({ slug: slug, name: b }); }
+    });
+    brands.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    $('catalogBrand').innerHTML = '<option value="">All brands</option>' + brands.map(function (b) {
+      return '<option value="' + esc(b.slug) + '">' + esc(b.name) + '</option>';
+    }).join('');
+  }
+  function renderWelcome() {
+    var box = $('catalogWelcome');
+    if (!catalog.length || !box) return;
+    var eat = catalog.filter(function (p) { return p.grade && p.grade.score >= 60; }).length;
+    $('catalogWelcomeText').textContent = catalog.length + ' foods and ' + household.length + ' household products. ' + eat + ' foods land on Eat as you like.';
+    var want = ['0016000275287', '041570054161', '3017624010701', '049000006346'];
+    var picked = [];
+    want.forEach(function (code) { var hit = findCatalog(code); if (hit) picked.push(hit); });
+    catalog.forEach(function (p) {
+      if (picked.length >= 4) return;
+      if (p.grade && p.grade.score >= 90 && !picked.some(function (x) { return x.barcode === p.barcode; })) picked.push(p);
+    });
+    $('catalogWelcomeList').innerHTML = picked.slice(0, 4).map(function (p) {
+      var g = p.grade || {};
+      return '<li><button type="button" data-act="lookup" data-code="' + esc(p.barcode) + '"><span class="r-name">' + esc(p.name) + '</span>' +
+        '<span class="r-meta">' + (g.pass ? 'Pass' : 'Fail') + ' · ' + g.score + '</span></button></li>';
+    }).join('');
+    box.hidden = false;
+  }
+  function renderStore() {
+    var q = storeFilter.q.trim().toLowerCase();
+    var list = combined().filter(function (row) {
+      var g = row.raw.grade || {};
+      if (!(g.score >= 60)) return false;
+      if (storeFilter.kind && row.kind !== storeFilter.kind) return false;
+      if (!q) return true;
+      return (row.raw.name + ' ' + (row.raw.brand || '')).toLowerCase().indexOf(q) >= 0;
+    });
+    $('storeMeta').textContent = list.length + ' approved';
+    $('storeList').innerHTML = list.length ? list.map(function (row) {
+      var p = row.raw;
+      var site = websiteFor(p.brand);
+      return '<article class="card cat-card" style="cursor:default;display:block">' +
+        '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '" style="border:0;box-shadow:none;padding:0;width:100%">' +
+          (p.image ? '<img src="' + esc(p.image) + '" alt="" loading="lazy">' : '<span class="thumb">No photo</span>') +
+          '<span><span class="name">' + esc(p.name) + '</span><span class="brand">' + esc(p.brand || '') + '</span>' +
+          '<span class="pills"><span class="pill eat">Eat as you like</span><span class="pill">' + p.grade.score + '</span></span></span></button>' +
+        '<div class="buy-row"><a class="btn btn-secondary" href="' + esc(grokHref(p.name)) + '">Buy with Grok Bot</a>' +
+          (site ? '<a class="btn btn-outline" href="' + esc(site) + '" target="_blank" rel="noopener">Go to website</a>' : '') +
+          '<button type="button" class="btn btn-outline" data-act="brand" data-brand="' + esc(R.brandSlug(p.brand)) + '">Brand</button></div>' +
+        '<p class="help">Grok Bot app link. This site does not check out.</p></article>';
+    }).join('') : '<div class="card"><p>Nothing in the approved store matches.</p></div>';
+  }
+
+  function bookEntries() {
+    if (bookCache) return bookCache;
+    var seen = {};
+    var list = [];
+    function add(name, kind) {
+      var clean = String(name || '').replace(/\s+/g, ' ').trim();
+      if (clean.length < 2 || clean.length > 64) return;
+      var key = kind + '|' + clean.toLowerCase();
+      if (seen[key]) return;
+      seen[key] = 1;
+      var profile = R.ingredientProfile(clean, kind);
+      if (!profile) return;
+      profile.slug = R.brandSlug(clean);
+      profile.id = key;
+      list.push(profile);
+    }
+    ['olive oil', 'avocado oil', 'canola oil', 'sunflower oil', 'oats', 'wheat flour', 'corn starch', 'sugar', 'honey', 'maple syrup', 'milk', 'eggs', 'chicken', 'xanthan gum', 'natural flavors', 'soy lecithin', 'fragrance', 'methylisothiazolinone', 'sodium benzoate', 'modified food starch', 'red 40', 'sucralose'].forEach(function (n) {
+      add(n, /fragrance|methyl|benzoate/i.test(n) ? 'household' : 'food');
+    });
+    catalog.forEach(function (p) {
+      var tree = R.classifyIngredients(p.ingredients, { productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags });
+      (function walk(items) {
+        items.forEach(function (it) {
+          if (!it.children || !it.children.length) add(it.text, 'food');
+          else walk(it.children);
+        });
+      })(tree.items || []);
+    });
+    household.forEach(function (p) {
+      var tree = R.classifyHousehold(p.ingredients);
+      (tree.items || []).forEach(function (it) { add(it.text, 'household'); });
+    });
+    list.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    bookCache = list;
+    return list;
+  }
+  function renderBook() {
+    var entries = bookEntries();
+    var q = bookFilter.q.trim().toLowerCase();
+    var list = entries.filter(function (e) {
+      if (bookFilter.color && e.color !== bookFilter.color) return false;
+      if (!q) return true;
+      return e.name.toLowerCase().indexOf(q) >= 0;
+    }).slice(0, 80);
+    $('bookMeta').textContent = list.length + ' shown · ' + entries.length + ' in the book';
+    var detail = $('bookDetail');
+    detail.hidden = true;
+    $('bookList').hidden = false;
+    $('bookList').innerHTML = list.map(function (e) {
+      return '<button type="button" class="cat-card" data-act="ingredient" data-name="' + esc(e.name) + '" data-kind="' + esc(e.kind) + '">' +
+        '<span class="thumb"><span class="dot ' + e.color + '"></span></span>' +
+        '<span><span class="name">' + esc(e.name) + '</span><span class="brand">' + (e.color === 'red' ? 'Red · avoid' : e.color === 'yellow' ? 'Yellow · limit' : e.color === 'green' ? 'Green' : 'Note') +
+        (e.kind === 'household' ? ' · household' : '') + '</span></span></button>';
+    }).join('') || '<div class="card"><p>No ingredient matches.</p></div>';
+  }
+  function showIngredient(name, kind) {
+    var entries = bookEntries();
+    var slug = R.brandSlug(name);
+    var hit = entries.filter(function (e) { return e.slug === slug || e.name.toLowerCase() === String(name).toLowerCase(); })[0];
+    if (!hit && name) hit = R.ingredientProfile(name, kind || 'food');
+    if (!hit) { renderBook(); return; }
+    if (hit && !hit.blurb) hit = R.ingredientProfile(hit.name, hit.kind);
+    writeUrl(ingredientPath(R.brandSlug(hit.name)), true);
+    showView('book');
+    currentTab = 'book';
+    setTabCurrent('book');
+    $('bookList').hidden = true;
+    var box = $('bookDetail');
+    box.hidden = false;
+    var variants = hit.variants || {};
+    var extra = '';
+    if (variants.organic && variants.organic !== hit.color) extra += '<p><strong>If the product is organic:</strong> ' + esc(variants.organic) + '.</p>';
+    if (variants.nongmo && variants.nongmo !== hit.color) extra += '<p><strong>If the product is only non-GMO:</strong> ' + esc(variants.nongmo) + '.</p>';
+    box.innerHTML = '<p class="back-row"><button type="button" class="btn btn-outline" data-act="book-list">All ingredients</button></p>' +
+      '<h2>' + esc(hit.name) + '</h2>' +
+      '<p class="pills"><span class="pill ' + esc(hit.color) + '">' + esc(hit.color === 'red' ? 'Red · avoid' : hit.color === 'yellow' ? 'Yellow · limit' : 'Green') + '</span></p>' +
+      '<p class="blurb">' + esc(hit.blurb || '') + '</p>' + extra;
+  }
+
+  function brandProducts(slug) {
+    return combined().filter(function (row) { return R.brandSlug(row.raw.brand) === slug; });
+  }
+  function showBrand(slug, replace) {
+    var rows = brandProducts(slug);
+    showView('brand');
+    currentTab = 'brand';
+    setTabCurrent('brand');
+    writeUrl(brandPath(slug), replace !== false);
+    if (!rows.length) {
+      views.brand.innerHTML = '<div class="card"><h2>No products for this brand</h2><p>That name isn’t in the catalog on this phone.</p></div>';
+      return;
+    }
+    var name = rows[0].raw.brand;
+    var standing = R.brandStanding(rows.map(function (row) { return row.raw.grade ? row.raw.grade.score : 0; }));
+    var badge = standing.label ? '<p><span class="badge ' + standing.id + '">' + esc(standing.label) + '</span></p>' : '';
+    views.brand.innerHTML = '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-act="back">Back</button></p>' +
+      '<h2 id="brandTitle">' + esc(name) + '</h2>' + badge +
+      '<p class="caveat">' + esc(standing.caveat) + '</p>' +
+      (websiteFor(name) ? '<p><a href="' + esc(websiteFor(name)) + '" target="_blank" rel="noopener">Brand website</a></p>' : '') +
+      '</div><div class="catalog-list">' + rows.map(function (row) { return cardHtml(row.raw, row.kind); }).join('') + '</div>';
+  }
+
   function renderStandards() {
     var s = R.rulesSummary(), P = s.points;
     $('standardsBody').innerHTML =
-      '<p class="callout"><strong>Tortuga Scan is not affiliated with Seed Oil Scout or Olive.</strong> We read the ingredient list (from Open Food Facts or what you paste) and apply the rules below. We don’t do lab tests and can’t see how a food was made.</p>' +
-      '<h3>1. Seed Oil Safe-style check (pass / fail)</h3>' +
-      '<p>Our implementation of the guidelines Seed Oil Scout publishes at <a href="https://www.seedoilscout.com/seedoilsafe" target="_blank" rel="noopener">seedoilscout.com/seedoilsafe</a>. It is not their certification or badge. A product fails if any of these appear:</p>' +
-      '<ol>' +
-        '<li><strong>Seed oils:</strong> canola / rapeseed, soybean / soya, corn / maize, sunflower (including high-oleic), safflower, grapeseed, cottonseed. We also flag generic “vegetable oil(s)” and “vegetable shortening”, and rice bran oil, an industrial oil often grouped with these. <em>Not</em> seed oils here: ' + s.notSeedOils.join(', ') + '. Corn, corn starch, and corn syrup are not corn oil.</li>' +
-        '<li><strong>Soy:</strong> soy, soya, soybean, soy protein, soy lecithin, soy sauce, tamari, shoyu, miso, edamame, tofu, tempeh, natto, hydrolyzed or textured soy, TVP. (Soybean <em>oil</em> is counted under seed oils, not twice.)</li>' +
-        '<li><strong>Artificial sweeteners:</strong> aspartame, sucralose, acesulfame potassium (Ace-K), saccharin, neotame, advantame, cyclamate. Stevia, monk fruit, erythritol, xylitol, and allulose are not flagged.</li>' +
-        '<li><strong>Gums:</strong> xanthan, guar, gellan, locust bean / carob bean, gum arabic / acacia, cellulose gum (CMC), tara, karaya, tragacanth. We also group <strong>carrageenan</strong> here, a common clean-eating avoid.</li>' +
-        '<li><strong>Plant lecithins:</strong> soy, sunflower, rapeseed / canola lecithin. Plain “lecithin” with no source is flagged as a likely plant lecithin; egg lecithin is not flagged.</li>' +
-        '<li><strong>Natural flavors:</strong> natural flavor(s), flavour(s), flavoring(s).</li>' +
-        '<li><strong>Dyes:</strong> FD&amp;C and named synthetic dyes (Red 40, Red 3, Yellow 5, Yellow 6, Blue 1, Blue 2, Green 3, Allura Red, Tartrazine, Sunset Yellow, Brilliant Blue, Erythrosine, Indigo Carmine, E102, E110, E129, E133 and similar) and “artificial color”. Paprika, turmeric, annatto, and beet juice are not flagged.</li>' +
-      '</ol>' +
-      '<p><strong>Skipped:</strong> Seed Oil Scout also lists “toxic manufacturing processes”. There’s no label-checkable list for that, so we don’t claim to check it. Cross-contact lines (“may contain…”, “made in a facility…”) aren’t graded.</p>' +
-      '<h3>2. GMO status (Tortuga Scan check)</h3>' +
-      '<p>This is our own check. It is <em>not</em> on Seed Oil Scout’s Seed Oil Safe list and doesn’t change the pass / fail above.</p>' +
-      '<ul>' +
-        '<li><strong>GMO / bioengineered:</strong> the ingredients, product name, or Open Food Facts labels say GMO, genetically modified or engineered, “bioengineered” (the US disclosure), or “derived from bioengineering”.</li>' +
-        '<li><strong>Not GMO:</strong> USDA / certified organic, Non-GMO Project, or a clear non-GMO claim.</li>' +
-        '<li><strong>Possible GMO (caution, not confirmed):</strong> no organic or non-GMO claim, and it contains conventional crops usually grown GMO in the US: soy, corn (and corn-derived dextrose / maltodextrin), canola / rapeseed, cottonseed, sugar beet, plain “sugar” not listed as cane, generic vegetable oil, papaya, alfalfa. Ingredients listed as organic (e.g. “organic corn”) don’t count.</li>' +
-      '</ul>' +
-      '<h3>Package certifications</h3>' +
-      '<p>When you grade a label by hand, paste ingredients for a barcode we couldn’t find, or add a product, you can mark <strong>Organic</strong> (USDA or certified organic), <strong>Non-GMO</strong> (a Non-GMO Project seal or another non-GMO claim), <strong>Grass-fed</strong>, and <strong>Pasture-raised</strong>. Those switches write the same kind of label the score already reads from a product name or from Open Food Facts. You still enter the name, brand, barcode, and ingredient list. A word already in the name or brand, such as Organic, still counts.</p>' +
-      '<ul>' +
-        (s.certifications.food || []).map(function (c) {
-          return '<li><strong>' + esc(c.name) + '.</strong> ' + esc(c.effect) + '</li>';
-        }).join('') +
-      '</ul>' +
-      '<p>These are claims printed on the package. They are not a lab test. Tortuga Scan does not issue an Organic, Non-GMO Project, Olive, or Seed Oil Scout badge. Seed oils, the mainstream brand penalty, NOVA, refined starch, sugars, and the household fragrance rules stay as they are. Organic on the product does not turn a seed oil green, does not clear a Dirty Dozen item by itself, and does not waive corn starch.</p>' +
-      '<p>Household products you add can record <strong>Fragrance-free</strong> or <strong>Unscented</strong>. ' +
-        esc((s.certifications.household || []).map(function (c) { return c.name + ': ' + c.effect; }).join(' ')) + '</p>' +
-      '<h3>3. Tortuga Scan clean score (0–100)</h3>' +
-      '<p>Our own score, inspired by the categories Olive publicly describes (seed oils, additives, processing, sugar). It is not an official Olive score and isn’t based on lab tests. Start at 100, subtract, and stop at 0:</p>' +
-      '<table class="pts-table"><tbody>' +
-        '<tr><td>Seed oil present</td><td>−' + P.seedOil + '</td></tr>' +
-        '<tr><td>Each other Seed Oil Safe category hit (soy, sweeteners, gums, lecithins, natural flavors, dyes)</td><td>−' + P.otherCategory + ' each</td></tr>' +
-        '<tr><td>GMO / bioengineered confirmed</td><td>−' + P.gmoConfirmed + '</td></tr>' +
-        '<tr><td>Possible GMO caution</td><td>−' + P.gmoPossible + '</td></tr>' +
-        '<tr><td>Other additives: BHA, BHT, TBHQ, benzoates, sorbates, nitrites / nitrates, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, artificial flavor, MSG</td><td>−' + P.additiveEach + ' each, max −' + P.additiveCap + '</td></tr>' +
-        '<tr><td>Added sugar in the ingredients (unnamed sugar, cane sugar, agave, syrups, HFCS, dextrose, maltodextrin). Honey, maple syrup, and coconut sugar are not deducted</td><td>−' + P.sugarBase + '</td></tr>' +
-        '<tr><td>…and if sugars are ≥ ' + P.sugarHigh.at + ' g per 100 g (Open Food Facts nutrition)</td><td>−' + P.sugarHigh.extra + ' more</td></tr>' +
-        '<tr><td>…or if sugars are ≥ ' + P.sugarVeryHigh.at + ' g per 100 g (instead of the line above)</td><td>−' + P.sugarVeryHigh.extra + ' more</td></tr>' +
-        '<tr><td>NOVA group 4 (ultra-processed)</td><td>−' + P.nova[4] + '</td></tr>' +
-        '<tr><td>NOVA group 3 (processed)</td><td>−' + P.nova[3] + '</td></tr>' +
-        '<tr><td>Glyphosate-prone crop, conventional (not organic or non-GMO), once</td><td>−' + P.glyphosate + '</td></tr>' +
-        '<tr><td>Glyphosate-prone crop, non-GMO but not organic (yellow, not a full pass)</td><td>−' + P.glyphosateLimit + '</td></tr>' +
-        '<tr><td>Refined starch: corn starch, or modified food starch that isn’t a named potato, tapioca, rice, arrowroot, or cassava starch</td><td>−' + P.refinedStarchEach + ' each, max −' + P.refinedStarchCap + '</td></tr>' +
-        '<tr><td>Mainstream brand (a well-known mass-market packaged-food brand)</td><td>−' + P.mainstream + '</td></tr>' +
+      '<p class="callout"><strong>Inspired by published Bobby Approved standards and an Olive-style meter.</strong> Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout. Not their score, badge, or lab test. The commandments are published at <a href="https://www.shopflavcity.com/pages/bobby-approved-app" target="_blank" rel="noopener">shopflavcity.com</a>. Tortuga does not copy that app’s database.</p>' +
+      '<h3>The meter</h3><p>Start at 100 and subtract. The floor is 0. <strong>Fail</strong> if the score is under ' + P.passAt + '. <strong>Pass</strong> at ' + P.passAt + ' or more. The arrow lands on <strong>Avoid</strong> (0–44), <strong>Limit</strong> (' + P.passAt + '–' + (P.eatAt - 1) + '), or <strong>Eat as you like</strong> (' + P.eatAt + '–100). The word Pass or Fail is printed on the panel, so the color is not the only signal.</p>' +
+      '<h3>What costs points</h3><table class="pts-table"><tbody>' +
+        '<tr><td>Seed oil</td><td>−' + P.seedOil + '</td></tr>' +
+        '<tr><td>Soy, artificial sweetener, gum, plant lecithin, natural flavor, or dye</td><td>−' + P.otherCategory + ' each</td></tr>' +
+        '<tr><td>Confirmed GMO / possible GMO</td><td>−' + P.gmoConfirmed + ' / −' + P.gmoPossible + '</td></tr>' +
+        '<tr><td>Other additives</td><td>−' + P.additiveEach + ' each, max −' + P.additiveCap + '</td></tr>' +
+        '<tr><td>Added sugar, then high sugar if the list has sugar</td><td>−' + P.sugarBase + ', then −' + P.sugarHigh.extra + ' or −' + P.sugarVeryHigh.extra + '</td></tr>' +
+        '<tr><td>NOVA 4 / NOVA 3</td><td>−' + P.nova[4] + ' / −' + P.nova[3] + '</td></tr>' +
+        '<tr><td>Glyphosate-prone crop, conventional / non-GMO only</td><td>−' + P.glyphosate + ' / −' + P.glyphosateLimit + '</td></tr>' +
+        '<tr><td>Refined starch</td><td>−' + P.refinedStarchEach + ' each, max −' + P.refinedStarchCap + '</td></tr>' +
+        '<tr><td>Mainstream brand</td><td>−' + P.mainstream + '</td></tr>' +
+        '<tr><td>Stacked flags, from ' + P.stackFrom + ' groups</td><td>−' + P.stackEach + ' per extra group, max −' + P.stackCap + '</td></tr>' +
       '</tbody></table>' +
-      '<p>The high-sugar extra only applies when added sugar is listed, so fruit’s natural sugar isn’t penalized. NOVA comes from Open Food Facts; pasted labels have no NOVA deduction. A lone NOVA 4 deduction is −' + P.nova[4] + ', so ultra-processed foods don’t land in Cleaner on processing alone.</p>' +
-      '<p>The mainstream deduction is flat −' + P.mainstream + ', the middle of a 3-to-5 range, once per product. It matches the brand or the product name against a list of mass-market names (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). It is not a guess about which company owns which brand. A simple mainstream food, such as milk or sparkling water, loses only those ' + P.mainstream + ' points.</p>' +
-      '<p><strong>Bands:</strong> 80–100 Cleaner · 50–79 Mixed · 0–49 Poor.</p>' +
-      '<h3>4. Glyphosate-prone crops (Tortuga Scan check)</h3>' +
-      '<p>This is our own check. It does not change the Seed Oil Safe-style pass / fail, and it is not a lab test of the package in your hand. Wheat, oats, barley, rye, sorghum, millet, corn, dry beans, chickpeas, lentils, peas (not snap or snow peas), soy foods, sunflower, flax, canola, cottonseed, and sugar beet are the list. Organic on the ingredient or the product is green and a full pass. Non-GMO only is yellow, not a full pass, and costs −' + P.glyphosateLimit + '. Conventional or unlabeled is red and costs −' + P.glyphosate + ' once.</p>' +
-      '<p>The list follows public residue surveys and registered uses, not a measurement we made: <a href="' + s.glyphosate.sources[0].url + '" target="_blank" rel="noopener">CFIA’s 2015–2016 glyphosate survey</a> (grains, beans, peas, lentils, chickpeas, soy, wheat, barley), <a href="' + s.glyphosate.sources[1].url + '" target="_blank" rel="noopener">EWG’s 2018 oat-cereal tests</a>, and the <a href="' + s.glyphosate.sources[2].url + '" target="_blank" rel="noopener">EPA glyphosate page</a>. Rice, quinoa, buckwheat, potatoes, green beans, and snap peas are not on this list. Lecithin keeps its own color. Olive, avocado, and coconut oil are not treated as these crops.</p>' +
-      '<h3>5. Ingredient colors (OK / limit / avoid)</h3>' +
-      '<p>Each ingredient on the label gets a color. This is our aisle guide. It is not a Seed Oil Safe badge, not an Olive score, and not a lab test. A product can pass the Seed Oil Safe-style check and still have red ingredients. Corn starch and conventional oats are the usual ones. Cane sugar and unnamed sugar are yellow. A gum or natural flavor is yellow and still fails that pass/fail check.</p>' +
-      '<ul>' +
-        '<li><strong>Green — OK.</strong> Olive, avocado, coconut, and rendered animal fats, salt, water, herbs, spices, organic glyphosate-prone crops, honey, maple syrup, coconut sugar, dairy that is organic, non-GMO, or grass-fed, eggs that are organic or pasture-raised, meat that is organic, non-GMO, or grass-fed / pasture-raised, and organic Dirty Dozen produce.</li>' +
-        '<li><strong>Yellow — limit.</strong> Dirty Dozen produce that is not organic. Non-GMO (not organic) glyphosate-prone crops. Dairy that is not organic, non-GMO, or grass-fed, when the brand is not a mainstream one. Cane sugar, unnamed sugar, brown sugar, and agave. Natural flavors, gums, plant lecithins, sugar alcohols, organic enriched flour, caramel color.</li>' +
-        '<li><strong>Red — avoid.</strong> Seed oils, artificial sweeteners, dyes, and flavors, confirmed GMO wording, conventional glyphosate-prone crops, refined corn starch and similar, conventional eggs, conventional meat, and dairy from a mainstream brand that is not organic, non-GMO, or grass-fed. The other clean-score additives (BHA, BHT, TBHQ, and the rest of that list) stay red.</li>' +
-      '</ul>' +
-      '<h3>6. Household products</h3>' +
-      '<p>Laundry detergent and other non-food items use a separate Tortuga household grade. It follows the published <a href="https://www.shopflavcity.com/pages/bobby-approved-app" target="_blank" rel="noopener">10 Commandments of Bobby Approved Ingredients</a> (FlavCity). It is not an official Bobby Approved score, badge, or certification, and it does not use the Bobby Approved app. Fragrance, parfum, and perfume are a hard avoid. Named essential oils are not that umbrella term. We also flag label-visible isothiazolinone and formaldehyde-releasing preservatives, parabens, triclosan, artificial colors, optical brighteners, seed oils, and flavors.</p>' +
-      '<p><strong>Dirty Dozen, ' + s.dirtyDozen.year + '.</strong> Non-organic ' + s.dirtyDozen.items.join('; ') + '. List published by the <a href="' + s.dirtyDozen.url + '" target="_blank" rel="noopener">' + esc(s.dirtyDozen.source) + '</a>. If that ingredient phrase says organic, we mark it green. Non-GMO alone does not — the list is about pesticide residue, not genetic engineering. We only look at the ingredient line, not the brand name, because a certified-organic product can still include a small non-organic share.</p>' +
-      '<p>Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make that additive green, and it does not make a seed oil okay. Cane sugar and unnamed sugar stay yellow. Honey, maple syrup, and coconut sugar are green. Agave is yellow. Raisins and sultanas count as grapes. Sweet potatoes, mustard (the condiment), green beans, and bell peppers are not on the ' + s.dirtyDozen.year + ' list. Potato starch counts as potatoes.</p>' +
-      '<h3>Data</h3><p>Our food catalog is seeded from <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food Facts</a>. Household products are copied from <a href="https://world.openbeautyfacts.org/" target="_blank" rel="noopener">Open Beauty Facts</a>. A scan checks the food catalog, then the household list, then a live food lookup. Lists can be incomplete or out of date, so check the package. Lab tests elsewhere in the app are other organizations’ published tests.</p>';
+      '<p>' + esc(s.mainstreamNote) + ' Organic clears a glyphosate-prone crop. Non-GMO without organic leaves the smaller ' + P.glyphosateLimit + ' point limit. Those certifications do not waive a seed oil, refined starch, or the mainstream penalty. Honey, maple syrup, and coconut sugar are not the added-sugar deduction.</p>' +
+      '<h3>Household</h3><p>Fragrance, parfum, and perfume are a hard avoid (−' + P.householdFragrance + '). A named essential oil is not that umbrella. Harmful preservatives, optical brighteners, dyes, and flavors are red. Two or more red groups stack. Sodium benzoate, potassium sorbate, and phenoxyethanol are yellow limits.</p>' +
+      '<h3>Brand labels</h3><p>' + esc(s.meterNote) + '</p>' +
+      '<h3>Ingredient colors</h3><p>Green, yellow, and red follow Lizeth’s ingredient rules: Dirty Dozen ' + s.dirtyDozen.year + ', glyphosate-prone crops, dairy, eggs, meat, and sugars. Organic on a Dirty Dozen ingredient turns it green. A gum can be yellow and still cost points. The book writes a short Tortuga note for each ingredient. It is not a copied entry from another app.</p>' +
+      '<p>Glyphosate crops follow public surveys, not a test of your box: <a href="' + s.glyphosate.sources[0].url + '" target="_blank" rel="noopener">CFIA</a>, <a href="' + s.glyphosate.sources[1].url + '" target="_blank" rel="noopener">EWG oats</a>, <a href="' + s.glyphosate.sources[2].url + '" target="_blank" rel="noopener">EPA</a>. Dirty Dozen: <a href="' + s.dirtyDozen.url + '" target="_blank" rel="noopener">' + esc(s.dirtyDozen.source) + '</a>.</p>';
   }
 
   function labsForProduct(p) {
@@ -848,109 +1058,97 @@
       return t.barcode && R.barcodeCandidates(t.barcode).some(function (c) { return mine[c]; });
     });
   }
-  function formatWhen(iso) {
-    if (!iso) return '';
-    if (/^\d{4}$/.test(iso)) return iso;
-    return formatDate(iso) || iso;
-  }
   function labCard(t) {
     var findings = (t.findings || []).map(function (f) {
-      return '<li><span class="analyte">' + esc(f.analyte) + '</span><span class="value">' + esc(f.value) + '</span>' +
+      return '<li><span>' + esc(f.analyte) + '</span><span class="value">' + esc(f.value) + '</span>' +
         (f.note ? '<span class="why">' + esc(f.note) + '</span>' : '') + '</li>';
     }).join('');
-    var links = '<div class="links"><a class="btn btn-outline" href="' + esc(t.sourceUrl) + '" target="_blank" rel="noopener">' + esc(t.sourceName || 'Source') + '</a>';
-    (t.alsoSee || []).forEach(function (a) {
-      links += '<a class="btn btn-outline" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>';
-    });
-    if (t.barcode) links += '<button type="button" class="btn btn-secondary" data-act="lookup" data-code="' + esc(t.barcode) + '">Look up this barcode</button>';
-    (t.brands || []).forEach(function (b) {
-      links += '<button type="button" class="btn btn-outline" data-act="catalog-brand" data-brand="' + esc(b) + '">' + esc(b) + ' in the catalog</button>';
-    });
-    links += '</div>';
-    return '<article class="card lab-card" id="lab-' + esc(t.id) + '">' +
-      '<p class="kicker-row"><span class="tag lab">' + esc(t.match === 'sku' ? 'Specific product' : t.match === 'category' ? 'Category' : 'Brand or line') + '</span><span>' + esc(formatWhen(t.date)) + '</span></p>' +
-      '<h3>' + esc(t.product) + '</h3>' +
-      '<p class="help" style="margin:0">' + esc([t.brand, t.lab].filter(Boolean).join(' · ')) + (t.publisher ? ' · Published by ' + esc(t.publisher) : '') + '</p>' +
-      '<p class="scope">' + esc(t.scopeNote || '') + '</p>' +
-      '<p>' + esc(t.summary) + '</p>' +
-      '<ul class="findings">' + findings + '</ul>' + links + '</article>';
+    return '<article class="card lab-card" id="lab-' + esc(t.id) + '"><h3>' + esc(t.product) + '</h3><p class="scope">' + esc(t.scopeNote || '') + '</p><p>' + esc(t.summary) + '</p><ul class="findings">' + findings + '</ul>' +
+      '<div class="links"><a class="btn btn-outline" href="' + esc(t.sourceUrl) + '" target="_blank" rel="noopener">' + esc(t.sourceName || 'Source') + '</a></div></article>';
   }
   function renderLabs() {
-    $('labList').innerHTML = labTests.length
-      ? labTests.map(labCard).join('')
-      : '<div class="card"><p>Lab tests didn’t load. Check your connection and reload.</p></div>';
+    $('labList').innerHTML = labTests.length ? labTests.map(labCard).join('') : '<div class="card"><p>Lab tests didn’t load.</p></div>';
   }
   function renderNews() {
-    if (!newsReports.length) {
-      $('newsList').innerHTML = '<div class="card"><p>News didn’t load. Check your connection and reload.</p></div>';
-      return;
-    }
+    if (!newsReports.length) { $('newsList').innerHTML = '<div class="card"><p>News didn’t load.</p></div>'; return; }
     $('newsList').innerHTML = newsReports.map(function (report) {
       var items = (report.items || []).map(function (item) {
-        var more = (item.alsoSee || []).map(function (a) {
-          return '<a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>';
-        }).join(' · ');
-        var labBtn = item.labTestId
-          ? '<button type="button" class="btn btn-outline" data-act="open-lab" data-lab="' + esc(item.labTestId) + '">Open the lab test</button>' : '';
-        return '<article class="card story">' +
-          '<p class="kicker-row"><span class="tag ' + esc(item.category || '') + '">' + esc(item.category || 'note') + '</span>' +
-          (item.sourceDate ? '<span>' + esc(formatWhen(item.sourceDate)) + '</span>' : '') + '</p>' +
-          '<h3>' + esc(item.headline) + '</h3>' +
-          '<p>' + esc(item.summary) + '</p>' +
-          '<div class="links"><a class="btn btn-outline" href="' + esc(item.sourceUrl) + '" target="_blank" rel="noopener">' + esc(item.sourceName || 'Source') + '</a>' + labBtn + '</div>' +
-          (more ? '<p class="help">Also: ' + more + '</p>' : '') +
-          '</article>';
+        return '<article class="card story"><p class="kicker-row"><span class="tag ' + esc(item.category || '') + '">' + esc(item.category || 'note') + '</span></p>' +
+          '<h3>' + esc(item.headline) + '</h3><p>' + esc(item.summary) + '</p>' +
+          '<div class="links"><a class="btn btn-outline" href="' + esc(item.sourceUrl) + '" target="_blank" rel="noopener">' + esc(item.sourceName || 'Source') + '</a></div></article>';
       }).join('');
-      return '<article class="card intro"><p class="kicker-row"><span>' + esc(report.timezone || 'America/Los_Angeles') + '</span></p>' +
-        '<h2>' + esc(report.title) + '</h2><p>' + esc(report.dek || '') + '</p></article>' + items;
+      return '<article class="card intro slim"><h2>' + esc(report.title) + '</h2><p>' + esc(report.dek || '') + '</p></article>' + items;
     }).join('');
   }
-  function gmoPill(status) {
-    if (status === 'gmo') return '<span class="pill gmo-bad">GMO</span>';
-    if (status === 'possible') return '<span class="pill gmo-maybe">Possible GMO</span>';
-    if (status === 'non-gmo') return '<span class="pill gmo-ok">Not GMO</span>';
-    return '<span class="pill">No GMO flag</span>';
+
+  function showHome() {
+    if (scanning) stopScan();
+    currentTab = 'scan';
+    showView('home');
+    setTabCurrent('scan');
+    writeUrl(tabPath('scan'), true);
+    renderRecent();
   }
-  function catalogCard(p) {
-    var g = p.grade || {};
-    var img = p.image
-      ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
-      : '<span class="thumb">No photo</span>';
-    return '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '">' + img +
-      '<span><span class="name">' + esc(p.name) + '</span>' +
-      (p.brand ? '<span class="brand">' + esc(p.brand) + '</span>' : '') +
-      '<span class="pills"><span class="pill ' + (g.sosPass ? 'pass' : 'fail') + '">' + (g.sosPass ? 'Pass' : 'Fail') + '</span>' +
-      '<span class="pill">' + (g.score != null ? g.score : '—') + '</span>' + gmoPill(g.gmoStatus) + '</span></span></button>';
+  function showTab(name, replace) {
+    if (scanning) stopScan();
+    if (name === 'household') {
+      catalogFilter.kind = 'household';
+      document.querySelectorAll('#catalogForm [data-kind]').forEach(function (c) { c.classList.toggle('on', c.dataset.kind === 'household'); });
+      name = 'catalog';
+      writeUrl(tabPath('household'), replace !== false);
+    } else if (name === 'news' || name === 'labs' || name === 'about') {
+      showView('more');
+      currentTab = 'more';
+      setTabCurrent('more');
+      writeUrl(tabPath(name), replace !== false);
+      renderNews();
+      renderLabs();
+      var anchor = document.getElementById(name === 'about' ? 'aboutAnchor' : name + 'Anchor');
+      if (anchor) anchor.scrollIntoView({ block: 'start' });
+      return;
+    } else {
+      writeUrl(tabPath(name), replace !== false);
+    }
+    if (name === 'scan' || name === 'home') return showHome();
+    currentTab = name;
+    showView(name === 'catalog' ? 'catalog' : name);
+    setTabCurrent(name);
+    if (name === 'catalog') renderCatalog();
+    if (name === 'store') renderStore();
+    if (name === 'book') { $('bookList').hidden = false; $('bookDetail').hidden = true; renderBook(); }
+    if (name === 'more') { renderNews(); renderLabs(); }
   }
-  function filteredCatalog() {
-    var q = catalogFilter.q.trim().toLowerCase();
-    return catalog.filter(function (p) {
-      if (catalogFilter.sos === 'pass' && !(p.grade && p.grade.sosPass)) return false;
-      if (catalogFilter.sos === 'fail' && !(p.grade && p.grade.sosPass === false)) return false;
-      if (catalogFilter.gmo && (!p.grade || p.grade.gmoStatus !== catalogFilter.gmo)) return false;
-      if (catalogFilter.brand && (p.brand || '') !== catalogFilter.brand) return false;
-      if (!q) return true;
-      var blob = (p.name + ' ' + (p.brand || '') + ' ' + p.barcode).toLowerCase();
-      return blob.indexOf(q) >= 0 || R.barcodeCandidates(q).some(function (c) { return p.barcode.indexOf(c) >= 0 || c.indexOf(p.barcode) >= 0; });
+  function openCode(code, push) {
+    if (push) writeUrl(productPath(code), false);
+    lookup(code);
+  }
+  function applyLocation(replace) {
+    var entry = '';
+    try { entry = sessionStorage.getItem('tortuga.entry') || ''; } catch (e) {}
+    if (entry) {
+      try { sessionStorage.removeItem('tortuga.entry'); } catch (e2) {}
+      writeUrl(baseDir().replace(/\/$/, '') + entry, true);
+    }
+    var route = R.parseRoute(location.pathname, location.search);
+    if (route.code) { openCode(route.code, false); return; }
+    if (route.brand) { showBrand(route.brand, true); return; }
+    if (route.ingredient) {
+      var ready = window.__tortugaData || Promise.resolve();
+      ready.then(function () { showIngredient(route.ingredient.replace(/-/g, ' ')); });
+      return;
+    }
+    var tab = route.tab || (route.kind === 'store' ? 'store' : '');
+    if (tab) showTab(tab, true);
+    else showHome();
+  }
+
+  function indexCatalog(products) {
+    catalog = products || [];
+    catalogByCode = {};
+    catalog.forEach(function (p) {
+      catalogByCode[String(p.barcode)] = p;
+      R.barcodeCandidates(p.barcode).forEach(function (c) { catalogByCode[c] = p; });
     });
-  }
-  function renderHouseholdList() {
-    if (!$('householdList')) return;
-    renderMine();
-    $('householdMeta').textContent = household.length
-      ? (household.length + ' products')
-      : 'Household list is still loading, or it didn’t load.';
-    $('householdList').innerHTML = household.length ? household.map(function (p) {
-      var g = p.grade || {};
-      var img = p.image
-        ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
-        : '<span class="thumb">No photo</span>';
-      return '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '">' + img +
-        '<span><span class="name">' + esc(p.name) + '</span>' +
-        (p.brand ? '<span class="brand">' + esc(p.brand) + '</span>' : '') +
-        '<span class="pills"><span class="pill ' + (g.pass ? 'pass' : 'fail') + '">' + (g.pass ? 'Pass' : 'Fail') + '</span>' +
-        '<span class="pill">' + (g.score != null ? g.score : '—') + '</span></span></span></button>';
-    }).join('') : '<div class="card"><p>The household file didn’t load.</p></div>';
   }
   function indexHousehold(products) {
     household = products || [];
@@ -959,80 +1157,25 @@
       householdByCode[String(p.barcode)] = p;
       R.barcodeCandidates(p.barcode).forEach(function (c) { householdByCode[c] = p; });
     });
-  }
-  function renderCatalog() {
-    renderMine();
-    var list = filteredCatalog();
-    $('catalogMeta').textContent = catalog.length
-      ? (list.length + ' of ' + catalog.length + ' products')
-      : 'Catalog is still loading, or it didn’t load.';
-    $('catalogList').innerHTML = list.length ? list.map(catalogCard).join('')
-      : '<div class="card"><p>' + (catalog.length ? 'Nothing matches those filters.' : 'The catalog file didn’t load.') + '</p></div>';
-  }
-  function fillBrandSelect() {
-    var brands = [];
-    var seen = {};
-    catalog.forEach(function (p) {
-      var b = p.brand || '';
-      if (b && !seen[b]) { seen[b] = 1; brands.push(b); }
-    });
-    brands.sort(function (a, b) { return a.localeCompare(b); });
-    $('catalogBrand').innerHTML = '<option value="">All brands</option>' + brands.map(function (b) {
-      return '<option value="' + esc(b) + '">' + esc(b) + '</option>';
-    }).join('');
-  }
-  function renderWelcome() {
-    var box = $('catalogWelcome');
-    if (!catalog.length) { box.hidden = true; return; }
-    var passes = catalog.filter(function (p) { return p.grade && p.grade.sosPass; }).length;
-    $('catalogWelcomeText').textContent = catalog.length + ' products and ' + labTests.length + ' public lab tests. The catalog was seeded ' + formatDate(catalog[0].added) + ' from Open Food Facts. ' + passes + ' pass our Seed Oil Safe-style check.';
-    var want = ['041570054161', '0016000275287', '3017624010701', '049000006346'];
-    var picked = [];
-    want.forEach(function (code) {
-      var hit = findCatalog(code);
-      if (hit) picked.push(hit);
-    });
-    catalog.forEach(function (p) {
-      if (picked.length >= 6) return;
-      if (picked.some(function (x) { return x.barcode === p.barcode; })) return;
-      if (p.grade && p.grade.sosPass && p.grade.score >= 80) picked.push(p);
-    });
-    $('catalogWelcomeList').innerHTML = picked.slice(0, 6).map(function (p) {
-      var g = p.grade || {};
-      return '<li><button type="button" data-act="lookup" data-code="' + esc(p.barcode) + '"><span class="r-name">' + esc(p.name) + '</span>' +
-        '<span class="r-meta">' + (g.sosPass ? 'Pass' : 'Fail') + ' · ' + (g.score != null ? g.score : '') + '</span></button></li>';
-    }).join('');
-    box.hidden = false;
-  }
-  function indexCatalog(products) {
-    catalog = products || [];
-    catalogByCode = {};
-    catalog.forEach(function (p) {
-      catalogByCode[String(p.barcode)] = p;
-      R.barcodeCandidates(p.barcode).forEach(function (c) { catalogByCode[c] = p; });
-    });
     fillBrandSelect();
     renderWelcome();
+    bookCache = null;
   }
   function loadJson(file) {
-    return fetch(new URL(file, document.baseURI).href).then(function (res) {
+    return fetch(new URL(file, document.baseURI).href, { cache: 'no-cache' }).then(function (res) {
       if (!res.ok) throw new Error(file + ' ' + res.status);
       return res.json();
     });
   }
 
-  // ------------------------------------------------------------ events
-  $('scanBtn').addEventListener('click', function () { startScan(); });
-  $('stopScan').addEventListener('click', function () { stopScan().then(function () { show('home'); renderRecent(); }); });
-
+  if ($('scanBtn')) $('scanBtn').addEventListener('click', function () { startScan(); });
+  if ($('stopScan')) $('stopScan').addEventListener('click', function () { stopScan().then(showHome); });
   $('manualForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var code = $('manualCode').value.replace(/\D/g, '');
-    if (code.length < 6) { $('manualCode').focus(); $('manualHelp').textContent = 'Enter at least 8 digits from under the barcode.'; return; }
-    $('manualCode').blur();
-    lookup(code);
+    if (code.length < 6) { $('manualCode').focus(); return; }
+    openCode(code, true);
   });
-
   $('pasteHomeForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var t = $('pasteHomeText').value.trim();
@@ -1042,51 +1185,74 @@
     var code = $('pasteHomeCode').value.replace(/\D/g, '');
     var ids = readCertIds($('pasteHomeForm'), 'homeCert');
     var merged = R.mergeCertifications('', [], ids, 'food');
-    var product = {
-      code: code, name: name || 'Label you pasted', brand: brand, ingredients: t,
-      ingredientsLang: 'pasted', source: 'pasted', labels: merged.labels, labelsTags: merged.labelsTags
-    };
-    if ($('pasteHomeSave').checked) {
-      product = fromMine(saveMine(storedFromForm('food', {
-        code: code, name: product.name, brand: brand, ingredients: t
-      }, ids)));
-      renderMine();
-    }
+    var product = { code: code, name: name || 'Label you pasted', brand: brand, ingredients: t, ingredientsLang: 'pasted', source: 'pasted', kind: 'food', labels: merged.labels, labelsTags: merged.labelsTags };
+    if ($('pasteHomeSave').checked) product = fromMine(saveMine(storedFromForm('food', { code: code, name: product.name, brand: brand, ingredients: t }, ids)));
+    renderMine();
     renderProduct(product);
   });
-
   document.querySelectorAll('#addProductForm input[name="addKind"]').forEach(function (radio) {
     radio.addEventListener('change', function () {
-      var household = radio.value === 'household' && radio.checked;
-      $('addFoodBlock').hidden = household;
-      $('addHouseholdBlock').hidden = !household;
+      var isHome = radio.value === 'household' && radio.checked;
+      $('addFoodBlock').hidden = isHome;
+      $('addHouseholdBlock').hidden = !isHome;
     });
   });
+  function watchPhotoInput(id) {
+    var input = $(id);
+    if (!input) return;
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      fileToPhoto(file).then(function (blob) {
+        pendingAddPhoto = blob;
+        if ($('addPhotoNote')) $('addPhotoNote').textContent = blob ? 'Photo ready. It will be saved on this phone with the product.' : 'Optional. The photo stays on this phone.';
+      });
+    });
+  }
+  watchPhotoInput('addCam');
+  watchPhotoInput('addFile');
   $('addProductForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var kind = ($('addProductForm').querySelector('input[name="addKind"]:checked') || {}).value || 'food';
     var name = $('addName').value.trim();
     var ingredients = $('addIngredients').value.trim();
-    if (!name) { $('addName').focus(); return; }
-    if (!ingredients) { $('addIngredients').focus(); return; }
+    if (!name || !ingredients) return;
     var ids = readCertIds($('addProductForm'), kind === 'household' ? 'addClaim' : 'addCert');
     var stored = saveMine(storedFromForm(kind, {
       code: $('addCode').value, name: name, brand: $('addBrand').value.trim(),
       category: $('addCategory').value.trim(), ingredients: ingredients
     }, ids));
-    renderMine();
-    renderProduct(fromMine(stored));
+    var photo = pendingAddPhoto;
+    pendingAddPhoto = null;
+    var product = fromMine(stored);
+    var done = photo ? idbPut(photoKey(product), photo) : Promise.resolve();
+    done.then(function () { renderMine(); renderProduct(product); });
+  });
+
+  document.addEventListener('change', function (e) {
+    var input = e.target.closest && e.target.closest('input.shot');
+    if (!input || !input.files || !input.files[0]) return;
+    var key = input.dataset.key;
+    fileToPhoto(input.files[0]).then(function (blob) {
+      return idbPut(key, blob);
+    }).then(function () {
+      if (lastProduct && photoKey(lastProduct) === key) attachPhoto(lastProduct, $('packFrame'));
+    });
   });
 
   document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-act]');
     var tabBtn = e.target.closest('[data-tab]');
-    if (tabBtn && !b) { showTab(tabBtn.dataset.tab); return; }
+    var b = e.target.closest('[data-act]');
+    if (tabBtn) {
+      if (tabBtn.tagName === 'A') e.preventDefault();
+      showTab(tabBtn.dataset.tab, false);
+      return;
+    }
     if (!b) return;
     var act = b.dataset.act;
     if (act === 'retry-scan' || act === 'start-scan') startScan();
-    else if (act === 'home') { show('home'); renderRecent(); $('manualCode').focus(); }
-    else if (act === 'lookup') lookup(b.dataset.code);
+    else if (act === 'home') showHome();
+    else if (act === 'back') { if (history.length > 1) history.back(); else showHome(); }
+    else if (act === 'lookup') openCode(b.dataset.code, true);
     else if (act === 'standards') openStandards();
     else if (act === 'paste-blank') notFound(b.dataset.code);
     else if (act === 'open-mine') {
@@ -1094,36 +1260,54 @@
       if (mine) renderProduct(fromMine(mine));
     } else if (act === 'remove-mine') {
       if (b.dataset.id && window.confirm('Remove this product from this phone?')) removeMine(b.dataset.id);
+    } else if (act === 'brand') {
+      showBrand(b.dataset.brand, false);
+    } else if (act === 'ingredient') {
+      writeUrl(ingredientPath(R.brandSlug(b.dataset.name)), false);
+      showIngredient(b.dataset.name, b.dataset.kind || 'food');
+    } else if (act === 'book-list') {
+      writeUrl(tabPath('book'), false);
+      $('bookList').hidden = false;
+      $('bookDetail').hidden = true;
+      renderBook();
     }
-    else if (act === 'open-lab') {
-      showTab('labs');
-      var el = document.getElementById('lab-' + b.dataset.lab);
-      if (el) el.scrollIntoView({ block: 'start' });
-    } else if (act === 'catalog-brand') {
-      catalogFilter.brand = b.dataset.brand || '';
-      catalogFilter.q = '';
-      $('catalogQ').value = '';
-      $('catalogBrand').value = catalogFilter.brand;
-      showTab('catalog');
-    }
   });
-  document.querySelectorAll('.tabbar button, [data-tab]').forEach(function (b) {
-    b.addEventListener('click', function () { showTab(b.dataset.tab); });
-  });
-  $('catalogQ').addEventListener('input', function () {
-    catalogFilter.q = $('catalogQ').value;
-    renderCatalog();
-  });
+
+  $('catalogQ').addEventListener('input', function () { catalogFilter.q = $('catalogQ').value; renderCatalog(); });
   $('catalogForm').addEventListener('submit', function (e) { e.preventDefault(); });
-  document.querySelectorAll('#catalogForm [data-sos]').forEach(function (chip) {
+  document.querySelectorAll('#catalogForm [data-kind]').forEach(function (chip) {
     chip.addEventListener('click', function () {
-      catalogFilter.sos = chip.dataset.sos;
-      document.querySelectorAll('#catalogForm [data-sos]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      catalogFilter.kind = chip.dataset.kind;
+      document.querySelectorAll('#catalogForm [data-kind]').forEach(function (c) { c.classList.toggle('on', c === chip); });
       renderCatalog();
     });
   });
-  $('catalogGmo').addEventListener('change', function () { catalogFilter.gmo = $('catalogGmo').value; renderCatalog(); });
+  document.querySelectorAll('#catalogForm [data-band]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      catalogFilter.band = chip.dataset.band;
+      document.querySelectorAll('#catalogForm [data-band]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      renderCatalog();
+    });
+  });
   $('catalogBrand').addEventListener('change', function () { catalogFilter.brand = $('catalogBrand').value; renderCatalog(); });
+  $('storeQ').addEventListener('input', function () { storeFilter.q = $('storeQ').value; renderStore(); });
+  $('storeForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  document.querySelectorAll('#storeForm [data-store-kind]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      storeFilter.kind = chip.dataset.storeKind;
+      document.querySelectorAll('#storeForm [data-store-kind]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      renderStore();
+    });
+  });
+  $('bookQ').addEventListener('input', function () { bookFilter.q = $('bookQ').value; renderBook(); });
+  $('bookForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  document.querySelectorAll('#bookForm [data-color]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      bookFilter.color = chip.dataset.color;
+      document.querySelectorAll('#bookForm [data-color]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      renderBook();
+    });
+  });
 
   var dlg = $('standards');
   function openStandards() {
@@ -1134,35 +1318,26 @@
   $('openStandards').addEventListener('click', openStandards);
   $('closeStandards').addEventListener('click', function () { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg && dlg.close) dlg.close(); });
-
-  // Release the camera if the user switches apps / locks the phone.
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden && scanning) stopScan().then(function () { show('home'); renderRecent(); });
+    if (document.hidden && scanning) stopScan().then(showHome);
   });
+  window.addEventListener('popstate', function () { applyLocation(true); });
 
-  // Deep link: ?code=0123456789012  ?tab=news|catalog|labs
-  var qs = new URLSearchParams(location.search);
   renderRecent();
   window.__tortugaData = Promise.all([
     loadJson('data/catalog.json').catch(function () { return { products: [] }; }),
     loadJson('data/lab-tests.json').catch(function () { return { tests: [] }; }),
     loadJson('data/news.json').catch(function () { return { reports: [] }; }),
-    loadJson('data/household.json').catch(function () { return { products: [] }; })
+    loadJson('data/household.json').catch(function () { return { products: [] }; }),
+    loadJson('data/websites.json').catch(function () { return { sites: {} }; })
   ]).then(function (all) {
     indexCatalog((all[0] && all[0].products) || []);
     labTests = (all[1] && all[1].tests) || [];
     newsReports = (all[2] && all[2].reports) || [];
+    websites = (all[4] && all[4].sites) || {};
     indexHousehold((all[3] && all[3].products) || []);
-    renderWelcome();
-    var intro = document.querySelector('#view-home .intro p');
-    if (intro && catalog.length) {
-      intro.insertAdjacentHTML('beforeend', ' <span id="homeCounts">' + catalog.length + ' catalog products · ' + labTests.length + ' public lab tests.</span>');
-    }
   });
-  window.__tortugaData.then(function () {
-    if (qs.get('code')) lookup(qs.get('code'));
-    else if (qs.get('tab')) showTab(qs.get('tab'));
-  });
+  window.__tortugaData.then(function () { applyLocation(true); });
 
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });

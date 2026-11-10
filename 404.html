@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tortuga Scan</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      var m = path.match(/^(.*)\/(product|brand|ingredient|store)(\/.*)?$/);
+      if (!m) return;
+      var rest = path.slice(m[1].length) + location.search + location.hash;
+      try { sessionStorage.setItem('tortuga.entry', rest); } catch (e) {}
+      location.replace(m[1] + '/' || '/');
+    })();
+  </script>
+</head>
+<body>
+  <p><a href="./">Tortuga Scan</a></p>
+</body>
+</html>

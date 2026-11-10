@@ -476,6 +476,122 @@
   function hasPastureRaised(text) {
     return /\bpasture[\s-]?raised\b|\bpastured\b/.test(normalize(text));
   }
+
+  // On-label claims a person can attach when they grade or add a product.
+  // Stored as labels / labelsTags, the same fields as data/catalog.json.
+  // These are package claims. They are not lab results and not badges we issue.
+  function tidyLabelList(s) {
+    return String(s || '')
+      .replace(/\s+/g, ' ')
+      .replace(/\s+,/g, ',')
+      .replace(/,+/g, ',')
+      .replace(/,\s*/g, ', ')
+      .replace(/^(?:,\s*)+|(?:,\s*)+$/g, '')
+      .trim();
+  }
+  function stripOrganicLabel(labels) {
+    var t = String(labels || '').replace(/\bnon[\s-]+organics?\b/gi, 'NONORGANICKEEP');
+    t = t.replace(/\b(?:usda|certified|eu|canada|ccof|qai|oregon\s+tilth)[\s-]+organics?\b/gi, ' ');
+    t = t.replace(/\b100%\s+organics?\b/gi, ' ');
+    t = t.replace(/\borganics?\b/gi, ' ');
+    return tidyLabelList(t.replace(/NONORGANICKEEP/g, 'non-organic'));
+  }
+  function stripNonGmoLabel(labels) {
+    return tidyLabelList(String(labels || '')
+      .replace(/\bnon[\s-]?gmo(?:[\s-]+(?:project|verified|certified))*\b/gi, ' ')
+      .replace(/\bno[\s-]?gmos?\b/gi, ' ')
+      .replace(/\bgmos?[\s-]?free\b/gi, ' ')
+      .replace(/\bwithout[\s-]?gmos?\b/gi, ' ')
+      .replace(/\bnot bio[\s-]?engineered\b/gi, ' '));
+  }
+  function stripGrassFedLabel(labels) {
+    return tidyLabelList(String(labels || '').replace(/\bgrass[\s-]?fed\b/gi, ' '));
+  }
+  function stripPastureLabel(labels) {
+    return tidyLabelList(String(labels || '').replace(/\bpasture[\s-]?raised\b|\bpastured\b/gi, ' '));
+  }
+  function stripPhrase(re) {
+    return function (labels) { return tidyLabelList(String(labels || '').replace(re, ' ')); };
+  }
+  var FOOD_CERTIFICATIONS = [
+    {
+      id: 'organic', name: 'Organic', label: 'Certified organic',
+      tags: ['en:organic', 'en:certified-organic'],
+      alsoTags: ['en:organic', 'en:usda-organic', 'en:eu-organic', 'en:certified-organic', 'en:canada-organic', 'en:ab-agriculture-biologique'],
+      effect: 'Glyphosate-prone crops turn green and that check passes in full. Dairy, eggs, and meat can clear. GMO status can be Not GMO.',
+      detect: hasOrganicClaim, strip: stripOrganicLabel
+    },
+    {
+      id: 'non-gmo', name: 'Non-GMO', label: 'Non-GMO',
+      tags: ['en:no-gmos'],
+      alsoTags: ['en:no-gmos', 'en:non-gmo', 'en:non-gmo-project', 'en:gmo-free', 'en:without-gmos'],
+      effect: 'Glyphosate-prone crops turn yellow and cost 12 points. That is not a full pass. Dairy and meat can clear. Eggs do not.',
+      detect: hasNonGmoClaim, strip: stripNonGmoLabel
+    },
+    {
+      id: 'grass-fed', name: 'Grass-fed', label: 'Grass-fed',
+      tags: ['en:grass-fed'], alsoTags: ['en:grass-fed'],
+      effect: 'Dairy and meat can clear.',
+      detect: hasGrassFed, strip: stripGrassFedLabel
+    },
+    {
+      id: 'pasture-raised', name: 'Pasture-raised', label: 'Pasture-raised',
+      tags: ['en:pasture-raised'], alsoTags: ['en:pasture-raised'],
+      effect: 'Eggs and meat can clear.',
+      detect: hasPastureRaised, strip: stripPastureLabel
+    }
+  ];
+  var HOUSEHOLD_CLAIMS = [
+    {
+      id: 'fragrance-free', name: 'Fragrance-free', label: 'Fragrance-free',
+      tags: [], alsoTags: [],
+      effect: 'Records the words on the package. It does not erase fragrance, parfum, or perfume in the ingredient list, and it is not a Bobby Approved badge.',
+      detect: function (text) { return /\b(?:fragrances?|parfums?|perfumes?)[\s-]*free\b/.test(normalize(text)); },
+      strip: stripPhrase(/\b(?:fragrances?|parfums?|perfumes?)[\s-]*free\b/gi)
+    },
+    {
+      id: 'unscented', name: 'Unscented', label: 'Unscented',
+      tags: [], alsoTags: [],
+      effect: 'Records the word on the package. Unscented is not itself a fragrance, and it is not a Bobby Approved badge.',
+      detect: function (text) { return /\bunscented\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bunscented\b/gi)
+    }
+  ];
+  function certificationCatalog(kind) {
+    return kind === 'household' ? HOUSEHOLD_CLAIMS : FOOD_CERTIFICATIONS;
+  }
+  function publicCert(c) {
+    return { id: c.id, name: c.name, label: c.label, tags: c.tags.slice(), effect: c.effect };
+  }
+  function certificationsPresent(opts, kind) {
+    opts = opts || {};
+    var blob = claimBlob(opts);
+    if (kind === 'household') blob += ' ' + (opts.ingredients || '');
+    return certificationCatalog(kind).filter(function (c) { return c.detect(blob); }).map(publicCert);
+  }
+  function mergeCertifications(labels, labelsTags, ids, kind) {
+    var selected = {};
+    (ids || []).forEach(function (id) { selected[String(id)] = true; });
+    var nextLabels = String(labels || '');
+    var nextTags = (labelsTags || []).map(function (t) { return String(t); });
+    certificationCatalog(kind).forEach(function (c) {
+      var on = !!selected[c.id];
+      var already = c.detect(claimBlob({ labels: nextLabels, labelsTags: nextTags }));
+      if (on && !already) {
+        nextLabels = tidyLabelList([nextLabels, c.label].filter(Boolean).join(', '));
+        c.tags.forEach(function (t) { if (nextTags.indexOf(t) < 0) nextTags.push(t); });
+      } else if (!on && already) {
+        nextLabels = c.strip(nextLabels);
+        var drop = {};
+        (c.alsoTags || []).forEach(function (t) { drop[t] = true; });
+        nextTags = nextTags.filter(function (t) {
+          var key = String(t).toLowerCase();
+          return !drop[key] && !c.detect(key);
+        });
+      }
+    });
+    return { labels: tidyLabelList(nextLabels), labelsTags: nextTags };
+  }
   // organic beats non-GMO. Non-GMO is a limit for glyphosate crops, not a full pass.
   function glyphosateTierOf(text) {
     if (hasOrganicClaim(text)) return 'organic';
@@ -1295,6 +1411,11 @@
         source: 'Environmental Working Group, Shopper’s Guide to Pesticides in Produce',
         url: 'https://www.ewg.org/foodnews/dirty-dozen.php',
         items: ['Spinach', 'Kale, collard, and mustard greens', 'Strawberries', 'Grapes', 'Nectarines', 'Peaches', 'Cherries', 'Apples', 'Blackberries', 'Pears', 'Potatoes', 'Blueberries']
+      },
+      certifications: {
+        food: FOOD_CERTIFICATIONS.map(publicCert),
+        household: HOUSEHOLD_CLAIMS.map(publicCert),
+        note: 'Package claims you can attach when grading or adding a product. Not a lab test, and not an Olive, Seed Oil Scout, Non-GMO Project, or Bobby Approved badge we issue.'
       }
     };
   }
@@ -1311,6 +1432,10 @@
     band: band,
     rulesSummary: rulesSummary,
     classifyIngredients: classifyIngredients,
+    foodCertifications: FOOD_CERTIFICATIONS.map(publicCert),
+    householdClaims: HOUSEHOLD_CLAIMS.map(publicCert),
+    certificationsPresent: certificationsPresent,
+    mergeCertifications: mergeCertifications,
     DIRTY_DOZEN_YEAR: 2026,
     CATEGORIES: CATEGORIES.map(function (c) { return { id: c.id, name: c.name, points: c.points }; })
   };

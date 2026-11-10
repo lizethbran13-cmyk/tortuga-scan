@@ -503,6 +503,143 @@ test('no parabens does not flag parabens', () => {
   assert.equal(R.gradeHousehold('water, no parabens, glycerin').pass, true);
 });
 
+console.log('Package certifications');
+function certOpts(ids, extra, kind) {
+  const merged = R.mergeCertifications('', [], ids, kind);
+  return Object.assign({}, extra || {}, merged);
+}
+test('certification list is the four food claims and two household on-label words', () => {
+  assert.deepEqual(R.foodCertifications.map(c => c.id), ['organic', 'non-gmo', 'grass-fed', 'pasture-raised']);
+  assert.deepEqual(R.householdClaims.map(c => c.id), ['fragrance-free', 'unscented']);
+  assert.match(R.rulesSummary().certifications.note, /not a lab test/i);
+  assert.match(R.rulesSummary().certifications.note, /Bobby Approved/i);
+});
+test('conventional oats vs the same oats marked organic', () => {
+  const plain = R.grade('rolled oats', { brand: 'Local mill' });
+  assert.equal(plain.score, 65);
+  assert.equal(plain.glyphosate.status, 'fail');
+  assert.equal(plain.glyphosate.pass, false);
+  assert.equal(pts(plain, /Glyphosate/), 35);
+  assert.equal(plain.gmo.status, 'none');
+  assert.equal(one('rolled oats').color, 'red');
+
+  const opts = certOpts(['organic'], { brand: 'Local mill' });
+  assert.match(opts.labels, /Certified organic/);
+  assert.ok(opts.labelsTags.includes('en:organic'));
+  assert.ok(opts.labelsTags.includes('en:certified-organic'));
+  const organic = R.grade('rolled oats', opts);
+  assert.equal(organic.score, 100);
+  assert.equal(organic.glyphosate.pass, true);
+  assert.equal(organic.glyphosate.cleared, true);
+  assert.equal(organic.glyphosate.points, 0);
+  assert.equal(organic.gmo.status, 'non-gmo');
+  assert.ok(organic.gmo.claims.includes('Certified organic'));
+  assert.equal(R.classifyIngredients('rolled oats', opts).items[0].color, 'green');
+  assert.equal(R.certificationsPresent(opts)[0].id, 'organic');
+  assert.equal(organic.sos.pass, true);
+});
+test('Non-GMO only is a yellow glyphosate limit and does not clear eggs', () => {
+  const opts = certOpts(['non-gmo']);
+  assert.match(opts.labels, /Non-GMO/);
+  assert.equal(/project/i.test(opts.labels), false);
+  const oats = R.grade('rolled oats', opts);
+  assert.equal(oats.glyphosate.status, 'limit');
+  assert.equal(oats.glyphosate.pass, false);
+  assert.equal(oats.glyphosate.cleared, false);
+  assert.equal(pts(oats, /Glyphosate/), 12);
+  assert.equal(oats.score, 88);
+  assert.equal(oats.gmo.status, 'non-gmo');
+  assert.equal(R.classifyIngredients('rolled oats', opts).items[0].color, 'yellow');
+  assert.equal(R.classifyIngredients('whole milk', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('cheddar cheese', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('chicken breast', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('eggs', opts).items[0].color, 'red');
+});
+test('grass-fed clears dairy and meat, not eggs or glyphosate crops', () => {
+  const opts = certOpts(['grass-fed']);
+  assert.equal(R.classifyIngredients('whole milk', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('butter', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('ground beef', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('eggs', opts).items[0].color, 'red');
+  const oats = R.grade('rolled oats', opts);
+  assert.equal(oats.glyphosate.status, 'fail');
+  assert.equal(oats.score, 65);
+  assert.equal(R.classifyIngredients('rolled oats', opts).items[0].color, 'red');
+  assert.notEqual(oats.gmo.status, 'non-gmo');
+});
+test('pasture-raised clears eggs and meat, not dairy or glyphosate crops', () => {
+  const opts = certOpts(['pasture-raised']);
+  assert.equal(R.classifyIngredients('eggs', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('chicken breast', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('whole milk', opts).items[0].color, 'yellow');
+  const oats = R.grade('rolled oats', opts);
+  assert.equal(oats.glyphosate.status, 'fail');
+  assert.equal(oats.score, 65);
+  assert.equal(R.classifyIngredients('rolled oats', opts).items[0].color, 'red');
+});
+test('organic on the product clears dairy, eggs, and meat, and beats non-GMO on crops', () => {
+  const opts = certOpts(['organic', 'non-gmo', 'grass-fed', 'pasture-raised']);
+  assert.equal(R.classifyIngredients('whole milk', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('eggs', opts).items[0].color, 'green');
+  assert.equal(R.classifyIngredients('chicken breast', opts).items[0].color, 'green');
+  const oats = R.grade('rolled oats', opts);
+  assert.equal(oats.score, 100);
+  assert.equal(oats.glyphosate.pass, true);
+  assert.equal(oats.glyphosate.cleared, true);
+  assert.equal(R.classifyIngredients('rolled oats', opts).items[0].color, 'green');
+});
+test('product certifications do not waive seed oils, refined starch, Dirty Dozen, or mainstream brands', () => {
+  const opts = certOpts(['organic']);
+  const oil = R.grade('canola oil', opts);
+  assert.equal(oil.sos.pass, false);
+  assert.equal(oil.glyphosate.pass, true);
+  assert.equal(pts(oil, /Seed oils/), 35);
+  assert.equal(R.classifyIngredients('canola oil', opts).items[0].color, 'red');
+  const starch = R.grade('corn starch', opts);
+  assert.equal(pts(starch, /Refined starch/), 8);
+  assert.equal(R.classifyIngredients('corn starch', opts).items[0].color, 'red');
+  assert.equal(R.classifyIngredients('strawberries', opts).items[0].color, 'yellow');
+  const quaker = R.grade('rolled oats', certOpts(['organic'], { brand: 'Quaker', productName: 'Quaker oats' }));
+  assert.equal(pts(quaker, /Mainstream/), 4);
+  assert.equal(quaker.glyphosate.pass, true);
+  assert.equal(quaker.score, 96);
+  const sugar = R.grade('oats, cane sugar', Object.assign({ sugars100g: 18 }, opts));
+  assert.equal(pts(sugar, /Added sugar/), 8);
+  assert.ok(sugar.score < 100);
+});
+test('unchecking a certification removes it and leaves other labels', () => {
+  const kept = R.mergeCertifications('Kosher, Certified organic, Grass-fed', ['en:kosher', 'en:organic', 'en:usda-organic', 'en:grass-fed'], ['grass-fed']);
+  assert.match(kept.labels, /Kosher/);
+  assert.match(kept.labels, /Grass-fed/);
+  assert.equal(/organic/i.test(kept.labels), false);
+  assert.ok(kept.labelsTags.includes('en:kosher'));
+  assert.ok(kept.labelsTags.includes('en:grass-fed'));
+  assert.equal(kept.labelsTags.includes('en:organic'), false);
+  assert.equal(kept.labelsTags.includes('en:usda-organic'), false);
+  const cleared = R.mergeCertifications(kept.labels, kept.labelsTags, []);
+  assert.equal(/grass-fed/i.test(cleared.labels), false);
+  assert.match(cleared.labels, /Kosher/);
+  const oats = R.grade('rolled oats', cleared);
+  assert.equal(oats.glyphosate.status, 'fail');
+});
+test('an organic word inside the ingredient list is not a product certification', () => {
+  assert.equal(R.certificationsPresent({ ingredients: 'organic rolled oats', productName: 'Rolled oats' }).length, 0);
+  assert.equal(R.certificationsPresent({ productName: 'Organic rolled oats' })[0].id, 'organic');
+});
+test('household fragrance-free and unscented do not erase fragrance or invent a Bobby badge', () => {
+  const claims = R.mergeCertifications('', [], ['fragrance-free', 'unscented'], 'household');
+  assert.match(claims.labels, /Fragrance-free/);
+  assert.match(claims.labels, /Unscented/);
+  assert.deepEqual(claims.labelsTags, []);
+  const dirty = R.gradeHousehold('water, sodium lauryl sulfate, fragrances');
+  assert.equal(dirty.pass, false);
+  assert.ok(dirty.deductions.some(d => /fragrance/i.test(d.label)));
+  const present = R.certificationsPresent({ labels: claims.labels, ingredients: 'water, fragrances' }, 'household');
+  assert.deepEqual(present.map(c => c.id), ['fragrance-free', 'unscented']);
+  assert.match(R.gradeHousehold('unscented. water, glycerin').standard, /not an official Bobby Approved/i);
+  assert.equal(R.certificationsPresent({ ingredients: 'fragrance-free, water, glycerin' }, 'household')[0].id, 'fragrance-free');
+});
+
 test('rules summary cites the 2026 Dirty Dozen', () => {
   const d = R.rulesSummary().dirtyDozen;
   assert.equal(d.year, 2026);

@@ -88,9 +88,22 @@ Start at 100, subtract, floor at 0:
 | Added sugar in ingredients (sugar, cane sugar, syrups, HFCS, dextrose, maltodextrin, honey, agave, molasses…) | −8 |
 | …plus, only if added sugar is listed: sugars ≥ 15 g/100 g | −7 more |
 | …or sugars ≥ 25 g/100 g (instead) | −12 more |
-| NOVA group 4 / group 3 (from OFF) | −15 / −5 |
+| NOVA group 4 / group 3 (from OFF) | −22 / −5 |
+| Glyphosate-prone crop that is not organic or non-GMO (once, however many crops) | −35 |
+| Refined starch (corn starch, or modified food starch that isn’t a named potato, tapioca, rice, arrowroot, or cassava starch) | −8 each, max −16 |
+| Mainstream brand | −4 |
 
 Bands: **80–100 Cleaner**, **50–79 Mixed**, **0–49 Poor**.
+
+**Mainstream brand (−4).** Flat deduction, once per product, when the brand or the product name matches a well-known mass-market packaged-food brand. The list includes General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery name (Oreo, Quaker, Campbell’s, and so on). −4 is the middle of a 3-to-5 range: a simple mainstream food such as milk or sparkling water stays Cleaner, and a processed one does not. This is not a map of which company owns which brand.
+
+**Glyphosate-prone crops (−35, and a separate pass/fail).** Tortuga’s own check. It does not change the Seed Oil Safe-style pass/fail, and it is not a lab test of that barcode. Conventional wheat (including wheat flour when the flour isn’t another grain), oats, barley, rye, sorghum, millet, corn, dry beans, chickpeas, lentils, peas (not snap or snow peas), soy foods, sunflower, flax, canola, cottonseed, and sugar beet must be organic or non-GMO to pass. The claim can be on that ingredient or on the product (name, brand, or labels). Otherwise the ingredient is red and the score drops 35 points once. Rice, quinoa, buckwheat, potatoes, green beans, and snap peas are not on the list. Lecithin keeps its own color. Olive, avocado, and coconut oil are not treated as these crops.
+
+The crop list follows public surveys and registered uses, not numbers we measured: [CFIA, glyphosate testing in 2015–2016](https://open-science.canada.ca/handle/123456789/3743) (grains, beans, peas, lentils, chickpeas, soy; wheat and barley are named), [EWG’s 2018 oat-cereal tests](https://www.ewg.org/news-insights/news/2018/10/new-round-ewg-testing-finds-glyphosate-kids-breakfast-foods-quaker-oats), and the [EPA glyphosate page](https://www.epa.gov/ingredients-used-pesticide-products/glyphosate). We do not attach those labs’ figures to a Tortuga barcode.
+
+**NOVA 4 is −22** (it was −15). A food with no other deductions scores 78, Mixed, so ultra-processed no longer sits in Cleaner on the processing group alone. NOVA 3 stays −5.
+
+**Milk and eggs** do not change the score. See ingredient colors.
 
 ## iOS notes
 
@@ -103,13 +116,15 @@ Bands: **80–100 Cleaner**, **50–79 Mixed**, **0–49 Poor**.
 
 Each ingredient line is **green (OK)**, **yellow (limit)**, or **red (avoid)**. This is separate from the Seed Oil Safe-style pass/fail. A gum fails that check and is still yellow. Corn starch can pass that check and still be red.
 
-- **Red:** seed oils (same list as the pass/fail rules, even if the line says organic); artificial sweeteners, dyes, and flavors; confirmed GMO / bioengineered wording; conventional corn starch, corn syrup, dextrose, and maltodextrin; modified food starch when the source isn’t named; conventional sugar that doesn’t say cane (or coconut, date, maple, palm, turbinado, demerara, muscovado, panela, jaggery, sucanat, or rapadura); beet sugar; soy protein, soy flour, soy lecithin, and TVP; and the clean-score additives (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).
-- **Yellow:** natural flavors and other flavors; gums and carrageenan; other plant lecithins; soy foods such as tofu, tamari, and edamame; added sugar that names a non-beet source, plus honey, maple, and organic or non-GMO sugar (added sugar is never green — we don’t guess whether the amount is small); sugar alcohols; enriched or bleached flour; caramel color; hydrogenated fat that isn’t already a seed oil; conventional corn that isn’t a refined starch or syrup; non-organic produce on the Dirty Dozen.
-- **Green:** everything else those rules don’t hit, including olive, avocado, coconut, and animal fats, salt, water, herbs, spices, and organic Dirty Dozen produce.
+- **Red:** seed oils (same list as the pass/fail rules, even if the line says organic); artificial sweeteners, dyes, and flavors; confirmed GMO / bioengineered wording; conventional corn starch, corn syrup, dextrose, and maltodextrin; modified food starch when the source isn’t named; conventional sugar that doesn’t say cane (or coconut, date, maple, palm, turbinado, demerara, muscovado, panela, jaggery, sucanat, or rapadura); beet sugar; soy protein, soy flour, soy lecithin, and TVP; conventional glyphosate-prone crops (wheat flour, oats, dry beans, and the rest of that list); and the clean-score additives (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).
+- **Yellow:** natural flavors and other flavors; gums and carrageenan; other plant lecithins; soy foods that are organic or non-GMO, such as tofu or tamari; added sugar that names a non-beet source, plus honey, maple, and organic or non-GMO sugar (added sugar is never green — we don’t guess whether the amount is small); sugar alcohols; organic enriched flour; caramel color; hydrogenated fat that isn’t already a seed oil; non-organic produce on the Dirty Dozen; milk and eggs when neither the ingredient nor the product says organic or non-GMO.
+- **Green:** everything else those rules don’t hit, including olive, avocado, coconut, and animal fats, salt, water, herbs, spices, organic or non-GMO glyphosate-prone crops, organic or non-GMO milk and eggs, and organic Dirty Dozen produce.
+
+Milk and eggs are yellow only for this check. There is no score deduction for them. Butter is not milk. Almond, oat, soy, and coconut milk are not animal milk (oat milk and soy milk can still be red when the crop itself is a conventional glyphosate-prone ingredient). Organic or non-GMO on that ingredient, or on the product name, brand, or labels, keeps milk and eggs green.
 
 **Dirty Dozen (2026).** Environmental Working Group, [Shopper’s Guide to Pesticides in Produce](https://www.ewg.org/foodnews/dirty-dozen.php): spinach; kale, collard, and mustard greens; strawberries; grapes; nectarines; peaches; cherries; apples; blackberries; pears; potatoes; blueberries. Organic on that ingredient phrase turns it green. Non-GMO does not, because this list is about pesticide residue. We don’t paint an item green just because the product name says organic. Raisins and sultanas count as grapes. Sweet potatoes, mustard the condiment, green beans, and bell peppers are not on the 2026 list. Potato starch counts as potatoes.
 
-Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make a seed oil okay.
+Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make a seed oil okay. Organic or non-GMO on a glyphosate-prone crop, or on the product, clears that crop instead of leaving it red.
 
 ## Catalog, lab tests, and news
 

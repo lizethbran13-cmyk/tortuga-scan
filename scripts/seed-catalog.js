@@ -221,6 +221,7 @@ function toEntry(p) {
     novaGroup: nova >= 1 && nova <= 4 ? nova : null,
     sugars100g: nuts.sugars100g != null ? nuts.sugars100g : null,
     productName: name,
+    brand: brand,
     labels: humanLabels(p),
     labelsTags: p.labels_tags || []
   };

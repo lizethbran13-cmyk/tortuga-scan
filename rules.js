@@ -368,7 +368,257 @@
 
   var ADDITIVE_EACH = 8, ADDITIVE_CAP = 24;
   var SUGAR_BASE = 8, SUGAR_HIGH = { at: 15, extra: 7 }, SUGAR_VERY_HIGH = { at: 25, extra: 12 };
-  var NOVA = { 4: 15, 3: 5 };
+  // NOVA 4 was −15, which still left an otherwise-empty ultra-processed food in the
+  // Cleaner band (100 − 15 = 85). −22 puts that food at 78, Mixed.
+  var NOVA = { 4: 22, 3: 5 };
+  // Midpoint of the 3–5 range. Once per product, so a simple mainstream food
+  // (milk, sparkling water) stays Cleaner while processed ones do not.
+  var MAINSTREAM_POINTS = 4;
+  // Same weight as a seed oil, once, however many crops match.
+  var GLYPHOSATE_POINTS = 35;
+  var REFINED_STARCH_EACH = 8, REFINED_STARCH_CAP = 16;
+
+  // Well-known mass-market packaged-food brands and the product lines shoppers
+  // see on the box (Cheerios, Oreo, Sprite). Matched on brand or product name.
+  // This is not a corporate-ownership map.
+  var MAINSTREAM_BRANDS = [
+    'general mills', 'cheerios', 'honey nut cheerios', 'lucky charms', 'cinnamon toast crunch',
+    'cocoa puffs', 'wheaties', 'fiber one', 'chex', 'kix', 'nature valley', 'pillsbury',
+    'old el paso', 'yoplait', 'betty crocker', 'gold medal', 'haagen dazs',
+    'kellogg', 'kelloggs', 'special k', 'pop tarts', 'eggo', 'pringles', 'cheez it', 'cheezit',
+    'froot loops', 'frosted flakes', 'rice krispies', 'raisin bran', 'kashi', 'nutri grain',
+    'post', 'honey bunches', 'grape nuts', 'great grains',
+    'nestle', 'nescafe', 'nesquik', 'coffee mate', 'coffeemate', 'gerber', 'stouffer',
+    'digiorno', 'hot pocket', 'hot pockets', 'toll house', 'maggi', 'kit kat', 'kitkat',
+    'coca cola', 'cocacola', 'sprite', 'fanta', 'minute maid', 'dasani', 'powerade',
+    'vitaminwater', 'vitamin water', 'smartwater', 'fairlife', 'simply orange', 'gold peak',
+    'bodyarmor', 'body armor', 'topo chico',
+    'pepsi', 'pepsico', 'gatorade', 'tropicana', 'quaker', 'propel', 'mountain dew',
+    'aquafina', 'capn crunch', 'cap n crunch', 'life cereal', 'frito', 'fritos', 'frito lay',
+    'doritos', 'tostitos', 'cheetos', 'ruffles', 'lay s', 'lays',
+    'kraft', 'kraft heinz', 'heinz', 'oscar mayer', 'velveeta', 'jell o', 'kool aid',
+    'capri sun', 'lunchables', 'philadelphia', 'grey poupon', 'crystal light', 'maxwell house',
+    'classico', 'oreo ida',
+    'mondelez', 'oreo', 'oreos', 'ritz', 'chips ahoy', 'wheat thins', 'triscuit', 'nabisco',
+    'belvita', 'cadbury', 'toblerone', 'sour patch',
+    'snickers', 'skittles', 'starburst', 'twix', 'milky way', 'three musketeers', 'm and m',
+    'mms', 'hershey', 'reese', 'reeses',
+    'campbell', 'campbells', 'pepperidge farm', 'goldfish', 'prego', 'swanson', 'spaghettios',
+    'progresso',
+    'crisco', 'mazola', 'wesson', 'hunts', 'hunt s', 'orville redenbacher', 'hebrew national',
+    'slim jim', 'marie callender', 'duncan hines', 'reddi wip', 'birds eye', 'healthy choice',
+    'peter pan', 'pam cooking',
+    'hormel', 'spam', 'skippy', 'jennie o',
+    'tyson', 'jimmy dean', 'hillshire', 'ball park', 'ballpark',
+    'hellmann', 'hellmanns', 'best foods', 'knorr', 'lipton', 'ben and jerry', 'breyers', 'klondike',
+    'barilla', 'nutella', 'ferrero', 'mission', 'sabra', 'green giant', 'sargento', 'tillamook',
+    'kikkoman', 'mccormick', 'la croix', 'lacroix', 'starkist', 'star kist', 'chicken of the sea',
+    'bumble bee', 'taco bell', 'seagram', 'ghirardelli', 'blue diamond', 'oatly', 'silk', 'chobani',
+    'dannon', 'danone', 'activia', 'oikos', 'light fit', 'hidden valley', 'french s', 'vlasic',
+    'ocean spray', 'mott s', 'motts', 'smucker', 'jif', 'folgers', 'land o lakes', 'international delight',
+    'totino', 'red baron', 'pizza rolls', 'bagel bites', 'el monterey', 'krispy kreme', 'dunkin',
+    'starbucks', 'lean cuisine', 'beech nut', 'beechnut', 'libby', 'libbys', 'tabasco',
+  ];
+
+  function foldBrand(s) {
+    return normalize(s)
+      .replace(/!/g, 'i')
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function mainstreamMatch(opts) {
+    opts = opts || {};
+    var spaced = foldBrand([opts.brand, opts.productName].filter(Boolean).join(' '));
+    if (!spaced) return null;
+    var padded = ' ' + spaced + ' ';
+    var parts = spaced.split(' ');
+    var best = null;
+    MAINSTREAM_BRANDS.forEach(function (alias) {
+      var hit = padded.indexOf(' ' + alias + ' ') >= 0;
+      if (!hit) {
+        hit = parts.some(function (w) {
+          return w === alias || (alias.length >= 5 && w.length === alias.length + 1 && w.indexOf(alias) === 0 && w.charAt(w.length - 1) === 's');
+        });
+      }
+      var aliasCompact = alias.replace(/ /g, '');
+      // "CocaCola" is one word; "french style" must not match the joined alias "frenchs".
+      if (!hit && alias.indexOf(' ') >= 0) {
+        hit = parts.some(function (w) { return w === aliasCompact || w === aliasCompact + 's'; });
+      }
+      if (hit && (!best || alias.length > best.length)) best = alias;
+    });
+    return best;
+  }
+
+  function claimClears(text) {
+    var t = normalize(text).replace(/\bnon[\s-]+organics?\b/g, ' ');
+    if (/\borganics?\b/.test(t)) return true;
+    if (hasNonGmoWord(t)) return true;
+    if (/\bno[\s-]?gmos?\b|\bgmos?[\s-]?free\b|\bwithout[\s-]?gmos?\b/.test(t)) return true;
+    if (/\ben:(?:no-gmos?|gmo-free|non-gmo|organic|usda-organic|certified-organic|eu-organic)\b/.test(t)) return true;
+    return false;
+  }
+
+  function productClaimClears(opts) {
+    opts = opts || {};
+    var blob = [opts.productName, opts.brand, opts.labels, (opts.labelsTags || []).join(' ')].join(' ');
+    return claimClears(blob);
+  }
+
+  // Crops that are commonly desiccated with glyphosate before harvest, or sprayed
+  // in-crop because they are glyphosate-tolerant. Sources (crop pattern, not a
+  // lab test of any Tortuga barcode):
+  // - CFIA, "Safeguarding with science: glyphosate testing in 2015-2016"
+  //   https://open-science.canada.ca/handle/123456789/3743
+  //   MRLs named for barley, beans (including chickpea), lentil, pea, soybean,
+  //   and wheat (including kamut and spelt). Residues showed up most often in
+  //   grain products and in bean, pea, lentil, and chickpea products.
+  // - EWG oat-cereal tests (conventional Cheerios and Quaker), 2018
+  //   https://www.ewg.org/news-insights/news/2018/10/new-round-ewg-testing-finds-glyphosate-kids-breakfast-foods-quaker-oats
+  // - EPA glyphosate ingredient page (pre-harvest and in-crop uses)
+  //   https://www.epa.gov/ingredients-used-pesticide-products/glyphosate
+  // Quinoa, rice, buckwheat, potatoes, green beans, and snap peas are not in this list.
+  function glyphosateCropsInPhrase(phrase) {
+    var t = normalize(phrase);
+    var crops = [];
+    function add(name) { if (crops.indexOf(name) < 0) crops.push(name); }
+
+    var wheatWord = /\b(?:wheats?|durum|semolinas?|farinas?|bulgurs?|spelts?|kamuts?|einkorns?|emmers?|farros?|freekehs?|triticales?|seitans?)\b/;
+    if (/\b(?:semolinas?|farinas?)\b/.test(t) && /\brice\b/.test(t) && !/\b(?:wheats?|durum)\b/.test(t)) {
+      wheatWord = /(?!)/; // rice semolina / rice farina is not wheat
+    }
+    var couscousWheat = /\bcouscous\b/.test(t) && !/\b(?:cauliflower|chickpeas?|garbanzos?|lentils?|rice|quinoa|corns?|maize)\b/.test(t);
+    var pankoWheat = /\bpankos?\b/.test(t) && !/\bgluten[\s-]?free\b/.test(t);
+    var breadcrumbWheat = /\bbread\s*crumbs?\b/.test(t) && !/\bgluten[\s-]?free\b/.test(t) && !/\b(?:rice|corns?|cassava|quinoa)\b/.test(t);
+    var otherGrain = /\b(?:almonds?|coconuts?|rice|oats?|cassavas?|chickpeas?|garbanzos?|lentils?|tapiocas?|arrowroots?|buckwheats?|quinoas?|millets?|sorghums?|ryes?|barleys?|potatoes?|bananas?|cauliflowers?|hazelnuts?|pecans?|pistachios?|walnuts?|peanuts?|sunflowers?|pumpkins?|flax|hemp|sesames?|soys?|soybeans?|beans?|peas?|favas?|plantains?|teffs?|amaranths?|corns?|maize|besan)\b/;
+    var flourWheat = /\bflours?\b/.test(t) && !/\bgluten[\s-]?free\b/.test(t) && (wheatWord.test(t) || !otherGrain.test(t));
+    if (wheatWord.test(t) || couscousWheat || pankoWheat || breadcrumbWheat || flourWheat) add('Wheat');
+
+    if (/\boats?\b|\boatmeals?\b|\bporridges?\b|\boat\s*milks?\b|\boatmilks?\b/.test(t)) add('Oats');
+    if (/\bbarleys?\b/.test(t) || (/\bmalts?\b|\bmalted\b/.test(t) && !/\b(?:rice|corn|sorghum)\s+malts?\b/.test(t))) add('Barley');
+    if (/\bryes?\b/.test(t)) add('Rye');
+    if (/\bsorghums?\b/.test(t)) add('Sorghum');
+    if (/\bmillets?\b/.test(t)) add('Millet');
+
+    var cornWord = /\b(?:corns?|cornstarch|cornmeals?|polentas?|hominy|masa|popcorns?)\b/.test(t);
+    var gritsCorn = /\bgrits?\b/.test(t) && (/\bcorns?\b/.test(t) || !/\brice\b/.test(t));
+    if (cornWord || gritsCorn) add('Corn');
+
+    // Locust / carob bean gum is a thickener, not a dry bean. Green, vanilla,
+    // cocoa, coffee, and jelly beans are not the desiccated pulse either.
+    var beans = t.replace(/\b(?:green|string|wax|vanilla|cocoa|cacao|coffee|jelly|locust|carob)\s+beans?\b/g, ' ')
+      .replace(/\bbeans?\s+gums?\b/g, ' ');
+    if (!/\bbean\s+sprouts?\b|\bsprouted\s+beans?\b/.test(beans)) {
+      if (/\b(?:chickpeas?|garbanzos?|lentils?)\b/.test(beans) ||
+          /\b(?:black|pinto|kidney|navy|cannellini|adzuki|mung|fava|lima|white|red|baked|refried|great\s+northern|black[\s-]?eyed)\s+beans?\b/.test(beans) ||
+          /\bbeans?\b/.test(beans)) add('Beans or lentils');
+    }
+    if (/\b(?:split\s+peas?|pea\s+(?:proteins?|flours?|starches?|fibres?|fibers?))\b/.test(t) ||
+        (/\bpeas?\b/.test(t) && !/\b(?:sugar\s+snap|snap|snow|sweet)\s+peas?\b/.test(t))) add('Peas');
+
+    // "soy lecithin" and "soy fat lecithin" stay on the lecithin rule. Soybean oil,
+    // soy flour, tofu, and the other soy foods still count.
+    var soyFood = /\b(?:soybeans?|soy\s+sauces?|soya\s+sauces?|tofu|tempeh|miso|edamame|tamari|shoyu|natto|soy\s+flours?|soy\s+proteins?|soymilks?|soybean\s+oils?|soy\s+oils?)\b/;
+    var soyLecithinOnly = /\blecithins?\b/.test(t) && /\b(?:soy|soya|soybeans?)\b/.test(t) && !soyFood.test(t);
+    if (!soyLecithinOnly && /\b(?:soy|soya|soybeans?|edamame|tofu|tempeh|miso|tamari|shoyu|natto|soymilks?)\b/.test(t)) add('Soy');
+
+    var sunCrop = /\bsunflower\s+(?:seeds?|kernels?|oils?|flours?|butters?)\b/.test(t);
+    var sunLecithinOnly = /\blecithins?\b/.test(t) && /\bsunflowers?\b/.test(t) && !sunCrop;
+    if (!sunLecithinOnly && /\bsunflowers?\b/.test(t)) add('Sunflower');
+
+    if (/\b(?:flax(?:\s*seeds?)?|linseeds?|flaxseeds?)\b/.test(t)) add('Flax');
+    if (/\b(?:canola|rapeseeds?)\b/.test(t)) add('Canola');
+    if (/\bcottonseeds?\b/.test(t)) add('Cottonseed');
+    if (/\b(?:sugar\s*beets?|beet\s+sugars?)\b/.test(t)) add('Sugar beet');
+    return crops;
+  }
+
+  function glyphosateHits(text, opts) {
+    if (productClaimClears(opts)) return [];
+    var hits = [];
+    var seen = {};
+    function addPhrase(phrase) {
+      glyphosateCropsInPhrase(phrase).forEach(function (crop) {
+        if (seen[crop]) return;
+        seen[crop] = true;
+        hits.push({
+          crop: crop,
+          rule: 'Glyphosate-prone crop · ' + crop,
+          match: phrase.slice(0, 90),
+          context: phrase.slice(0, 90),
+          note: 'Conventional form of a crop that is often sprayed with glyphosate. Not a lab test of this package. Organic or a non-GMO claim on the ingredient or the product passes this check.'
+        });
+      });
+    }
+    function walk(raw, inherited) {
+      tokenizeIngredients(raw).forEach(function (part) {
+        var normPart = normalize(part);
+        var parsed = splitParen(normPart);
+        if (parsed && parsed.name && parsed.children && parsed.children.length) {
+          var clear = inherited || claimClears(parsed.name);
+          if (!clear) addPhrase(parsed.name);
+          parsed.children.forEach(function (ch) { walk(ch, clear); });
+        } else if (!(inherited || claimClears(normPart))) addPhrase(normPart);
+      });
+    }
+    walk(text, false);
+    return hits;
+  }
+
+  function refinedStarchHits(text) {
+    var hits = [];
+    var seen = {};
+    function consider(phrase) {
+      if (claimClears(phrase)) return;
+      var labels = [];
+      if (/\b(?:corn[\s-]?starch|cornstarch|maize[\s-]?starch)\b/.test(phrase)) labels.push('Corn starch');
+      var modified = /\bmodified\s+(?:food\s+)?starches?\b/.test(phrase);
+      if (modified) {
+        var namedOther = /\b(?:tapioca|arrowroot|cassava|potato|rice)\b/.test(phrase) && !/\b(?:corns?|maize|wheats?)\b/.test(phrase);
+        var alreadyCornStarch = /\b(?:corn[\s-]?starch|cornstarch|maize[\s-]?starch)\b/.test(phrase);
+        if (!namedOther && !alreadyCornStarch) labels.push('Modified food starch');
+      }
+      labels.forEach(function (label) {
+        if (seen[label]) return;
+        seen[label] = true;
+        hits.push(label);
+      });
+    }
+    function walk(raw) {
+      tokenizeIngredients(raw).forEach(function (part) {
+        var normPart = normalize(part);
+        var parsed = splitParen(normPart);
+        if (parsed && parsed.name && parsed.children && parsed.children.length) {
+          var combined = parsed.name;
+          if (/\bmodified food starch\b|\bmodified starch\b|\bcorn\s*starch\b|\bcornstarch\b/i.test(parsed.name)) {
+            combined = parsed.name + ' ' + parsed.children.join(' ');
+          }
+          consider(normalize(combined));
+          if (!/\bmodified food starch\b|\bcorn\s*starch\b|\bcornstarch\b/i.test(parsed.name)) {
+            parsed.children.forEach(walk);
+          }
+        } else consider(normPart);
+      });
+    }
+    walk(text);
+    return hits;
+  }
+
+  function animalMilkHit(text) {
+    var t = String(text || '')
+      .replace(/\bmilk\s+thistles?\b/g, ' ')
+      .replace(/\b(?:coconut|almond|oat|soy|soya|rice|cashew|hemp|flax|linseed|pea|macadamia|hazelnut|pistachio|walnut|quinoa|banana|sesame|sunflower|pumpkin|grain|plant|vegan)\s*milks?\b/g, ' ')
+      .replace(/\b(?:almond|oat|soy|soya|rice|cashew|hemp|flax|pea|macadamia)milks?\b/g, ' ');
+    return /\bmilks?\b|\bbuttermilks?\b|\bmilkfat\b|\bmilk\s*fat\b/.test(t);
+  }
+
+  function eggHit(text) {
+    var t = String(text || '').replace(/\beggplants?\b/g, ' ');
+    return /\beggs?\b|\begg\s*whites?\b|\begg\s*yolks?\b|\beggnogs?\b/.test(t);
+  }
 
   // ---------------------------------------------------------------- traffic light
   // Per-ingredient colors for Lizeth's aisle rule. Not a certification.
@@ -436,7 +686,8 @@
     list.push({ level: level, label: label });
   }
 
-  function classifyText(display) {
+  function classifyText(display, opts) {
+    opts = opts || {};
     var norm = normalize(display);
     var stripped = stripCrossContact(norm);
     if (!stripped.text) return { color: 'none', reasons: [{ level: 'none', label: 'Cross-contact line, not graded' }] };
@@ -475,6 +726,11 @@
     if (soyDerivative.test(text)) {
       uniquePush(reasons, clearsGmoRed(text) ? 'yellow' : 'red',
         clearsGmoRed(text) ? 'Soy derivative (organic or non-GMO on this phrase)' : 'Soy derivative (protein, flour, or lecithin)');
+    }
+
+    if (!opts.cleared) {
+      var glyCrops = glyphosateCropsInPhrase(text);
+      if (glyCrops.length) uniquePush(reasons, 'red', 'Glyphosate-prone crop · ' + glyCrops.join(', ') + ' (not organic or non-GMO)');
     }
 
     var sugarWord = /\bsugars?\b/.test(text)
@@ -520,6 +776,10 @@
       }
       if (/\bcaramel colou?r\b/.test(text)) uniquePush(reasons, 'yellow', 'Caramel color');
       if (/\b(?:partially\s+)?hydrogenated\b/.test(text)) uniquePush(reasons, 'yellow', 'Hydrogenated fat');
+      if (!opts.cleared) {
+        if (animalMilkHit(text)) uniquePush(reasons, 'yellow', 'Milk (not organic or non-GMO)');
+        if (eggHit(text)) uniquePush(reasons, 'yellow', 'Eggs (not organic or non-GMO)');
+      }
     }
 
     var rank = { red: 3, yellow: 2, green: 1, none: 0 };
@@ -572,19 +832,21 @@
     return best === 'none' ? 'green' : best;
   }
 
-  function classifyNode(raw) {
+  function classifyNode(raw, inheritedClear) {
     var display = String(raw || '').replace(/\s+/g, ' ').trim();
     if (!display) return null;
     var parsed = splitParen(display);
     if (parsed && parsed.children.length && parsed.name) {
-        var children = parsed.children.map(classifyNode).filter(Boolean);
+        var nameClear = !!inheritedClear || claimClears(parsed.name);
+        var children = parsed.children.map(function (ch) { return classifyNode(ch, nameClear); }).filter(Boolean);
         var onlyNotes = children.length && children.every(function (ch) { return ch.color === 'none'; });
         if (!onlyNotes && children.length) {
           var nameForRules = parsed.name;
           if (/\bmodified food starch\b|\bmaltodextrin\b|\bdextrose\b/i.test(parsed.name)) {
             nameForRules = parsed.name + ' ' + parsed.children.join(' ');
           }
-          var self = classifyText(nameForRules);
+          var selfClear = nameClear || claimClears(nameForRules);
+          var self = classifyText(nameForRules, { cleared: selfClear });
         var color = self.color === 'none'
           ? 'none'
           : worstColor([self.color].concat(children.map(function (ch) { return ch.color; })));
@@ -599,7 +861,8 @@
         return { text: parsed.name, color: color, reasons: reasons.slice(0, 3), children: children };
       }
     }
-    var leaf = classifyText(display);
+    var leafClear = !!inheritedClear || claimClears(display);
+    var leaf = classifyText(display, { cleared: leafClear });
     return { text: display, color: leaf.color, reasons: leaf.reasons.slice(0, 3), children: [] };
   }
 
@@ -612,10 +875,11 @@
     return acc;
   }
 
-  function classifyIngredients(ingredientsText) {
+  function classifyIngredients(ingredientsText, opts) {
     var original = String(ingredientsText || '').replace(/\r/g, '').replace(/\n+/g, ', ');
     original = original.replace(/^\s*ingredients?\s*[:\-]\s*/i, '');
-    var items = tokenizeIngredients(original).map(classifyNode).filter(Boolean);
+    var productClear = productClaimClears(opts);
+    var items = tokenizeIngredients(original).map(function (part) { return classifyNode(part, productClear); }).filter(Boolean);
     return { items: items, counts: tallyColors(items) };
   }
 
@@ -683,6 +947,27 @@
     if (nova && NOVA[nova]) {
       deductions.push({ label: 'NOVA group ' + nova + (nova === 4 ? ' (ultra-processed)' : ' (processed)'), points: NOVA[nova], detail: 'From Open Food Facts' });
     }
+    var glyHits = glyphosateHits(text, opts);
+    if (glyHits.length) {
+      deductions.push({
+        label: 'Glyphosate-prone crop (not organic or non-GMO)',
+        points: GLYPHOSATE_POINTS,
+        detail: glyHits.map(function (h) { return h.crop; }).join(', ')
+      });
+    }
+    var starches = refinedStarchHits(text);
+    if (starches.length) {
+      var sp = Math.min(REFINED_STARCH_CAP, starches.length * REFINED_STARCH_EACH);
+      deductions.push({
+        label: 'Refined starch (' + starches.length + ' × ' + REFINED_STARCH_EACH + ', max ' + REFINED_STARCH_CAP + ')',
+        points: sp,
+        detail: starches.join(', ')
+      });
+    }
+    var mainstream = mainstreamMatch(opts);
+    if (mainstream) {
+      deductions.push({ label: 'Mainstream brand', points: MAINSTREAM_POINTS, detail: mainstream });
+    }
 
     var total = deductions.reduce(function (s, d) { return s + d.points; }, 0);
     var score = Math.max(0, 100 - total);
@@ -698,6 +983,13 @@
       sugars100g: sugars100g,
       novaGroup: nova,
       gmo: gmo,
+      glyphosate: {
+        pass: glyHits.length === 0,
+        cleared: productClaimClears(opts),
+        points: glyHits.length ? GLYPHOSATE_POINTS : 0,
+        hits: glyHits
+      },
+      mainstream: mainstream ? { match: mainstream, points: MAINSTREAM_POINTS } : null,
       ignored: cleaned.removed
     };
   }
@@ -735,7 +1027,24 @@
       seedOils: Object.keys(SEED_OIL_NAMES).map(function (k) { return SEED_OIL_NAMES[k]; })
         .filter(function (v, i, a) { return a.indexOf(v) === i; }),
       notSeedOils: ['olive', 'avocado', 'coconut', 'MCT', 'butter', 'ghee', 'tallow', 'lard', 'palm', 'sesame', 'flax / linseed', 'walnut', 'almond', 'peanut', 'macadamia'],
-      points: { gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 35, otherCategory: 12, additiveEach: ADDITIVE_EACH, additiveCap: ADDITIVE_CAP, sugarBase: SUGAR_BASE, sugarHigh: SUGAR_HIGH, sugarVeryHigh: SUGAR_VERY_HIGH, nova: NOVA },
+      points: {
+        gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 35, otherCategory: 12,
+        additiveEach: ADDITIVE_EACH, additiveCap: ADDITIVE_CAP, sugarBase: SUGAR_BASE, sugarHigh: SUGAR_HIGH,
+        sugarVeryHigh: SUGAR_VERY_HIGH, nova: NOVA, mainstream: MAINSTREAM_POINTS, glyphosate: GLYPHOSATE_POINTS,
+        refinedStarchEach: REFINED_STARCH_EACH, refinedStarchCap: REFINED_STARCH_CAP
+      },
+      mainstreamNote: 'Flat −' + MAINSTREAM_POINTS + ' when the brand or product name is a well-known mass-market packaged-food brand (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). Not a map of who owns whom.',
+      glyphosate: {
+        points: GLYPHOSATE_POINTS,
+        pass: 'Organic or a non-GMO claim on that ingredient or on the product',
+        crops: ['Wheat and wheat flour (when the flour isn’t another grain)', 'Oats', 'Barley', 'Rye', 'Sorghum', 'Millet', 'Corn', 'Dry beans, chickpeas, and lentils', 'Peas (not snap or snow peas)', 'Soy foods (not lecithin)', 'Sunflower (not lecithin)', 'Flax', 'Canola', 'Cottonseed', 'Sugar beet'],
+        notIncluded: ['Rice', 'Quinoa', 'Buckwheat', 'Potatoes', 'Green beans', 'Snap peas', 'Olive, avocado, and coconut oil'],
+        sources: [
+          { name: 'CFIA, Safeguarding with science: glyphosate testing in 2015–2016', url: 'https://open-science.canada.ca/handle/123456789/3743' },
+          { name: 'EWG, glyphosate in oat cereals (2018)', url: 'https://www.ewg.org/news-insights/news/2018/10/new-round-ewg-testing-finds-glyphosate-kids-breakfast-foods-quaker-oats' },
+          { name: 'EPA, glyphosate', url: 'https://www.epa.gov/ingredients-used-pesticide-products/glyphosate' }
+        ]
+      },
       dirtyDozen: {
         year: 2026,
         source: 'Environmental Working Group, Shopper’s Guide to Pesticides in Produce',

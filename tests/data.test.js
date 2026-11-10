@@ -47,6 +47,7 @@ test('every product has ingredients, a source URL, and a grade that matches rule
       novaGroup: p.nova,
       sugars100g: p.nutriments && p.nutriments.sugars100g,
       productName: p.name,
+      brand: p.brand,
       labels: p.labels,
       labelsTags: p.labelsTags
     });

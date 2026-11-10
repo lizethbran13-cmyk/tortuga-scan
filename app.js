@@ -362,7 +362,8 @@
       return;
     }
 
-    var g = R.grade(p.ingredients, { novaGroup: p.novaGroup, sugars100g: p.sugars100g, productName: p.name, labels: p.labels, labelsTags: p.labelsTags });
+    var gradeOpts = { novaGroup: p.novaGroup, sugars100g: p.sugars100g, productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags };
+    var g = R.grade(p.ingredients, gradeOpts);
     saveRecent(p, g);
 
     var sosCats = g.sos.categories;
@@ -379,6 +380,8 @@
         '<li class="sep">Tortuga Scan check (not on the SOS list)</li>' +
         '<li><span class="mark ' + (g.gmo.status === 'gmo' ? 'bad' : g.gmo.status === 'possible' ? 'warn' : 'ok') + '" aria-hidden="true">' +
           (g.gmo.status === 'gmo' ? '✕' : g.gmo.status === 'possible' ? '!' : '✓') + '</span><span>GMO: ' + esc(g.gmo.label) + '</span></li>' +
+        '<li><span class="mark ' + (g.glyphosate.pass ? 'ok' : 'bad') + '" aria-hidden="true">' + (g.glyphosate.pass ? '✓' : '✕') + '</span><span>Glyphosate-prone crops: ' +
+          esc(g.glyphosate.pass ? (g.glyphosate.cleared ? 'Pass — organic or non-GMO' : 'None found') : 'Fail') + '</span></li>' +
         '</ul>' +
         '<p class="fine">Our implementation of Seed Oil Scout’s published Seed Oil Safe guidelines. Not an official certification or badge. We can’t check manufacturing processes.</p>' +
       '</div>';
@@ -413,6 +416,7 @@
     sosCats.forEach(function (c) { c.hits.forEach(function (h) { flags.push({ cat: 'Seed Oil Safe · ' + c.name, h: h, cls: '' }); }); });
     g.gmo.confirmed.forEach(function (h) { flags.push({ cat: 'GMO · Tortuga Scan check', h: h, cls: '' }); });
     g.gmo.risky.forEach(function (h) { flags.push({ cat: 'Possible GMO · caution', h: h, cls: 'f-warn' }); });
+    (g.glyphosate.hits || []).forEach(function (h) { flags.push({ cat: 'Glyphosate-prone crop · Tortuga Scan check', h: h, cls: '' }); });
     g.additives.forEach(function (h) { flags.push({ cat: 'Other additive · score only', h: h, cls: 'f-warn' }); });
     g.sugars.forEach(function (h) { flags.push({ cat: 'Added sugar · score only', h: h, cls: 'f-warn' }); });
     var flagsHtml = '<div class="card flags"><h2>What we found</h2>' + (flags.length
@@ -428,7 +432,7 @@
 
     var langNote = p.ingredientsLang === 'fr' ? ' Only a French ingredient list was available; our rules are written for English, so results may miss things.'
       : p.ingredientsLang === 'default' ? ' This is the main-language list on Open Food Facts; if it isn’t English, results may miss things.' : '';
-    var light = R.classifyIngredients(p.ingredients);
+    var light = R.classifyIngredients(p.ingredients, gradeOpts);
     var counts = light.counts || { red: 0, yellow: 0, green: 0 };
     var sourceLine = p.source === 'pasted' ? 'From what you pasted.'
       : p.source === 'catalog' ? 'From our catalog (copied from Open Food Facts). It can be out of date — check the package.'
@@ -509,15 +513,22 @@
         '<tr><td>…or if sugars are ≥ ' + P.sugarVeryHigh.at + ' g per 100 g (instead of the line above)</td><td>−' + P.sugarVeryHigh.extra + ' more</td></tr>' +
         '<tr><td>NOVA group 4 (ultra-processed)</td><td>−' + P.nova[4] + '</td></tr>' +
         '<tr><td>NOVA group 3 (processed)</td><td>−' + P.nova[3] + '</td></tr>' +
+        '<tr><td>Glyphosate-prone crop, if it isn’t organic or non-GMO (once, however many crops)</td><td>−' + P.glyphosate + '</td></tr>' +
+        '<tr><td>Refined starch: corn starch, or modified food starch that isn’t a named potato, tapioca, rice, arrowroot, or cassava starch</td><td>−' + P.refinedStarchEach + ' each, max −' + P.refinedStarchCap + '</td></tr>' +
+        '<tr><td>Mainstream brand (a well-known mass-market packaged-food brand)</td><td>−' + P.mainstream + '</td></tr>' +
       '</tbody></table>' +
-      '<p>The high-sugar extra only applies when added sugar is listed, so fruit’s natural sugar isn’t penalized. NOVA comes from Open Food Facts; pasted labels have no NOVA deduction.</p>' +
+      '<p>The high-sugar extra only applies when added sugar is listed, so fruit’s natural sugar isn’t penalized. NOVA comes from Open Food Facts; pasted labels have no NOVA deduction. A lone NOVA 4 deduction is −' + P.nova[4] + ', so ultra-processed foods don’t land in Cleaner on processing alone.</p>' +
+      '<p>The mainstream deduction is flat −' + P.mainstream + ', the middle of a 3-to-5 range, once per product. It matches the brand or the product name against a list of mass-market names (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). It is not a guess about which company owns which brand. A simple mainstream food, such as milk or sparkling water, loses only those ' + P.mainstream + ' points.</p>' +
       '<p><strong>Bands:</strong> 80–100 Cleaner · 50–79 Mixed · 0–49 Poor.</p>' +
-      '<h3>4. Ingredient colors (OK / limit / avoid)</h3>' +
-      '<p>Each ingredient on the label gets a color. This is our aisle guide. It is not a Seed Oil Safe badge, not an Olive score, and not a lab test. A product can <em>pass</em> the Seed Oil Safe-style check and still have red ingredients (plain sugar and corn starch are the usual ones). A gum or natural flavor is yellow here and still fails that pass/fail check.</p>' +
+      '<h3>4. Glyphosate-prone crops (Tortuga Scan check)</h3>' +
+      '<p>This is our own check. It does not change the Seed Oil Safe-style pass / fail, and it is not a lab test of the package in your hand. Conventional wheat, oats, barley, rye, sorghum, millet, corn, dry beans, chickpeas, lentils, peas (not snap or snow peas), soy foods, sunflower, flax, canola, cottonseed, and sugar beet have to be organic or non-GMO to pass. That claim can be on the ingredient or on the product (the name, the brand, or the labels). Otherwise the ingredient is red and the score drops −' + P.glyphosate + ' once.</p>' +
+      '<p>The list follows public residue surveys and registered uses, not a measurement we made: <a href="' + s.glyphosate.sources[0].url + '" target="_blank" rel="noopener">CFIA’s 2015–2016 glyphosate survey</a> (grains, beans, peas, lentils, chickpeas, soy, wheat, barley), <a href="' + s.glyphosate.sources[1].url + '" target="_blank" rel="noopener">EWG’s 2018 oat-cereal tests</a>, and the <a href="' + s.glyphosate.sources[2].url + '" target="_blank" rel="noopener">EPA glyphosate page</a>. Rice, quinoa, buckwheat, potatoes, green beans, and snap peas are not on this list. Lecithin keeps its own color. Olive, avocado, and coconut oil are not treated as these crops.</p>' +
+      '<h3>5. Ingredient colors (OK / limit / avoid)</h3>' +
+      '<p>Each ingredient on the label gets a color. This is our aisle guide. It is not a Seed Oil Safe badge, not an Olive score, and not a lab test. A product can <em>pass</em> the Seed Oil Safe-style check and still have red ingredients (plain sugar, corn starch, and conventional oats are the usual ones). A gum or natural flavor is yellow here and still fails that pass/fail check.</p>' +
       '<ul>' +
-        '<li><strong>Green — OK.</strong> Nothing in the avoid or limit lists matched. Olive, avocado, coconut, and animal fats, salt, water, herbs, spices, whole foods, and organic Dirty Dozen produce land here.</li>' +
-        '<li><strong>Yellow — limit.</strong> Natural flavors and other unnamed flavors, gums (including carrageenan), plant lecithins that aren’t a soy derivative, soy foods such as tofu or tamari, added sugars that name a source (cane, honey, maple, coconut, and organic or non-GMO sugar), sugar alcohols, enriched or bleached flour, caramel color, hydrogenated fat that isn’t already a seed oil, conventional corn that isn’t a refined starch or syrup, and non-organic produce from the Dirty Dozen.</li>' +
-        '<li><strong>Red — avoid.</strong> Seed oils (same list as the pass/fail check, including organic canola or sunflower oil), artificial sweeteners, artificial dyes, artificial flavors, confirmed GMO or bioengineered wording, conventional corn starch, corn syrup, dextrose, and maltodextrin, modified food starch when the source isn’t named as something else, conventional sugar that doesn’t say cane (or another named non-beet source), beet sugar, refined soy derivatives (soy protein, soy flour, soy lecithin, TVP), and the other additives in the clean score (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).</li>' +
+        '<li><strong>Green — OK.</strong> Nothing in the avoid or limit lists matched. Olive, avocado, coconut, and animal fats, salt, water, herbs, spices, whole foods, organic or non-GMO glyphosate-prone crops, organic or non-GMO milk and eggs, and organic Dirty Dozen produce land here.</li>' +
+        '<li><strong>Yellow — limit.</strong> Natural flavors and other unnamed flavors, gums (including carrageenan), plant lecithins that aren’t a soy derivative, soy foods that are organic or non-GMO (tofu, tamari), added sugars that name a source (cane, honey, maple, coconut, and organic or non-GMO sugar), sugar alcohols, organic enriched flour, caramel color, hydrogenated fat that isn’t already a seed oil, and non-organic produce from the Dirty Dozen. Milk and eggs are yellow when the ingredient and the product don’t say organic or non-GMO. That is a limit, not a score deduction. Butter and plant milks (almond, oat, soy, coconut) are not marked yellow for being milk.</li>' +
+        '<li><strong>Red — avoid.</strong> Seed oils (same list as the pass/fail check, including organic canola or sunflower oil), artificial sweeteners, artificial dyes, artificial flavors, confirmed GMO or bioengineered wording, conventional corn starch, corn syrup, dextrose, and maltodextrin, modified food starch when the source isn’t named as something else, conventional sugar that doesn’t say cane (or another named non-beet source), beet sugar, refined soy derivatives (soy protein, soy flour, soy lecithin, TVP), conventional glyphosate-prone crops (wheat flour, oats, dry beans, and the rest of that list), and the other additives in the clean score (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).</li>' +
       '</ul>' +
       '<p><strong>Dirty Dozen, ' + s.dirtyDozen.year + '.</strong> Non-organic ' + s.dirtyDozen.items.join('; ') + '. List published by the <a href="' + s.dirtyDozen.url + '" target="_blank" rel="noopener">' + esc(s.dirtyDozen.source) + '</a>. If that ingredient phrase says organic, we mark it green. Non-GMO alone does not — the list is about pesticide residue, not genetic engineering. We only look at the ingredient line, not the brand name, because a certified-organic product can still include a small non-organic share.</p>' +
       '<p>Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make that additive green, and it does not make a seed oil okay. Added sugar stays yellow even when it says cane: we don’t call added sugar completely OK, and we don’t try to guess whether it’s a small amount. Raisins and sultanas count as grapes. Sweet potatoes, mustard (the condiment), green beans, and bell peppers are not on the ' + s.dirtyDozen.year + ' list. Potato starch counts as potatoes.</p>' +

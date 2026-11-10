@@ -126,7 +126,7 @@ test('junk list fails many categories and scores low', () => {
   for (const id of ['seedOils', 'soy', 'lecithins', 'naturalFlavors', 'dyes', 'gums']) assert.ok(failedIds.includes(id), 'missing ' + id);
   assert.ok(r.score < 50, 'score ' + r.score);
   assert.equal(r.band.label, 'Poor');
-  assert.equal(r.score, 0); // 100 - 35 - 12*5 - 8 - 8 - 12 - 15 floors at 0
+  assert.equal(r.score, 0); // seed oil, categories, sugar, GMO, NOVA 4, glyphosate crops, refined starch — floors at 0
 });
 test('junk list without nutriments still scores low', () => {
   const r = R.grade('canola oil, soy lecithin, natural flavors, red 40, xanthan gum');
@@ -134,10 +134,11 @@ test('junk list without nutriments still scores low', () => {
 });
 test('score math adds up exactly', () => {
   const r = R.grade('oats, cane sugar, sea salt, natural flavor', { novaGroup: 3, sugars100g: 18 });
-  // 100 - natural flavor 12 - sugar 8 - high sugar 7 - NOVA3 5 = 68
-  assert.equal(r.score, 68);
-  assert.equal(r.band.label, 'Mixed');
-  assert.equal(100 - r.deductions.reduce((s, d) => s + d.points, 0), 68);
+  // 100 - natural flavor 12 - sugar 8 - high sugar 7 - NOVA 3 (5) - conventional oats 35 = 33
+  assert.equal(r.score, 33);
+  assert.equal(r.band.label, 'Poor');
+  assert.equal(r.glyphosate.pass, false);
+  assert.equal(100 - r.deductions.reduce((s, d) => s + d.points, 0), 33);
 });
 test('additive bucket caps at 24', () => {
   const r = R.grade('water, bha, bht, tbhq, sodium benzoate, potassium sorbate, polysorbate 80');
@@ -203,24 +204,29 @@ const leaf = (text) => {
 const one = (text) => R.classifyIngredients(text).items[0];
 
 test('olive, avocado, coconut, butter, ghee, tallow stay green', () => {
-  for (const s of ['extra virgin olive oil', 'avocado oil', 'coconut oil', 'butter', 'ghee', 'beef tallow', 'lard', 'palm oil', 'toasted sesame oil', 'sea salt', 'filtered water', 'whole milk', 'oats'])
+  for (const s of ['extra virgin olive oil', 'avocado oil', 'coconut oil', 'butter', 'ghee', 'beef tallow', 'lard', 'palm oil', 'toasted sesame oil', 'sea salt', 'filtered water'])
     assert.equal(one(s).color, 'green', s);
 });
 test('seed oils are red, including organic canola', () => {
   for (const s of ['canola oil', 'organic canola oil', 'high oleic sunflower oil', 'vegetable oil', 'soybean oil', 'grapeseed oil', 'rice bran oil'])
     assert.equal(one(s).color, 'red', s);
 });
-test('sunflower seeds and sunflower lecithin are not red seed oil', () => {
-  assert.equal(one('sunflower seeds').color, 'green');
+test('sunflower seeds are a glyphosate crop; sunflower lecithin stays yellow', () => {
+  assert.equal(one('sunflower seeds').color, 'red');
+  assert.equal(fails('sunflower seeds', 'seedOils'), false);
   assert.equal(one('sunflower lecithin').color, 'yellow');
+  assert.ok(!/Glyphosate/.test((one('sunflower lecithin').reasons[0] || {}).label || ''));
 });
 test('olive and/or canola oil is red', () => assert.equal(one('olive and/or canola oil').color, 'red'));
-test('ground corn is not red corn oil; corn starch is red', () => {
-  assert.equal(one('ground corn').color, 'yellow');
+test('ground corn is not red corn oil; conventional corn and corn starch are red', () => {
+  assert.equal(fails('ground corn', 'seedOils'), false);
+  assert.equal(one('ground corn').color, 'red');
+  assert.ok(/Glyphosate-prone crop · Corn/.test(one('ground corn').reasons[0].label));
   assert.equal(one('corn starch').color, 'red');
   assert.equal(one('organic corn starch').color, 'yellow');
   assert.equal(one('non-gmo corn starch').color, 'yellow');
   assert.equal(one('organic corn').color, 'green');
+  assert.equal(one('non-gmo corn').color, 'green');
 });
 test('plain sugar is red; cane, honey, and organic sugar are yellow', () => {
   assert.equal(one('sugar').color, 'red');
@@ -252,13 +258,14 @@ test('gums and carrageenan are yellow; carob powder is green', () => {
   assert.equal(one('carob powder').color, 'green');
   assert.equal(one('acacia honey').color, 'yellow');
 });
-test('soy lecithin and soy protein are red; tofu and organic soy lecithin are yellow', () => {
+test('soy lecithin and soy protein are red; conventional tofu is red; organic soy stays milder', () => {
   assert.equal(one('soy lecithin').color, 'red');
   assert.equal(one('soy protein isolate').color, 'red');
   assert.equal(one('textured vegetable protein').color, 'red');
-  assert.equal(one('tofu').color, 'yellow');
+  assert.equal(one('tofu').color, 'red');
+  assert.equal(one('organic tofu').color, 'yellow');
   assert.equal(one('organic soy lecithin').color, 'yellow');
-  assert.equal(one('egg lecithin').color, 'green');
+  assert.equal(one('egg lecithin').color, 'yellow');
 });
 test('confirmed GMO wording is red; non-GMO is not', () => {
   assert.equal(one('bioengineered corn').color, 'red');
@@ -284,13 +291,15 @@ test('grapeseed oil is red, not a Dirty Dozen grape', () => {
   assert.equal(item.color, 'red');
   assert.ok(item.reasons.every(r => !/Dirty Dozen/.test(r.label)));
 });
-test('worse additives are red; enriched flour and caramel color are yellow', () => {
+test('worse additives are red; conventional wheat flour is red; caramel color is yellow', () => {
   for (const s of ['bha', 'tbhq', 'monosodium glutamate', 'titanium dioxide', 'dextrose', 'maltodextrin'])
     assert.equal(one(s).color, 'red', s);
   assert.equal(one('organic maltodextrin').color, 'yellow');
   assert.equal(one('tapioca maltodextrin').color, 'yellow');
-  assert.equal(one('enriched flour').color, 'yellow');
-  assert.equal(one('whole wheat flour').color, 'green');
+  assert.equal(one('enriched flour').color, 'red');
+  assert.equal(one('organic enriched wheat flour').color, 'yellow');
+  assert.equal(one('whole wheat flour').color, 'red');
+  assert.equal(one('organic whole wheat flour').color, 'green');
   assert.equal(one('caramel color').color, 'yellow');
   assert.equal(one('paprika').color, 'green');
 });
@@ -324,8 +333,129 @@ test('cheerios-style list can pass SOS and still have red ingredients', () => {
   const g = R.grade(text);
   assert.equal(g.sos.pass, true);
   const cols = leaf(text);
-  assert.deepEqual(cols, ['green', 'red', 'red', 'green', 'green']);
+  assert.deepEqual(cols, ['red', 'red', 'red', 'green', 'green']);
 });
+console.log('Clean score overhaul');
+const pts = (r, re) => {
+  const d = r.deductions.find(x => re.test(x.label));
+  return d ? d.points : 0;
+};
+test('plain olive oil from a small brand stays 100 and green', () => {
+  const r = R.grade('extra virgin olive oil', { brand: 'California Olive Ranch' });
+  assert.equal(r.score, 100);
+  assert.equal(r.band.label, 'Cleaner');
+  assert.equal(r.glyphosate.pass, true);
+  assert.equal(r.mainstream, null);
+  assert.equal(one('extra virgin olive oil').color, 'green');
+});
+test('organic or non-GMO oats pass; conventional oats are red and not Cleaner', () => {
+  const plain = R.grade('rolled oats', { brand: 'Local mill' });
+  assert.equal(plain.score, 65);
+  assert.equal(plain.band.label, 'Mixed');
+  assert.equal(plain.glyphosate.pass, false);
+  assert.equal(pts(plain, /Glyphosate/), 35);
+  assert.equal(one('rolled oats').color, 'red');
+  const organic = R.grade('organic rolled oats', { brand: 'Local mill' });
+  assert.equal(organic.score, 100);
+  assert.equal(organic.glyphosate.pass, true);
+  assert.equal(one('organic rolled oats').color, 'green');
+  const claimed = R.grade('rolled oats', { productName: 'Organic rolled oats', brand: 'Local mill' });
+  assert.equal(claimed.score, 100);
+  assert.equal(claimed.glyphosate.cleared, true);
+  assert.equal(R.classifyIngredients('whole wheat flour, water', { labelsTags: ['en:non-gmo-project'] }).items[0].color, 'green');
+});
+test('conventional wheat fails glyphosate; a non-GMO product claim passes', () => {
+  const wheat = R.grade('semolina (wheat), durum wheat flour', { brand: 'Barilla', productName: 'Thin Spaghetti' });
+  assert.equal(wheat.glyphosate.pass, false);
+  assert.equal(wheat.score, 61); // 100 - 35 glyphosate - 4 mainstream
+  assert.equal(wheat.band.label, 'Mixed');
+  const cleared = R.grade('semolina (wheat), durum wheat flour', { brand: 'Barilla', labels: 'Non GMO project' });
+  assert.equal(cleared.glyphosate.pass, true);
+  assert.equal(cleared.score, 96);
+  assert.equal(cleared.band.label, 'Cleaner');
+});
+test('green beans, snap peas, rice, buckwheat, and almond flour are not glyphosate crops', () => {
+  for (const s of ['green beans', 'string beans', 'sugar snap peas', 'brown rice', 'buckwheat flour', 'almond flour', 'coconut milk', 'milk thistle', 'eggplant', 'jelly beans', 'vanilla beans']) {
+    const item = one(s);
+    assert.ok(!item.reasons.some(r => /Glyphosate/.test(r.label)), s + ' ' + item.color);
+  }
+  assert.equal(one('locust bean gum').color, 'yellow');
+  assert.equal(R.grade('locust bean gum').glyphosate.pass, true);
+  assert.equal(R.grade('soy lecithin').glyphosate.pass, true);
+  assert.equal(R.grade('soy fat lecithin').glyphosate.pass, true);
+  assert.equal(R.grade('soybean oil').glyphosate.pass, false);
+  assert.equal(one('carob bean gum').color, 'yellow');
+  assert.equal(one('black beans').color, 'red');
+  assert.equal(one('organic black beans').color, 'green');
+  assert.equal(one('chickpea flour').color, 'red');
+  assert.equal(one('organic chickpea flour').color, 'green');
+});
+test('milk and eggs are yellow unless organic or non-GMO; plant milks and butter are not', () => {
+  assert.equal(one('whole milk').color, 'yellow');
+  assert.equal(one('eggs').color, 'yellow');
+  assert.equal(one('egg yolks').color, 'yellow');
+  assert.equal(one('organic whole milk').color, 'green');
+  assert.equal(one('non-gmo eggs').color, 'green');
+  assert.equal(R.classifyIngredients('whole milk', { labelsTags: ['en:usda-organic'] }).items[0].color, 'green');
+  assert.equal(one('almondmilk').color, 'green');
+  assert.equal(one('coconut milk').color, 'green');
+  assert.equal(one('butter').color, 'green');
+  const milk = R.grade('whole milk');
+  assert.equal(milk.score, 100);
+  assert.equal(pts(milk, /Mainstream|Glyphosate|Milk/), 0);
+});
+test('mainstream brand is a flat 4 point deduction', () => {
+  const r = R.grade('sea salt', { brand: 'Cheerios', productName: 'Cheerios' });
+  assert.equal(r.score, 96);
+  assert.equal(r.band.label, 'Cleaner');
+  assert.equal(pts(r, /Mainstream/), 4);
+  assert.equal(r.mainstream.match, 'cheerios');
+  const summary = R.rulesSummary();
+  assert.equal(summary.points.mainstream, 4);
+  assert.equal(summary.points.glyphosate, 35);
+  assert.equal(summary.points.nova[4], 22);
+  assert.equal(summary.points.nova[3], 5);
+  assert.equal(summary.points.refinedStarchEach, 8);
+});
+test('Cheerios 0016000275287 is Poor: sugar, possible GMO, oats and corn, corn starch, brand', () => {
+  const text = 'Whole Grain Oats, Corn Starch, Sugar, Salt, Tripotassium Phosphate, Vitamin E (mixed tocopherols), Calcium Carbonate, Iron, Zinc, Vitamin C (sodium ascorbate), A B Vitamin (niacinamide), Vitamin B6 (pyridoxine hydrochloride), Vitamin A (palmitate), Vitamin B1 (thiamin mononitrate), A B Vitamin (folic acid), Vitamin B12, Vitamin D3';
+  const r = R.grade(text, { novaGroup: null, sugars100g: 5.128, productName: 'Cheerios', brand: 'Cheerios', labels: 'Orthodox Union Kosher' });
+  assert.equal(r.sos.pass, true);
+  assert.equal(r.glyphosate.pass, false);
+  assert.equal(pts(r, /Added sugar/), 8);
+  assert.equal(pts(r, /Possible GMO/), 6);
+  assert.equal(pts(r, /Glyphosate/), 35);
+  assert.equal(pts(r, /Refined starch/), 8);
+  assert.equal(pts(r, /Mainstream/), 4);
+  assert.equal(pts(r, /NOVA/), 0);
+  assert.equal(r.score, 39);
+  assert.equal(r.band.label, 'Poor');
+  const cols = leaf(text);
+  assert.equal(cols[0], 'red');
+  assert.equal(cols[1], 'red');
+  assert.equal(cols[2], 'red');
+});
+test('a seed oil scores lower once the crop is also glyphosate-prone', () => {
+  const r = R.grade('canola oil');
+  assert.equal(r.sos.pass, false);
+  assert.equal(r.glyphosate.pass, false);
+  assert.equal(pts(r, /Seed oils/), 35);
+  assert.equal(pts(r, /Glyphosate/), 35);
+  assert.equal(pts(r, /Possible GMO/), 6);
+  assert.equal(r.score, 24);
+  assert.equal(r.band.label, 'Poor');
+  const organic = R.grade('organic expeller-pressed canola oil');
+  assert.equal(organic.sos.pass, false);
+  assert.equal(organic.glyphosate.pass, true);
+  assert.equal(organic.score, 65);
+});
+test('NOVA 4 alone is no longer a Cleaner score', () => {
+  const r = R.grade('carbonated water', { novaGroup: 4 });
+  assert.equal(r.score, 78);
+  assert.equal(r.band.label, 'Mixed');
+  assert.equal(pts(r, /NOVA/), 22);
+});
+
 test('rules summary cites the 2026 Dirty Dozen', () => {
   const d = R.rulesSummary().dirtyDozen;
   assert.equal(d.year, 2026);

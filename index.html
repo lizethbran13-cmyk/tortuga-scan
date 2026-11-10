@@ -208,12 +208,12 @@
     </section>
 
     <section id="view-add-place" class="view" hidden aria-labelledby="addPlaceTitle">
-      <form id="addPlaceForm" class="card paste" autocomplete="off">
+      <form id="addPlaceForm" class="card paste" autocomplete="off" novalidate>
         <p class="back-row"><button type="button" class="btn btn-outline" data-tab="map">Back to the map</button></p>
         <h2 id="addPlaceTitle">Add a place</h2>
         <p class="help">Saved on this phone only. It shows on your map with a thicker ring. Nothing is uploaded.</p>
         <label for="addPlaceName" class="label">Name</label>
-        <input id="addPlaceName" name="name" type="text" required placeholder="A real restaurant or shop">
+        <input id="addPlaceName" name="name" type="text" placeholder="A real restaurant or shop">
         <label for="addPlaceKind" class="label">Kind</label>
         <select id="addPlaceKind" name="kind">
           <option value="restaurant">Restaurant</option>
@@ -228,18 +228,18 @@
           <option value="Las Vegas">Las Vegas</option>
         </select>
         <label for="addPlaceAddress" class="label">Street address</label>
-        <input id="addPlaceAddress" name="address" type="text" required placeholder="Street, city, NV, ZIP">
+        <input id="addPlaceAddress" name="address" type="text" placeholder="Street, city, NV, ZIP">
         <label for="addPlaceWeb" class="label">Official website, if you have one</label>
-        <input id="addPlaceWeb" name="website" type="url" inputmode="url" placeholder="https://">
+        <input id="addPlaceWeb" name="website" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="example.com">
         <label for="addPlaceLat" class="label">Latitude</label>
-        <input id="addPlaceLat" name="lat" type="text" inputmode="decimal" placeholder="Optional until you drop a pin">
+        <input id="addPlaceLat" name="lat" type="text" inputmode="decimal" placeholder="Leave blank to look up the address">
         <label for="addPlaceLng" class="label">Longitude</label>
-        <input id="addPlaceLng" name="lng" type="text" inputmode="decimal" placeholder="Optional until you drop a pin">
+        <input id="addPlaceLng" name="lng" type="text" inputmode="decimal" placeholder="Leave blank to look up the address">
         <div class="link-row">
           <button type="button" class="btn btn-outline" id="useMyLocation">Use where I am</button>
           <button type="button" class="btn btn-outline" id="dropPin">Drop a pin on the map</button>
         </div>
-        <p id="addPlaceGeoNote" class="help">If location is off, drop a pin. This page does not call a geocoder.</p>
+        <p id="addPlaceGeoNote" class="help">Leave the coordinates blank and Save looks the address up once on OpenStreetMap. Or use where you are, or drop a pin. Map data © OpenStreetMap contributors.</p>
         <label for="addPlaceNotes" class="label">Notes</label>
         <textarea id="addPlaceNotes" name="notes" rows="3" placeholder="What you know from being there. Don’t invent a menu."></textarea>
         <p class="label">Photo</p>
@@ -248,6 +248,7 @@
           <label class="btn btn-outline file-btn">Choose a photo<input id="addPlaceFile" type="file" accept="image/*"></label>
         </div>
         <p id="addPlacePhotoNote" class="help">Optional. The photo stays on this phone.</p>
+        <p id="addPlaceStatus" class="notice" role="status" aria-live="assertive" hidden></p>
         <button type="submit" class="btn btn-secondary">Save place on this phone</button>
       </form>
     </section>

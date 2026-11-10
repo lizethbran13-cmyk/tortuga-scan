@@ -411,6 +411,72 @@
     return line;
   }
 
+  function parseCoord(value) {
+    if (value == null || String(value).trim() === '') return null;
+    var n = parseFloat(String(value).trim());
+    return n === n ? n : null;
+  }
+
+  function normalizeWebsite(input) {
+    var raw = String(input || '').trim();
+    if (!raw) return { ok: true, url: '' };
+    var withScheme = raw;
+    if (/^https:\/\//i.test(raw)) withScheme = raw;
+    else if (/^http:\/\//i.test(raw)) withScheme = raw.replace(/^http:\/\//i, 'https://');
+    else if (/^\/\//.test(raw)) withScheme = 'https:' + raw;
+    else withScheme = 'https://' + raw.replace(/^\/+/, '');
+    var url;
+    try { url = new URL(withScheme); }
+    catch (e) {
+      return { ok: false, url: '', message: 'That website could not be read. Use a domain such as example.com, or leave it blank.' };
+    }
+    if (!url.hostname || url.hostname.indexOf('.') < 0 || url.protocol !== 'https:') {
+      return { ok: false, url: '', message: 'That website needs a full domain, such as example.com. You can leave it blank.' };
+    }
+    return { ok: true, url: url.href };
+  }
+
+  function preparePlaceDraft(fields) {
+    fields = fields || {};
+    var name = String(fields.name || '').trim();
+    var address = String(fields.address || '').trim();
+    if (!name) return { ok: false, field: 'name', message: 'Add a name, then save again.' };
+    if (!address) return { ok: false, field: 'address', message: 'Add a street address, then save again.' };
+    var web = normalizeWebsite(fields.website);
+    if (!web.ok) return { ok: false, field: 'website', message: web.message };
+    var latText = String(fields.lat == null ? '' : fields.lat).trim();
+    var lngText = String(fields.lng == null ? '' : fields.lng).trim();
+    var lat = parseCoord(latText);
+    var lng = parseCoord(lngText);
+    if ((latText || lngText) && (lat === null || lng === null || lat < -90 || lat > 90 || lng < -180 || lng > 180)) {
+      return { ok: false, field: 'lat', message: 'Those coordinates are not usable. Use where you are, drop a pin, or clear both boxes so the address can be looked up.' };
+    }
+    var draft = { ok: true, name: name, address: address, website: web.url, city: String(fields.city || '').trim() };
+    if (lat === null || lng === null) {
+      draft.needsGeocode = true;
+      draft.lat = null;
+      draft.lng = null;
+      return draft;
+    }
+    draft.needsGeocode = false;
+    draft.lat = Math.round(lat * 1e6) / 1e6;
+    draft.lng = Math.round(lng * 1e6) / 1e6;
+    return draft;
+  }
+
+  function nominatimQuery(address, city) {
+    return [String(address || '').trim(), String(city || '').trim(), 'Nevada'].filter(Boolean).join(', ');
+  }
+
+  function geocodeHit(rows) {
+    var hit = rows && rows[0];
+    if (!hit) return null;
+    var lat = parseCoord(hit.lat);
+    var lng = parseCoord(hit.lon);
+    if (lat === null || lng === null || lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
+    return { lat: Math.round(lat * 1e6) / 1e6, lng: Math.round(lng * 1e6) / 1e6, label: hit.display_name || '' };
+  }
+
   function slugItem(name) {
     var s = String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     return s || 'item';
@@ -490,6 +556,11 @@
     gradePlace: gradePlace,
     gradeMenuLine: gradeMenuLine,
     slugItem: slugItem,
+    parseCoord: parseCoord,
+    normalizeWebsite: normalizeWebsite,
+    preparePlaceDraft: preparePlaceDraft,
+    nominatimQuery: nominatimQuery,
+    geocodeHit: geocodeHit,
     orderChoices: orderChoices,
     mergeMenu: mergeMenu,
     whatLists: whatLists,

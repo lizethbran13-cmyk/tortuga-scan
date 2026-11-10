@@ -1269,12 +1269,26 @@
       })
     };
   }
-  function scoreBlock(g) {
+  function tortyImg(alt) {
+    var src = new URL('icons/torty-portrait.png', document.baseURI).href;
+    return '<img src="' + esc(src) + '" alt="' + esc(alt) + '" width="280" height="200" decoding="async">';
+  }
+  function placeGauge(markerPct) {
+    var marker = markerPct == null ? '' : '<span class="place-marker" style="left:' + markerPct + '%"></span>';
+    return '<div class="place-gauge" aria-hidden="true"><div class="place-track"><span class="avoid"></span><span class="limit"></span><span class="eat"></span></div>' + marker + '</div>' +
+      '<p class="place-scale" aria-hidden="true"><span>0</span><span>Avoid</span><span>Limit</span><span>Eat</span><span>10</span></p>';
+  }
+  function scoreBlock(p, g) {
     if (g.score == null) {
-      return '<div class="place-score"><p class="num">—</p><p class="state">Unrated — need reports</p><p class="help">' + esc(g.headline) + '</p></div>';
+      return '<div class="place-meter unrated"><p class="place-unrated-badge">Unrated</p>' +
+        placeGauge(null) +
+        '<p class="place-unrated-prompt">No score yet. The scale stays empty until a report names what you ordered and which fats you saw.</p>' +
+        '<button type="button" class="btn btn-secondary" data-act="report" data-place="' + esc(p.id) + '">Add the first report</button></div>';
     }
     var cls = g.approved ? 'eat' : (g.band ? g.band.id : '');
-    return '<div class="place-score"><p class="num">' + esc(g.score) + '<span class="of"> / 10</span></p>' +
+    var pos = Math.max(2, Math.min(98, Math.round(g.score * 10)));
+    return '<div class="place-meter scored ' + esc(cls) + '">' + placeGauge(pos) +
+      '<p class="place-num">' + esc(g.score) + '<span class="of"> / 10</span></p>' +
       '<p class="pills"><span class="pill ' + esc(cls) + '">' + esc(g.label) + '</span></p>' +
       '<p class="help">' + esc(g.headline) + '</p></div>';
   }
@@ -1317,9 +1331,9 @@
       '<p>' + esc(p.address || '') + '</p>' +
       (p.phone ? '<p><a href="tel:' + esc(String(p.phone).replace(/[^\d+]/g, '')) + '">' + esc(p.phone) + '</a></p>' : '') +
       (p.website ? '<p><a href="' + esc(p.website) + '" target="_blank" rel="noopener">Official website</a></p>' : '') +
-      scoreBlock(g) +
+      scoreBlock(p, g) +
       '<div class="link-row">' + directionLinks(p) + '</div></div>' +
-      '<div class="card torty-card"><img src="icons/torty-portrait.png" alt="Torty, the tortoise"><div class="speech"><span class="who">Torty</span><p>' + esc(Places.tortyPlace(p, g)) + '</p></div></div>' +
+      '<div class="card torty-card torty-place">' + tortyImg('Torty, the tortoise') + '<div class="speech"><span class="who">Torty</span><p>' + esc(Places.tortyPlace(p, g)) + '</p></div></div>' +
       (g.conflicts && g.conflicts.length ? '<div class="notice"><strong>Reports disagree</strong><p>' + esc(g.conflicts.join(' ')) + '</p></div>' : '') +
       '<div class="card"><h2 class="small-title">What to get</h2>' + (lists.get.length ? listRows(lists.get, '') : '<p>Nothing is marked to get yet.</p>') +
       '<h2 class="small-title">What to skip</h2>' + (lists.skip.length ? listRows(lists.skip, '') : '<p>Nothing is marked to skip yet.</p>') +
@@ -1335,7 +1349,7 @@
       '<button type="button" class="btn btn-outline" data-act="menu" data-place="' + esc(p.id) + '">Snap a menu</button></div>' +
       (p.origin === 'phone' ? '<div class="link-row"><button type="button" class="btn btn-outline" data-act="remove-place" data-id="' + esc(p.id) + '">Remove this place from this phone</button></div>' : '') +
       '</div>' +
-      '<div class="card" id="placePhoto"></div>' +
+      '<div class="card" id="placePhoto" hidden></div>' +
       '<div class="card"><h2 class="small-title">Reports</h2>' + (reportCards || '<p>No reports yet. Yours stay on this phone and change the score here right away.</p>') + '</div>' +
       '<div class="card"><h2 class="small-title">Sources</h2><ul class="recent">' + (p.sources || []).map(function (s) {
         return '<li><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.title || s.url) + '</a>' + (s.note ? '<span class="why">' + esc(s.note) + '</span>' : '') + '</li>';

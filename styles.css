@@ -361,10 +361,37 @@ select {
 .dot.grocer { background: #5E7F3A; }
 .dot.chocolatier { background: #6B3E2E; }
 .dot.shop { background: #8A6A3B; }
-.place-score { text-align: center; }
-.place-score .num { font: 700 56px/1 var(--serif); color: var(--olive-deep); letter-spacing: -.03em; }
-.place-score .of { color: var(--ink-2); font-weight: 700; }
-.place-score .state { margin: 6px 0 0; font-weight: 750; }
+.place-meter { display: grid; gap: 8px; justify-items: center; margin-top: 12px; }
+.place-gauge { position: relative; width: min(100%, 300px); height: 18px; }
+.place-track {
+  display: grid; grid-template-columns: 44fr 15fr 41fr; height: 12px; margin-top: 3px;
+  border-radius: 999px; overflow: hidden; border: 1px solid var(--line); background: #E6E0D2;
+}
+.place-track span { display: block; min-width: 0; }
+.place-meter.unrated .place-track span { background: #E4DDD0; }
+.place-meter.scored .place-track .avoid { background: #E7C4B8; }
+.place-meter.scored .place-track .limit { background: #F3E0B0; }
+.place-meter.scored .place-track .eat { background: #D5E4C4; }
+.place-meter.scored.avoid .place-track .avoid,
+.place-meter.scored.limit .place-track .limit,
+.place-meter.scored.eat .place-track .eat { filter: saturate(1.15); }
+.place-marker {
+  position: absolute; top: 0; width: 4px; height: 18px; margin-left: -2px;
+  border-radius: 2px; background: var(--olive-deep);
+}
+.place-scale {
+  display: flex; justify-content: space-between; width: min(100%, 300px); margin: 0;
+  font-size: 11px; font-weight: 750; color: var(--ink-2); letter-spacing: .01em;
+}
+.place-unrated-badge {
+  margin: 0; padding: 6px 14px; border-radius: 999px;
+  background: var(--moss); color: var(--olive-deep); font-weight: 800; letter-spacing: .04em;
+}
+.place-unrated-prompt { margin: 0; text-align: center; color: var(--ink-2); font-size: 15px; }
+.place-num { margin: 0; font: 700 36px/1 var(--serif); color: var(--olive-deep); }
+.place-num .of { font: 700 16px var(--sans); color: var(--ink-2); }
+.torty-place { align-items: start; }
+.torty-place img { width: 96px; height: auto; max-height: 120px; object-fit: contain; object-position: center top; }
 .menu-preview { width: 100%; max-height: 240px; object-fit: contain; border-radius: 16px; background: var(--cream); border: 1px solid var(--line); margin-top: 10px; }
 .menu-line h3 { font-size: 20px; }
 .origin-phone { box-shadow: inset 0 0 0 3px var(--cream); }

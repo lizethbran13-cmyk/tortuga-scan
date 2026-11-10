@@ -22,7 +22,7 @@ index.html             App shell, tabs, forms
 styles.css             Cream and olive, mobile-first
 app.js                 Camera, routing, meter, Torty, store, book
 rules.js               Rules engine (browser + Node)
-sw.js                  Service worker (cache name tortuga-shell-v6)
+sw.js                  Service worker (cache name tortuga-shell-v7)
 404.html               GitHub Pages fallback so /product/… reloads
 manifest.webmanifest   Add to Home Screen
 data/catalog.json      Food catalog

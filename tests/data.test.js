@@ -132,7 +132,10 @@ test('the app lets you attach certifications when grading or adding a product', 
   assert.match(app, /mergeCertifications/);
   assert.match(app, /tortuga\.mine\.v1/);
   assert.match(app, /certPickerHtml/);
-  assert.match(sw, /tortuga-shell-v6/);
+  assert.match(sw, /tortuga-shell-v7/);
+  const css = fs.readFileSync(path.join(__dirname, '..', 'styles.css'), 'utf8');
+  assert.doesNotMatch(css, /\.needle\s*\{[^}]*transform-origin/);
+  assert.match(app, /rotate\(' \+ \(-90 \+ \(target \+ 90\) \* e\) \+ ' 160 148\)/);
   assert.match(html + app, /icons\/torty-portrait\.png/);
   assert.match(app, /grokbot:\/\/app\/v1\/agent\?id=a4483b75-73bb-47ac-8893-938cbf85736a/);
   assert.match(html, /Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout/);

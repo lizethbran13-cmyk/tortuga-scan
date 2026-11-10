@@ -213,8 +213,10 @@ body.scanning .tabbar, body.scanning .foot { display: none; }
   padding: 8px 12px 16px;
   box-shadow: var(--shadow);
 }
-.meter-svg { width: 100%; height: auto; display: block; overflow: visible; }
-.needle { transform-origin: 160px 148px; transition: transform .7s cubic-bezier(.16, .84, .32, 1); }
+.meter-svg { width: 100%; height: auto; display: block; overflow: hidden; }
+/* The needle is rotated only with the SVG attribute rotate(angle 160 148).
+   A CSS transform or transform-origin on this group is also applied by WebKit,
+   so the pivot is counted twice and the needle leaves the gauge. */
 .meter-words { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 6px; margin-top: -6px; }
 .meter-words span { font-size: 12px; font-weight: 800; letter-spacing: .01em; text-align: center; }
 .meter-words .w-avoid { color: var(--avoid); }
@@ -357,5 +359,4 @@ dialog#standards::backdrop { background: rgba(20, 26, 14, .45); }
 }
 @media (prefers-reduced-motion: reduce) {
   .spinner { animation: none; }
-  .needle { transition: none; }
 }

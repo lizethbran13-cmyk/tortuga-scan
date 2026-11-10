@@ -743,6 +743,22 @@ test('routes keep query deep links and read clean paths', () => {
   assert.equal(R.parseRoute('/', '?product=041570054161').code, '041570054161');
 });
 
+test('glossary names are real ingredients, not raw label scraps', () => {
+  assert.deepEqual(R.glossaryNames('_Wheat_'), ['Wheat']);
+  assert.deepEqual(R.glossaryNames('(thiamin mononitrate)'), ['Thiamin mononitrate']);
+  assert.deepEqual(R.glossaryNames('Canola oil*'), ['Canola oil']);
+  const oils = R.glossaryNames('(corn, canola, and/or sunflower oil)').map(s => s.toLowerCase());
+  assert.deepEqual(oils, ['corn oil', 'canola oil', 'sunflower oil']);
+  const water = R.glossaryNames('(WE DECLARE ALL OUR INGREDIENTS:)Aqua (filtered water)');
+  assert.deepEqual(water, ['Filtered water']);
+  assert.deepEqual(R.glossaryNames('for color'), []);
+  assert.deepEqual(R.glossaryNames('movement of the bowl and/or splattering'), []);
+  assert.deepEqual(R.glossaryNames('contains less than 2% of the following: corn starch'), ['Corn starch']);
+  assert.ok(R.glossaryNames('Calcium phosphate and/or baking soda').join(' ').match(/Calcium phosphate/));
+  assert.ok(R.glossaryNames('Calcium phosphate and/or baking soda').join(' ').match(/Baking soda/));
+  assert.equal(R.glossaryNames('Lavandula Angustifolia (Lavender) Oil')[0].endsWith(')'), true);
+});
+
 test('rules summary cites the 2026 Dirty Dozen', () => {
   const d = R.rulesSummary().dirtyDozen;
   assert.equal(d.year, 2026);

@@ -929,18 +929,19 @@
     var seen = {};
     var list = [];
     function add(name, kind) {
-      var clean = String(name || '').replace(/\s+/g, ' ').trim();
-      if (clean.length < 2 || clean.length > 64) return;
-      var key = kind + '|' + clean.toLowerCase();
-      if (seen[key]) return;
-      seen[key] = 1;
-      var profile = R.ingredientProfile(clean, kind);
-      if (!profile) return;
-      profile.slug = R.brandSlug(clean);
-      profile.id = key;
-      list.push(profile);
+      R.glossaryNames(name).forEach(function (clean) {
+        var key = clean.toLowerCase();
+        if (seen[key]) return;
+        seen[key] = 1;
+        var profile = R.ingredientProfile(clean, kind);
+        if (!profile) return;
+        profile.name = clean;
+        profile.slug = R.brandSlug(clean);
+        profile.id = key;
+        list.push(profile);
+      });
     }
-    ['olive oil', 'avocado oil', 'canola oil', 'sunflower oil', 'oats', 'wheat flour', 'corn starch', 'sugar', 'honey', 'maple syrup', 'milk', 'eggs', 'chicken', 'xanthan gum', 'natural flavors', 'soy lecithin', 'fragrance', 'methylisothiazolinone', 'sodium benzoate', 'modified food starch', 'red 40', 'sucralose'].forEach(function (n) {
+    ['olive oil', 'avocado oil', 'canola oil', 'sunflower oil', 'oats', 'wheat flour', 'corn starch', 'sugar', 'honey', 'maple syrup', 'milk', 'eggs', 'chicken', 'xanthan gum', 'natural flavors', 'soy lecithin', 'fragrance', 'methylisothiazolinone', 'sodium benzoate', 'modified food starch', 'red 40', 'sucralose', 'filtered water', 'thiamin mononitrate', 'wheat'].forEach(function (n) {
       add(n, /fragrance|methyl|benzoate/i.test(n) ? 'household' : 'food');
     });
     catalog.forEach(function (p) {
@@ -948,7 +949,10 @@
       (function walk(items) {
         items.forEach(function (it) {
           if (!it.children || !it.children.length) add(it.text, 'food');
-          else walk(it.children);
+          else {
+            add(it.text, 'food');
+            walk(it.children);
+          }
         });
       })(tree.items || []);
     });
@@ -980,10 +984,13 @@
     }).join('') || '<div class="card"><p>No ingredient matches.</p></div>';
   }
   function showIngredient(name, kind) {
+    var cleaned = R.glossaryNames(name);
+    if (!cleaned.length) { renderBook(); return; }
+    var lookup = cleaned[0];
     var entries = bookEntries();
-    var slug = R.brandSlug(name);
-    var hit = entries.filter(function (e) { return e.slug === slug || e.name.toLowerCase() === String(name).toLowerCase(); })[0];
-    if (!hit && name) hit = R.ingredientProfile(name, kind || 'food');
+    var slug = R.brandSlug(lookup);
+    var hit = entries.filter(function (e) { return e.slug === slug || e.name.toLowerCase() === lookup.toLowerCase(); })[0];
+    if (!hit) hit = R.ingredientProfile(lookup, kind || 'food');
     if (!hit) { renderBook(); return; }
     if (hit && !hit.blurb) hit = R.ingredientProfile(hit.name, hit.kind);
     writeUrl(ingredientPath(R.brandSlug(hit.name)), true);

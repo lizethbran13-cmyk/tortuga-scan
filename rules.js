@@ -1615,6 +1615,165 @@
     return sentence;
   }
 
+  var OIL_SOURCES = '(?:canola|rapeseed|sunflower|soybeans?|soya|soy|safflower|cottonseed|corn|maize|palm(?:\\s+kernel)?|olive|avocado|coconut|vegetable|grapeseed|grape\\s+seed|rice\\s+bran)';
+
+  function stripGlossaryEdges(s) {
+    var t = String(s || '')
+      .replace(/[_*`]+/g, ' ')
+      .replace(/\(\s*\)|\[\s*\]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .replace(/^[\s,;:.+\-–—/&|*]+|[\s,;:.+\-–—/&|*]+$/g, '')
+      .trim();
+    while (/^[(\[]/.test(t) && !/[)\]]/.test(t)) t = t.slice(1).trim();
+    while (/[)\]]$/.test(t) && !/[(\[]/.test(t)) t = t.slice(0, -1).trim();
+    return t;
+  }
+
+  function unwrapGlossary(s) {
+    var t = String(s || '').trim();
+    for (var n = 0; n < 3; n++) {
+      if ((/^\([^()]*\)$/.test(t) || /^\[[^\[\]]*\]$/.test(t)) && t.length > 2) t = t.slice(1, -1).trim();
+      else break;
+    }
+    return t;
+  }
+
+  function glossaryDisplay(s) {
+    s = String(s || '').replace(/\*+/g, '').replace(/\s+/g, ' ').trim();
+    s = s.replace(/^[\s,;:.+\-–—/&|*]+|[\s,;:.+\-–—/&|*]+$/g, '').trim();
+    var letters = s.replace(/[^A-Za-z]/g, '');
+    if (!letters) return s;
+    var upper = (letters.match(/[A-Z]/g) || []).length;
+    if (upper === letters.length && letters.length <= 5) return s;
+    if (upper === 0) return s.charAt(0).toUpperCase() + s.slice(1);
+    if (upper / letters.length < 0.7) return s;
+    var small = { of: 1, and: 1, or: 1, the: 1, with: 1, from: 1, in: 1, for: 1, a: 1, de: 1 };
+    return s.toLowerCase().split(' ').map(function (w, i) {
+      if (!w) return w;
+      if (/^(bha|bht|tbhq|msg|edta|peg|mea|dea|ci|aqua)$/i.test(w)) return w.toUpperCase() === 'AQUA' ? 'Aqua' : w.toUpperCase();
+      if (i > 0 && small[w]) return w;
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    }).join(' ');
+  }
+
+  function glossaryFiller(s) {
+    var t = String(s || '').toLowerCase().trim();
+    if (t.length < 3 && !/^(soy|rye|oat|pea|egg|ham|fat|gum|oil|bha|bht|msg)$/.test(t)) return true;
+    if (/^(and|or|and\/or|of|the|with|for|from|color|colour|following|contains|including|inc|sl|etc|other|natural|artificial|organic|pure|filtered|less|than|added|made|red|white|yellow|blue|green|orange)$/.test(t)) return true;
+    if (/^\d+(\.\d+)?\s*%?$/.test(t)) return true;
+    if (/^(for color|for colour|for freshness|for color retention|to preserve freshness)$/.test(t)) return true;
+    if (/movement of the bowl|splatter|directions|caution|keep out|recycl|do not|first aid|website|net weight|may contain/.test(t)) return true;
+    if (/^contains less than\b/.test(t) && !/\b(salt|sugar|oil|starch|flavor|flavour|water|honey|milk)\b/.test(t)) return true;
+    var words = t.split(/\s+/).filter(Boolean);
+    var real = words.filter(function (w) { return /[a-z]{3,}/.test(w); });
+    if (!real.length) return true;
+    if (words.length >= 4 && real.length < 2) return true;
+    if (words.length > 10) return true;
+    return false;
+  }
+
+  function glossaryNames(raw) {
+    var out = [];
+    var seen = {};
+    function push(name) {
+      var t = glossaryDisplay(stripGlossaryEdges(unwrapGlossary(stripGlossaryEdges(name))));
+      if (!t || glossaryFiller(t) || t.length > 56) return;
+      var key = t.toLowerCase();
+      if (seen[key]) return;
+      seen[key] = 1;
+      out.push(t);
+    }
+    function oilPieces(s) {
+      if (!/\band\s*\/\s*or\b/i.test(s)) return null;
+      if (!new RegExp('\\b' + OIL_SOURCES + '\\b', 'i').test(s)) return null;
+      var hasOil = /\boils?\b/i.test(s);
+      var organic = /\borganic\b/i.test(s);
+      var found = [];
+      var seenOil = {};
+      var re = new RegExp('\\b(?:organic\\s+)?(?:expeller[\\s-]*pressed\\s+)?(?:fractionated\\s+)?(' + OIL_SOURCES + ')(?:\\s+oils?)?\\b', 'ig');
+      var m;
+      while ((m = re.exec(s))) {
+        var crop = m[1].toLowerCase().replace(/\s+/g, ' ');
+        if (crop === 'soy' || crop === 'soya') crop = 'soybean';
+        if (crop === 'maize') crop = 'corn';
+        if (crop === 'grape seed') crop = 'grapeseed';
+        var label = crop + (hasOil || /oil/.test(m[0].toLowerCase()) ? ' oil' : '');
+        if (/\bfractionated\b/i.test(m[0])) label = 'fractionated ' + label;
+        else if (organic && /\borganic\b/i.test(m[0])) label = 'organic ' + label;
+        if (!seenOil[label]) { seenOil[label] = 1; found.push(label); }
+      }
+      return found.length ? found : null;
+    }
+    function walk(text, depth) {
+      if ((depth || 0) > 6) return;
+      var s = String(text || '').replace(/[_*`]+/g, ' ').replace(/\s+/g, ' ').trim();
+      if (!s) return;
+      s = s.replace(/\(\s*(?:we declare all our ingredients|best ingredients)\s*[:.]?\s*\)/ig, ' ');
+      s = s.replace(/\bwe declare all our ingredients\s*[:.]?\s*/ig, ' ');
+      s = s.replace(/\bbest ingredients\s*[:.]?\s*/ig, ' ');
+      s = s.replace(/\bcontains less than \d+(?:\.\d+)?\s*%?\s*of(?:\s+the following)?\s*[:.]?\s*/ig, ' ');
+      s = s.replace(/\(\s*\d+(?:\.\d+)?\s*%\s*\)/g, ' ');
+      s = s.replace(/\bfor colou?r(?:\s+retention)?\b/ig, ' ');
+      s = s.replace(/\b(?:added\s+)?for freshness\b/ig, ' ');
+      s = s.replace(/\band\s*\/\s*or\b/ig, ' and/or ');
+      s = s.replace(/^(?:<\s*)?\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?\s*%\s*:?\s*/i, '');
+      s = s.replace(/^(?:<\s*)?\d+(?:\.\d+)?\s*%\s*:?\s*/i, '');
+      s = s.replace(/\b\d+(?:\.\d+)?\s*g\s+pour\s+100\s*g\.?\s*/ig, ' ');
+      s = stripGlossaryEdges(s);
+      s = s.replace(/^(?:acidifiant|acidifier)\s+/i, '');
+      if (!s || /[<>%]/.test(s) || /\b(siguientes|o menos|pour 100|daily value|allergen)\b/i.test(s) || glossaryFiller(s)) return;
+      if (/^(a|an)\s+(natural|artificial)\b/i.test(s)) return;
+      if (/^(a b vitamin|ab vitamin|a aded sugars)$/i.test(s)) return;
+      if (/^(added (as|to)|adds a negligible)\b/i.test(s)) return;
+      if (/\b(absorb|aded|splatter|declare|siguientes|negligible)\b/i.test(s)) return;
+      var un = unwrapGlossary(s);
+      if (un !== s) { walk(un, (depth || 0) + 1); return; }
+      var oils = oilPieces(s);
+      if (oils) {
+        oils.forEach(function (oil) { walk(oil, (depth || 0) + 1); });
+        var extra = s.replace(new RegExp('\\b(?:organic\\s+|expeller[\\s-]*pressed\\s+|fractionated\\s+)*' + OIL_SOURCES + '(?:\\s+oils?)?\\b', 'ig'), ' ')
+          .replace(/\band\/or\b/ig, ' ')
+          .replace(/\bwith\b/ig, ',');
+        if (/\b(tbhq|bha|bht|salt|sugar)\b/i.test(extra)) walk(extra, (depth || 0) + 1);
+        return;
+      }
+      if (/\band\/or\b/i.test(s)) {
+        var bits = s.split(/\s+and\/or\s+/i).map(stripGlossaryEdges).filter(Boolean);
+        if (bits.length > 1) { bits.forEach(function (bit) { walk(bit, (depth || 0) + 1); }); return; }
+      }
+      var parsed = splitParen(s);
+      if (parsed && parsed.children && parsed.children.length && parsed.name) {
+        var innerJoined = parsed.children.join(', ');
+        if (/[,;]| and\/or /i.test(innerJoined)) {
+          walk(parsed.name, (depth || 0) + 1);
+          parsed.children.forEach(function (ch) { walk(ch, (depth || 0) + 1); });
+          return;
+        }
+        var head = stripGlossaryEdges(parsed.name);
+        var inner = stripGlossaryEdges(parsed.children[0] || '');
+        if (/^(aqua|water|eau)$/i.test(head) && inner) { walk(inner, (depth || 0) + 1); return; }
+        if (inner && /^(a\s+)?[a-z]\s+vitamin$|^a\s+b\s+vitamin$/i.test(head)) { walk(inner, (depth || 0) + 1); return; }
+        if (inner && /\b(derived|based|preservative|surfactant|cleaning agent|agent|vitamin|mineral|stabilizer|softener|solvent|thickener|emulsifier)\b/i.test(inner)) {
+          walk(head, (depth || 0) + 1);
+          return;
+        }
+        if (head && inner && !/[,;]/.test(inner) && inner.split(/\s+/).length <= 3) {
+          push(head + ' (' + inner.replace(/[()]/g, '').trim() + ')');
+          return;
+        }
+        walk(head, (depth || 0) + 1);
+        return;
+      }
+      if (/[,;]/.test(s)) {
+        var parts = tokenizeIngredients(s);
+        if (parts.length > 1) { parts.forEach(function (p) { walk(p, (depth || 0) + 1); }); return; }
+      }
+      push(s);
+    }
+    walk(raw);
+    return out;
+  }
+
   function ingredientProfile(name, kind) {
     var raw = String(name || '').replace(/\s+/g, ' ').trim();
     if (!raw) return null;
@@ -1690,6 +1849,7 @@
     brandStanding: brandStanding,
     tortySays: tortySays,
     ingredientBlurb: ingredientBlurb,
+    glossaryNames: glossaryNames,
     ingredientProfile: ingredientProfile,
     parseRoute: parseRoute,
     PASS_AT: PASS_AT,

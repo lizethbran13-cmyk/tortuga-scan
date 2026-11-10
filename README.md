@@ -8,7 +8,7 @@ You get:
 2. **Pass or Fail** on that same panel. Fail if the score is under 45. Pass at 45 or more.
 3. **Torty**, the tortoise, saying what she thinks from the flags that are actually on the label.
 4. **A Tortuga score, 0–100**, with the math shown. Floor is 0.
-5. **Ingredient colors** (green / yellow / red) and an Ingredient Book.
+5. **Ingredient colors** (green / yellow / red) and an Ingredient Book of cleaned ingredient names, not raw label scraps.
 6. **An approved store** of products that score 60 or more, with a Grok Bot link and a brand website when we have a real one.
 
 > **Disclaimer.** Inspired by published Bobby Approved standards and an Olive-style meter. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout. Not their score, badge, lab test, or certification. Grades use the ingredient list in our catalog, on Open Food Facts or Open Beauty Facts (which can be incomplete or out of date), or what you paste. We can’t verify manufacturing, cross-contact, or what a lab would find in the box. Always read the package.

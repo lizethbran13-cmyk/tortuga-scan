@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "updated": "2026-11-10",
-  "about": "Tortuga household catalog. Grades are Tortuga’s own, inspired by the published Bobby Approved ingredient standards (https://www.shopflavcity.com/pages/bobby-approved-app). Not an official Bobby Approved score, badge, or certification. Ingredient lists are copied from the cited source. How to add a product: README.md.",
-  "standard": "Published “10 Commandments of Bobby Approved Ingredients” at https://www.shopflavcity.com/pages/bobby-approved-app. Tortuga checks the label for fragrance, harmful preservatives, artificial colors, optical brighteners, seed oils, and flavors. We do not use the Bobby Approved app or its database.",
-  "source": "Open Beauty Facts (Open Database License), https://world.openbeautyfacts.org/",
-  "count": 9,
+  "about": "Tortuga household catalog. Grades are Tortuga’s own, inspired by the published Bobby Approved ingredient standards (https://www.shopflavcity.com/pages/bobby-approved-app) and shown on an Olive-style meter. Not an official Bobby Approved score, badge, or certification, and not affiliated with FlavCity, Olive, or Seed Oil Scout. Ingredient lists are copied from the cited source. How to add a product: README.md.",
+  "standard": "Published “10 Commandments of Bobby Approved Ingredients” at https://www.shopflavcity.com/pages/bobby-approved-app. Tortuga checks the label for fragrance, harmful preservatives, artificial colors, optical brighteners, seed oils, and flavors. Pass means a score of 45 or more. We do not use the Bobby Approved app or its database.",
+  "source": "Open Beauty Facts and Open Products Facts (Open Database License). Each product links to the page its ingredient list was copied from.",
+  "count": 46,
   "products": [
     {
       "barcode": "0030772121191",
@@ -19,9 +19,9 @@
       "added": "2026-11-10",
       "grade": {
         "pass": false,
-        "score": 23,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -37,9 +37,9 @@
       "added": "2026-11-10",
       "grade": {
         "pass": false,
-        "score": 23,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -54,10 +54,10 @@
       "sourceUrl": "https://world.openbeautyfacts.org/product/0072613468805",
       "added": "2026-11-10",
       "grade": {
-        "pass": false,
-        "score": 78,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "pass": true,
+        "score": 58,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -72,9 +72,9 @@
       "added": "2026-11-10",
       "grade": {
         "pass": false,
-        "score": 56,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 8,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -89,9 +89,9 @@
       "added": "2026-11-10",
       "grade": {
         "pass": false,
-        "score": 38,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -105,9 +105,9 @@
       "added": "2026-11-10",
       "grade": {
         "pass": false,
-        "score": 52,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 36,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -124,8 +124,8 @@
       "grade": {
         "pass": true,
         "score": 84,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -142,8 +142,8 @@
       "grade": {
         "pass": true,
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -158,11 +158,676 @@
       "sourceNote": "The six ingredients are the numbered list on this Open Beauty Facts record. The page also mixes French text and use directions; those lines are not part of the ingredient list stored here.",
       "added": "2026-11-10",
       "grade": {
-        "pass": false,
-        "score": 70,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "pass": true,
+        "score": 50,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
+    },
+    {
+      "barcode": "4058172455933",
+      "name": "Milde Seife",
+      "brand": "babylove",
+      "category": "Hand soap",
+      "ingredients": "SODIUM PALMATE, SODIUM PALM KERNELATE, AQUA, GLYCERIN, PALM KERNEL ACID, SIMMONDSIA CHINENSIS SEED OIL, COCOS NUCIFERA OIL, SODIUM CHLORIDE, TETRASODIUM ETIDRONATE, CHAMOMILLA RECUTITA FLOWER EXTRACT",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/4058172455933",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "100 g",
+      "image": "https://images.openbeautyfacts.org/images/products/405/817/245/5933/front_en.6.200.jpg"
+    },
+    {
+      "barcode": "3560071248246",
+      "name": "Savon à l’huile d’olive",
+      "brand": "Carrefour",
+      "category": "Hand soap",
+      "ingredients": "Sodium cocoate**, Sodium shea butterate**, Sodium olivate**, Aqua, Glycerin**, Cocos nucifera oil*, Butyrospermum Parkii butter*, Olea europaea fruit oil*, Tocopherol, Helianthus annuus seed oil.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3560071248246",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "95 g",
+      "image": "https://images.openbeautyfacts.org/images/products/356/007/124/8246/front_fr.3.200.jpg"
+    },
+    {
+      "barcode": "3010351760116",
+      "name": "savon cosmétique biologique",
+      "brand": "Cigale Bio",
+      "category": "Hand soap",
+      "ingredients": "SODIUM PALMATE** , SODIUM COCOATE**, AQUA (WATER), GLYCERIN**, SODIUM CHLORIDE, TETRASODIUM GLUTAMATE DIACETATE.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3010351760116",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "100 g",
+      "image": "https://images.openbeautyfacts.org/images/products/301/035/176/0116/front_en.9.200.jpg"
+    },
+    {
+      "barcode": "8683130036068",
+      "name": "Dove Nemlendirici Sıvı Sabun Lotus Çiçeği ve Pirinç Sütü Özü 450 ml",
+      "brand": "Dove",
+      "category": "Hand soap",
+      "ingredients": "Aqua, Sodium Laureth Sulfate, Glycerin, Sodium Chloride. Cocamidopropyl Betaine. Sodium Styrene/Acrylates Copolymer, Nonfat Dry Milk, Oryza Sativa (Rice) Bran Extract, Oryza Sative (Rice) Germ Oil, Nelumbo Nucifera Flower Extract. Benzyl Sallycylate, Coumarin, Hexyl Cinnamal, Linalool, Cl 17200.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/8683130036068",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "450 ml",
+      "image": "https://images.openbeautyfacts.org/images/products/868/313/003/6068/front_en.8.200.jpg"
+    },
+    {
+      "barcode": "0708002100741",
+      "name": "Aloe Vera handmade soap",
+      "brand": "Faith in Nature",
+      "category": "Hand soap",
+      "ingredients": "Sodium palmate***, Sodium cocoate* and/ or Sodium palm kernelate*** Aqua (Water), Aloe barbadensis leaf juice**, Glycerin, Cananga odorata flower oil*, Pogostemon cablin oil*,Sodium chloride, Sodium citrate, Benzyl alcohol, Benzyl benzoate, Benzyl salicylate*, Geraniol, Linalool*.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0708002100741",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "100g",
+      "image": "https://images.openbeautyfacts.org/images/products/070/800/210/0741/front_en.4.200.jpg"
+    },
+    {
+      "barcode": "3263854995619",
+      "name": "Savon non parfumé hypoallergénique",
+      "brand": "Franprix",
+      "category": "Hand soap",
+      "ingredients": "SODIUM PALMATE **, SODIUM COCOATE **, AQUA, GLYCERIN *\", SODIUM CHLORIDE, TETRASODIUM GLUTAMATE DIACETATE. **Transformés à partir d'ingrédients biologiques. 82% du total des ingrédients sont issus de l'agriculture 3",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3263854995619",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "100 g",
+      "image": "https://images.openbeautyfacts.org/images/products/326/385/499/5619/front_fr.6.200.jpg"
+    },
+    {
+      "barcode": "4061464932685",
+      "name": "Creamy Soap - Olive & Aloe Vera",
+      "brand": "Aldi",
+      "category": "Hand soap",
+      "ingredients": "SODIUM PALMATE, SODIUM PALM KERNELATE, AQUA, GLYCERIN, COCOS NUCIFERA OIL, SODIUM CHLORIDE, PALM ACID, PARFUM, PALM KERNEL ACID, OLEA EUROPAEA FRUIT OIL, PROPYLENE GLYCOL, ALOE BARBADENSIS LEAF EXTRACT, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, LIMONENE, LINALOOL, GERANIOL, CITRAL, CITRONELLOL.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/4061464932685",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "150 g",
+      "image": "https://images.openbeautyfacts.org/images/products/406/146/493/2685/front_en.21.200.jpg"
+    },
+    {
+      "barcode": "3159870101007",
+      "name": "Savon Pat'Arma",
+      "brand": "Arma Pâte",
+      "category": "Hand soap",
+      "ingredients": "Aqua, Quartz, sodium tallowate, wood powder, sodium carbonate, bentonite, dimethyl oxazolidine, parfum.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3159870101007",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "750 g",
+      "image": "https://images.openbeautyfacts.org/images/products/315/987/010/1007/front_fr.5.200.jpg"
+    },
+    {
+      "barcode": "4066447355949",
+      "name": "Cremeseife Sensitive",
+      "brand": "Balea",
+      "category": "Hand soap",
+      "ingredients": "SODIUM PALMATE, SODIUM PALM KERNELATE, AQUA, COCOS NUCIFERA OIL, GLYCERIN, PARFUM, PALM ACID, PALM KERNEL ACID, SODIUM CHLORIDE, PROPYLENE GLYCOL, ALOE BARBADENSIS LEAF EXTRACT, TETRASODIUM GLUTAMATE DIACETATE, HEXYL CINNAMAL, BENZYL ALCOHOL, CI 77891",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/4066447355949",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "150 g",
+      "image": "https://images.openbeautyfacts.org/images/products/406/644/735/5949/front_de.4.200.jpg"
+    },
+    {
+      "barcode": "26023281",
+      "name": "Savon de toilette à l'huile d'olive",
+      "brand": "Biocura",
+      "category": "Bathroom cleaner",
+      "ingredients": "Sodium Tallowate, Sodium Cocoate, Aqua, Glycerin, Parfum, Sodium Chloride, Cocos Nucifera Oil, Olea Europaea Fruit Oil, Tetrasodium Etidronate, CI 77891.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/26023281",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "150 g",
+      "image": "https://images.openbeautyfacts.org/images/products/000/002/602/3281/front_fr.20.200.jpg"
+    },
+    {
+      "barcode": "4056489366485",
+      "name": "Cremeseife",
+      "brand": "Cien",
+      "category": "Hand soap",
+      "ingredients": "Sodium Palmate, Aqua, Sodium Palm Kernelate, Sodium Chloride, Glycerin, Parfum, Palm Kernel Acid, Tetrasodium Etidronate, Tetrasodium EDTA, Olea Europaea Fruit Oil, Cl 77891",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/4056489366485",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "300 g",
+      "image": "https://images.openbeautyfacts.org/images/products/405/648/936/6485/front_en.20.200.jpg"
+    },
+    {
+      "barcode": "4012400532612",
+      "name": "Haushalts-Kernseife",
+      "brand": "dalli",
+      "category": "Hand soap",
+      "ingredients": "SODIUM TALLOWATE, AQUA, SODIUM COCOATE, GLYCERIN, PARFUM, SODIUM CHLORIDE, COCONUT ACID, TETRASODIUM EDTA, TETRASODIUM ETIDRONATE, LIMONEN, CI 77891",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/4012400532612",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "300 g",
+      "image": "https://images.openbeautyfacts.org/images/products/401/240/053/2612/front_de.4.200.jpg"
+    },
+    {
+      "barcode": "3502794230238",
+      "name": "Savon cube lavande 300g",
+      "brand": "harmonie concept",
+      "category": "Hand soap",
+      "ingredients": "Sodium Palmate, Sodium Palm kernelate, Aqua, Palm kernel acid, Lavandula Hybrida Grosso Herb Oil, Glycerin, Sodium chloride,Tetrasodium EDTA, Tetrasodium etidronate, Cli 77891, CI 77007, CI 15850, Linalool.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3502794230238",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 58,
+        "band": "limit",
+        "bandLabel": "Limit"
+      },
+      "quantity": "300g",
+      "image": "https://images.openbeautyfacts.org/images/products/350/279/423/0238/front_en.6.200.jpg"
+    },
+    {
+      "barcode": "3266191023113",
+      "name": "Savon de Marseille",
+      "brand": "La Vie Claire",
+      "category": "Hand soap",
+      "ingredients": "Sodium palmate, aqua (water), sodium palm kernelate, sodium chloride, sodium hydroxide",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3266191023113",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "400 g",
+      "image": "https://images.openbeautyfacts.org/images/products/326/619/102/3113/front_en.19.200.jpg"
+    },
+    {
+      "barcode": "5412533418156",
+      "name": "sensitive detergent non bio laundry",
+      "brand": "Ecover",
+      "category": "Laundry detergent",
+      "ingredients": "15-30% non-ionic surfactants, 5-15% anionic surfactants, soap, water, alcohol denat, sodium citrate, glycerin, trisodium ethylenediamine disuccinate, polypropylene terephthala",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/5412533418156",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "1.5 l",
+      "image": "https://images.openproductsfacts.org/images/products/541/253/341/8156/front_en.4.200.jpg"
+    },
+    {
+      "barcode": "8032649457398",
+      "name": "Cleaning spray detergent for surfaces - Sanity green",
+      "brand": "San.Eco.Vit. Srl",
+      "category": "All-purpose cleaner",
+      "ingredients": "Water, denatured alcohol, citric acid, coco-glucoside, melaleuca alternifolia oil * * Organic.",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/8032649457398",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "500 ml",
+      "image": "https://images.openproductsfacts.org/images/products/803/264/945/7398/front_en.4.200.jpg"
+    },
+    {
+      "barcode": "0058951308850",
+      "name": "Laundry Detergent Sheets, Fragrance-Free",
+      "brand": "Nature Clean",
+      "category": "Laundry detergent",
+      "ingredients": "Sodium Coco Sulfate, Poly Vinyl Alcohol, Aqua, Coco Glucoside, Cocamidopropyl Betaine, Glycereth-7 Cocoate, Cocosfettsuremethyl Ester, Glycerin, Saponins, Sodium Citrate, Sodium Carbonate, Phenoxyethanol, Helianthus Annuus (Sunflower) Seed Oil",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0058951308850",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 36,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "32 Loads",
+      "image": "https://images.openbeautyfacts.org/images/products/005/895/130/8850/front_en.3.200.jpg",
+      "sourceNote": "Open Beauty Facts also included directions or a caution after the ingredient list. Those words are not stored as ingredients."
+    },
+    {
+      "barcode": "0899962000025",
+      "name": "Fragrance-Free Laundry Detergent",
+      "brand": "Tru Earth",
+      "category": "Laundry detergent",
+      "ingredients": "Polyvinyl Alcohol, Zea Mays (Com) Starch, Sodium C14-16 Olefin Sulfonate, Glycerin, Glycereth-6 Cocoate, Aqua, Cocamidopropyl Betaine, Caprylyl/Capryl Glucoside, Propylene Glycol Dicaprylate/Dicaprate, Lauryl Glucoside, Sodium Gluconate, Potassium Sorbate",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0899962000025",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "32 Strips / Feuilles",
+      "image": "https://images.openbeautyfacts.org/images/products/089/996/200/0025/front_en.39.200.jpg",
+      "sourceNote": "Open Beauty Facts also included directions or a caution after the ingredient list. Those words are not stored as ingredients."
+    },
+    {
+      "barcode": "0626232120431",
+      "name": "Laundry Detergent",
+      "brand": "ATTITUDE",
+      "category": "Laundry detergent",
+      "ingredients": "<5% anionic surfactants/agents de surface anioniques (Sodium Coco-Sulfate), <5% non-ionic surfactants/agents de surface non-ioniques (Lauryl Glucoside, Myristyl Glucoside, Caprylyl Glucoside), Contains also/Contient aussi: Aqua/Water/Eau, Sodium Chloride, Citric Acid, Sodium Benzoate, Sodium Gluconate, Potassium Sorbate, Glycerin, Camellia Sinensis (Tea) Leaf Extract",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0626232120431",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "image": "https://images.openproductsfacts.org/images/products/062/623/212/0431/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "0063827602567",
+      "name": "Baby Sensitive • Sulphate Free Echo Clean • 2X Concentrated Laundry Detergent",
+      "brand": "Echo Clean",
+      "category": "Laundry detergent",
+      "ingredients": "(WE DECLARE ALL OUR INGREDIENTS: )Aqua (filtered water), Coco Glucoside (plant-based nonionic surfactant), Sodium Oleate (plant-based antifoam), Sodium Carbonate (pH control), Denatured Alcohol (plant-based solvent), Sodium Citrate (complex - ing agent), Sodium Benzoate (food grade preservative), Potassium Sorbate (food grade preservative).",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0063827602567",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "2.95 L • (100 HE Med.Moyen Loads)",
+      "image": "https://images.openproductsfacts.org/images/products/006/382/760/2567/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "8710447382028",
+      "name": "Persil Lessive Liquide Peau Sensible Amande Douce 2,6l 52 Lavages",
+      "brand": "Persil",
+      "category": "Laundry detergent",
+      "ingredients": "Contient : C12-15 Pareth-7, TEA Dodecylbenzenesulfonate, Sodium Laureth Sulfate, Sodium Dodecylbenzenesulfonate. Contient de la Benzisothiazolinone . Peut produire une réaction allergique.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/8710447382028",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 58,
+        "band": "limit",
+        "bandLabel": "Limit"
+      },
+      "quantity": "2600 ml",
+      "image": "https://images.openbeautyfacts.org/images/products/871/044/738/2028/front_fr.3.200.jpg"
+    },
+    {
+      "barcode": "8710447381502",
+      "name": "Persil Lessive Liquide Bouquet de Provence 1,1l 22 Lavages",
+      "brand": "Persil",
+      "category": "Laundry detergent",
+      "ingredients": "Contient : C12-15 Pareth-7, TEA Dodecylbenzenesulfonate, Sodium Laureth Sulfate, Sodium Dodecylbenzenesulfonate. Contient de la Benzisothiazolinone . Peut produire une réaction allergique.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/8710447381502",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 58,
+        "band": "limit",
+        "bandLabel": "Limit"
+      },
+      "quantity": "1100 ml",
+      "image": "https://images.openbeautyfacts.org/images/products/871/044/738/1502/front_fr.12.200.jpg"
+    },
+    {
+      "barcode": "0749174098894",
+      "name": "Plant Powered Laundry Detergent",
+      "brand": "ECOS",
+      "category": "Laundry detergent",
+      "ingredients": "Water, Cocamidopropyl Betaine (plant-derived surfactant), Sodium Coco-Sulfate (plant-derived surfactant), Cocamidopropylamine Oxide (plant-derived surfactant), Phenoxyethanol (preservative), Methylisothiazolinone (preservative)",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0749174098894",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 50,
+        "band": "limit",
+        "bandLabel": "Limit"
+      },
+      "image": "https://images.openproductsfacts.org/images/products/074/917/409/8894/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "0011013120500",
+      "name": "homesolv",
+      "brand": "citra solv",
+      "category": "Laundry detergent",
+      "ingredients": "Sodium Chloride (mineral - based; promotes flowability), Sodium Sulphate (mineral-based; promotes flowability), Sodium Carbonate (mineral - based stain remover and water softener), Citric Acid (plant-based water softener), Sodium Silicate (mineral-based protection agent), C12-14 Pareth-11 (plant and synthetic based cleaning agent), Sodium Polyaspartate (synthetic water softener), Sodium Carbonate Peroxide (mineral - based cleaning agent), Subtsin Enzyme Blend (plant-based enzyme soii removers), Amylase Enzyme Blend (plant-based enzyme soil removers), Citrus Aurantium Dulcis (Orange) Peel Oil (plant-based fragrance). crueltyfree A andvégan",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0011013120500",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "45 oz",
+      "image": "https://images.openproductsfacts.org/images/products/001/101/312/0500/front_en.4.200.jpg"
+    },
+    {
+      "barcode": "8717644231180",
+      "name": "Domestos Gel Nettoyant Wc 100 % Désinfectant Fraîcheur Alpine 1L",
+      "brand": "Domestos",
+      "category": "Bathroom cleaner",
+      "ingredients": "Désinfectant: Hypochlorite de Sodium 4,5 g pour 100g. <5% Agents de blanchiment chlorés, Agents de surface non-ioniques, Savon, Parfum. Contient :Sodium Hypochlorite, Sodium hydroxide, Cocamine Oxide.",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/8717644231180",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "1000 ml",
+      "image": "https://images.openproductsfacts.org/images/products/871/764/423/1180/front_fr.20.200.jpg"
+    },
+    {
+      "barcode": "8717644231913",
+      "name": "Domestos Gel Antibactérien Wc 100% Désinfectant Original 1l",
+      "brand": "Domestos",
+      "category": "Bathroom cleaner",
+      "ingredients": "Désinfectant: Hypochlorite de Sodium 4,5 g pour 100g. <5% Agents de blanchiment chlorés, Agents de surface non-ioniques, Savon, Parfum. Contient :Sodium Hypochlorite, Sodium hydroxide, Cocamine Oxide.",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/8717644231913",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "1000 ml",
+      "image": "https://images.openproductsfacts.org/images/products/871/764/423/1913/front_fr.14.200.jpg"
+    },
+    {
+      "barcode": "0850059182017",
+      "name": "Laundry Detergent Fresh Linen Scent",
+      "brand": "Sheets Laundry Club",
+      "category": "Laundry detergent",
+      "ingredients": "Water, surfactants (SLS), polyvinyl alcohol, fatty alcohol polyglycol ether, Fragrance (Osmanthus).",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0850059182017",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "50",
+      "image": "https://images.openbeautyfacts.org/images/products/085/005/918/2017/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "8906189771965",
+      "name": "Surf excel",
+      "brand": "Surf excel",
+      "category": "Laundry detergent",
+      "ingredients": "Sodium carbonate, sodium salt, active detergent (sodium LAS+PAS), ARD polymer, enzyme, perfume, DSBP",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/8906189771965",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "500 g",
+      "image": "https://images.openbeautyfacts.org/images/products/890/618/977/1965/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "0852835006661",
+      "name": "Molly's Suds Laundry Detergent Lavender",
+      "brand": "Molly's Suds",
+      "category": "Laundry detergent",
+      "ingredients": "WATER, SODIUM C14-16 OLEFIN SULFONATE, AMINE OXIDES, GLYCERIN, SODIUM CHLORIDE, SODIUM CARBONATE, CAPRYLYL/CAPRYL GLUCOSIDE, NATURAL FRAGRANCE¹ (¹Derived from natural plant essences & oils. ISO-16128 compliant.), PROTEASE, MANNANASE, SODIUM GLUCONATE, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0852835006661",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 36,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "52 fl oz",
+      "image": "https://images.openproductsfacts.org/images/products/085/283/500/6661/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "3350033594289",
+      "name": "lessive liquide concentrée monoprix",
+      "brand": "Monoprix",
+      "category": "Laundry detergent",
+      "ingredients": "Contient entre autres composants : 5% ou plús, mais moins de 15% : agents de surface anioniques, agents de surface non ioniques. Moins de 5% : agents de surface amphotères, enzymes, conservateurs (Sodium Benzoate, Potassium Sorbate), parfum. Egalement : eau, trisodium citrate, sel, carboxymethyl inuline sodique, séquestrants, extrait d'«loe vera.",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/3350033594289",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 28,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "1,988 l",
+      "image": "https://images.openproductsfacts.org/images/products/335/003/359/4289/front_fr.8.200.jpg"
+    },
+    {
+      "barcode": "9350376003848",
+      "name": "Cold Power Advanced Clean Laundry Liquid Washing Detergent 2L",
+      "brand": "Cold Power",
+      "category": "Laundry detergent",
+      "ingredients": "Water, Sodium Laureth Ethoxylated Sulfate, Sodium Dodecyl Benzene Sulfonate, C12-15 Alcohol EO, Sodium Cocoate, Sodium Chloride, Phosphonic Acid (DTPMP.Na), Sodium Borate, Enzymes, Disodium Distyrylbiphenyl Disulfonate, Silicone Antifoam Compound, Sodium Citrate, Fragrance, Isothiazolinones, Dyes.",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/9350376003848",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "2 Litre",
+      "image": "https://images.openproductsfacts.org/images/products/935/037/600/3848/front_en.3.200.jpg"
+    },
+    {
+      "barcode": "0627987344936",
+      "name": "Toilet Bowl Cleaner Strips",
+      "brand": "EcoLivingClub",
+      "category": "Bathroom cleaner",
+      "ingredients": "Sodium Dodecyl Sulfate, Polyvinyl Alchohol, Aqua, Caprylyl/Myristyl Glucoside, Cocamidopropyl Betaine, Lauramidopropyl-amine Oxide, Polyglycerol-4 Caprate, Polyglyceryl-6 Caprylate, 1,2-Pentanediol, Glycerin, Sodium Citrate, Dimethicone, Saponins, L-Glutamic Acid,N,N-bis(carboxymethyl)-, Sodium Sal, Sodium Carbonate, 2, Phenoxyethanol, Essential Oils, Erioglaucine Disodium Sait",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0627987344936",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "39 strips, Net 63 g.",
+      "image": "https://images.openbeautyfacts.org/images/products/062/798/734/4936/front_en.3.200.jpg",
+      "sourceNote": "Open Beauty Facts also included directions or a caution after the ingredient list. Those words are not stored as ingredients."
+    },
+    {
+      "barcode": "3450605071146",
+      "name": "Dishwashing Detergent sensitive hands",
+      "brand": "L'arbre vert",
+      "category": "Dish soap",
+      "ingredients": "Aqua, Sodium Laureth Sulfate, Sodium Chloride, Lauryl Glucoside, Sodium Lauryl Sulfate, Urea, Sodium benzoate, Citric Acid, Coco-Glucoside, Glyceryl Oleate",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3450605071146",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      },
+      "quantity": "500 ml",
+      "image": "https://images.openbeautyfacts.org/images/products/345/060/507/1146/front_en.16.200.jpg"
+    },
+    {
+      "barcode": "3383482295810",
+      "name": "Vaisselle mains",
+      "brand": "Jacques Briochin",
+      "category": "Dish soap",
+      "ingredients": "回 Ma Composition en toute transparence 30% EAU (=pour mélanger les principes actifs); 5-15%: AGENTS DE SURFACE ANIONIQUES (per desinouster les salissures); <5%: AGENTS DE SURFACE AMPHOTERES, AGENTS DE SURFACE NON IONIQUES (= des lavants pour nettoyer efficacement), GLYCERIN (= pour adoucir), ALCOOL (=d'origine naturelle pour éviter les traces), LACTIC ACID (= pour réguler le pH), PARFUM (= du parfum d'origine naturelle), SEL (= pour gélifier la texture), SAVON (= du savon noir pour dégraisses DENATURANTS (=additifs de l'alcool; évitent l'ingestion du produit), CHONDRUS CRISPUS EXTRACT (extrait d'algue, pour une touche de douceur), BASE (= un composant d'origine naturelle du en noir), CITRIC ACID (= pour réguler le pH), POTASSIUM SORBATE (= pour la conservation du produit SEQUESTRANTS (pour lutter contre la dureté de l'eau et décoller les salissures) 98% du total des ingrédients sont d'origine naturelle. davires",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3383482295810",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 36,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "500ml",
+      "image": "https://images.openbeautyfacts.org/images/products/338/348/229/5810/front_fr.5.200.jpg"
+    },
+    {
+      "barcode": "8006540994474",
+      "name": "Lemon Washing Up Liquid",
+      "brand": "Fairy",
+      "category": "Dish soap",
+      "ingredients": "Anionic surfactants, Non-ionic surfactants, Benzisothiazolinone, Methylisothiazolinone, Phenoxyethanol, Perfumes, Limonene",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/8006540994474",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      }
+    },
+    {
+      "barcode": "0037000255741",
+      "name": "Ivory Dish Soap",
+      "brand": "Ivory",
+      "category": "Dish soap",
+      "ingredients": "WATER/EAU, SODIUM LAURYL SULFATE, C10-16 ALKYLDIMETHYLAMINE OXIDE/DÉRIVÉS D'AMINES DES OXYDES, C-10-16-ALKYLDIMETHYL, FRAGRANCES/PARFUMS, SODIUM CHLORIDE, DECETH-8, PHENOXYETHANOL, PPG-26, C9-11 ALKETH-8, METHYLISOTHIAZOLINONE",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0037000255741",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "image": "https://images.openproductsfacts.org/images/products/003/700/025/5741/front_en.7.200.jpg"
+    },
+    {
+      "barcode": "0068156986142",
+      "name": "Citrus Dish Soap",
+      "brand": "London Naturals",
+      "category": "Dish soap",
+      "ingredients": "Aqua (filtered water), sodium lauryl sulfate (plant-derived anionic surfactant, laureth-7 (plant-derived nonionic surfactant), sodium chloride (viscosity modifier), cocamidopropyl betaine (foam booster natural fragrance, benzisothiazolinone (preservative)",
+      "sourceName": "Open Products Facts",
+      "sourceUrl": "https://world.openproductsfacts.org/product/0068156986142",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
+      },
+      "quantity": "739 ml",
+      "image": "https://images.openproductsfacts.org/images/products/006/815/698/6142/front_en.3.200.jpg",
+      "sourceNote": "Open Beauty Facts also included directions or a caution after the ingredient list. Those words are not stored as ingredients."
     }
   ]
 }

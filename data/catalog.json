@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "updated": "2026-11-10",
-  "about": "Tortuga Scan catalog, seeded from Open Food Facts. How to add a product: README.md. Grades come from rules.js in this repo, not from Olive or Seed Oil Scout, and they are not lab results.",
+  "about": "Tortuga Scan food catalog, seeded from Open Food Facts. Grades are Tortuga’s own 0–100 scores on an Olive-style meter, inspired by published Bobby Approved standards. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout, and not a lab result. How to add a product: README.md.",
   "source": "Open Food Facts (Open Database License). Ingredient lists copied from each product page on the date in \"added\".",
   "license": "Product data © Open Food Facts contributors, ODbL. https://world.openfoodfacts.org/",
   "count": 311,
@@ -29,12 +29,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0761720205501",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -63,12 +64,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0013562492893",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 40,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 12,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "30 g"
     },
@@ -89,12 +91,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0421317225908",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 3,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "1 lb"
     },
@@ -122,12 +125,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0025317005883",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -157,12 +161,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0025317006675",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -197,12 +202,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857183005007",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 40,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "8 oz"
     },
@@ -233,12 +239,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857183005885",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 40,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "8 oz"
     },
@@ -270,12 +277,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857183005137",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 31,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 11,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -309,12 +317,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857183005670",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 40,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -341,12 +350,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0076808004212",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 41,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "12 OZ (340 g)"
     },
@@ -377,12 +387,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036608577552",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 84,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 80,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "411 g, 14.5 oz"
     },
@@ -410,12 +421,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0076808004595",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -444,12 +456,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0076808007473",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 61,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 51,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "2Lb (908g)"
     },
@@ -485,12 +498,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041570054161",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 38,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 12,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "240 ml"
     },
@@ -517,12 +531,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0074305060021",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -553,12 +568,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0074305013164",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -590,12 +606,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0074305031120",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -622,12 +639,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0813636021017",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 5,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "8 fl oz"
     },
@@ -657,12 +675,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0813636021895",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -689,12 +708,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0813636020294",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 20,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -730,12 +750,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0813636023264",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -762,12 +783,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0813636021000",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -796,12 +818,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000180346",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 39,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 21,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "18.8 oz (1lb. 2.8 oz) 533 g"
     },
@@ -829,12 +852,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000025531",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 5,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -851,12 +875,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000278531",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 55,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 41,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -883,12 +908,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000195685",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 39,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 13,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -915,12 +941,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000277275",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -949,12 +976,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000163928",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 34,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 3,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -982,12 +1010,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000162556",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1016,12 +1045,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000170353",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1052,12 +1082,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000275287",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 39,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 11,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "18 oz (510 g)"
     },
@@ -1085,12 +1116,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400211772",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1117,12 +1149,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400629645",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1149,12 +1182,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0024100594757",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "9 oz"
     },
@@ -1182,12 +1216,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0024100106332",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "12.4 OZ (351 g)"
     },
@@ -1215,12 +1250,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0024100122615",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "1.5 oz, 42 g"
     },
@@ -1247,12 +1283,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0024100440702",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "595g"
     },
@@ -1284,12 +1321,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0818290018489",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1316,12 +1354,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0818290014498",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 16,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1348,12 +1387,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0818290010469",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 96,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "1.13 kg"
     },
@@ -1381,12 +1421,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0818290014481",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 16,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1413,12 +1454,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0818290011633",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 96,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -1446,12 +1488,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0815074021864",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -1489,12 +1532,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0815074022809",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "946 ml"
     },
@@ -1521,12 +1565,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0853807005972",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -1556,12 +1601,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0815074020409",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "12 fl oz"
     },
@@ -1593,12 +1639,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0853807005200",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 65,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 44,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1625,12 +1672,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0722252191052",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1657,12 +1705,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0722252180643",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 11,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1689,12 +1738,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0722252194022",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1718,12 +1768,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0049000075960",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 13,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "16.9 fl oz"
     },
@@ -1749,12 +1800,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0049000006346",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 13,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "355g"
     },
@@ -1782,12 +1834,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/5449000252920",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 16,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "330 ml"
     },
@@ -1813,12 +1866,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0049000556872",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 50,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 30,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -1845,12 +1899,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0093966003833",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -1876,12 +1931,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500242346",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 20,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "48 oz"
     },
@@ -1911,12 +1967,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500241714",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "6 lb"
     },
@@ -1947,12 +2004,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500239131",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "16 oz (1 lb) 453 g"
     },
@@ -1978,12 +2036,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0196005242504",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "456 g"
     },
@@ -2011,12 +2070,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0196005242344",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2043,12 +2103,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632018748",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2074,12 +2135,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632037305",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2105,12 +2167,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632013224",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 34,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 2,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2137,12 +2200,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632038029",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 22,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2169,12 +2233,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632038128",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 38,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 10,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2200,12 +2265,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400133142",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2225,12 +2291,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400643061",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2257,12 +2324,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400132923",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2289,12 +2357,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000402906",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "10, 349 g"
     },
@@ -2325,12 +2394,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000249105",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "6 Waffles (11.6 oz) (330 g)"
     },
@@ -2358,12 +2428,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000404702",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2390,12 +2461,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0819597010725",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2422,12 +2494,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0819597010176",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2457,12 +2530,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0811620021982",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 30,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2489,12 +2563,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0689544088059",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 9,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2521,12 +2596,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0689544081449",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 9,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2555,12 +2631,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0811620020879",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 96,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "414 ml"
     },
@@ -2592,12 +2669,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856312002795",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 16,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "52 fl oz"
     },
@@ -2628,12 +2706,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0811620020657",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 30,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "414 mL"
     },
@@ -2666,12 +2745,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0811620022149",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "1360 ml"
     },
@@ -2701,12 +2781,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0811620021012",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 7,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "1"
     },
@@ -2735,12 +2816,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/3017624010701",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 11,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "400.0 g"
     },
@@ -2770,12 +2852,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073472001929",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 23,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2802,12 +2885,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073472004012",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 38,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2836,12 +2920,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073472001158",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -2873,12 +2958,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073472001639",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 23,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -2905,12 +2991,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400589291",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 15,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "262.2 g"
     },
@@ -2938,12 +3025,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400000628",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "9 oz (255.1 g)"
     },
@@ -2973,12 +3061,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400081498",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "28.8 oz (1 lb.12.8 oz)816.4g"
     },
@@ -3005,12 +3094,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052000047905",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 40,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 10,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "20oz"
     },
@@ -3040,12 +3130,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052000009019",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3072,12 +3163,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052000339956",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 16,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "1440 g"
     },
@@ -3095,12 +3187,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/44161507",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 62,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -3122,12 +3215,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/10018000002600",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "8 oz"
     },
@@ -3159,12 +3253,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073472001417",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "24 oz"
     },
@@ -3194,12 +3289,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0747599612749",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "10 oz"
     },
@@ -3229,12 +3325,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0747599616839",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "3.17 oz (90 g)"
     },
@@ -3262,12 +3359,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0747599618260",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3294,12 +3392,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0747599400179",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3328,12 +3427,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100085485",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "6.6 oz (187 g)"
     },
@@ -3361,12 +3461,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100049159",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3389,12 +3490,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/01410204",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3421,12 +3523,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190569522201",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 91,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "8 OZ (226g)"
     },
@@ -3454,12 +3557,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190569512561",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3488,12 +3592,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190569123484",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "40 oz"
     },
@@ -3524,12 +3629,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190569123026",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "14 oz"
     },
@@ -3557,12 +3663,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0020000104737",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 50,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 33,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "15.25 oz"
     },
@@ -3596,12 +3703,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073731083048",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 19,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "13 oz"
     },
@@ -3629,12 +3737,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0013000011013",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 13,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3661,12 +3770,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/01393806",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 41,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 12,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "44 oz"
     },
@@ -3693,12 +3803,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044700101629",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "6 oz"
     },
@@ -3728,12 +3839,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500240946",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "48unknown"
     },
@@ -3761,12 +3873,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500893487",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3798,12 +3911,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500255247",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 83,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -3834,12 +3948,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0018627110477",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "6 x 1.2 oz"
     },
@@ -3860,12 +3975,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0018627107842",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 7,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3894,12 +4010,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0018627102342",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 36,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 4,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3926,12 +4043,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000202773",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -3958,12 +4076,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000200748",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 13,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "331 g"
     },
@@ -3993,12 +4112,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000255441",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 1,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "36.7 oz (2 lb 4.7 oz) 1.04 kg"
     },
@@ -4028,12 +4148,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0767707013831",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "6 oz"
     },
@@ -4060,12 +4181,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0767707001159",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "8 oz"
     },
@@ -4092,12 +4214,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0767707013299",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "7 oz"
     },
@@ -4127,12 +4250,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0767707001258",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "8 oz"
     },
@@ -4159,12 +4283,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0767707013305",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "7 oz"
     },
@@ -4182,12 +4307,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/12913613",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 43,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 23,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4214,12 +4340,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041390000027",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 30,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 1,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "296 ml"
     },
@@ -4247,12 +4374,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041390000829",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 38,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 15,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "10 fl oz"
     },
@@ -4277,12 +4405,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0492123000195",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 30,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 1,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4299,12 +4428,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0602652281150",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4335,12 +4465,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0602652257162",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 27,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4371,12 +4502,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0602652279461",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 21,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "10"
     },
@@ -4402,12 +4534,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012993221010",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 62,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -4434,12 +4567,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012993441012",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 62,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -4464,12 +4598,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012993221058",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 96,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -4494,12 +4629,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012993221034",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 62,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "355 ml"
     },
@@ -4532,12 +4668,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0021908109954",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 69,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 58,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "8 oz"
     },
@@ -4573,12 +4710,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0021908115382",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 82,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -4607,12 +4745,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0815099021412",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 57,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4647,12 +4786,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0890444000298",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 60,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 36,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "312g"
     },
@@ -4682,12 +4822,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0890444000724",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 52,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 26,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4714,12 +4855,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044700360002",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4748,12 +4890,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073416020702",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 87,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 82,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -4781,12 +4924,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073416000193",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -4815,12 +4959,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073416000377",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 70,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 60,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -4852,12 +4997,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073416575103",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4883,12 +5029,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0761720987520",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 20,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4914,12 +5061,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0761720950388",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -4940,12 +5088,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052100048475",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 91,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "1.5 oz"
     },
@@ -4963,12 +5112,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/05263813",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 96,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "0.9 oz. (25g)"
     },
@@ -4994,12 +5144,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052100371641",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "7 floz / 207ml"
     },
@@ -5029,12 +5180,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073731008300",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5065,12 +5217,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073731101322",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "12 oz"
     },
@@ -5098,12 +5251,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0073731032077",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 15,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "64 oz"
     },
@@ -5131,12 +5285,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000050948",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5163,12 +5318,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0023087000305",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "57 g"
     },
@@ -5200,12 +5356,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0725342282463",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -5236,12 +5393,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0725342282661",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -5273,12 +5431,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0725342260713",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "14.5 oz"
     },
@@ -5306,12 +5465,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000513686",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5333,12 +5493,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0001600431010",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "17.80 oz"
     },
@@ -5366,12 +5527,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000514799",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 6,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5401,12 +5563,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0016000441699",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5438,12 +5601,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0058449198048",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 50,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 30,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "22 oz"
     },
@@ -5473,12 +5637,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0020662006301",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 60,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 51,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -5505,12 +5670,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0009800800049",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "52 g"
     },
@@ -5538,12 +5704,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0009800820016",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 1,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "22 g"
     },
@@ -5571,12 +5738,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0009800800124",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "52 g"
     },
@@ -5604,12 +5772,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0692752105005",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5636,12 +5805,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0692752105579",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5672,12 +5842,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0692752200014",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -5709,12 +5880,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190646630195",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5748,12 +5920,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190646630188",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5785,12 +5958,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0190646630164",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5810,12 +5984,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0004600081151",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 50,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 33,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "150 calories, 3 grams of sar fat, 130 mg sodium, 0g total sugars"
     },
@@ -5843,12 +6018,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0046000287355",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "8.8oz"
     },
@@ -5875,12 +6051,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0046000116358",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5914,12 +6091,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0860439001012",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -5953,12 +6131,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0860439001005",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -5987,12 +6166,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0850027702186",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -6019,12 +6199,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000032586",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "14.3 oz (405 g)"
     },
@@ -6052,12 +6233,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/7622210158789",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "154 g"
     },
@@ -6085,12 +6267,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000069957",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6120,12 +6303,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0093966211016",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "226 g"
     },
@@ -6155,12 +6339,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0093966005653",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -6189,12 +6374,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0093966004397",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -6223,12 +6409,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044700061459",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 77,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 64,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "8oz"
     },
@@ -6258,12 +6445,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044700032503",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 5,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6285,12 +6473,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044700075081",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 44,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 14,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6307,12 +6496,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/18624035",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 9,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6342,12 +6532,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044700030530",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "9 ounces"
     },
@@ -6378,12 +6569,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100046646",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 25,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6413,12 +6605,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100098423",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "7.2 oz (204 g)"
     },
@@ -6446,12 +6639,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100098676",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6478,12 +6672,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100081272",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6510,12 +6705,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0014100096054",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "187 g"
     },
@@ -6540,12 +6736,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012000207204",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 52,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 24,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6570,12 +6767,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012000171970",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 16,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "7.5 fl oz"
     },
@@ -6603,12 +6801,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/01281503",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 16,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "355 ml"
     },
@@ -6635,12 +6834,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0012000032455",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 16,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "12 FL OZ"
     },
@@ -6666,12 +6866,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/01231003",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 13,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "12 fl oz"
     },
@@ -6701,12 +6902,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500555385",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "18.4 oz (1 lb 2.4 oz) 521 g"
     },
@@ -6733,12 +6935,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051500794807",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "14 oz"
     },
@@ -6766,12 +6969,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0018000477487",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6798,12 +7002,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0018000418268",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "59 g"
     },
@@ -6832,12 +7037,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0013300000090",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "15.6 oz"
     },
@@ -6865,12 +7071,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000327476",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6897,12 +7104,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000503719",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -6929,12 +7137,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000317200",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "624 g"
     },
@@ -6968,12 +7177,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0863699000122",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 87,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 82,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "12 fl oz"
     },
@@ -7001,12 +7211,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856769006162",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -7038,12 +7249,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0855232007576",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 70,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 60,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -7072,12 +7284,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856769006681",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -7107,12 +7320,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0863699000139",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 87,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 82,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -7143,12 +7357,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0850004639382",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -7178,12 +7393,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0850004639221",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7215,12 +7431,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0850004639108",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 87,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 82,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -7247,12 +7464,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000197857",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7279,12 +7497,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000164224",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "5.4 Oz"
     },
@@ -7314,12 +7533,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041196123630",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 1,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "14 oz"
     },
@@ -7347,12 +7567,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041196101645",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7383,12 +7604,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041196010220",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "538 g"
     },
@@ -7420,12 +7642,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0041196911138",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 13,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "19 oz (1 lb 3 oz) 538g"
     },
@@ -7451,12 +7674,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052000001693",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 50,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 30,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7479,12 +7703,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0030000040904",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": false,
+        "avoidPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 55,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 41,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "24 oz"
     },
@@ -7513,12 +7738,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0030000562482",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "172 g"
     },
@@ -7546,12 +7772,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000031138",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "11.8oz"
     },
@@ -7579,12 +7806,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000050405",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "30g"
     },
@@ -7612,12 +7840,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000042660",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7644,12 +7873,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857777004171",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -7676,12 +7906,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857777004485",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -7708,12 +7939,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0857111004232",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "52g"
     },
@@ -7741,12 +7973,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0859162007200",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -7773,12 +8006,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040822343206",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "28 g"
     },
@@ -7806,12 +8040,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040822341905",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "30 g"
     },
@@ -7841,12 +8076,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040822344821",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 56,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 28,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7873,12 +8109,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040822342902",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -7905,12 +8142,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0046100400128",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 74,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 62,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "28 g"
     },
@@ -7938,12 +8176,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0046100400234",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 74,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 62,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "16 oz"
     },
@@ -7968,12 +8207,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0072979004174",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "20oz"
     },
@@ -8007,12 +8247,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0869066000368",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 40,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "500 g (20 count)"
     },
@@ -8046,12 +8287,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0865336000021",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 40,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "7 oz"
     },
@@ -8085,12 +8327,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0865336000083",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -8123,12 +8366,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0865336000038",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "8 count pack"
     },
@@ -8161,12 +8405,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0851769007751",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "1.31 oz"
     },
@@ -8200,12 +8445,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0853986008078",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "156g"
     },
@@ -8240,12 +8486,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0851769007027",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "142 g"
     },
@@ -8278,12 +8525,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0810091780213",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "16 oz"
     },
@@ -8311,12 +8559,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0025293003996",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8349,12 +8598,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632079299",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 3,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8381,12 +8631,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0025293001923",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "150 g"
     },
@@ -8417,12 +8668,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0025293601024",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 30,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8455,12 +8707,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856069005513",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 68,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "12.9 oz"
     },
@@ -8492,12 +8745,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856069005001",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "9.0 oz"
     },
@@ -8517,12 +8771,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856069005551",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 87,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 82,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -8553,12 +8808,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856069005025",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "10.4 oz"
     },
@@ -8589,12 +8845,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856069005575",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "9.0 oz"
     },
@@ -8631,12 +8888,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856069005742",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 60,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 36,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "4.25 oz"
     },
@@ -8664,12 +8922,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0048001905702",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "32 g"
     },
@@ -8699,12 +8958,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0037600106825",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8731,12 +8991,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0037600104999",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "462 gramos"
     },
@@ -8754,12 +9015,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0003760088961",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8788,12 +9050,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0022000018847",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8822,12 +9085,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0022000011893",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8857,12 +9121,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0022000012562",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "3.5 oz/99 g"
     },
@@ -8892,12 +9157,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0022000017352",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8916,12 +9182,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0004000051719",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8948,12 +9215,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040000492290",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -8980,12 +9248,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040000492474",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9012,12 +9281,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0040000495642",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9044,12 +9314,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0038000125201",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9077,12 +9348,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856579002217",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9107,12 +9379,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0856579002040",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9138,12 +9411,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0492312101566",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 91,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9169,12 +9443,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0080000517166",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 91,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9201,12 +9476,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0080000502407",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9235,12 +9511,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0080000514202",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9266,12 +9543,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0080000495341",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 91,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 84,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9300,12 +9578,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052159701291",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9337,12 +9616,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0052159701246",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9371,12 +9651,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000288530",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 62,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "32 oz"
     },
@@ -9406,12 +9687,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000224644",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "32 oz"
     },
@@ -9439,12 +9721,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0051000247315",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 62,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -9470,12 +9753,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0021000024490",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9495,12 +9779,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0049000057997",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 74,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 62,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "500 ml"
     },
@@ -9527,12 +9812,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0036632019653",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 74,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 62,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "225 g"
     },
@@ -9562,12 +9848,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0072830006019",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 74,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 62,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9594,12 +9881,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0257402106599",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 74,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 62,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9625,12 +9913,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400737203",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9656,12 +9945,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0028400174404",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 20,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9691,12 +9981,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000051327",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 7,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "240g"
     },
@@ -9728,12 +10019,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0044000051334",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 15,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9754,12 +10046,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0945555472660",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 7,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "12.5 oz (354g)"
     },
@@ -9786,12 +10079,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0048500017821",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 47,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 26,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9815,12 +10109,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0048500203972",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 48,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 20,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -9846,12 +10141,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0048500202937",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 42,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 16,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "52 oz"
     },
@@ -9869,12 +10165,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0048500205006",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 96,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9901,12 +10198,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0851387007553",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "7 ounces"
     },
@@ -9933,12 +10231,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0861745000072",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -9966,12 +10265,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0829696001371",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       },
       "quantity": "3 oz"
     },
@@ -9997,12 +10297,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0829696000718",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
         "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -10027,12 +10328,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0829696000374",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": true,
+        "pass": true,
+        "avoidPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 92,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     },
     {
@@ -10063,12 +10365,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0070470476483",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
         "score": 0,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "4 x 5.3 oz (4 x 150 g)"
     },
@@ -10098,12 +10401,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0070470167718",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 7,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       },
       "quantity": "5 oz"
     },
@@ -10133,12 +10437,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0070470139449",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 29,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -10165,12 +10470,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0070470138497",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 34,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -10196,12 +10502,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0070470003108",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": false,
+        "avoidPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 5,
-        "band": "poor",
-        "bandLabel": "Poor"
+        "score": 0,
+        "band": "avoid",
+        "bandLabel": "Avoid"
       }
     },
     {
@@ -10221,12 +10528,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/12702275",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       },
       "quantity": "6"
     },
@@ -10255,12 +10563,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0849429000389",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -10288,12 +10597,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0849429000549",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     },
     {
@@ -10322,12 +10632,13 @@
       "offUrl": "https://world.openfoodfacts.org/product/0849429001355",
       "added": "2026-11-09",
       "grade": {
-        "sosPass": false,
+        "pass": true,
+        "avoidPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 56,
+        "band": "limit",
+        "bandLabel": "Limit"
       }
     }
   ]

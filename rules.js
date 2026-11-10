@@ -1,8 +1,11 @@
 /*
  * Tortuga Scan — rules engine
- * Our own implementation of Seed Oil Scout's *published* "Seed Oil Safe" guidelines
- * (https://www.seedoilscout.com/seedoilsafe) plus our own 0–100 "Tortuga Scan clean score" (inspired by categories Olive publicly describes).
- * Not affiliated with, endorsed by, or an official certification from Seed Oil Scout or Olive.
+ * Tortuga's own 0–100 grade and ingredient colors. Seed-oil, additive, flavor,
+ * dye, and fragrance flags follow the published "10 Commandments of Bobby
+ * Approved Ingredients" (https://www.shopflavcity.com/pages/bobby-approved-app).
+ * The meter is an Olive-style red / yellow / green panel. Not affiliated with
+ * FlavCity, Bobby Approved, Olive, or Seed Oil Scout, and not their score,
+ * badge, or certification.
  * Works in the browser (window.ScoutRules) and in Node (module.exports).
  */
 (function (root, factory) {
@@ -143,6 +146,18 @@
       var already = hits.some(function (h) { return h.name === nm; });
       if (!already) hits.push({ name: nm, label: SEED_OIL_NAMES[nm], match: m[0], index: m.index, length: m[0].length, text: t });
     }
+    // INCI and split names the oil-token walk misses: "Helianthus annuus (sunflower) seed oil".
+    function pushPhrase(re, name) {
+      var r = new RegExp(re.source, 'gi');
+      var mm;
+      while ((mm = r.exec(t))) {
+        hits.push({ name: name, label: SEED_OIL_NAMES[name], match: mm[0], index: mm.index, length: mm[0].length, text: t });
+        if (mm[0].length === 0) r.lastIndex++;
+      }
+    }
+    pushPhrase(/\bhelianthus\b[^,;]{0,40}\bseed oils?\b|\bsunflower\b[^,;]{0,24}\bseed oils?\b/, 'sunflower');
+    pushPhrase(/\bglycine\s+(?:max|soja)\b[^,;]{0,24}\boils?\b/, 'soybean');
+    pushPhrase(/\bzea\s+mays\b[^,;]{0,24}\boils?\b/, 'corn');
     // de-duplicate by oil name, keep first occurrence
     var seen = {};
     return hits.filter(function (h) {
@@ -353,32 +368,37 @@
     else { status = 'none'; label = 'No GMO indicators'; }
     return { status: status, label: label, points: points, confirmed: confirmed, claims: claims, risky: risky };
   }
-  var GMO_POINTS = { confirmed: 12, possible: 6 };
+  var GMO_POINTS = { confirmed: 16, possible: 10 };
 
   // ---------------------------------------------------------------- categories
   var CATEGORIES = [
-    { id: 'seedOils', name: 'Seed oils', sos: true, points: 35 },
-    { id: 'soy', name: 'Soy', sos: true, points: 12, patterns: SOY },
-    { id: 'sweeteners', name: 'Artificial sweeteners', sos: true, points: 12, patterns: SWEETENERS },
-    { id: 'gums', name: 'Gums (and carrageenan)', sos: true, points: 12, patterns: GUMS },
-    { id: 'lecithins', name: 'Plant lecithins', sos: true, points: 12, patterns: LECITHINS },
-    { id: 'naturalFlavors', name: 'Natural flavors', sos: true, points: 12, patterns: NATURAL_FLAVORS },
-    { id: 'dyes', name: 'Dyes / artificial colors', sos: true, points: 12, patterns: DYES }
+    { id: 'seedOils', name: 'Seed oils', points: 56, patterns: null },
+    { id: 'soy', name: 'Soy', points: 14, patterns: SOY },
+    { id: 'sweeteners', name: 'Artificial sweeteners', points: 14, patterns: SWEETENERS },
+    { id: 'gums', name: 'Gums (and carrageenan)', points: 14, patterns: GUMS },
+    { id: 'lecithins', name: 'Plant lecithins', points: 14, patterns: LECITHINS },
+    { id: 'naturalFlavors', name: 'Natural flavors', points: 14, patterns: NATURAL_FLAVORS },
+    { id: 'dyes', name: 'Dyes / artificial colors', points: 14, patterns: DYES }
   ];
 
-  var ADDITIVE_EACH = 8, ADDITIVE_CAP = 24;
-  var SUGAR_BASE = 8, SUGAR_HIGH = { at: 15, extra: 7 }, SUGAR_VERY_HIGH = { at: 25, extra: 12 };
-  // NOVA 4 was −15, which still left an otherwise-empty ultra-processed food in the
-  // Cleaner band (100 − 15 = 85). −22 puts that food at 78, Mixed.
-  var NOVA = { 4: 22, 3: 5 };
-  // Midpoint of the 3–5 range. Once per product, so a simple mainstream food
-  // (milk, sparkling water) stays Cleaner while processed ones do not.
-  var MAINSTREAM_POINTS = 4;
-  // Same weight as a seed oil, once, however many conventional crops match.
-  var GLYPHOSATE_POINTS = 35;
-  // Non-GMO but not organic: yellow and not a full pass. Not the full −35.
+  var ADDITIVE_EACH = 10, ADDITIVE_CAP = 30;
+  var SUGAR_BASE = 10, SUGAR_HIGH = { at: 15, extra: 8 }, SUGAR_VERY_HIGH = { at: 25, extra: 14 };
+  // NOVA 4 alone lands at 70: still in Eat, but no longer a near-perfect score.
+  // A stack penalty pulls ultra-processed foods with other flags down further.
+  var NOVA = { 4: 30, 3: 8 };
+  // Once per product. A plain mainstream staple (milk, salt) stays in Eat.
+  // A processed mainstream product does not hide behind a 4-point nick.
+  var MAINSTREAM_POINTS = 8;
+  // Conventional glyphosate-prone crops. 41 points puts that food at 59 (Limit),
+  // just under Eat. Organic still clears the whole deduction. Non-GMO stays at 12.
+  var GLYPHOSATE_POINTS = 41;
   var GLYPHOSATE_LIMIT = 12;
-  var REFINED_STARCH_EACH = 8, REFINED_STARCH_CAP = 16;
+  var REFINED_STARCH_EACH = 12, REFINED_STARCH_CAP = 24;
+  // When three or more flag groups land together, add (groups − 2) × 4, max 16.
+  // Two flags do not stack. Mainstream brand and NOVA 3 are not flag groups.
+  var STACK_FROM = 3, STACK_EACH = 4, STACK_CAP = 16;
+  var PASS_AT = 45;
+  var EAT_AT = 60;
 
   // Well-known mass-market packaged-food brands and the product lines shoppers
   // see on the box (Cheerios, Oreo, Sprite). Matched on brand or product name.
@@ -1102,9 +1122,16 @@
   }
 
   function band(score) {
-    if (score >= 80) return { id: 'cleaner', label: 'Cleaner' };
-    if (score >= 50) return { id: 'mixed', label: 'Mixed' };
-    return { id: 'poor', label: 'Poor' };
+    if (score >= EAT_AT) return { id: 'eat', label: 'Eat as you like' };
+    if (score >= PASS_AT) return { id: 'limit', label: 'Limit' };
+    return { id: 'avoid', label: 'Avoid' };
+  }
+
+  function meterFor(score) {
+    var n = Math.max(0, Math.min(100, Math.round(num(score) || 0)));
+    var b = band(n);
+    var pass = n >= PASS_AT;
+    return { score: n, pass: pass, verdict: pass ? 'Pass' : 'Fail', band: b };
   }
 
   function num(v) {
@@ -1189,14 +1216,35 @@
       deductions.push({ label: 'Mainstream brand', points: MAINSTREAM_POINTS, detail: mainstream });
     }
 
+    var strikes = 0;
+    categories.forEach(function (c) { if (c.failed) strikes++; });
+    if (additiveRules.length) strikes++;
+    if (sugarHits.length) strikes++;
+    if (gmo.points) strikes++;
+    if (nova === 4) strikes++;
+    if (gly.points) strikes++;
+    if (starches.length) strikes++;
+    var stackPts = strikes >= STACK_FROM ? Math.min(STACK_CAP, (strikes - (STACK_FROM - 1)) * STACK_EACH) : 0;
+    if (stackPts) {
+      deductions.push({
+        label: 'Stacked flags (' + strikes + ' together)',
+        points: stackPts,
+        detail: 'Several Tortuga flags on one product, so the score drops further'
+      });
+    }
+
     var total = deductions.reduce(function (s, d) { return s + d.points; }, 0);
     var score = Math.max(0, 100 - total);
+    var meter = meterFor(score);
 
     return {
       hasIngredients: text.length > 0,
       sos: { pass: sosPass, categories: categories },
+      pass: meter.pass,
+      verdict: meter.verdict,
       score: score,
-      band: band(score),
+      band: meter.band,
+      stack: stackPts ? { groups: strikes, points: stackPts } : null,
       deductions: deductions,
       additives: additiveHits,
       sugars: sugarHits,
@@ -1217,14 +1265,17 @@
   // https://www.shopflavcity.com/pages/bobby-approved-app
   // Not an official Bobby Approved score, badge, or certification.
   // We only flag what is written on the label. No scraped app database.
-  var HOUSEHOLD_FRAGRANCE = 40;
-  var HOUSEHOLD_PRESERVATIVE = 22;
-  var HOUSEHOLD_PRESERVATIVE_CAP = 44;
-  var HOUSEHOLD_COLOR = 15;
-  var HOUSEHOLD_BRIGHTENER = 22;
-  var HOUSEHOLD_FLAVOR = 15;
+  var HOUSEHOLD_FRAGRANCE = 56;
+  var HOUSEHOLD_PRESERVATIVE = 42;
+  var HOUSEHOLD_PRESERVATIVE_CAP = 84;
+  var HOUSEHOLD_COLOR = 42;
+  var HOUSEHOLD_BRIGHTENER = 42;
+  var HOUSEHOLD_FLAVOR = 42;
   var HOUSEHOLD_MILD = 8;
   var HOUSEHOLD_MILD_CAP = 16;
+  var HOUSEHOLD_STACK_FROM = 2;
+  var HOUSEHOLD_STACK_EACH = 8;
+  var HOUSEHOLD_STACK_CAP = 18;
 
   function notNegated(text, index) {
     var before = text.slice(Math.max(0, index - 28), index);
@@ -1250,7 +1301,21 @@
     var t = text
       .replace(/\b(?:fragrances?|parfums?|perfumes?)[\s-]*free\b/g, ' ')
       .replace(/\bunscented\b/g, ' ');
-    return findLabeled(t, /\b(?:fragrances?|parfums?|perfumes?)\b/, 'Harmful fragrance (umbrella term)');
+    var hits = findLabeled(t, /\b(?:fragrances?|parfums?|perfumes?)\b/, 'Harmful fragrance (umbrella term)');
+    if (hits.length) return hits;
+    // EU fragrance-allergen names, when several appear and the label never names an essential oil.
+    // A single name, or a named plant oil such as lavender oil, is not the umbrella word.
+    if (/\b(?:essential|flower|leaf|peel|peel|herb|seed)\s+oils?\b|\blavandula\b|\bmelaleuca\b|\bmentha\b|\brosmarinus\b|\bcitrus\s+\w+\s+(?:peel|fruit|leaf)\s+oil\b/.test(t)) return hits;
+    var allergens = [];
+    var allergenRe = /\b(?:linalools?|limonenes?|geraniols?|coumarins?|citronellols?|hexyl\s+cinnamals?|benzyl\s+salicylates?|citral|eugenols?|farnesols?|cinnamals?)\b/g;
+    var m;
+    while ((m = allergenRe.exec(t))) {
+      if (allergens.indexOf(m[0]) < 0) allergens.push(m[0]);
+    }
+    if (allergens.length >= 2) {
+      hits.push({ rule: 'Harmful fragrance (umbrella term)', match: allergens.slice(0, 3).join(', '), context: contextAt(t, t.indexOf(allergens[0]), allergens[0].length) });
+    }
+    return hits;
   }
 
   function householdPreservativeHits(text) {
@@ -1277,7 +1342,7 @@
   }
 
   function householdColorHits(text) {
-    return findLabeled(text, /\b(?:colorants?|colourants?|artificial\s+colou?rs?)\b|\bfd\s*&\s*c\b/, 'Artificial color / colorant');
+    return findLabeled(text, /\b(?:colorants?|colourants?|artificial\s+colou?rs?)\b|\bfd\s*&\s*c\b|\b(?:ci|cl)\s*\d{5}\b/, 'Artificial color / colorant');
   }
 
   function householdBrightenerHits(text) {
@@ -1309,21 +1374,35 @@
     addGroup(householdColorHits(text), HOUSEHOLD_COLOR, null, 'Artificial color');
     addGroup(householdBrightenerHits(text), HOUSEHOLD_BRIGHTENER, null, 'Optical brightener');
     var oils = findSeedOils(text);
-    if (oils.length) deductions.push({ label: 'Seed oil', points: 35, detail: oils.map(function (h) { return h.match; }).join(', '), level: 'red', hits: oils });
+    if (oils.length) deductions.push({ label: 'Seed oil', points: 56, detail: oils.map(function (h) { return h.match; }).join(', '), level: 'red', hits: oils });
     addGroup(householdFlavorHits(text), HOUSEHOLD_FLAVOR, null, 'Flavor');
     var gmoHits = scan(text.replace(GMO_NEGATIONS, ' '), GMO_CONFIRMED);
     if (gmoHits.length) deductions.push({ label: 'GMO / bioengineered', points: 12, detail: gmoHits.map(function (h) { return h.match; }).join(', '), level: 'red', hits: gmoHits });
     var mild = householdMildHits(text);
     if (mild.length) deductions.push({ label: 'Preservative to limit', points: Math.min(HOUSEHOLD_MILD_CAP, mild.length * HOUSEHOLD_MILD), detail: mild.map(function (h) { return h.match; }).join(', '), level: 'yellow', hits: mild });
 
+    var redGroups = deductions.filter(function (d) { return d.level === 'red'; }).length;
+    var stackPts = redGroups >= HOUSEHOLD_STACK_FROM ? Math.min(HOUSEHOLD_STACK_CAP, (redGroups - (HOUSEHOLD_STACK_FROM - 1)) * HOUSEHOLD_STACK_EACH) : 0;
+    if (stackPts) {
+      deductions.push({
+        label: 'Stacked flags (' + redGroups + ' together)',
+        points: stackPts,
+        detail: 'Several household avoids on one product',
+        level: 'stack'
+      });
+    }
+
     var total = deductions.reduce(function (s, d) { return s + d.points; }, 0);
     var score = Math.max(0, 100 - total);
-    var failed = deductions.some(function (d) { return d.level === 'red'; });
+    var meter = meterFor(score);
     return {
       hasIngredients: text.length > 0,
-      pass: !failed,
+      pass: meter.pass,
+      verdict: meter.verdict,
+      flagged: redGroups > 0,
       score: score,
-      band: band(score),
+      band: meter.band,
+      stack: stackPts ? { groups: redGroups, points: stackPts } : null,
       deductions: deductions,
       standard: 'Tortuga household grade, inspired by the published Bobby Approved ingredient standards. Not an official Bobby Approved score.'
     };
@@ -1386,14 +1465,19 @@
         .filter(function (v, i, a) { return a.indexOf(v) === i; }),
       notSeedOils: ['olive', 'avocado', 'coconut', 'MCT', 'butter', 'ghee', 'tallow', 'lard', 'palm', 'sesame', 'flax / linseed', 'walnut', 'almond', 'peanut', 'macadamia'],
       points: {
-        gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 35, otherCategory: 12,
+        gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 56, otherCategory: 14,
         additiveEach: ADDITIVE_EACH, additiveCap: ADDITIVE_CAP, sugarBase: SUGAR_BASE, sugarHigh: SUGAR_HIGH,
         sugarVeryHigh: SUGAR_VERY_HIGH, nova: NOVA, mainstream: MAINSTREAM_POINTS, glyphosate: GLYPHOSATE_POINTS,
         glyphosateLimit: GLYPHOSATE_LIMIT,
         refinedStarchEach: REFINED_STARCH_EACH, refinedStarchCap: REFINED_STARCH_CAP,
-        householdFragrance: HOUSEHOLD_FRAGRANCE
+        stackFrom: STACK_FROM, stackEach: STACK_EACH, stackCap: STACK_CAP,
+        passAt: PASS_AT, eatAt: EAT_AT,
+        householdFragrance: HOUSEHOLD_FRAGRANCE,
+        householdPreservative: HOUSEHOLD_PRESERVATIVE,
+        householdColor: HOUSEHOLD_COLOR
       },
       mainstreamNote: 'Flat −' + MAINSTREAM_POINTS + ' when the brand or product name is a well-known mass-market packaged-food brand (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). Not a map of who owns whom.',
+      meterNote: 'Avoid (red) is 0–44 and a Fail. Limit (yellow) is 45–59 and a Pass. Eat as you like (green) is 60–100 and a Pass. Tortuga Certified Clean Brand means every catalog product from that brand scores above 60. Tortuga Certified Garbage Brand means every catalog product scores below 35. Those labels are Tortuga’s own and cover only the products in this catalog.',
       glyphosate: {
         points: GLYPHOSATE_POINTS,
         limitPoints: GLYPHOSATE_LIMIT,
@@ -1420,6 +1504,336 @@
     };
   }
 
+  function brandSlug(name) {
+    var s = foldBrand(name).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    return s || 'brand';
+  }
+
+  function brandStanding(scores) {
+    var list = [];
+    (scores || []).forEach(function (s) {
+      var n = num(s);
+      if (n !== null) list.push(n);
+    });
+    var count = list.length;
+    var noun = count === 1 ? 'product' : 'products';
+    var caveat = 'Based only on the ' + count + ' ' + noun + ' in Tortuga’s catalog right now, not this brand’s full lineup. This is Tortuga’s own label, not an official certification.';
+    if (!count) return { id: 'none', label: '', count: 0, caveat: caveat };
+    if (list.every(function (s) { return s > EAT_AT; })) {
+      return { id: 'clean', label: 'Tortuga Certified Clean Brand', count: count, caveat: caveat };
+    }
+    if (list.every(function (s) { return s < 35; })) {
+      return { id: 'garbage', label: 'Tortuga Certified Garbage Brand', count: count, caveat: caveat };
+    }
+    return { id: 'mixed', label: '', count: count, caveat: caveat };
+  }
+
+  function joinList(items) {
+    var list = (items || []).filter(Boolean);
+    if (!list.length) return '';
+    if (list.length === 1) return list[0];
+    if (list.length === 2) return list[0] + ' and ' + list[1];
+    return list.slice(0, -1).join(', ') + ', and ' + list[list.length - 1];
+  }
+
+  function tortySays(input) {
+    input = input || {};
+    var score = meterFor(input.score).score;
+    var meter = meterFor(score);
+    var kind = input.kind === 'household' ? 'household' : 'food';
+    var verb = kind === 'household' ? 'use' : 'eat';
+    var name = String(input.name || 'this one').trim() || 'this one';
+    var flags = [];
+    (input.flags || []).forEach(function (f) {
+      var t = String(f || '').trim();
+      if (t && flags.indexOf(t) < 0 && flags.length < 3) flags.push(t);
+    });
+    var certs = [];
+    (input.certifications || []).forEach(function (c) {
+      var t = String(c || '').trim();
+      if (t && certs.indexOf(t) < 0) certs.push(t);
+    });
+    var line;
+    if (!input.hasIngredients && input.hasIngredients !== undefined && !input.hasIngredients) {
+      line = 'I can’t grade ' + name + ' yet, because I don’t have an ingredient list to read.';
+    } else if (score >= EAT_AT && !flags.length) {
+      line = 'I’d ' + verb + ' ' + name + '. I don’t see a flag on my list, and the score is ' + score + ', over on Eat as you like.';
+    } else if (score >= EAT_AT) {
+      line = 'The score is ' + score + ', so the arrow sits on Eat as you like. I would still name ' + joinList(flags) + ' before I ' + verb + ' it.';
+    } else if (score >= PASS_AT) {
+      line = 'I’d limit ' + name + '. Score ' + score + ' is a Pass, in the yellow Limit band.' + (flags.length ? ' What I noticed: ' + joinList(flags) + '.' : '');
+    } else {
+      line = 'I’d skip ' + name + '. Score ' + score + ' is a Fail, on Avoid.' + (flags.length ? ' The reasons I can actually see: ' + joinList(flags) + '.' : '');
+    }
+    if (certs.length) line += ' The package says ' + joinList(certs) + ', and that claim is part of this grade.';
+    if (input.mainstream) line += ' The brand is one I treat as mainstream, so that costs points on its own.';
+    line += ' I’m not quoting a lab, and this isn’t an official Bobby Approved, Olive, or Seed Oil Scout score.';
+    return line;
+  }
+
+  var BLURB_RULES = [
+    { re: /seed oil|canola|sunflower oil|vegetable oil|safflower|grapeseed|cottonseed|rice bran/i, text: 'Tortuga treats industrial seed oils as an avoid, following the published Bobby Approved idea of skipping them. Olive, avocado, coconut, butter, tallow, and lard are not in that group.' },
+    { re: /glyphosate/i, text: 'This crop is often sprayed with glyphosate. Organic on the ingredient or the product clears it to green. Non-GMO without organic is yellow, a limit, not a full pass. Tortuga is not measuring residue in this package.' },
+    { re: /dirty dozen/i, text: 'This is on the Environmental Working Group Dirty Dozen list for 2026. Organic on this ingredient turns it green. A non-GMO claim does not, because the list is about pesticide residue.' },
+    { re: /artificial sweetener|aspartame|sucralose|acesulfame/i, text: 'Tortuga avoids this artificial sweetener. Stevia, monk fruit, and allulose are not in this group.' },
+    { re: /artificial dye|synthetic dye|artificial color|fd&c/i, text: 'Tortuga avoids synthetic dyes. Paprika, turmeric, annatto, and beet juice are not dyes of this kind.' },
+    { re: /natural flavor|^flavor$|flavor \(artificial or natural\)/i, text: 'Natural and artificial flavors are a limit or an avoid on Tortuga’s list. The word covers a blend the label does not spell out.' },
+    { re: /gum ·|xanthan|carrageenan|guar gum|gellan/i, text: 'Tortuga limits gums and carrageenan. They are processed thickeners, not a seed-oil fail by themselves.' },
+    { re: /lecithin/i, text: 'Plant lecithin, usually soy or sunflower, is a limit. Egg lecithin is not that plant source. Soy lecithin without an organic or non-GMO claim is red.' },
+    { re: /refined corn|corn starch|modified food starch|dextrose|maltodextrin/i, text: 'Refined corn starch, corn syrup, dextrose, and unnamed maltodextrin are usually made from conventional corn. Organic or non-GMO on the phrase moves the color from red to yellow. It does not make a seed oil okay.' },
+    { re: /added sugar|cane sugar|^sugar$/i, text: 'Cane sugar, unnamed sugar, brown sugar, and agave are limits. Honey, maple syrup, and coconut sugar are not deducted as added sugar.' },
+    { re: /dairy/i, text: 'Dairy is green when the product or the phrase is organic, non-GMO, or grass-fed. Otherwise it is yellow, or red when the brand is mainstream. Almond, oat, soy, and coconut milk are not animal dairy.' },
+    { re: /eggs/i, text: 'Eggs need organic or pasture-raised to clear. Non-GMO alone does not turn eggs green.' },
+    { re: /meat/i, text: 'Meat needs organic, non-GMO, grass-fed, or pasture-raised to clear. Tallow and lard follow the fat rules instead.' },
+    { re: /fragrance|parfum|perfume/i, text: 'Fragrance, parfum, and perfume are a hard avoid on household labels. Fragrance-free and unscented do not erase those words. A named essential oil, such as lavender oil, is not this umbrella term.' },
+    { re: /isothiazolinone|formaldehyde|paraben|triclosan/i, text: 'Tortuga treats this as a harmful preservative on a household label. One of these is enough to leave the green band.' },
+    { re: /optical brightener/i, text: 'Optical brighteners stay on fabric and are an avoid in this household grade.' },
+    { re: /benzoate|sorbate|phenoxyethanol/i, text: 'Tortuga limits this preservative. On its own it does not fail the household score.' },
+    { re: /soy derivative|^soy ·/i, text: 'Soy protein, soy flour, and soy lecithin are red unless the phrase is organic or non-GMO, which moves them to yellow. Whole soy foods also fall under the glyphosate-prone crop rule when they are conventional.' }
+  ];
+
+  function ingredientBlurb(name, color, reasons, variants) {
+    var why = (reasons || []).map(function (r) { return r.label; }).join('; ');
+    var blob = (name || '') + ' ' + why;
+    var custom = '';
+    for (var i = 0; i < BLURB_RULES.length; i++) {
+      if (BLURB_RULES[i].re.test(blob)) { custom = BLURB_RULES[i].text; break; }
+    }
+    var sentence;
+    if (color === 'red') sentence = 'Tortuga marks ' + name + ' red (avoid)' + (why ? ': ' + why + '.' : '.');
+    else if (color === 'yellow') sentence = 'Tortuga marks ' + name + ' yellow (limit)' + (why ? ': ' + why + '.' : '.');
+    else if (color === 'green') sentence = 'Tortuga marks ' + name + ' green. Nothing in the avoid or limit rules matched this wording on its own.';
+    else sentence = name + ' reads as a label note, not an ingredient Tortuga grades.';
+    if (custom) sentence += ' ' + custom;
+    if (variants && variants.organic && variants.organic !== color) {
+      sentence += ' If the product is organic, this same wording reads as ' + variants.organic + '.';
+    }
+    if (variants && variants.nongmo && variants.nongmo !== color && variants.nongmo !== (variants && variants.organic)) {
+      sentence += ' Non-GMO without organic reads as ' + variants.nongmo + '.';
+    }
+    sentence += ' Short Tortuga note, not a lab test and not a Bobby Approved badge.';
+    return sentence;
+  }
+
+  var OIL_SOURCES = '(?:canola|rapeseed|sunflower|soybeans?|soya|soy|safflower|cottonseed|corn|maize|palm(?:\\s+kernel)?|olive|avocado|coconut|vegetable|grapeseed|grape\\s+seed|rice\\s+bran)';
+
+  function stripGlossaryEdges(s) {
+    var t = String(s || '')
+      .replace(/[_*`]+/g, ' ')
+      .replace(/\(\s*\)|\[\s*\]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .replace(/^[\s,;:.+\-–—/&|*]+|[\s,;:.+\-–—/&|*]+$/g, '')
+      .trim();
+    while (/^[(\[]/.test(t) && !/[)\]]/.test(t)) t = t.slice(1).trim();
+    while (/[)\]]$/.test(t) && !/[(\[]/.test(t)) t = t.slice(0, -1).trim();
+    return t;
+  }
+
+  function unwrapGlossary(s) {
+    var t = String(s || '').trim();
+    for (var n = 0; n < 3; n++) {
+      if ((/^\([^()]*\)$/.test(t) || /^\[[^\[\]]*\]$/.test(t)) && t.length > 2) t = t.slice(1, -1).trim();
+      else break;
+    }
+    return t;
+  }
+
+  function glossaryDisplay(s) {
+    s = String(s || '').replace(/\*+/g, '').replace(/\s+/g, ' ').trim();
+    s = s.replace(/^[\s,;:.+\-–—/&|*]+|[\s,;:.+\-–—/&|*]+$/g, '').trim();
+    var letters = s.replace(/[^A-Za-z]/g, '');
+    if (!letters) return s;
+    var upper = (letters.match(/[A-Z]/g) || []).length;
+    if (upper === letters.length && letters.length <= 5) return s;
+    if (upper === 0) return s.charAt(0).toUpperCase() + s.slice(1);
+    if (upper / letters.length < 0.7) return s;
+    var small = { of: 1, and: 1, or: 1, the: 1, with: 1, from: 1, in: 1, for: 1, a: 1, de: 1 };
+    return s.toLowerCase().split(' ').map(function (w, i) {
+      if (!w) return w;
+      if (/^(bha|bht|tbhq|msg|edta|peg|mea|dea|ci|aqua)$/i.test(w)) return w.toUpperCase() === 'AQUA' ? 'Aqua' : w.toUpperCase();
+      if (i > 0 && small[w]) return w;
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    }).join(' ');
+  }
+
+  function glossaryFiller(s) {
+    var t = String(s || '').toLowerCase().trim();
+    if (t.length < 3 && !/^(soy|rye|oat|pea|egg|ham|fat|gum|oil|bha|bht|msg)$/.test(t)) return true;
+    if (/^(and|or|and\/or|of|the|with|for|from|color|colour|following|contains|including|inc|sl|etc|other|natural|artificial|organic|pure|filtered|less|than|added|made|red|white|yellow|blue|green|orange)$/.test(t)) return true;
+    if (/^\d+(\.\d+)?\s*%?$/.test(t)) return true;
+    if (/^(for color|for colour|for freshness|for color retention|to preserve freshness)$/.test(t)) return true;
+    if (/movement of the bowl|splatter|directions|caution|keep out|recycl|do not|first aid|website|net weight|may contain/.test(t)) return true;
+    if (/^contains less than\b/.test(t) && !/\b(salt|sugar|oil|starch|flavor|flavour|water|honey|milk)\b/.test(t)) return true;
+    var words = t.split(/\s+/).filter(Boolean);
+    var real = words.filter(function (w) { return /[a-z]{3,}/.test(w); });
+    if (!real.length) return true;
+    if (words.length >= 4 && real.length < 2) return true;
+    if (words.length > 10) return true;
+    return false;
+  }
+
+  function glossaryNames(raw) {
+    var out = [];
+    var seen = {};
+    function push(name) {
+      var t = glossaryDisplay(stripGlossaryEdges(unwrapGlossary(stripGlossaryEdges(name))));
+      if (!t || glossaryFiller(t) || t.length > 56) return;
+      var key = t.toLowerCase();
+      if (seen[key]) return;
+      seen[key] = 1;
+      out.push(t);
+    }
+    function oilPieces(s) {
+      if (!/\band\s*\/\s*or\b/i.test(s)) return null;
+      if (!new RegExp('\\b' + OIL_SOURCES + '\\b', 'i').test(s)) return null;
+      var hasOil = /\boils?\b/i.test(s);
+      var organic = /\borganic\b/i.test(s);
+      var found = [];
+      var seenOil = {};
+      var re = new RegExp('\\b(?:organic\\s+)?(?:expeller[\\s-]*pressed\\s+)?(?:fractionated\\s+)?(' + OIL_SOURCES + ')(?:\\s+oils?)?\\b', 'ig');
+      var m;
+      while ((m = re.exec(s))) {
+        var crop = m[1].toLowerCase().replace(/\s+/g, ' ');
+        if (crop === 'soy' || crop === 'soya') crop = 'soybean';
+        if (crop === 'maize') crop = 'corn';
+        if (crop === 'grape seed') crop = 'grapeseed';
+        var label = crop + (hasOil || /oil/.test(m[0].toLowerCase()) ? ' oil' : '');
+        if (/\bfractionated\b/i.test(m[0])) label = 'fractionated ' + label;
+        else if (organic && /\borganic\b/i.test(m[0])) label = 'organic ' + label;
+        if (!seenOil[label]) { seenOil[label] = 1; found.push(label); }
+      }
+      return found.length ? found : null;
+    }
+    function walk(text, depth) {
+      if ((depth || 0) > 6) return;
+      var s = String(text || '').replace(/[_*`]+/g, ' ').replace(/\s+/g, ' ').trim();
+      if (!s) return;
+      s = s.replace(/\(\s*(?:we declare all our ingredients|best ingredients)\s*[:.]?\s*\)/ig, ' ');
+      s = s.replace(/\bwe declare all our ingredients\s*[:.]?\s*/ig, ' ');
+      s = s.replace(/\bbest ingredients\s*[:.]?\s*/ig, ' ');
+      s = s.replace(/\bcontains less than \d+(?:\.\d+)?\s*%?\s*of(?:\s+the following)?\s*[:.]?\s*/ig, ' ');
+      s = s.replace(/\(\s*\d+(?:\.\d+)?\s*%\s*\)/g, ' ');
+      s = s.replace(/\bfor colou?r(?:\s+retention)?\b/ig, ' ');
+      s = s.replace(/\b(?:added\s+)?for freshness\b/ig, ' ');
+      s = s.replace(/\band\s*\/\s*or\b/ig, ' and/or ');
+      s = s.replace(/^(?:<\s*)?\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?\s*%\s*:?\s*/i, '');
+      s = s.replace(/^(?:<\s*)?\d+(?:\.\d+)?\s*%\s*:?\s*/i, '');
+      s = s.replace(/\b\d+(?:\.\d+)?\s*g\s+pour\s+100\s*g\.?\s*/ig, ' ');
+      s = stripGlossaryEdges(s);
+      s = s.replace(/^(?:acidifiant|acidifier)\s+/i, '');
+      if (!s || /[<>%]/.test(s) || /\b(siguientes|o menos|pour 100|daily value|allergen)\b/i.test(s) || glossaryFiller(s)) return;
+      if (/^(a|an)\s+(natural|artificial)\b/i.test(s)) return;
+      if (/^(a b vitamin|ab vitamin|a aded sugars)$/i.test(s)) return;
+      if (/^(added (as|to)|adds a negligible)\b/i.test(s)) return;
+      if (/\b(absorb|aded|splatter|declare|siguientes|negligible)\b/i.test(s)) return;
+      var un = unwrapGlossary(s);
+      if (un !== s) { walk(un, (depth || 0) + 1); return; }
+      var oils = oilPieces(s);
+      if (oils) {
+        oils.forEach(function (oil) { walk(oil, (depth || 0) + 1); });
+        var extra = s.replace(new RegExp('\\b(?:organic\\s+|expeller[\\s-]*pressed\\s+|fractionated\\s+)*' + OIL_SOURCES + '(?:\\s+oils?)?\\b', 'ig'), ' ')
+          .replace(/\band\/or\b/ig, ' ')
+          .replace(/\bwith\b/ig, ',');
+        if (/\b(tbhq|bha|bht|salt|sugar)\b/i.test(extra)) walk(extra, (depth || 0) + 1);
+        return;
+      }
+      if (/\band\/or\b/i.test(s)) {
+        var bits = s.split(/\s+and\/or\s+/i).map(stripGlossaryEdges).filter(Boolean);
+        if (bits.length > 1) { bits.forEach(function (bit) { walk(bit, (depth || 0) + 1); }); return; }
+      }
+      var parsed = splitParen(s);
+      if (parsed && parsed.children && parsed.children.length && parsed.name) {
+        var innerJoined = parsed.children.join(', ');
+        if (/[,;]| and\/or /i.test(innerJoined)) {
+          walk(parsed.name, (depth || 0) + 1);
+          parsed.children.forEach(function (ch) { walk(ch, (depth || 0) + 1); });
+          return;
+        }
+        var head = stripGlossaryEdges(parsed.name);
+        var inner = stripGlossaryEdges(parsed.children[0] || '');
+        if (/^(aqua|water|eau)$/i.test(head) && inner) { walk(inner, (depth || 0) + 1); return; }
+        if (inner && /^(a\s+)?[a-z]\s+vitamin$|^a\s+b\s+vitamin$/i.test(head)) { walk(inner, (depth || 0) + 1); return; }
+        if (inner && /\b(derived|based|preservative|surfactant|cleaning agent|agent|vitamin|mineral|stabilizer|softener|solvent|thickener|emulsifier)\b/i.test(inner)) {
+          walk(head, (depth || 0) + 1);
+          return;
+        }
+        if (head && inner && !/[,;]/.test(inner) && inner.split(/\s+/).length <= 3) {
+          push(head + ' (' + inner.replace(/[()]/g, '').trim() + ')');
+          return;
+        }
+        walk(head, (depth || 0) + 1);
+        return;
+      }
+      if (/[,;]/.test(s)) {
+        var parts = tokenizeIngredients(s);
+        if (parts.length > 1) { parts.forEach(function (p) { walk(p, (depth || 0) + 1); }); return; }
+      }
+      push(s);
+    }
+    walk(raw);
+    return out;
+  }
+
+  function ingredientProfile(name, kind) {
+    var raw = String(name || '').replace(/\s+/g, ' ').trim();
+    if (!raw) return null;
+    if (kind === 'household') {
+      var item = (classifyHousehold(raw).items || [])[0] || { color: 'green', reasons: [] };
+      return {
+        name: raw,
+        kind: 'household',
+        color: item.color || 'green',
+        reasons: item.reasons || [],
+        variants: {},
+        blurb: ingredientBlurb(raw, item.color || 'green', item.reasons || [], null)
+      };
+    }
+    function colorOf(opts) {
+      var item = (classifyIngredients(raw, opts || {}).items || [])[0];
+      return item || { color: 'green', reasons: [] };
+    }
+    var plain = colorOf({});
+    var organic = colorOf({ labels: 'Certified organic', labelsTags: ['en:organic'] });
+    var nongmo = colorOf({ labels: 'Non-GMO', labelsTags: ['en:no-gmos'] });
+    var variants = { plain: plain.color, organic: organic.color, nongmo: nongmo.color };
+    return {
+      name: raw,
+      kind: 'food',
+      color: plain.color || 'green',
+      reasons: plain.reasons || [],
+      variants: variants,
+      blurb: ingredientBlurb(raw, plain.color || 'green', plain.reasons || [], variants)
+    };
+  }
+
+  function parseRoute(pathname, search) {
+    var q = new URLSearchParams(String(search || '').replace(/^\?/, ''));
+    var path = String(pathname || '');
+    var pathQuery = q.get('path') || '';
+    if (pathQuery && pathQuery.charAt(0) !== '/') pathQuery = '/' + pathQuery;
+    var combined = pathQuery ? pathQuery : path;
+    var parts = combined.split('/').filter(Boolean);
+    var kind = '', slug = '';
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i] === 'product' || parts[i] === 'brand' || parts[i] === 'ingredient' || parts[i] === 'store') {
+        kind = parts[i];
+        slug = parts[i + 1] ? decodeURIComponent(parts[i + 1]) : '';
+      }
+    }
+    var tab = q.get('tab') || '';
+    if (kind === 'store') tab = 'store';
+    var code = (kind === 'product' && slug) ? slug : (q.get('code') || q.get('product') || '');
+    var brand = (kind === 'brand' && slug) ? slug : (q.get('brand') || '');
+    var ingredient = (kind === 'ingredient' && slug) ? slug : (q.get('ingredient') || '');
+    return {
+      tab: tab,
+      code: String(code || '').trim(),
+      brand: String(brand || '').trim(),
+      ingredient: String(ingredient || '').trim(),
+      kind: kind
+    };
+  }
+
   return {
     normalize: normalize,
     grade: grade,
@@ -1430,6 +1844,16 @@
     barcodeCandidates: barcodeCandidates,
     upcEtoUpcA: upcEtoUpcA,
     band: band,
+    meterFor: meterFor,
+    brandSlug: brandSlug,
+    brandStanding: brandStanding,
+    tortySays: tortySays,
+    ingredientBlurb: ingredientBlurb,
+    glossaryNames: glossaryNames,
+    ingredientProfile: ingredientProfile,
+    parseRoute: parseRoute,
+    PASS_AT: PASS_AT,
+    EAT_AT: EAT_AT,
     rulesSummary: rulesSummary,
     classifyIngredients: classifyIngredients,
     foodCertifications: FOOD_CERTIFICATIONS.map(publicCert),

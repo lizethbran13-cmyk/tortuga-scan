@@ -1,0 +1,30 @@
+{
+  "about": "Official brand homepages checked when this file was written. Not product-page checkout links. Missing brands are omitted on purpose.",
+  "checked": "2026-11-10",
+  "sites": {
+    "cheerios": "https://www.cheerios.com/",
+    "tide": "https://tide.com/en-us",
+    "seventh-generation": "https://www.seventhgeneration.com/",
+    "mrs-meyer-s-clean-day": "https://mrsmeyers.com/",
+    "dawn": "https://dawn-dish.com/en-us/",
+    "method": "https://methodhome.com/",
+    "ecos": "https://www.ecos.com/",
+    "gain": "https://ilovegain.com/en-us",
+    "coca-cola": "https://www.coca-cola.com/us/en",
+    "the-coca-cola-company": "https://www.coca-cola.com/us/en",
+    "pepsi": "https://www.pepsi.com/",
+    "quaker": "https://www.quakeroats.com/",
+    "kellogg-s": "https://www.kelloggs.com/en_US/home.html",
+    "siete": "https://sietefoods.com/",
+    "primal-kitchen": "https://www.primalkitchen.com/",
+    "simple-mills": "https://simplemills.com/",
+    "chobani": "https://www.chobani.com/",
+    "fairlife": "https://fairlife.com/",
+    "ecover": "https://uk.ecover.com/",
+    "persil": "https://www.persil.com/uk/home.html",
+    "dove": "https://www.dove.com/us/en/home.html",
+    "ivory": "https://ivory.com/",
+    "fairy": "https://fairy.com/",
+    "domestos": "https://www.domestos.com/uk/country-selector.html"
+  }
+}

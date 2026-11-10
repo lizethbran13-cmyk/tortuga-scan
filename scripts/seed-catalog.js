@@ -240,7 +240,8 @@ function toEntry(p) {
     offUrl: 'https://world.openfoodfacts.org/product/' + barcode,
     added: ADDED,
     grade: {
-      sosPass: g.sos.pass,
+      pass: g.pass,
+      avoidPass: g.sos.pass,
       gmoStatus: g.gmo.status,
       gmoLabel: g.gmo.label,
       score: g.score,

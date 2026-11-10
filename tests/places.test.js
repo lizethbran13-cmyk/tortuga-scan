@@ -159,6 +159,39 @@ test('a place menu grades ingredients only and order links stay on official site
   });
 });
 
+test('adding a place accepts a bare website and does not fail quietly without coordinates', () => {
+  assert.equal(P.normalizeWebsite('').url, '');
+  assert.equal(P.normalizeWebsite('place.com').url, 'https://place.com/');
+  assert.equal(P.normalizeWebsite('www.place.com').url, 'https://www.place.com/');
+  assert.equal(P.normalizeWebsite('http://place.com/menu').url, 'https://place.com/menu');
+  assert.equal(P.normalizeWebsite('https://place.com').ok, true);
+  assert.equal(P.normalizeWebsite('not a url').ok, false);
+  const missing = P.preparePlaceDraft({ name: '', address: '1 Main', website: 'place.com' });
+  assert.equal(missing.ok, false);
+  assert.equal(missing.field, 'name');
+  const noAddress = P.preparePlaceDraft({ name: 'Cafe', address: '  ', lat: '', lng: '' });
+  assert.equal(noAddress.field, 'address');
+  const lookup = P.preparePlaceDraft({
+    name: 'Cafe', address: '124 S 6th Street', city: 'Las Vegas', website: 'www.place.com', lat: '', lng: ''
+  });
+  assert.equal(lookup.ok, true);
+  assert.equal(lookup.needsGeocode, true);
+  assert.equal(lookup.website, 'https://www.place.com/');
+  assert.equal(P.nominatimQuery(lookup.address, lookup.city), '124 S 6th Street, Las Vegas, Nevada');
+  const badCoord = P.preparePlaceDraft({ name: 'Cafe', address: '1 Main', lat: 'nope', lng: '' });
+  assert.equal(badCoord.ok, false);
+  assert.equal(badCoord.field, 'lat');
+  const pinned = P.preparePlaceDraft({ name: 'Cafe', address: '1 Main', lat: '36.1', lng: '-115.2', website: 'http://place.com' });
+  assert.equal(pinned.needsGeocode, false);
+  assert.equal(pinned.lat, 36.1);
+  assert.equal(pinned.lng, -115.2);
+  assert.equal(pinned.website, 'https://place.com/');
+  assert.equal(P.geocodeHit([]), null);
+  assert.deepEqual(P.geocodeHit([{ lat: '36.167898', lon: '-115.140607', display_name: 'Carson Kitchen' }]), {
+    lat: 36.167898, lng: -115.140607, label: 'Carson Kitchen'
+  });
+});
+
 test('bands are the 0–10 place bands', () => {
   assert.equal(P.placeBand(4.4).id, 'avoid');
   assert.equal(P.placeBand(4.5).id, 'limit');
@@ -212,14 +245,19 @@ test('starter catalog is real-shaped Las Vegas and Henderson data', () => {
   assert.equal(P.gradePlace(ethel, []).approved, false);
 });
 
-test('shell points at the map, place routes, and cache v8', () => {
+test('shell points at the map, place routes, and cache v9', () => {
   const root = path.join(__dirname, '..');
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
   const missing = fs.readFileSync(path.join(root, '404.html'), 'utf8');
   const rules = fs.readFileSync(path.join(root, 'rules.js'), 'utf8');
-  assert.match(sw, /tortuga-shell-v8/);
+  assert.match(sw, /tortuga-shell-v9/);
+  assert.match(html, /id="addPlaceForm"[^>]*novalidate/);
+  assert.match(html, /id="addPlaceStatus"[^>]*aria-live="assertive"/);
+  assert.doesNotMatch(html, /id="addPlaceWeb"[^>]*type="url"/);
+  assert.match(app, /preparePlaceDraft/);
+  assert.match(app, /nominatim\.openstreetmap\.org/);
   assert.match(sw, /data\/places\.json/);
   assert.match(sw, /data\/map-style\.json/);
   assert.match(sw, /places\.js/);

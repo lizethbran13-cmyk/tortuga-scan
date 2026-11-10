@@ -1212,6 +1212,7 @@
   var map = null;
   var mapFitted = false;
   var dropMode = false;
+  var placeSaveNotice = '';
   var dropMarker = null;
   var activePlaceId = '';
   var pendingReportPhoto = null;
@@ -1220,7 +1221,14 @@
   var KIND_COLOR = { restaurant: '#3B5323', cafe: '#8A5A32', grocer: '#5E7F3A', chocolatier: '#6B3E2E', shop: '#8A6A3B' };
 
   function loadLocalPlaces() { try { return JSON.parse(localStorage.getItem(PLACES_KEY)) || []; } catch (e) { return []; } }
-  function writeLocalPlaces(list) { try { localStorage.setItem(PLACES_KEY, JSON.stringify(list)); } catch (e) {} }
+  function writeLocalPlaces(list) {
+    try {
+      localStorage.setItem(PLACES_KEY, JSON.stringify(list));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   function loadReports() { try { return JSON.parse(localStorage.getItem(REPORTS_KEY)) || []; } catch (e) { return []; } }
   function writeReports(list) { try { localStorage.setItem(REPORTS_KEY, JSON.stringify(list)); } catch (e) {} }
   function loadMenuItems() { try { return JSON.parse(localStorage.getItem(MENU_KEY)) || []; } catch (e) { return []; } }
@@ -1347,7 +1355,12 @@
         (String(r.id || '').indexOf('phone-') === 0 ? '<button type="button" class="btn btn-outline" data-act="remove-report" data-id="' + esc(r.id) + '">Remove from this phone</button>' : '') +
         '</article>';
     }).join('');
-    return '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-tab="map">Map</button></p>' +
+    var saved = '';
+    if (placeSaveNotice) {
+      saved = '<p class="notice" role="status">' + esc(placeSaveNotice) + '</p>';
+      placeSaveNotice = '';
+    }
+    return saved + '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-tab="map">Map</button></p>' +
       '<p class="pills"><span class="pill">' + esc(p.kind || '') + '</span><span class="pill">' + esc(p.city || '') + '</span>' +
       (p.origin === 'phone' ? '<span class="pill">On this phone</span>' : '<span class="pill">Catalog</span>') + '</p>' +
       '<h2 id="placeTitle">' + esc(p.name) + '</h2>' +
@@ -1702,8 +1715,10 @@
   function finishDropPin() {
     dropMode = false;
     if ($('mapBanner')) $('mapBanner').hidden = true;
+    var lat = $('addPlaceLat') && $('addPlaceLat').value;
+    var lng = $('addPlaceLng') && $('addPlaceLng').value;
     showAddPlace(false);
-    if ($('addPlaceGeoNote')) $('addPlaceGeoNote').textContent = 'Pin saved on the form. It stays on this phone.';
+    setAddPlaceStatus(lat && lng ? ('Pin set at ' + lat + ', ' + lng + '. Tap Save place on this phone.') : 'Drop a pin on the map, then come back and save.');
   }
   function exportPayload() {
     return { kind: 'tortuga-places-export', version: 1, exported: new Date().toISOString(), places: loadLocalPlaces(), reports: loadReports(), menuItems: loadMenuItems() };
@@ -1925,15 +1940,34 @@
   });
   watchBlob('reportCam', function (blob) { pendingReportPhoto = blob; }, 'reportPhotoNote', 'Photo ready. It stays on this phone.');
   watchBlob('reportFile', function (blob) { pendingReportPhoto = blob; }, 'reportPhotoNote', 'Photo ready. It stays on this phone.');
+  function setAddPlaceStatus(message, field) {
+    var el = $('addPlaceStatus');
+    if (el) {
+      el.textContent = message || '';
+      el.hidden = !message;
+    }
+    if ($('addPlaceGeoNote') && message) $('addPlaceGeoNote').textContent = message;
+    var target = field || el;
+    if (target && target.focus) {
+      try { target.focus(); } catch (e) {}
+    }
+    if (target && target.scrollIntoView) target.scrollIntoView({ block: 'center' });
+  }
+  function fillAddPlaceCoords(lat, lng, message) {
+    $('addPlaceLat').value = Number(lat).toFixed(6);
+    $('addPlaceLng').value = Number(lng).toFixed(6);
+    setAddPlaceStatus(message);
+  }
   if ($('useMyLocation')) $('useMyLocation').addEventListener('click', function () {
-    var note = $('addPlaceGeoNote');
-    if (!navigator.geolocation) { if (note) note.textContent = 'This browser has no location. Drop a pin instead.'; return; }
+    if (!navigator.geolocation) {
+      setAddPlaceStatus('This browser has no location. Type the address and save, or drop a pin.', $('useMyLocation'));
+      return;
+    }
+    setAddPlaceStatus('Asking for where you are…');
     navigator.geolocation.getCurrentPosition(function (pos) {
-      $('addPlaceLat').value = pos.coords.latitude.toFixed(6);
-      $('addPlaceLng').value = pos.coords.longitude.toFixed(6);
-      if (note) note.textContent = 'Using where you are. You can still drop a different pin.';
+      fillAddPlaceCoords(pos.coords.latitude, pos.coords.longitude, 'Using where you are: ' + pos.coords.latitude.toFixed(5) + ', ' + pos.coords.longitude.toFixed(5) + '. Tap Save place on this phone.');
     }, function () {
-      if (note) note.textContent = 'Location stayed off. Drop a pin on the map or type coordinates.';
+      setAddPlaceStatus('Location stayed off. Type the address and save to look it up, or drop a pin.', $('addPlaceAddress'));
     }, { enableHighAccuracy: true, timeout: 8000 });
   });
   if ($('dropPin')) $('dropPin').addEventListener('click', function () {
@@ -1946,46 +1980,94 @@
     }
     if (map) setTimeout(function () { map.resize(); }, 80);
   });
-  if ($('addPlaceForm')) $('addPlaceForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = $('addPlaceName').value.trim();
-    var address = $('addPlaceAddress').value.trim();
-    var lat = parseFloat($('addPlaceLat').value);
-    var lng = parseFloat($('addPlaceLng').value);
-    var note = $('addPlaceGeoNote');
-    if (!name || !address) return;
-    if (lat !== lat || lng !== lng) {
-      if (note) note.textContent = 'Add a latitude and longitude, use where you are, or drop a pin.';
-      return;
-    }
-    var website = $('addPlaceWeb').value.trim();
-    if (website && !/^https:\/\//i.test(website)) {
-      if (note) note.textContent = 'The website needs to start with https://, or leave it blank.';
-      return;
-    }
+  function addPlaceField(name) {
+    if (name === 'name') return $('addPlaceName');
+    if (name === 'address') return $('addPlaceAddress');
+    if (name === 'website') return $('addPlaceWeb');
+    return $('addPlaceLat');
+  }
+  function geocodeAddress(address, city) {
+    var q = Places.nominatimQuery(address, city);
+    var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=' + encodeURIComponent(q);
+    return fetch(url, { headers: { Accept: 'application/json' } }).then(function (res) {
+      if (!res.ok) throw new Error('geocode');
+      return res.json();
+    }).then(function (rows) { return Places.geocodeHit(rows); });
+  }
+  function storeNewPlace(draft, lat, lng, fromLookup) {
     var place = {
-      id: placeIdFromName(name),
-      name: name,
+      id: placeIdFromName(draft.name),
+      name: draft.name,
       kind: $('addPlaceKind').value,
       city: $('addPlaceCity').value,
-      address: address,
-      lat: Math.round(lat * 1e6) / 1e6,
-      lng: Math.round(lng * 1e6) / 1e6,
-      website: website,
+      address: draft.address,
+      lat: lat,
+      lng: lng,
+      website: draft.website,
       summary: $('addPlaceNotes').value.trim() || 'Added on this phone. Not in the shared catalog.',
       notes: $('addPlaceNotes').value.trim(),
       offerings: [],
       sourcedNotes: [],
-      sources: [{ title: 'Added on this phone', url: 'https://www.openstreetmap.org/copyright', note: 'Coordinates came from the pin or the location you entered.', accessed: todayISO() }],
+      sources: [{
+        title: 'Added on this phone',
+        url: 'https://www.openstreetmap.org/copyright',
+        note: fromLookup ? 'Coordinates from one OpenStreetMap Nominatim lookup of the address typed on this phone.' : 'Coordinates came from the pin or the location entered on this phone.',
+        accessed: todayISO()
+      }],
       origin: 'phone'
     };
-    var list = loadLocalPlaces().filter(function (p) { return p.id !== place.id; });
-    list.push(place);
-    writeLocalPlaces(list);
+    var stored = false;
+    try {
+      var list = loadLocalPlaces().filter(function (p) { return p.id !== place.id; });
+      list.push(place);
+      stored = writeLocalPlaces(list);
+    } catch (err) {
+      stored = false;
+    }
+    if (!stored) {
+      setAddPlaceStatus('Could not save on this phone. Storage may be full, or private mode is blocking it.', $('addPlaceStatus'));
+      return;
+    }
     var photo = pendingPlacePhoto;
     pendingPlacePhoto = null;
-    var done = photo ? idbPut('place:' + place.id, photo) : Promise.resolve();
-    done.then(function () { showPlace(place.id, false); });
+    var photoFailed = false;
+    var done = photo ? idbPut('place:' + place.id, photo).catch(function () { photoFailed = true; }) : Promise.resolve();
+    done.then(function () {
+      placeSaveNotice = photoFailed ? 'Saved on this phone. The photo could not be stored.' : 'Saved on this phone.';
+      showPlace(place.id, false);
+    });
+  }
+  if ($('addPlaceForm')) $('addPlaceForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var draft = Places.preparePlaceDraft({
+      name: $('addPlaceName').value,
+      address: $('addPlaceAddress').value,
+      website: $('addPlaceWeb').value,
+      lat: $('addPlaceLat').value,
+      lng: $('addPlaceLng').value,
+      city: $('addPlaceCity').value
+    });
+    if (!draft.ok) {
+      setAddPlaceStatus(draft.message, addPlaceField(draft.field));
+      return;
+    }
+    if (draft.website) $('addPlaceWeb').value = draft.website;
+    if (!draft.needsGeocode) {
+      storeNewPlace(draft, draft.lat, draft.lng, false);
+      return;
+    }
+    setAddPlaceStatus('Looking up that address once on OpenStreetMap…', $('addPlaceStatus'));
+    geocodeAddress(draft.address, draft.city).then(function (hit) {
+      if (!hit) {
+        setAddPlaceStatus('OpenStreetMap did not find that address. Tap Use where I am or Drop a pin, then save again.', $('addPlaceAddress'));
+        return;
+      }
+      $('addPlaceLat').value = hit.lat;
+      $('addPlaceLng').value = hit.lng;
+      storeNewPlace(draft, hit.lat, hit.lng, true);
+    }).catch(function () {
+      setAddPlaceStatus('The address lookup did not answer. Tap Use where I am or Drop a pin, then save again.', $('addPlaceStatus'));
+    });
   });
   watchBlob('addPlaceCam', function (blob) { pendingPlacePhoto = blob; }, 'addPlacePhotoNote', 'Photo ready. It stays on this phone.');
   watchBlob('addPlaceFile', function (blob) { pendingPlacePhoto = blob; }, 'addPlacePhotoNote', 'Photo ready. It stays on this phone.');

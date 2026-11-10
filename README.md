@@ -23,7 +23,7 @@ styles.css             Cream and olive, mobile-first
 app.js                 Camera, routing, meter, Torty, store, book, map
 rules.js               Package rules engine (browser + Node)
 places.js              Place scores, 0–10 (browser + Node)
-sw.js                  Service worker (cache name tortuga-shell-v8)
+sw.js                  Service worker (cache name tortuga-shell-v9)
 404.html               GitHub Pages fallback so /product/… reloads
 manifest.webmanifest   Add to Home Screen
 data/catalog.json      Food catalog

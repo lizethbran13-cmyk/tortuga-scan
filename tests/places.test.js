@@ -245,14 +245,33 @@ test('starter catalog is real-shaped Las Vegas and Henderson data', () => {
   assert.equal(P.gradePlace(ethel, []).approved, false);
 });
 
-test('shell points at the map, place routes, and cache v9', () => {
+test('Flower Child Henderson is the official address and stays unrated', () => {
+  const place = places.find(p => p.id === 'flower-child-henderson');
+  assert.ok(place);
+  assert.equal(place.city, 'Henderson');
+  assert.match(place.address, /2215 Village View/);
+  assert.match(place.address, /89052/);
+  assert.equal(place.phone, '725-291-0111');
+  assert.equal(place.website, 'https://www.iamaflowerchild.com/locations/flower-child-henderson/');
+  assert.equal(place.orderUrl, undefined);
+  assert.equal(P.orderChoices(place).viewOnly, true);
+  assert.equal(P.gradePlace(place, []).status, 'unrated');
+  const names = place.offerings.map(o => o.name.toLowerCase());
+  assert.ok(names.some(n => n.indexOf('olive oil roasted vegetables') >= 0));
+  place.offerings.forEach(o => {
+    assert.match(o.sourceUrl, /^https:\/\/www\.iamaflowerchild\.com\//);
+    assert.equal(o.ingredients, undefined);
+  });
+});
+
+test('shell points at the map, place routes, and cache v10', () => {
   const root = path.join(__dirname, '..');
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
   const missing = fs.readFileSync(path.join(root, '404.html'), 'utf8');
   const rules = fs.readFileSync(path.join(root, 'rules.js'), 'utf8');
-  assert.match(sw, /tortuga-shell-v9/);
+  assert.match(sw, /tortuga-shell-v10/);
   assert.match(html, /id="addPlaceForm"[^>]*novalidate/);
   assert.match(html, /id="addPlaceStatus"[^>]*aria-live="assertive"/);
   assert.doesNotMatch(html, /id="addPlaceWeb"[^>]*type="url"/);

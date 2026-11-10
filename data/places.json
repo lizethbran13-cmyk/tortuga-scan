@@ -647,6 +647,67 @@
       ]
     },
     {
+      "id": "flower-child-henderson",
+      "name": "Flower Child Henderson",
+      "kind": "restaurant",
+      "city": "Henderson",
+      "address": "2215 Village View Drive, Henderson, NV 89052",
+      "lat": 36.023005,
+      "lng": -115.0883,
+      "phone": "725-291-0111",
+      "website": "https://www.iamaflowerchild.com/locations/flower-child-henderson/",
+      "hoursNote": "Copied from the official Henderson location page on November 10, 2026: daily 11am–9pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 2215 Village View Drive at The District at Green Valley Ranch. OSM does not have a separate node named Flower Child at this address.",
+      "summary": "Flower Child at The District at Green Valley Ranch. The Henderson location page names olive oil on a few dishes, including olive oil roasted vegetables. That is not a claim that every plate is cooked in olive oil, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Olive oil roasted vegetables",
+          "basis": "official-menu",
+          "fats": ["olive oil"],
+          "suggest": "get",
+          "note": "The Henderson location page lists this side as olive oil roasted vegetables: cauliflower, broccoli, heirloom carrot, green bean, lemon, and thyme. It is one side, not a claim about the whole kitchen.",
+          "sourceUrl": "https://www.iamaflowerchild.com/locations/flower-child-henderson/"
+        },
+        {
+          "name": "Crushed avocado toast",
+          "basis": "official-menu",
+          "fats": ["olive oil"],
+          "note": "The Henderson location page lists crushed avocado toast with E.V.O.O. A full ingredient list is not printed there.",
+          "sourceUrl": "https://www.iamaflowerchild.com/locations/flower-child-henderson/"
+        },
+        {
+          "name": "Lemon olive oil cake",
+          "basis": "official-menu",
+          "fats": ["olive oil"],
+          "note": "The Henderson location page lists lemon olive oil cake by that name. A full ingredient list is not printed there.",
+          "sourceUrl": "https://www.iamaflowerchild.com/locations/flower-child-henderson/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "fc-henderson-olive",
+          "kind": "menu-item",
+          "text": "The Henderson location page names olive oil on olive oil roasted vegetables, crushed avocado toast (E.V.O.O.), and lemon olive oil cake. It does not state a cooking fat for every dish.",
+          "fats": [],
+          "sourceUrl": "https://www.iamaflowerchild.com/locations/flower-child-henderson/",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Flower Child Henderson",
+          "url": "https://www.iamaflowerchild.com/locations/flower-child-henderson/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 2215 Village View Drive, Henderson 89052, at The District at Green Valley Ranch.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
       "id": "esthers-kitchen",
       "name": "Esther’s Kitchen",
       "kind": "restaurant",

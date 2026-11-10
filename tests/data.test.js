@@ -170,9 +170,22 @@ test('Cheerios fails the new meter and photos are real URLs when present', () =>
 });
 
 console.log('News');
-test('first report is Monday, November 9, 2026 in Los Angeles', () => {
+test('reports are newest first, and the first one is Monday, November 9, 2026 in Los Angeles', () => {
   assert.equal(news.timezone, 'America/Los_Angeles');
-  const report = news.reports[0];
+  const dates = news.reports.map(r => r.date);
+  assert.deepEqual(dates, dates.slice().sort().reverse());
+  assert.equal(new Set(dates).size, dates.length);
+  news.reports.forEach(r => {
+    assert.equal(r.id, r.date);
+    assert.equal(r.timezone, 'America/Los_Angeles');
+    assert.ok(r.items.length >= 1, r.id);
+    r.items.forEach(item => {
+      assert.ok(item.headline && item.summary, item.id);
+      assert.ok(/^https:\/\//.test(item.sourceUrl), item.id);
+      assert.ok(['launch', 'recall', 'alert', 'study', 'policy', 'lab'].includes(item.category), item.id);
+    });
+  });
+  const report = news.reports[news.reports.length - 1];
   assert.equal(report.id, '2026-11-09');
   assert.equal(report.date, '2026-11-09');
   assert.equal(report.timezone, 'America/Los_Angeles');

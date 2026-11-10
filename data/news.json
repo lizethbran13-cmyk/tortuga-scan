@@ -4,6 +4,96 @@
   "about": "Daily Tortuga Scan notes. Add a new object at the start of reports[]. Date is the local day in America/Los_Angeles. Every item needs a real source URL. See README.md.",
   "reports": [
     {
+      "id": "2026-11-10",
+      "date": "2026-11-10",
+      "timezone": "America/Los_Angeles",
+      "title": "Tuesday, November 10, 2026",
+      "dek": "FDA pulls three solvents from food-color production, a House bill would ban every certified dye plus BHA, BHT, and TBHQ, seed-oil-free sales hit $1 billion, and two new launches skip seed oils.",
+      "items": [
+        {
+          "id": "fda-methylene-chloride-color-solvents",
+          "category": "policy",
+          "headline": "FDA revokes cancer-linked solvents used to make some food colors",
+          "summary": "FDA is ending two remaining color-additive uses for methylene chloride and related solvents. One was methylene chloride as a thinner in the inks used to mark fruit and vegetables, which consumer groups including EWG and the Environmental Defense Fund had petitioned against. The other covers methylene chloride, ethylene dichloride, and trichloroethylene in making annatto extract, paprika oleoresin, and turmeric oleoresin, which the color makers’ own trade group asked FDA to drop. FDA acted under the Delaney Clause, which bars ingested color additives shown to cause cancer in people or animals. The revocations take effect January 11, 2027. Annatto, paprika, and turmeric colors stay allowed; only these solvents go.",
+          "sourceName": "Food Safety News",
+          "sourceUrl": "https://www.foodsafetynews.com/2026/11/fda-moves-to-revoke-permission-for-some-chemicals-used-in-food-dyes/"
+        },
+        {
+          "id": "mace-dye-preservative-bills",
+          "category": "policy",
+          "headline": "House bills would ban all certified dyes and BHA, BHT, and TBHQ",
+          "summary": "Rep. Nancy Mace introduced two bills. H.R. 10936 (October 29) would have HHS treat every batch-certified color additive, like Red 40 and Yellow 5, as unsafe in food, drugs, devices, and cosmetics two years after it became law. H.R. 10913 (October 26) would make food containing any BHA, BHT, or TBHQ adulterated, also after two years. Both sit in the House Energy and Commerce Committee with no hearing or vote scheduled, so nothing changes yet. FDA’s current push to remove the six remaining synthetic dyes is still voluntary, with an end-of-2027 target, and Red 3 is out of food after January 15, 2027. Tortuga already docks BHA, BHT, and TBHQ.",
+          "sourceName": "theFutureofFood.org",
+          "sourceUrl": "https://thefutureoffood.org/a-house-bill-would-ban-every-batch-certified-synthetic-dye/",
+          "alsoSee": [
+            {
+              "name": "IFMA MAHA update (November 6, 2026)",
+              "url": "https://foodaway.org/IFMA/Resources/News/2026/November-6-The-latest-on-MAHA-and-related-developments.aspx"
+            }
+          ]
+        },
+        {
+          "id": "seed-oil-free-sales-1-billion",
+          "category": "launch",
+          "headline": "Seed-oil-free product sales reach $1 billion",
+          "summary": "Morning Brew, citing a Bloomberg report, says sales of products labeled seed-oil-free rose 72 percent to about $1 billion over the past year. Health brands and big snack makers, including PepsiCo and Utz, are adding chips and snacks cooked in alternatives such as beef tallow. A seed-oil-free claim is still only one check: scan the rest of the label for gums, natural flavors, and conventional glyphosate-prone crops.",
+          "sourceName": "Morning Brew",
+          "sourceUrl": "https://www.morningbrew.com/stories/maha-seed-oil-rejection-creates-usd1-billion-industry",
+          "sourceDate": "2026-11-10"
+        },
+        {
+          "id": "stellar-pretzel-braids-olive-oil",
+          "category": "launch",
+          "headline": "Stellar Snacks bakes a Pretzel Braids line with olive oil, only at Sprouts",
+          "summary": "Stellar Snacks, based in Carson City, Nevada, launched Pretzel Braids Baked with Olive Oil, a six-flavor seed-oil-free line sold only at Sprouts Farmers Market nationwide. Two flavors are new, Elote Loco and Spicy Flame, alongside Maui Monk, Bold & Herby, Cinnamon Dolce, and French Dijon. The original braids at Target, Kroger, and Costco are a separate line, so check which bag you grab. Pretzels are wheat, so look for organic flour on the label before calling it a full pass.",
+          "sourceName": "Recipes ’n Cooking, citing the brand’s press release",
+          "sourceUrl": "https://www.recipesncooking.com/stellar-snacks-pretzel-braids-olive-oil/",
+          "sourceDate": "2026-11-04"
+        },
+        {
+          "id": "incredifulls-pbj-cups",
+          "category": "launch",
+          "headline": "Incredifulls rolls out frozen PB&J cups made without seed oils",
+          "summary": "Incredifulls, the Pizza Cupcake brand, is launching Paw Patrol Peanut Butter & Jelly Cups nationally: peanut butter and jelly baked inside a sourdough-brioche crust, sold frozen in boxes of four for a suggested $5.99 to $6.99. The company says they are made without seed oils, artificial colors, or high-fructose corn syrup, with 5 g of protein each. We haven’t seen the full ingredient list yet, so sugar and flour quality are unknown until it’s scanned.",
+          "sourceName": "Food Processing, November 2026 product roundup",
+          "sourceUrl": "https://www.foodprocessing.com/new-food-products/product/55417140/rollout-new-food-products-of-november-2026",
+          "sourceDate": "2026-11-05"
+        },
+        {
+          "id": "pumpkin-seed-triglycerides-rct",
+          "category": "study",
+          "headline": "Pumpkin seeds and pumpkin seed oil didn’t beat a plain low-cholesterol diet",
+          "summary": "A randomized trial in the Irish Journal of Medical Science followed 89 overweight adults with high blood lipids for four weeks on a low-cholesterol diet, adding 30 g a day of pumpkin seeds, 15 g a day of pumpkin seed oil, or nothing. Cholesterol, LDL, and liver enzymes fell in all three groups. Triglycerides dropped only in the two pumpkin groups, but the difference between groups wasn’t statistically significant. The authors say more research is needed. It’s small and short, so the takeaway is that the diet change did most of the work.",
+          "sourceName": "Irish Journal of Medical Science",
+          "sourceUrl": "https://doi.org/10.1007/s11845-026-04706-3",
+          "sourceDate": "2026-10-28",
+          "alsoSee": [
+            {
+              "name": "Medical Dialogues summary (November 6, 2026)",
+              "url": "https://medicaldialogues.in/medicine/news/pumpkin-seed-products-show-no-significant-advantage-in-lowering-triglycerides-study-182803"
+            }
+          ]
+        },
+        {
+          "id": "fresh-to-you-biscuit-listeria",
+          "category": "recall",
+          "headline": "Fresh To You breakfast biscuit sandwiches recalled for Listeria",
+          "summary": "Fresh & Ready Foods of Renton, Washington, is recalling 2,414 Fresh To You Sausage, Egg & Cheese Biscuit Sandwiches (4.6 oz, UPC 8 405493 0168 4, Fresh Thru 11/07 to 11/19). The biscuit came from a CH Guenther & Son recall. They went to break rooms, vending machines, and cafeterias in Oregon and Washington only, so Nevada shelves aren’t on the list. No illnesses reported. Don’t eat it; the company offers refunds.",
+          "sourceName": "U.S. FDA recall announcement",
+          "sourceUrl": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/fresh-ready-foods-llc-recalls-fresh-you-brand-sausage-egg-cheese-biscuit-sandwich-due-possible",
+          "sourceDate": "2026-11-08"
+        },
+        {
+          "id": "mexico-additive-rules",
+          "category": "policy",
+          "headline": "Mexico drops Red 3 and starts a new food-additive rulebook this month",
+          "summary": "Mexico’s Health Ministry removed Red 3 (erythrosine) from foods, drinks, and supplements in May, giving companies 24 months to reformulate. A separate agreement replacing its 2012 additive rules starts this month, with sources giving dates from November 13 to late November. Some colorants get numeric limits for the first time, and additives must be listed by name on labels.",
+          "sourceName": "theFutureofFood.org",
+          "sourceUrl": "https://thefutureoffood.org/mexico-is-removing-red-3-and-a-new-food-additive-rulebook-starts-this-month/"
+        }
+      ]
+    },
+    {
       "id": "2026-11-09",
       "date": "2026-11-09",
       "timezone": "America/Los_Angeles",

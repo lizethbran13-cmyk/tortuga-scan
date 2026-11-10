@@ -1,5 +1,5 @@
 /* Tortuga Scan service worker: caches the app shell for offline launch. Lookups always need the network. */
-var CACHE = 'tortuga-shell-v9';
+var CACHE = 'tortuga-shell-v10';
 var SHELL = ['./', 'index.html', '404.html', 'styles.css', 'app.js', 'rules.js', 'places.js', 'manifest.webmanifest',
   'data/catalog.json', 'data/household.json', 'data/lab-tests.json', 'data/news.json', 'data/websites.json',
   'data/places.json', 'data/map-style.json',

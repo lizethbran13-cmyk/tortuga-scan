@@ -1188,6 +1188,229 @@
           "accessed": "2026-11-10"
         }
       ]
+    },
+    {
+      "id": "bouchon-venetian",
+      "name": "Bouchon at The Venetian",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3355 S Las Vegas Boulevard, Las Vegas, NV 89109",
+      "lat": 36.120882,
+      "lng": -115.169161,
+      "phone": "702-414-6200",
+      "website": "https://thomaskeller.com/las-vegas-nevada/bouchon-bistro/restaurant/",
+      "hoursNote": "Copied from the official reservations page on November 10, 2026: brunch Thursday 8:00am–1:00pm and Friday–Sunday 8:00am–2:00pm; dinner every day 5:00pm–10:00pm. That page says the restaurant is welcoming guests for indoor and outdoor dining. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Bouchon at The Venetian. That node has no street number. The boulevard address is the OpenStreetMap address for The Venetian Las Vegas, the resort where the restaurant page says Bouchon is located, in the South Tower.",
+      "summary": "Thomas Keller’s Bouchon bistro in the Venetian South Tower. The restaurant page says the menu changes with the season and keeps a few dishes year-round, including roast chicken and steak frites. The Summer 2026 dinner menu says peanut oil is commonly used in the kitchen, and it also names olive oil and butter on particular dishes. Those lines are not one fat for every plate, so Tortuga does not score the kitchen from the menu.",
+      "offerings": [
+        {
+          "name": "Steak frites",
+          "basis": "official-menu",
+          "note": "The Summer 2026 dinner menu lists steak frites as pan-seared flat iron steak, caramelized shallots, and maître d’hôtel butter, served with French fries. The same menu says peanut oil is commonly used in the kitchen and does not say which fat the fries are cooked in.",
+          "sourceUrl": "https://thomaskeller.com/uploads/296265_26-blv-009-bouchon-lv_sum-menu.pdf"
+        },
+        {
+          "name": "Roasted leg of lamb",
+          "basis": "official-menu",
+          "note": "The Summer 2026 dinner menu lists roasted leg of lamb with ratatouille, crispy panisse, and extra virgin olive oil. That is one dish, not a claim about the rest of the menu.",
+          "sourceUrl": "https://thomaskeller.com/uploads/296265_26-blv-009-bouchon-lv_sum-menu.pdf"
+        },
+        {
+          "name": "Truite amandine",
+          "basis": "official-menu",
+          "note": "The Summer 2026 dinner menu lists sautéed Idaho rainbow trout with haricots verts, toasted almonds, and beurre noisette. Beurre noisette is browned butter. The menu does not say that butter is the only fat in the kitchen.",
+          "sourceUrl": "https://thomaskeller.com/uploads/296265_26-blv-009-bouchon-lv_sum-menu.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "bouchon-peanut-oil",
+          "kind": "cooking-fat",
+          "text": "The Summer 2026 dinner menu says peanut oil is commonly used in the kitchen.",
+          "fats": ["peanut oil"],
+          "completeness": "partial",
+          "sourceUrl": "https://thomaskeller.com/uploads/296265_26-blv-009-bouchon-lv_sum-menu.pdf",
+          "accessed": "2026-11-10"
+        },
+        {
+          "id": "bouchon-menu-fats",
+          "kind": "menu-item",
+          "text": "The same Summer 2026 menu names extra virgin olive oil on the roasted leg of lamb, maître d’hôtel butter on steak frites, beurre noisette on the trout and the white sausage, and parsley-garlic butter on the snails. It does not name one cooking fat for every dish.",
+          "fats": [],
+          "sourceUrl": "https://thomaskeller.com/uploads/296265_26-blv-009-bouchon-lv_sum-menu.pdf",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Bouchon at The Venetian",
+          "url": "https://thomaskeller.com/las-vegas-nevada/bouchon-bistro/restaurant/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Bouchon reservations",
+          "url": "https://thomaskeller.com/las-vegas-nevada/bouchon-bistro/reservations/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Bouchon Summer 2026 dinner menu",
+          "url": "https://thomaskeller.com/uploads/296265_26-blv-009-bouchon-lv_sum-menu.pdf",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Bouchon at The Venetian. Street address from the OpenStreetMap relation for The Venetian Las Vegas at 3355 South Las Vegas Boulevard.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "golden-steer",
+      "name": "Golden Steer Steakhouse",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "308 W Sahara Avenue, Las Vegas, NV 89102",
+      "lat": 36.143926,
+      "lng": -115.161055,
+      "phone": "702-384-4470",
+      "website": "https://goldensteer.com/pages/las-vegas",
+      "hoursNote": "Copied from the official Las Vegas page on November 10, 2026: opens at 4:30pm, seven days a week, last seating 9:45pm. The page says the restaurant is closed on Christmas Day and the day after. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 308 West Sahara Avenue, Las Vegas 89102. OSM does not have a separate node named Golden Steer.",
+      "summary": "Golden Steer Steakhouse on West Sahara Avenue. The restaurant’s page calls it the city’s oldest steakhouse and says it has been serving guests since 1958. That page names butter on a few dishes and as steak accoutrements. It does not name a cooking fat for the steaks or the fries, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Shrimp de Jonghe",
+          "basis": "official-menu",
+          "note": "The Las Vegas page lists shrimp de Jonghe with garlic de Jonghe butter. It does not say which fat anything else on the plate is cooked in.",
+          "sourceUrl": "https://goldensteer.com/pages/las-vegas"
+        },
+        {
+          "name": "Bananas Foster",
+          "basis": "official-menu",
+          "note": "The Las Vegas page describes bananas Foster as fresh bananas sautéed with butter, brown sugar, and cinnamon, finished with rum and banana liqueur. That is a dessert method, not a survey of the kitchen.",
+          "sourceUrl": "https://goldensteer.com/pages/las-vegas"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "golden-steer-butter-dishes",
+          "kind": "menu-item",
+          "text": "The Las Vegas page names butter on shrimp de Jonghe, on bananas Foster and cherries jubilee, and as steak accoutrements called maître d’ butter and prime butter. It does not name a cooking fat for the steaks or the fries.",
+          "fats": [],
+          "sourceUrl": "https://goldensteer.com/pages/las-vegas",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Golden Steer Las Vegas",
+          "url": "https://goldensteer.com/pages/las-vegas",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 308 West Sahara Avenue, Las Vegas 89102.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "peppermill-las-vegas",
+      "name": "Peppermill Restaurant and Fireside Lounge",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "2985 S Las Vegas Boulevard, Las Vegas, NV 89109",
+      "lat": 36.133651,
+      "lng": -115.16309,
+      "phone": "702-735-4177",
+      "website": "https://www.peppermilllasvegas.com/",
+      "hoursNote": "Copied from the official homepage on November 10, 2026: Monday–Wednesday 7am–2am, with last seating at 1:15am; Thursday–Sunday open 24 hours. Hours change.",
+      "summary": "The Peppermill Restaurant and Fireside Lounge on South Las Vegas Boulevard. The homepage gives the address, says the restaurant has been open since 1972, and says it was named a James Beard America’s Classics winner in 2024. It names a few long-running dishes, including French toast ambrosia and the Peppermill burger, and it does not say which fats the kitchen uses, so there is no place score.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Peppermill Las Vegas",
+          "url": "https://www.peppermilllasvegas.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Way named Peppermill at 2985 South Las Vegas Boulevard. The phone on that feature matches the homepage.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "nobu-caesars-palace",
+      "name": "Nobu at Caesars Palace",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3570 S Las Vegas Boulevard, Las Vegas, NV 89109",
+      "lat": 36.116862,
+      "lng": -115.174805,
+      "phone": "702-785-6674",
+      "website": "https://www.noburestaurants.com/lasvegascaesars",
+      "hoursNote": "Copied from the official Caesars Palace contact page on November 10, 2026: Sunday–Thursday 5pm–10pm, Friday–Saturday 5pm–11pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap indoor room named Nobu, tagged as a restaurant, on Jay Sarno Way inside Caesars Palace. That room does not carry the boulevard number. The street address and phone are from Nobu’s contact page.",
+      "summary": "Nobu’s restaurant at Caesars Palace, at the address on the company’s contact page. The restaurant page describes shared dishes, including yellowtail with jalapeño and black cod miso. It does not name a cooking fat, so Tortuga does not score the kitchen.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Nobu at Caesars Palace",
+          "url": "https://www.noburestaurants.com/lasvegascaesars",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Nobu Caesars Palace contact and hours",
+          "url": "https://www.noburestaurants.com/lasvegascaesars/contact-and-hours",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Indoor room named Nobu, tagged as a restaurant, on Jay Sarno Way at Caesars Palace.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "jaleo-cosmopolitan",
+      "name": "Jaleo at The Cosmopolitan",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3708 Las Vegas Boulevard South, Las Vegas, NV 89109",
+      "lat": 36.109926,
+      "lng": -115.173975,
+      "phone": "702-698-7950",
+      "website": "https://www.jaleo.com/location/las-vegas/",
+      "hoursNote": "Copied from The Cosmopolitan’s Jaleo page on November 10, 2026: Monday–Thursday 5:00pm–10:00pm, Friday–Saturday 5:00pm–11:00pm, Sunday 5:00pm–10:00pm. The José Andrés Group location page lists the same address and phone and does not print those hours. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Jaleo. That node does not repeat the boulevard number. The street address is from the José Andrés Group location page, which places the restaurant inside The Cosmopolitan.",
+      "summary": "José Andrés Group’s Jaleo inside The Cosmopolitan. The location page gives the address and says the centerpiece is an open-fire wood grill for paella. It does not name a cooking oil, so the grill is not treated as a fat finding and the place stays unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Jaleo Las Vegas",
+          "url": "https://www.jaleo.com/location/las-vegas/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Jaleo at The Cosmopolitan",
+          "url": "https://cosmopolitanlasvegas.mgmresorts.com/en/restaurants/jaleo.html",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Jaleo. The street address is not on that node.",
+          "accessed": "2026-11-10"
+        }
+      ]
     }
   ]
 }

@@ -21,7 +21,8 @@ app.js                 Camera, catalog-first lookup, catalog / lab / news screen
 rules.js               Rules engine and ingredient colors (browser + Node)
 sw.js                  Service worker: caches the app shell and the JSON data
 manifest.webmanifest   PWA manifest (Add to Home Screen)
-data/catalog.json      Our product catalog (static JSON)
+data/catalog.json      Our food catalog (static JSON)
+data/household.json    Household / non-food catalog (static JSON)
 data/lab-tests.json    Public lab tests we cite
 data/news.json         Daily news reports
 scripts/seed-catalog.js  Optional: rebuild the catalog from Open Food Facts
@@ -40,12 +41,12 @@ No build step.
 - **GitHub Pages:** push this folder as the repo root, then Settings → Pages → *Deploy from a branch* → `main` / `(root)`. Open the `https://<user>.github.io/<repo>/` link on the iPhone.
 - **Add to Home Screen (iPhone):** open the link in Safari → Share → *Add to Home Screen*.
 - **Tests:** `node tests/rules.test.js` and `node tests/data.test.js` (Node 18+; uses only `node:assert`).
-- Deep link to a product: `?code=041570054161`. Deep link to a section: `?tab=catalog`, `?tab=labs`, or `?tab=news`.
+- Deep link to a product: `?code=041570054161`. Deep link to a section: `?tab=catalog`, `?tab=household`, `?tab=labs`, or `?tab=news`.
 
 ## How it works
 
 1. **Scan.** Tapping *Scan barcode* calls `Html5Qrcode.start({ facingMode: "environment" })` directly from the tap (required on iOS). The video is `playsinline` + `muted`. Formats: EAN-13, EAN-8, UPC-A, UPC-E. A code must pass the GTIN checksum and read the same twice in a row before we accept it. *Stop scanning* releases the camera; it's also released when the app goes to the background.
-2. **Look up.** The barcode is checked against `data/catalog.json` first (including the UPC-A ⇄ EAN-13 form). A hit is labeled **In the Tortuga catalog**. If it isn’t in the catalog, we ask Open Food Facts and label it **Not in our catalog · live Open Food Facts**. Live request: `GET https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=code,product_name,product_name_en,brands,image_front_url,image_front_small_url,ingredients_text,ingredients_text_en,ingredients_text_fr,nova_group,nutriments,labels,labels_tags,quantity` with `User-Agent: TortugaScan/0.1 (personal clean-eating scanner prototype)`. (Browsers usually drop a custom `User-Agent` from `fetch`; OFF's CORS allows it, so it is sent where the browser permits.) We try the code as scanned, then the UPC-A ⇄ EAN-13 variant (add / remove a leading `0`), and UPC-E expanded to UPC-A.
+2. **Look up.** The barcode is checked against `data/catalog.json` first (including the UPC-A ⇄ EAN-13 form), then `data/household.json`. A food hit is labeled **In the Tortuga catalog**. A household hit is labeled **In the Tortuga household catalog**. If it isn’t in either file, we ask Open Food Facts and label it **Not in our catalog · live Open Food Facts**. Live request: `GET https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=code,product_name,product_name_en,brands,image_front_url,image_front_small_url,ingredients_text,ingredients_text_en,ingredients_text_fr,nova_group,nutriments,labels,labels_tags,quantity` with `User-Agent: TortugaScan/0.1 (personal clean-eating scanner prototype)`. (Browsers usually drop a custom `User-Agent` from `fetch`; OFF's CORS allows it, so it is sent where the browser permits.) We try the code as scanned, then the UPC-A ⇄ EAN-13 variant (add / remove a leading `0`), and UPC-E expanded to UPC-A.
 3. **Missing data.** If the product isn't on Open Food Facts, or has no ingredient list, you get a paste-in box (with an optional product name, so “Organic” / “Non-GMO” claims count) and can grade any label by hand.
 4. **Grade.** `rules.js` normalizes the text (lowercase, accents, OFF's `_allergen_` markup), drops cross-contact lines (“may contain…”, “made in a facility…”), and runs the rules below. Ingredient language preference: English, then the main list, then French (with a warning).
 
@@ -85,11 +86,12 @@ Start at 100, subtract, floor at 0:
 | GMO / bioengineered confirmed | −12 |
 | Possible GMO caution | −6 |
 | Other additives (BHA, BHT, TBHQ, benzoates, sorbates, nitrites/nitrates, polysorbates, mono- & diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, artificial flavor, MSG) | −8 each, max −24 |
-| Added sugar in ingredients (sugar, cane sugar, syrups, HFCS, dextrose, maltodextrin, honey, agave, molasses…) | −8 |
+| Added sugar in ingredients (unnamed sugar, cane sugar, agave, syrups, HFCS, dextrose, maltodextrin). Honey, maple syrup, and coconut sugar are not deducted | −8 |
 | …plus, only if added sugar is listed: sugars ≥ 15 g/100 g | −7 more |
 | …or sugars ≥ 25 g/100 g (instead) | −12 more |
 | NOVA group 4 / group 3 (from OFF) | −22 / −5 |
-| Glyphosate-prone crop that is not organic or non-GMO (once, however many crops) | −35 |
+| Glyphosate-prone crop, conventional (not organic or non-GMO), once | −35 |
+| Glyphosate-prone crop, non-GMO but not organic (yellow, not a full pass) | −12 |
 | Refined starch (corn starch, or modified food starch that isn’t a named potato, tapioca, rice, arrowroot, or cassava starch) | −8 each, max −16 |
 | Mainstream brand | −4 |
 
@@ -97,7 +99,7 @@ Bands: **80–100 Cleaner**, **50–79 Mixed**, **0–49 Poor**.
 
 **Mainstream brand (−4).** Flat deduction, once per product, when the brand or the product name matches a well-known mass-market packaged-food brand. The list includes General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery name (Oreo, Quaker, Campbell’s, and so on). −4 is the middle of a 3-to-5 range: a simple mainstream food such as milk or sparkling water stays Cleaner, and a processed one does not. This is not a map of which company owns which brand.
 
-**Glyphosate-prone crops (−35, and a separate pass/fail).** Tortuga’s own check. It does not change the Seed Oil Safe-style pass/fail, and it is not a lab test of that barcode. Conventional wheat (including wheat flour when the flour isn’t another grain), oats, barley, rye, sorghum, millet, corn, dry beans, chickpeas, lentils, peas (not snap or snow peas), soy foods, sunflower, flax, canola, cottonseed, and sugar beet must be organic or non-GMO to pass. The claim can be on that ingredient or on the product (name, brand, or labels). Otherwise the ingredient is red and the score drops 35 points once. Rice, quinoa, buckwheat, potatoes, green beans, and snap peas are not on the list. Lecithin keeps its own color. Olive, avocado, and coconut oil are not treated as these crops.
+**Glyphosate-prone crops.** Tortuga’s own check. It does not change the Seed Oil Safe-style pass/fail, and it is not a lab test of that barcode. The crops are wheat (including wheat flour when the flour isn’t another grain), oats, barley, rye, sorghum, millet, corn, dry beans, chickpeas, lentils, peas (not snap or snow peas), soy foods, sunflower, flax, canola, cottonseed, and sugar beet. Organic on the ingredient or the product is green and a full pass. Non-GMO only is yellow, not a full pass, and costs 12 points. Conventional or unlabeled is red and costs 35 points once. Rice, quinoa, buckwheat, potatoes, green beans, and snap peas are not on the list. Lecithin keeps its own color. Olive, avocado, and coconut oil are not treated as these crops.
 
 The crop list follows public surveys and registered uses, not numbers we measured: [CFIA, glyphosate testing in 2015–2016](https://open-science.canada.ca/handle/123456789/3743) (grains, beans, peas, lentils, chickpeas, soy; wheat and barley are named), [EWG’s 2018 oat-cereal tests](https://www.ewg.org/news-insights/news/2018/10/new-round-ewg-testing-finds-glyphosate-kids-breakfast-foods-quaker-oats), and the [EPA glyphosate page](https://www.epa.gov/ingredients-used-pesticide-products/glyphosate). We do not attach those labs’ figures to a Tortuga barcode.
 
@@ -116,19 +118,45 @@ The crop list follows public surveys and registered uses, not numbers we measure
 
 Each ingredient line is **green (OK)**, **yellow (limit)**, or **red (avoid)**. This is separate from the Seed Oil Safe-style pass/fail. A gum fails that check and is still yellow. Corn starch can pass that check and still be red.
 
-- **Red:** seed oils (same list as the pass/fail rules, even if the line says organic); artificial sweeteners, dyes, and flavors; confirmed GMO / bioengineered wording; conventional corn starch, corn syrup, dextrose, and maltodextrin; modified food starch when the source isn’t named; conventional sugar that doesn’t say cane (or coconut, date, maple, palm, turbinado, demerara, muscovado, panela, jaggery, sucanat, or rapadura); beet sugar; soy protein, soy flour, soy lecithin, and TVP; conventional glyphosate-prone crops (wheat flour, oats, dry beans, and the rest of that list); and the clean-score additives (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).
-- **Yellow:** natural flavors and other flavors; gums and carrageenan; other plant lecithins; soy foods that are organic or non-GMO, such as tofu or tamari; added sugar that names a non-beet source, plus honey, maple, and organic or non-GMO sugar (added sugar is never green — we don’t guess whether the amount is small); sugar alcohols; organic enriched flour; caramel color; hydrogenated fat that isn’t already a seed oil; non-organic produce on the Dirty Dozen; milk and eggs when neither the ingredient nor the product says organic or non-GMO.
-- **Green:** everything else those rules don’t hit, including olive, avocado, coconut, and animal fats, salt, water, herbs, spices, organic or non-GMO glyphosate-prone crops, organic or non-GMO milk and eggs, and organic Dirty Dozen produce.
+- **Red:** seed oils (even if the line says organic); artificial sweeteners, dyes, and flavors; confirmed GMO wording; conventional corn starch, corn syrup, dextrose, and maltodextrin; modified food starch when the source isn’t named; soy protein, soy flour, soy lecithin, and TVP; conventional glyphosate-prone crops; eggs that are not organic or pasture-raised (non-GMO alone does not clear eggs); meat that is not organic, non-GMO, or grass-fed / pasture-raised; dairy from a mainstream brand that is not organic, non-GMO, or grass-fed; and the clean-score additives (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).
+- **Yellow:** Dirty Dozen produce that isn’t organic; glyphosate-prone crops that are non-GMO but not organic; dairy (milk, cheese, yogurt, butter, cream, and the like) that isn’t organic, non-GMO, or grass-fed, when the brand isn’t mainstream; cane sugar, unnamed sugar, brown sugar, and agave; natural flavors; gums and carrageenan; other plant lecithins; sugar alcohols; organic enriched flour; caramel color.
+- **Green:** olive, avocado, coconut, tallow, and lard; salt, water, herbs, and spices; organic glyphosate-prone crops; honey, maple syrup, and coconut sugar; dairy that is organic, non-GMO, or grass-fed (including from a known brand — the separate mainstream score penalty still applies); organic or pasture-raised eggs; meat that is organic, non-GMO, or grass-fed / pasture-raised; organic Dirty Dozen produce.
 
-Milk and eggs are yellow only for this check. There is no score deduction for them. Butter is not milk. Almond, oat, soy, and coconut milk are not animal milk (oat milk and soy milk can still be red when the crop itself is a conventional glyphosate-prone ingredient). Organic or non-GMO on that ingredient, or on the product name, brand, or labels, keeps milk and eggs green.
+Almond milk, oat milk, soy milk, and coconut milk are not animal dairy. Oat milk and soy milk can still be red when the crop itself is conventional. Peanut butter, almond butter, and cocoa butter are not dairy. Beef tallow and lard stay on the fat rules.
 
 **Dirty Dozen (2026).** Environmental Working Group, [Shopper’s Guide to Pesticides in Produce](https://www.ewg.org/foodnews/dirty-dozen.php): spinach; kale, collard, and mustard greens; strawberries; grapes; nectarines; peaches; cherries; apples; blackberries; pears; potatoes; blueberries. Organic on that ingredient phrase turns it green. Non-GMO does not, because this list is about pesticide residue. We don’t paint an item green just because the product name says organic. Raisins and sultanas count as grapes. Sweet potatoes, mustard the condiment, green beans, and bell peppers are not on the 2026 list. Potato starch counts as potatoes.
 
-Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make a seed oil okay. Organic or non-GMO on a glyphosate-prone crop, or on the product, clears that crop instead of leaving it red.
+Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make a seed oil okay. Organic on a glyphosate-prone crop, or on the product, clears that crop. Non-GMO alone turns it yellow.
+
+Honey, maple syrup, and coconut sugar are not counted in the added-sugar score deduction. Cane sugar, unnamed sugar, and agave still are.
 
 ## Catalog, lab tests, and news
 
-The bottom nav opens **Scan**, **Catalog**, **Lab tests**, and **News**. The catalog is static JSON in the repo. There is no server. Scans use it first, then Open Food Facts.
+The bottom nav opens **Scan**, **Catalog**, **Household**, **Lab tests**, and **News**. Both catalogs are static JSON. There is no server. Scans check food, then household, then Open Food Facts.
+
+## Household products
+
+`data/household.json` is a starter list of laundry detergent, dish soap, and hand soap. Ingredient lists are copied from [Open Beauty Facts](https://world.openbeautyfacts.org/). We don’t invent ingredients.
+
+The grade is **Tortuga’s own**. It follows the published [10 Commandments of Bobby Approved Ingredients](https://www.shopflavcity.com/pages/bobby-approved-app) (Bobby Parrish / FlavCity): free of seed oils, refined or artificial sugars, harmful preservatives, GMOs, artificial or “natural” flavors, harmful pesticides and chemicals, artificial colors, ultra-processed ingredients, harmful toxins, and harmful fragrances. It is **not** an official Bobby Approved score, badge, or certification. We don’t use the Bobby Approved app or its database.
+
+On a household label we can actually read:
+
+- **Fragrance, parfum, perfume** (and “fragrance allergen”) are a hard avoid: red, −40, and the household check fails. “Fragrance-free” and “unscented” do not count. A named essential oil, such as lavender oil, is not that umbrella term.
+- **Isothiazolinones** (methylisothiazolinone, benzisothiazolinone, and the same family), **formaldehyde releasers** (DMDM hydantoin, quaternium-15, and the same family), **parabens**, and **triclosan** are red harmful preservatives (−22 each, max −44). Isothiazolinones are widely recognized skin sensitizers; methylisothiazolinone is banned in leave-on cosmetics in the EU.
+- **Colorants** are red (−15). **Optical brighteners** (fluorescent brightener, distyrylbiphenyl disulfonate) are red (−22).
+- **Seed oils** use the same list as food (−35). **Flavors** are red (−15).
+- **Sodium benzoate, potassium sorbate, and phenoxyethanol** are yellow limits (−8 each, max −16) and do not fail the check by themselves.
+
+Bands match the food score: 80–100 Cleaner, 50–79 Mixed, 0–49 Poor.
+
+**Add a household product**
+
+1. Open the product on Open Beauty Facts, Open Products Facts, or the brand’s ingredient page. Copy the ingredient list. Don’t invent one.
+2. Add an object to `products` with `barcode`, `name`, `brand`, `category`, `ingredients`, `sourceName`, `sourceUrl`, and `added` (`YYYY-MM-DD`).
+3. Grade it: `node -e "const R=require('./rules.js'); console.log(JSON.stringify(R.gradeHousehold(process.argv[1]),null,2))" "paste ingredients"`.
+4. Copy `pass`, `score`, `band.id`, and `band.label` into `grade`.
+5. Run `node tests/data.test.js`.
 
 Lab tests are public results we looked up and summarized. Each one names the lab or publisher, the date, the findings with units, and a source link. A barcode is set only when the source names that product. Brand-only studies say so and do not pretend a catalog SKU was the bottle in the study.
 

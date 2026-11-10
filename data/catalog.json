@@ -125,7 +125,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 87,
+        "score": 95,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -160,7 +160,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 58,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -200,7 +200,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -236,7 +236,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -312,7 +312,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -380,7 +380,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 96,
+        "score": 84,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -556,9 +556,9 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       }
     },
     {
@@ -692,7 +692,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 34,
+        "score": 42,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -733,7 +733,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 11,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3863,7 +3863,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 19,
+        "score": 7,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -4338,7 +4338,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 39,
+        "score": 27,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5712,7 +5712,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5751,7 +5751,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -7004,7 +7004,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 58,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -8010,7 +8010,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -8049,7 +8049,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 66,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -8088,7 +8088,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 87,
+        "score": 95,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -8352,7 +8352,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 15,
+        "score": 3,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8495,9 +8495,9 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       },
       "quantity": "9.0 oz"
     },
@@ -8556,9 +8556,9 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       },
       "quantity": "10.4 oz"
     },
@@ -8592,9 +8592,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       },
       "quantity": "9.0 oz"
     },
@@ -9694,7 +9694,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 19,
+        "score": 7,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -9731,7 +9731,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 27,
+        "score": 15,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9757,7 +9757,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 19,
+        "score": 7,
         "band": "poor",
         "bandLabel": "Poor"
       },

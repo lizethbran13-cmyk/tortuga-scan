@@ -132,6 +132,16 @@
       <div id="catalogList" class="catalog-list"></div>
     </section>
 
+    <!-- HOUSEHOLD -->
+    <section id="view-household" class="view" hidden aria-labelledby="householdTitle">
+      <div class="card intro">
+        <h2 id="householdTitle">Household</h2>
+        <p>Laundry detergent and other non-food items. Tortuga’s own grade, using the published Bobby Approved ingredient standards. Not an official Bobby Approved score. A scan checks this list when the barcode isn’t in the food catalog.</p>
+      </div>
+      <p id="householdMeta" class="help" role="status"></p>
+      <div id="householdList" class="catalog-list"></div>
+    </section>
+
     <!-- LAB TESTS -->
     <section id="view-labs" class="view" hidden aria-labelledby="labsTitle">
       <div class="card intro">
@@ -153,7 +163,7 @@
 
   <footer class="foot">
     <p class="disclaimer"><strong>Not affiliated with Olive or Seed Oil Scout.</strong> Grades and the green / yellow / red ingredient colors come from the ingredient list in our catalog, on Open Food Facts (which can be incomplete or out of date), or what you pasted. We can’t verify manufacturing processes, cross-contact, or what a lab would find in your box. Lab tests in this app are other people’s published tests. Always read the package.</p>
-    <p class="credit">Product data © <a href="https://world.openfoodfacts.org/" rel="noopener" target="_blank">Open Food Facts</a> contributors, under the Open Database License.</p>
+    <p class="credit">Food data © <a href="https://world.openfoodfacts.org/" rel="noopener" target="_blank">Open Food Facts</a> contributors. Household ingredient lists © <a href="https://world.openbeautyfacts.org/" rel="noopener" target="_blank">Open Beauty Facts</a> contributors. Both under the Open Database License. Household grades follow published Bobby Approved-style standards and are not official Bobby Approved scores.</p>
   </footer>
 
   <nav class="tabbar" aria-label="Sections">
@@ -164,6 +174,10 @@
     <button type="button" data-tab="catalog">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h9.5A2.5 2.5 0 0 1 18 7v13H8.5A2.5 2.5 0 0 0 6 17.5v-13zM6 17.5A2.5 2.5 0 0 1 8.5 15H18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
       Catalog
+    </button>
+    <button type="button" data-tab="household">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Household
     </button>
     <button type="button" data-tab="labs">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v5.2L5.8 18.2A3 3 0 0 0 8.4 22h7.2a3 3 0 0 0 2.6-3.8L14 8.2V3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.2 14h7.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

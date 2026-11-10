@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-10",
+  "about": "Tortuga household catalog. Grades are Tortuga’s own, inspired by the published Bobby Approved ingredient standards (https://www.shopflavcity.com/pages/bobby-approved-app). Not an official Bobby Approved score, badge, or certification. Ingredient lists are copied from the cited source. How to add a product: README.md.",
+  "standard": "Published “10 Commandments of Bobby Approved Ingredients” at https://www.shopflavcity.com/pages/bobby-approved-app. Tortuga checks the label for fragrance, harmful preservatives, artificial colors, optical brighteners, seed oils, and flavors. We do not use the Bobby Approved app or its database.",
+  "source": "Open Beauty Facts (Open Database License), https://world.openbeautyfacts.org/",
+  "count": 9,
+  "products": [
+    {
+      "barcode": "0030772121191",
+      "name": "Tide Original",
+      "brand": "Tide",
+      "category": "Laundry detergent",
+      "quantity": "1 L",
+      "image": "https://images.openbeautyfacts.org/images/products/003/077/212/1191/front_en.3.200.jpg",
+      "ingredients": "C10-16 pareth; sodium and MEA C10-16 alkylbenzenesulfonate; sodium lauryl sulfate; C10-16 alkyldimethylamine oxide; MEA laureth sulfate; sodium cumenesulfonate; calcium formate; sodium and MEA salts of C12-18 fatty acids; sodium and MEA citrate; subtilisin; amylase enzyme; cellulase enzyme; mannanase enzyme; tetrasodium glutamate diacetate; polyethyleneimines alkoxylated; sodium formate; diethylenetriamine; methyl di-t-butyl hydroxyhydrocinnamate; alcohol; propylene glycol; ethanolamine; benzisothiazolinone; colorants; fragrances; water. Contains fragrance allergen(s).",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0030772121191",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 23,
+        "band": "poor",
+        "bandLabel": "Poor"
+      }
+    },
+    {
+      "barcode": "3306660849100",
+      "name": "Powder Detergent",
+      "brand": "Gain",
+      "category": "Laundry detergent",
+      "quantity": "91 oz",
+      "image": "https://images.openbeautyfacts.org/images/products/330/666/084/9100/front_en.3.200.jpg",
+      "ingredients": "Formula contains: Cleaning Agents (sodium C10-16 alkylbenzenesulfonat; C10-16 pareth), Buffers (sodium carbonate; sodium silicate), Cleaning Aids (sodium polyacrylate; cellulose gum), Enzymes (subtilisin), Whitening Agent (fluorescent brightener 71; disodium distyrylbiphenyl disulfonate), Suds Reducer (organosilicone copolymer), Process Aids (sodium sulfate; bentonite; zeolite), Colorants, Fragrances, Water. Contains fragrance allergen(s).",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/3306660849100",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 23,
+        "band": "poor",
+        "bandLabel": "Poor"
+      }
+    },
+    {
+      "barcode": "0072613468805",
+      "name": "Free Clear Mighty Pacs",
+      "brand": "all",
+      "category": "Laundry detergent",
+      "quantity": "2.46 lb",
+      "image": "https://images.openbeautyfacts.org/images/products/007/261/346/8805/front_en.3.200.jpg",
+      "ingredients": "C12-15 Alcohols Ethoxylated, Sodium Laureth Sulfate, MEA-Cocoate, Water, Glycerin, Propylene Glycol, MEA-Las, PEG-10, Polyvinyl Alcohol Based Film, Ethanol, Sodium C10-16 Alkylbenzenesulfonate, Tetrasodium Iminodisuccinate, Sodium Sulfite, Disodium Distyrylbiphenyl Disulfonate, Denatonium Benzoate.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0072613468805",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 78,
+        "band": "mixed",
+        "bandLabel": "Mixed"
+      }
+    },
+    {
+      "barcode": "0817939014912",
+      "name": "Free + Clear laundry detergent",
+      "brand": "Method",
+      "category": "Laundry detergent",
+      "quantity": "1.58 L (53.5 fl oz)",
+      "ingredients": "Water, laureth-7, sodium lauryl sulfate, glycerin, alcohol denat., tetrasodium salt of methyl glycinediacetic acid, coconut fatty acid, amylase enzyme blend, calcium chloride, citric acid, denatonium benzoate, distyrylbiphenolsulfonate, mannanase enzyme blend, propylene glycol, protease enzyme blend, sodium carboxymethyl inulin, sodium cocoate, sodium hydroxide, methylisothiazolinone.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0817939014912",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 56,
+        "band": "mixed",
+        "bandLabel": "Mixed"
+      }
+    },
+    {
+      "barcode": "0808124111035",
+      "name": "Dish Soap",
+      "brand": "Mrs. Meyer's Clean Day",
+      "category": "Dish soap",
+      "image": "https://images.openbeautyfacts.org/images/products/080/812/411/1035/front_en.7.200.jpg",
+      "ingredients": "Water, Sodium Lauryl Sulfate, Caprylyl/Capryl Glucoside, Lauramine Oxide, Lauryl Glucoside, Glycerin, Fragrance, (Coumarin, Geraniol, Limonene, Linalool) Lavandula Angustifolia (Lavender) Oil, Citrus Aurantium Dulcis (Orange) Peel Oil, Aloe Barbadensis Leaf Juice, Citric Acid, Sodium Chloride, Benzisothiazolinone, Methylisothiazolinone. Contains Fragrance Allergens.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0808124111035",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 38,
+        "band": "poor",
+        "bandLabel": "Poor"
+      }
+    },
+    {
+      "barcode": "0030772117484",
+      "name": "Dawn Platinum Plus Powerwash Dishwashing Liquid Dish Soap",
+      "brand": "Dawn",
+      "category": "Dish soap",
+      "ingredients": "WATER, DIPROPYLENE GLYCOL BUTYL ETHER, C10-16 ALKYLDIMETHYLAMINE OXIDE, LAURYL GLUCOSIDE, HEXYL ETHOXYLATE, TETRASODIUM GLUTAMATE DIACETATE, SODIUM XYLENESULFONATE, ETHANOLAMINE, ALCOHOL DENAT., PHENOXYETHANOL, FRAGRANCES, SODIUM CITRATE, PPG-26.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0030772117484",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 52,
+        "band": "mixed",
+        "bandLabel": "Mixed"
+      }
+    },
+    {
+      "barcode": "0732913229307",
+      "name": "Free & Clean Soap",
+      "brand": "Seventh Generation",
+      "category": "Hand soap",
+      "quantity": "12 fl oz",
+      "image": "https://images.openbeautyfacts.org/images/products/073/291/322/9307/front_en.9.200.jpg",
+      "ingredients": "Water, sodium coco sulfate (plant-based cleaning agent), decyl glucoside (plant-based cleaning agent), aloe barbadensis leaf juice (plant-based feel enhancer), magnesium chloride (mineral viscosity modifier), sodium chloride (mineral viscosity modifier), glycerin (plant-based foam stabilizer), glyceryl caprylate/caprate (plant-based skin conditioner), citric acid (plant-based pH adjuster), sodium benzoate (synthetic food grade preservative), tetrasodium iminodisuccinate (synthetic chelating agent), potassium sorbate (synthetic food grade preservative), coco-glucoside and glyceryl oleate (plant-based skin conditioner).",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0732913229307",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 84,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
+      }
+    },
+    {
+      "barcode": "0012362010085",
+      "name": "Natural Lavender Laundry Wash",
+      "brand": "eco max",
+      "category": "Laundry detergent",
+      "quantity": "1.89 L (64 fl oz)",
+      "image": "https://images.openbeautyfacts.org/images/products/001/236/201/0085/front_en.3.200.jpg",
+      "ingredients": "Water, Decyl Glucoside, Sodium Carbonate, Citric Acid, Hydroxyethylcellulose, Cellulose, Xanthan Gum, Lavandula Angustifolia (Lavender) Oil.",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0012362010085",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": true,
+        "score": 100,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
+      }
+    },
+    {
+      "barcode": "0749174093714",
+      "name": "ECOS laundry detergent",
+      "brand": "ECOS",
+      "category": "Laundry detergent",
+      "image": "https://images.openbeautyfacts.org/images/products/074/917/409/3714/front_en.4.200.jpg",
+      "ingredients": "Water, Cocamidopropyl Betaine (plant-derived surfactant), Sodium Coco-Sulfate (plant-derived surfactant), Cocamidopropylamine Oxide (plant-derived surfactant), Phenoxyethanol (preservative), Methylisothiazolinone (preservative).",
+      "sourceName": "Open Beauty Facts",
+      "sourceUrl": "https://world.openbeautyfacts.org/product/0749174093714",
+      "sourceNote": "The six ingredients are the numbered list on this Open Beauty Facts record. The page also mixes French text and use directions; those lines are not part of the ingredient list stored here.",
+      "added": "2026-11-10",
+      "grade": {
+        "pass": false,
+        "score": 70,
+        "band": "mixed",
+        "bandLabel": "Mixed"
+      }
+    }
+  ]
+}

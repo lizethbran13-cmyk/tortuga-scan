@@ -374,8 +374,10 @@
   // Midpoint of the 3–5 range. Once per product, so a simple mainstream food
   // (milk, sparkling water) stays Cleaner while processed ones do not.
   var MAINSTREAM_POINTS = 4;
-  // Same weight as a seed oil, once, however many crops match.
+  // Same weight as a seed oil, once, however many conventional crops match.
   var GLYPHOSATE_POINTS = 35;
+  // Non-GMO but not organic: yellow and not a full pass. Not the full −35.
+  var GLYPHOSATE_LIMIT = 12;
   var REFINED_STARCH_EACH = 8, REFINED_STARCH_CAP = 16;
 
   // Well-known mass-market packaged-food brands and the product lines shoppers
@@ -453,19 +455,60 @@
     return best;
   }
 
-  function claimClears(text) {
+  function claimBlob(opts) {
+    opts = opts || {};
+    return [opts.productName, opts.brand, opts.labels, (opts.labelsTags || []).join(' ')].join(' ');
+  }
+  function hasOrganicClaim(text) {
     var t = normalize(text).replace(/\bnon[\s-]+organics?\b/g, ' ');
     if (/\borganics?\b/.test(t)) return true;
+    return /\ben:(?:usda-organic|eu-organic|organic|certified-organic|canada-organic)\b/.test(t);
+  }
+  function hasNonGmoClaim(text) {
+    var t = normalize(text);
     if (hasNonGmoWord(t)) return true;
     if (/\bno[\s-]?gmos?\b|\bgmos?[\s-]?free\b|\bwithout[\s-]?gmos?\b/.test(t)) return true;
-    if (/\ben:(?:no-gmos?|gmo-free|non-gmo|organic|usda-organic|certified-organic|eu-organic)\b/.test(t)) return true;
-    return false;
+    return /\ben:(?:no-gmos?|gmo-free|non-gmo|without-gmos?)\b/.test(t);
   }
-
-  function productClaimClears(opts) {
-    opts = opts || {};
-    var blob = [opts.productName, opts.brand, opts.labels, (opts.labelsTags || []).join(' ')].join(' ');
-    return claimClears(blob);
+  function hasGrassFed(text) {
+    return /\bgrass[\s-]?fed\b/.test(normalize(text));
+  }
+  function hasPastureRaised(text) {
+    return /\bpasture[\s-]?raised\b|\bpastured\b/.test(normalize(text));
+  }
+  // organic beats non-GMO. Non-GMO is a limit for glyphosate crops, not a full pass.
+  function glyphosateTierOf(text) {
+    if (hasOrganicClaim(text)) return 'organic';
+    if (hasNonGmoClaim(text)) return 'nongmo';
+    return 'none';
+  }
+  function raiseGlyphosateTier(inherited, text) {
+    var mine = glyphosateTierOf(text);
+    if (mine === 'organic' || inherited === 'organic') return 'organic';
+    if (mine === 'nongmo' || inherited === 'nongmo') return 'nongmo';
+    return 'none';
+  }
+  function claimClears(text) {
+    return glyphosateTierOf(text) !== 'none';
+  }
+  function foodContext(opts) {
+    var blob = claimBlob(opts);
+    return {
+      glyphosateTier: glyphosateTierOf(blob),
+      dairyClear: hasOrganicClaim(blob) || hasNonGmoClaim(blob) || hasGrassFed(blob),
+      eggClear: hasOrganicClaim(blob) || hasPastureRaised(blob),
+      meatClear: hasOrganicClaim(blob) || hasNonGmoClaim(blob) || hasGrassFed(blob) || hasPastureRaised(blob),
+      mainstream: !!mainstreamMatch(opts)
+    };
+  }
+  function phraseDairyClear(text) {
+    return hasOrganicClaim(text) || hasNonGmoClaim(text) || hasGrassFed(text);
+  }
+  function phraseEggClear(text) {
+    return hasOrganicClaim(text) || hasPastureRaised(text);
+  }
+  function phraseMeatClear(text) {
+    return hasOrganicClaim(text) || hasNonGmoClaim(text) || hasGrassFed(text) || hasPastureRaised(text);
   }
 
   // Crops that are commonly desiccated with glyphosate before harvest, or sprayed
@@ -537,19 +580,25 @@
   }
 
   function glyphosateHits(text, opts) {
-    if (productClaimClears(opts)) return [];
+    var base = glyphosateTierOf(claimBlob(opts));
     var hits = [];
     var seen = {};
-    function addPhrase(phrase) {
+    function addPhrase(phrase, tier) {
+      if (tier === 'organic') return;
+      var level = tier === 'nongmo' ? 'limit' : 'fail';
       glyphosateCropsInPhrase(phrase).forEach(function (crop) {
-        if (seen[crop]) return;
-        seen[crop] = true;
+        var key = level + '|' + crop;
+        if (seen[key]) return;
+        seen[key] = true;
         hits.push({
           crop: crop,
+          level: level,
           rule: 'Glyphosate-prone crop · ' + crop,
           match: phrase.slice(0, 90),
           context: phrase.slice(0, 90),
-          note: 'Conventional form of a crop that is often sprayed with glyphosate. Not a lab test of this package. Organic or a non-GMO claim on the ingredient or the product passes this check.'
+          note: level === 'limit'
+            ? 'Non-GMO, but not organic. Yellow for this check, not a full pass. Not a lab test of this package.'
+            : 'Conventional form of a crop that is often sprayed with glyphosate. Not a lab test of this package. Organic is green. Non-GMO alone is yellow.'
         });
       });
     }
@@ -558,14 +607,28 @@
         var normPart = normalize(part);
         var parsed = splitParen(normPart);
         if (parsed && parsed.name && parsed.children && parsed.children.length) {
-          var clear = inherited || claimClears(parsed.name);
-          if (!clear) addPhrase(parsed.name);
-          parsed.children.forEach(function (ch) { walk(ch, clear); });
-        } else if (!(inherited || claimClears(normPart))) addPhrase(normPart);
+          var next = raiseGlyphosateTier(inherited, parsed.name);
+          addPhrase(parsed.name, next);
+          parsed.children.forEach(function (ch) { walk(ch, next); });
+        } else {
+          addPhrase(normPart, raiseGlyphosateTier(inherited, normPart));
+        }
       });
     }
-    walk(text, false);
-    return hits;
+    walk(text, base);
+    var failed = {};
+    hits.forEach(function (h) { if (h.level === 'fail') failed[h.crop] = true; });
+    hits = hits.filter(function (h) { return h.level === 'fail' || !failed[h.crop]; });
+    var failHits = hits.filter(function (h) { return h.level === 'fail'; });
+    var limitHits = hits.filter(function (h) { return h.level === 'limit'; });
+    var status = failHits.length ? 'fail' : limitHits.length ? 'limit' : 'pass';
+    return {
+      status: status,
+      pass: status === 'pass',
+      cleared: base === 'organic',
+      points: status === 'fail' ? GLYPHOSATE_POINTS : status === 'limit' ? GLYPHOSATE_LIMIT : 0,
+      hits: status === 'fail' ? failHits : limitHits
+    };
   }
 
   function refinedStarchHits(text) {
@@ -618,6 +681,32 @@
   function eggHit(text) {
     var t = String(text || '').replace(/\beggplants?\b/g, ' ');
     return /\beggs?\b|\begg\s*whites?\b|\begg\s*yolks?\b|\beggnogs?\b/.test(t);
+  }
+
+  function dairyHit(text) {
+    var t = normalize(text);
+    if (animalMilkHit(t)) return true;
+    if (/\b(?:cheeses?|yogurts?|yoghurts?|kefirs?|ghee|whey|caseins?)\b/.test(t)) return true;
+    if (/\bcreams?\b/.test(t) && !/\bcream\s+of\s+tartar\b/.test(t) && !/\b(?:coconut|soy|almond|oat)\s+creams?\b/.test(t)) return true;
+    if (/\bbutters?\b/.test(t) && !/\b(?:peanut|almond|cashew|sunflower|cocoa|cacao|shea|nut|seed|apple|pumpkin|body|cookie)\s+butters?\b/.test(t)) return true;
+    return false;
+  }
+
+  function meatHit(text) {
+    var t = normalize(text)
+      .replace(/\b(?:beef|bison|buffalo|duck|pork)\s+tallow\b/g, ' ')
+      .replace(/\bpork\s+lard\b|\blard\b|\bsuet\b/g, ' ');
+    return /\b(?:beef|pork|chickens?|turkeys?|lamb|mutton|bacon|hams?|sausages?|steaks?|bisons?|buffalos?|ducks?|venison|goats?|meats?|salami|pepperoni|prosciutto|meatballs?|brisket|veal|rabbits?)\b/.test(t);
+  }
+
+  // Coconut sugar, honey, and maple syrup are green. Agave and refined sugars are yellow.
+  function isGreenSugarPhrase(text) {
+    var t = normalize(text);
+    if (/\b(?:cane|beet|brown|powdered|icing|confectioners|turbinado|demerara|muscovado|panela|jaggery|sucanat|rapadura|agave|invert|granulated|white|evaporated|corn|glucose|fructose|sucrose|dextrose|maltodextrin|molasses)\b/.test(t)) return false;
+    if (/\bcoconut\s+sugars?\b/.test(t)) return true;
+    if (/\bhoney\b/.test(t) && !/\bhoneydew\b/.test(t)) return true;
+    if (/\bmaple\s+(?:syrups?|sugars?)\b/.test(t)) return true;
+    return false;
   }
 
   // ---------------------------------------------------------------- traffic light
@@ -728,19 +817,27 @@
         clearsGmoRed(text) ? 'Soy derivative (organic or non-GMO on this phrase)' : 'Soy derivative (protein, flour, or lecithin)');
     }
 
-    if (!opts.cleared) {
+    var glyTier = opts.glyphosateTier || 'none';
+    if (glyTier !== 'organic') {
       var glyCrops = glyphosateCropsInPhrase(text);
-      if (glyCrops.length) uniquePush(reasons, 'red', 'Glyphosate-prone crop · ' + glyCrops.join(', ') + ' (not organic or non-GMO)');
+      if (glyCrops.length) {
+        uniquePush(reasons, glyTier === 'nongmo' ? 'yellow' : 'red',
+          glyTier === 'nongmo'
+            ? 'Glyphosate-prone crop · ' + glyCrops.join(', ') + ' (non-GMO, not organic)'
+            : 'Glyphosate-prone crop · ' + glyCrops.join(', ') + ' (not organic or non-GMO)');
+      }
     }
-
-    var sugarWord = /\bsugars?\b/.test(text)
-      && !/\b(?:no|without|zero)\s+(?:added\s+)?sugars?\b/.test(text)
-      && !/\bsugars?\s+snap\b/.test(text)
-      && !/\bsugar\s+alcohol/.test(text);
-    var namedSugar = /\b(?:cane|coconut|date|maple|palm|turbinado|demerara|muscovado|panela|jaggery|sucanat|rapadura)\b/.test(text);
-    if (sugarWord && !namedSugar) {
-      if (clearsGmoRed(text)) uniquePush(reasons, 'yellow', 'Added sugar (organic or non-GMO on this phrase)');
-      else uniquePush(reasons, 'red', /\bbeet\b/.test(text) ? 'Sugar from beets' : 'Sugar (not named as cane)');
+    if (dairyHit(text) && !opts.dairyClear && !phraseDairyClear(text)) {
+      uniquePush(reasons, opts.mainstream ? 'red' : 'yellow',
+        opts.mainstream
+          ? 'Dairy from a mainstream brand (not organic, non-GMO, or grass-fed)'
+          : 'Dairy (not organic, non-GMO, or grass-fed)');
+    }
+    if (eggHit(text) && !opts.eggClear && !phraseEggClear(text)) {
+      uniquePush(reasons, 'red', 'Eggs (not organic or pasture-raised)');
+    }
+    if (meatHit(text) && !opts.meatClear && !phraseMeatClear(text)) {
+      uniquePush(reasons, 'red', 'Meat (not organic, non-GMO, or grass-fed / pasture-raised)');
     }
 
     var alreadyRed = reasons.some(function (r) { return r.level === 'red'; });
@@ -766,6 +863,7 @@
         else uniquePush(reasons, 'yellow', 'Dirty Dozen 2026 · ' + dozen.join(', '));
       }
       scan(text, SUGARS).forEach(function (h) {
+        if (isGreenSugarPhrase(h.match)) return;
         if (reasons.some(function (r) { return r.level === 'red' && /sugar|corn syrup|dextrose|maltodextrin/i.test(r.label); })) return;
         uniquePush(reasons, 'yellow', 'Added sugar · ' + h.rule);
       });
@@ -776,10 +874,6 @@
       }
       if (/\bcaramel colou?r\b/.test(text)) uniquePush(reasons, 'yellow', 'Caramel color');
       if (/\b(?:partially\s+)?hydrogenated\b/.test(text)) uniquePush(reasons, 'yellow', 'Hydrogenated fat');
-      if (!opts.cleared) {
-        if (animalMilkHit(text)) uniquePush(reasons, 'yellow', 'Milk (not organic or non-GMO)');
-        if (eggHit(text)) uniquePush(reasons, 'yellow', 'Eggs (not organic or non-GMO)');
-      }
     }
 
     var rank = { red: 3, yellow: 2, green: 1, none: 0 };
@@ -832,21 +926,31 @@
     return best === 'none' ? 'green' : best;
   }
 
-  function classifyNode(raw, inheritedClear) {
+  function childContext(ctx, text) {
+    return {
+      glyphosateTier: raiseGlyphosateTier(ctx.glyphosateTier, text),
+      dairyClear: ctx.dairyClear || phraseDairyClear(text),
+      eggClear: ctx.eggClear || phraseEggClear(text),
+      meatClear: ctx.meatClear || phraseMeatClear(text),
+      mainstream: ctx.mainstream
+    };
+  }
+
+  function classifyNode(raw, ctx) {
+    ctx = ctx || { glyphosateTier: 'none', dairyClear: false, eggClear: false, meatClear: false, mainstream: false };
     var display = String(raw || '').replace(/\s+/g, ' ').trim();
     if (!display) return null;
     var parsed = splitParen(display);
     if (parsed && parsed.children.length && parsed.name) {
-        var nameClear = !!inheritedClear || claimClears(parsed.name);
-        var children = parsed.children.map(function (ch) { return classifyNode(ch, nameClear); }).filter(Boolean);
+        var nameCtx = childContext(ctx, parsed.name);
+        var children = parsed.children.map(function (ch) { return classifyNode(ch, nameCtx); }).filter(Boolean);
         var onlyNotes = children.length && children.every(function (ch) { return ch.color === 'none'; });
         if (!onlyNotes && children.length) {
           var nameForRules = parsed.name;
           if (/\bmodified food starch\b|\bmaltodextrin\b|\bdextrose\b/i.test(parsed.name)) {
             nameForRules = parsed.name + ' ' + parsed.children.join(' ');
           }
-          var selfClear = nameClear || claimClears(nameForRules);
-          var self = classifyText(nameForRules, { cleared: selfClear });
+          var self = classifyText(nameForRules, childContext(ctx, nameForRules));
         var color = self.color === 'none'
           ? 'none'
           : worstColor([self.color].concat(children.map(function (ch) { return ch.color; })));
@@ -861,8 +965,7 @@
         return { text: parsed.name, color: color, reasons: reasons.slice(0, 3), children: children };
       }
     }
-    var leafClear = !!inheritedClear || claimClears(display);
-    var leaf = classifyText(display, { cleared: leafClear });
+    var leaf = classifyText(display, childContext(ctx, display));
     return { text: display, color: leaf.color, reasons: leaf.reasons.slice(0, 3), children: [] };
   }
 
@@ -878,8 +981,7 @@
   function classifyIngredients(ingredientsText, opts) {
     var original = String(ingredientsText || '').replace(/\r/g, '').replace(/\n+/g, ', ');
     original = original.replace(/^\s*ingredients?\s*[:\-]\s*/i, '');
-    var productClear = productClaimClears(opts);
-    var items = tokenizeIngredients(original).map(function (part) { return classifyNode(part, productClear); }).filter(Boolean);
+    var items = tokenizeIngredients(original).map(function (part) { return classifyNode(part, foodContext(opts)); }).filter(Boolean);
     return { items: items, counts: tallyColors(items) };
   }
 
@@ -916,7 +1018,7 @@
     var additiveRules = [];
     additiveHits.forEach(function (h) { if (additiveRules.indexOf(h.rule) < 0) additiveRules.push(h.rule); });
 
-    var sugarHits = scan(text, SUGARS);
+    var sugarHits = scan(text, SUGARS).filter(function (h) { return !isGreenSugarPhrase(h.match); });
     var sugars100g = num(opts.sugars100g);
     var nova = num(opts.novaGroup);
     var gmo = gmoCheck(text, opts);
@@ -947,12 +1049,14 @@
     if (nova && NOVA[nova]) {
       deductions.push({ label: 'NOVA group ' + nova + (nova === 4 ? ' (ultra-processed)' : ' (processed)'), points: NOVA[nova], detail: 'From Open Food Facts' });
     }
-    var glyHits = glyphosateHits(text, opts);
-    if (glyHits.length) {
+    var gly = glyphosateHits(text, opts);
+    if (gly.points) {
       deductions.push({
-        label: 'Glyphosate-prone crop (not organic or non-GMO)',
-        points: GLYPHOSATE_POINTS,
-        detail: glyHits.map(function (h) { return h.crop; }).join(', ')
+        label: gly.status === 'limit'
+          ? 'Glyphosate-prone crop (non-GMO, not organic)'
+          : 'Glyphosate-prone crop (not organic or non-GMO)',
+        points: gly.points,
+        detail: gly.hits.map(function (h) { return h.crop; }).join(', ')
       });
     }
     var starches = refinedStarchHits(text);
@@ -983,18 +1087,156 @@
       sugars100g: sugars100g,
       novaGroup: nova,
       gmo: gmo,
-      glyphosate: {
-        pass: glyHits.length === 0,
-        cleared: productClaimClears(opts),
-        points: glyHits.length ? GLYPHOSATE_POINTS : 0,
-        hits: glyHits
-      },
+      glyphosate: gly,
       mainstream: mainstream ? { match: mainstream, points: MAINSTREAM_POINTS } : null,
       ignored: cleaned.removed
     };
   }
 
   function round1(n) { return Math.round(n * 10) / 10; }
+
+  // ---------------------------------------------------------------- household
+  // Tortuga's own grade for non-food products, inspired by the published
+  // "10 Commandments of Bobby Approved Ingredients" (FlavCity / Bobby Parrish):
+  // https://www.shopflavcity.com/pages/bobby-approved-app
+  // Not an official Bobby Approved score, badge, or certification.
+  // We only flag what is written on the label. No scraped app database.
+  var HOUSEHOLD_FRAGRANCE = 40;
+  var HOUSEHOLD_PRESERVATIVE = 22;
+  var HOUSEHOLD_PRESERVATIVE_CAP = 44;
+  var HOUSEHOLD_COLOR = 15;
+  var HOUSEHOLD_BRIGHTENER = 22;
+  var HOUSEHOLD_FLAVOR = 15;
+  var HOUSEHOLD_MILD = 8;
+  var HOUSEHOLD_MILD_CAP = 16;
+
+  function notNegated(text, index) {
+    var before = text.slice(Math.max(0, index - 28), index);
+    return !/\b(?:no|without|free of|free from|zero|0)\s+(?:added\s+|artificial\s+|synthetic\s+)?$/.test(before)
+      && !/\b(?:fragrance|parfum|perfume|paraben|dye|color|colour)[\s-]*free\s*$/.test(before);
+  }
+
+  function findLabeled(text, re, label) {
+    var out = [], seen = {};
+    var r = new RegExp(re.source, 'gi');
+    var m;
+    while ((m = r.exec(text))) {
+      if (!notNegated(text, m.index)) continue;
+      var key = label;
+      if (seen[key]) continue;
+      seen[key] = true;
+      out.push({ rule: label, match: m[0], context: contextAt(text, m.index, m[0].length) });
+    }
+    return out;
+  }
+
+  function fragranceHits(text) {
+    var t = text
+      .replace(/\b(?:fragrances?|parfums?|perfumes?)[\s-]*free\b/g, ' ')
+      .replace(/\bunscented\b/g, ' ');
+    return findLabeled(t, /\b(?:fragrances?|parfums?|perfumes?)\b/, 'Harmful fragrance (umbrella term)');
+  }
+
+  function householdPreservativeHits(text) {
+    var groups = [
+      { re: /\b(?:benzisothiazolinone|methylisothiazolinone|methylchloroisothiazolinone|isothiazolinones?)\b/, label: 'Isothiazolinone preservative' },
+      { re: /\b(?:dmdm[\s-]?hydantoin|quaternium[\s-]?15|bronopol|diazolidinyl[\s-]?urea|imidazolidinyl[\s-]?urea|sodium[\s-]?hydroxymethylglycinate)\b/, label: 'Formaldehyde-releasing preservative' },
+      { re: /\bparabens?\b/, label: 'Paraben' },
+      { re: /\btriclosan\b/, label: 'Triclosan' }
+    ];
+    var hits = [];
+    groups.forEach(function (g) { findLabeled(text, g.re, g.label).forEach(function (h) { hits.push(h); }); });
+    return hits;
+  }
+
+  function householdMildHits(text) {
+    var groups = [
+      { re: /\b(?:sodium|potassium)\s+benzoate\b/, label: 'Benzoate preservative' },
+      { re: /\b(?:potassium|sodium)\s+sorbate\b/, label: 'Sorbate preservative' },
+      { re: /\bphenoxyethanol\b/, label: 'Phenoxyethanol' }
+    ];
+    var hits = [];
+    groups.forEach(function (g) { findLabeled(text, g.re, g.label).forEach(function (h) { hits.push(h); }); });
+    return hits;
+  }
+
+  function householdColorHits(text) {
+    return findLabeled(text, /\b(?:colorants?|colourants?|artificial\s+colou?rs?)\b|\bfd\s*&\s*c\b/, 'Artificial color / colorant');
+  }
+
+  function householdBrightenerHits(text) {
+    return findLabeled(text, /\b(?:optical\s+brighten\w*|fluorescent\s+brighten\w*|distyrylbiphenyl\w*|distyrylbiphenol\w*)\b/, 'Optical brightener');
+  }
+
+  function householdFlavorHits(text) {
+    var t = text.replace(/\bflavou?r[\s-]*free\b/g, ' ');
+    return findLabeled(t, /\b(?:natural\s+)?(?:and\s+artificial\s+)?flavou?rs?\b|\bflavou?rings?\b/, 'Flavor (artificial or natural)');
+  }
+
+  function gradeHousehold(ingredientsText) {
+    var text = stripCrossContact(normalize(ingredientsText)).text;
+    var deductions = [];
+    function addGroup(hits, pointsEach, cap, label) {
+      if (!hits.length) return;
+      var pts = cap ? Math.min(cap, hits.length * pointsEach) : pointsEach;
+      deductions.push({
+        label: label,
+        points: pts,
+        detail: hits.map(function (h) { return h.match; }).join(', '),
+        level: 'red',
+        hits: hits
+      });
+    }
+    var fragrance = fragranceHits(text);
+    if (fragrance.length) deductions.push({ label: 'Harmful fragrance', points: HOUSEHOLD_FRAGRANCE, detail: fragrance.map(function (h) { return h.match; }).join(', '), level: 'red', hits: fragrance });
+    addGroup(householdPreservativeHits(text), HOUSEHOLD_PRESERVATIVE, HOUSEHOLD_PRESERVATIVE_CAP, 'Harmful preservative');
+    addGroup(householdColorHits(text), HOUSEHOLD_COLOR, null, 'Artificial color');
+    addGroup(householdBrightenerHits(text), HOUSEHOLD_BRIGHTENER, null, 'Optical brightener');
+    var oils = findSeedOils(text);
+    if (oils.length) deductions.push({ label: 'Seed oil', points: 35, detail: oils.map(function (h) { return h.match; }).join(', '), level: 'red', hits: oils });
+    addGroup(householdFlavorHits(text), HOUSEHOLD_FLAVOR, null, 'Flavor');
+    var gmoHits = scan(text.replace(GMO_NEGATIONS, ' '), GMO_CONFIRMED);
+    if (gmoHits.length) deductions.push({ label: 'GMO / bioengineered', points: 12, detail: gmoHits.map(function (h) { return h.match; }).join(', '), level: 'red', hits: gmoHits });
+    var mild = householdMildHits(text);
+    if (mild.length) deductions.push({ label: 'Preservative to limit', points: Math.min(HOUSEHOLD_MILD_CAP, mild.length * HOUSEHOLD_MILD), detail: mild.map(function (h) { return h.match; }).join(', '), level: 'yellow', hits: mild });
+
+    var total = deductions.reduce(function (s, d) { return s + d.points; }, 0);
+    var score = Math.max(0, 100 - total);
+    var failed = deductions.some(function (d) { return d.level === 'red'; });
+    return {
+      hasIngredients: text.length > 0,
+      pass: !failed,
+      score: score,
+      band: band(score),
+      deductions: deductions,
+      standard: 'Tortuga household grade, inspired by the published Bobby Approved ingredient standards. Not an official Bobby Approved score.'
+    };
+  }
+
+  function classifyHousehold(ingredientsText) {
+    var original = String(ingredientsText || '').replace(/\r/g, '').replace(/\n+/g, ', ');
+    original = original.replace(/^\s*ingredients?\s*[:\-]\s*/i, '');
+    var items = tokenizeIngredients(original).map(function (part) {
+      var text = normalize(part);
+      var reasons = [];
+      fragranceHits(text).forEach(function (h) { uniquePush(reasons, 'red', h.rule); });
+      householdPreservativeHits(text).forEach(function (h) { uniquePush(reasons, 'red', h.rule); });
+      householdColorHits(text).forEach(function (h) { uniquePush(reasons, 'red', h.rule); });
+      householdBrightenerHits(text).forEach(function (h) { uniquePush(reasons, 'red', h.rule); });
+      findSeedOils(text).forEach(function (h) { uniquePush(reasons, 'red', 'Seed oil · ' + h.rule); });
+      householdFlavorHits(text).forEach(function (h) { uniquePush(reasons, 'red', h.rule); });
+      if (!reasons.some(function (r) { return r.level === 'red'; })) {
+        householdMildHits(text).forEach(function (h) { uniquePush(reasons, 'yellow', h.rule); });
+      }
+      var rank = { red: 3, yellow: 2, green: 1, none: 0 };
+      var color = 'green';
+      reasons.forEach(function (r) { if (rank[r.level] > rank[color]) color = r.level; });
+      if (color === 'green') reasons = [];
+      else reasons = reasons.filter(function (r) { return r.level === color; });
+      return { text: part, color: color, reasons: reasons.slice(0, 3), children: [] };
+    }).filter(Boolean);
+    return { items: items, counts: tallyColors(items) };
+  }
 
   // ---------------------------------------------------------------- barcodes
   function upcEtoUpcA(e) {
@@ -1031,12 +1273,15 @@
         gmoConfirmed: GMO_POINTS.confirmed, gmoPossible: GMO_POINTS.possible, seedOil: 35, otherCategory: 12,
         additiveEach: ADDITIVE_EACH, additiveCap: ADDITIVE_CAP, sugarBase: SUGAR_BASE, sugarHigh: SUGAR_HIGH,
         sugarVeryHigh: SUGAR_VERY_HIGH, nova: NOVA, mainstream: MAINSTREAM_POINTS, glyphosate: GLYPHOSATE_POINTS,
-        refinedStarchEach: REFINED_STARCH_EACH, refinedStarchCap: REFINED_STARCH_CAP
+        glyphosateLimit: GLYPHOSATE_LIMIT,
+        refinedStarchEach: REFINED_STARCH_EACH, refinedStarchCap: REFINED_STARCH_CAP,
+        householdFragrance: HOUSEHOLD_FRAGRANCE
       },
       mainstreamNote: 'Flat −' + MAINSTREAM_POINTS + ' when the brand or product name is a well-known mass-market packaged-food brand (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). Not a map of who owns whom.',
       glyphosate: {
         points: GLYPHOSATE_POINTS,
-        pass: 'Organic or a non-GMO claim on that ingredient or on the product',
+        limitPoints: GLYPHOSATE_LIMIT,
+        pass: 'Organic on that ingredient or on the product. Non-GMO alone is yellow and not a full pass.',
         crops: ['Wheat and wheat flour (when the flour isn’t another grain)', 'Oats', 'Barley', 'Rye', 'Sorghum', 'Millet', 'Corn', 'Dry beans, chickpeas, and lentils', 'Peas (not snap or snow peas)', 'Soy foods (not lecithin)', 'Sunflower (not lecithin)', 'Flax', 'Canola', 'Cottonseed', 'Sugar beet'],
         notIncluded: ['Rice', 'Quinoa', 'Buckwheat', 'Potatoes', 'Green beans', 'Snap peas', 'Olive, avocado, and coconut oil'],
         sources: [
@@ -1057,6 +1302,8 @@
   return {
     normalize: normalize,
     grade: grade,
+    gradeHousehold: gradeHousehold,
+    classifyHousehold: classifyHousehold,
     gmoCheck: function (t, o) { return gmoCheck(stripCrossContact(normalize(t)).text, o || {}); },
     findSeedOils: findSeedOils,
     barcodeCandidates: barcodeCandidates,

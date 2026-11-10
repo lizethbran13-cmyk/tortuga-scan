@@ -9,6 +9,7 @@
     'ingredients_text', 'ingredients_text_en', 'ingredients_text_fr', 'nova_group', 'nutriments', 'labels',
     'labels_tags', 'quantity'].join(',');
   var RECENT_KEY = 'tortuga.recent.v1';
+  var MINE_KEY = 'tortuga.mine.v1';
 
   var $ = function (id) { return document.getElementById(id); };
   var views = {
@@ -78,6 +79,113 @@
     var digits = code.split('').map(Number), check = digits.pop(), sum = 0;
     digits.reverse().forEach(function (d, i) { sum += d * (i % 2 === 0 ? 3 : 1); });
     return (10 - (sum % 10)) % 10 === check;
+  }
+  function todayISO() {
+    var d = new Date();
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function loadMine() { try { return JSON.parse(localStorage.getItem(MINE_KEY)) || []; } catch (e) { return []; } }
+  function writeMine(list) { try { localStorage.setItem(MINE_KEY, JSON.stringify(list)); } catch (e) { /* private mode */ } }
+  function certPickerHtml(inputName, items, selected) {
+    var on = {};
+    (selected || []).forEach(function (id) { on[id] = 1; });
+    return items.map(function (c) {
+      return '<label class="cert"><input type="checkbox" name="' + esc(inputName) + '" value="' + esc(c.id) + '"' +
+        (on[c.id] ? ' checked' : '') + '> <span>' + esc(c.name) + '</span></label>';
+    }).join('');
+  }
+  function certEffectText(items) {
+    return items.map(function (c) { return c.name + ': ' + c.effect; }).join(' ');
+  }
+  function readCertIds(form, inputName) {
+    if (!form) return [];
+    return Array.prototype.map.call(form.querySelectorAll('input[name="' + inputName + '"]:checked'), function (el) { return el.value; });
+  }
+  function mountCertPickers() {
+    var food = R.foodCertifications || [];
+    var home = R.householdClaims || [];
+    var foodHelp = 'Mark what is printed on the package. These are not lab results, and they are not a badge we issue. ' + certEffectText(food);
+    if ($('pasteHomeCerts')) $('pasteHomeCerts').innerHTML = certPickerHtml('homeCert', food, []);
+    if ($('addFoodCerts')) $('addFoodCerts').innerHTML = certPickerHtml('addCert', food, []);
+    if ($('addHouseholdClaims')) $('addHouseholdClaims').innerHTML = certPickerHtml('addClaim', home, []);
+    if ($('pasteHomeCertHelp')) $('pasteHomeCertHelp').textContent = foodHelp + ' Words already in the name or brand, such as Organic, still count.';
+    if ($('addFoodCertHelp')) $('addFoodCertHelp').textContent = foodHelp;
+    if ($('addHouseholdHelp')) $('addHouseholdHelp').textContent = certEffectText(home);
+  }
+  function saveMine(entry) {
+    var list = loadMine().filter(function (p) {
+      if (entry.barcode && p.barcode && String(p.barcode) === String(entry.barcode) && p.kind === entry.kind) return false;
+      if (!entry.barcode && entry.id && p.id === entry.id) return false;
+      return true;
+    });
+    if (!entry.id) entry.id = 'local-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6);
+    if (!entry.added) entry.added = todayISO();
+    list.unshift(entry);
+    writeMine(list.slice(0, 200));
+    return entry;
+  }
+  function removeMine(id) {
+    writeMine(loadMine().filter(function (p) { return p.id !== id; }));
+    renderMine();
+    show('home');
+    renderRecent();
+  }
+  function findMine(raw) {
+    var wanted = {};
+    R.barcodeCandidates(raw).forEach(function (c) { wanted[c] = 1; });
+    var list = loadMine();
+    for (var i = 0; i < list.length; i++) {
+      var code = String(list[i].barcode || '');
+      if (!code) continue;
+      if (wanted[code]) return list[i];
+      var alts = R.barcodeCandidates(code);
+      for (var j = 0; j < alts.length; j++) if (wanted[alts[j]]) return list[i];
+    }
+    return null;
+  }
+  function fromMine(entry) {
+    var food = entry.kind !== 'household';
+    return {
+      id: entry.id,
+      code: entry.barcode || '',
+      name: entry.name || (food ? 'Product you added' : 'Household product you added'),
+      brand: entry.brand || '',
+      quantity: entry.quantity || '',
+      image: '',
+      ingredients: entry.ingredients || '',
+      ingredientsLang: 'pasted',
+      source: 'device',
+      kind: food ? 'food' : 'household',
+      category: entry.category || '',
+      novaGroup: entry.nova || null,
+      sugars100g: entry.nutriments && entry.nutriments.sugars100g != null ? entry.nutriments.sugars100g : null,
+      labels: entry.labels || '',
+      labelsTags: entry.labelsTags || [],
+      added: entry.added || '',
+      sourceName: 'Added on this phone',
+      sourceUrl: '',
+      shadowed: !!entry.shadowed
+    };
+  }
+  function storedFromForm(kind, fields, certIds) {
+    var merged = R.mergeCertifications('', [], certIds, kind === 'household' ? 'household' : 'food');
+    var code = String(fields.code || '').replace(/\D/g, '');
+    return {
+      kind: kind === 'household' ? 'household' : 'food',
+      barcode: code,
+      name: fields.name,
+      brand: fields.brand || '',
+      category: fields.category || '',
+      ingredients: fields.ingredients,
+      ingredientsLang: 'en',
+      labels: merged.labels,
+      labelsTags: merged.labelsTags,
+      nova: null,
+      nutriments: {},
+      added: todayISO(),
+      shadowed: !!(code && (findCatalog(code) || findHousehold(code)))
+    };
   }
 
   // ------------------------------------------------------------ logo fallback
@@ -240,6 +348,8 @@
     if (hit) { renderProduct(fromCatalog(hit)); return; }
     var homeHit = findHousehold(raw);
     if (homeHit) { renderProduct(fromHousehold(homeHit)); return; }
+    var mineHit = findMine(raw);
+    if (mineHit) { renderProduct(fromMine(mineHit)); return; }
     var candidates = R.barcodeCandidates(raw);
     if (!candidates.length) return;
     show('status');
@@ -289,44 +399,73 @@
     show('status');
     views.status.innerHTML =
       '<div class="card status-card"><h2>We couldn’t find this one</h2>' +
-      '<p>Barcode <strong>' + esc(code) + '</strong> isn’t in Open Food Facts yet. You can still grade it: type or paste the ingredient list from the package.</p></div>' +
-      pasteBox(code, '');
+      '<p>Barcode <strong>' + esc(code) + '</strong> isn’t in Open Food Facts yet, or it isn’t in a catalog on this phone. Grade it from the package: paste the ingredients and mark the certifications.</p></div>' +
+      pasteBox({ code: code, ingredients: '', name: '', brand: '', labels: '', labelsTags: [] });
     bindPaste();
   }
 
-  function pasteBox(code, existing) {
-    return '<form class="card paste" id="pasteForm" data-code="' + esc(code || '') + '">' +
+  function pasteBox(p) {
+    p = p || {};
+    var selected = R.certificationsPresent({
+      productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags
+    }).map(function (c) { return c.id; });
+    return '<form class="card paste" id="pasteForm" data-code="' + esc(p.code || '') + '">' +
+      '<label class="label" for="pasteName">Product name</label>' +
+      '<input id="pasteName" type="text" autocomplete="off" placeholder="Rolled oats" value="' + esc(p.name && p.name !== 'Not in Open Food Facts' && p.name !== 'Unnamed product' ? p.name : '') + '">' +
+      '<label class="label" for="pasteBrand">Brand</label>' +
+      '<input id="pasteBrand" type="text" autocomplete="off" placeholder="Optional" value="' + esc(p.brand || '') + '">' +
+      '<fieldset class="certs"><legend class="label">Certifications on the package</legend>' +
+      '<div class="cert-grid">' + certPickerHtml('pasteCert', R.foodCertifications, selected) + '</div>' +
+      '<p class="help">Mark what is printed on the package. Organic, Non-GMO, grass-fed, and pasture-raised change the score and the ingredient colors. Words already in the name or brand, such as Organic, still count. This is not a lab test.</p></fieldset>' +
       '<label class="label" for="pasteText">Ingredients from the label</label>' +
-      '<textarea id="pasteText" rows="6" placeholder="Copy the ingredient list exactly, commas and all.">' + esc(existing || '') + '</textarea>' +
-      '<label class="label" for="pasteName" style="margin-top:4px">Product name (optional)</label>' +
-      '<input id="pasteName" type="text" style="font-size:18px" placeholder="e.g. Organic tortilla chips">' +
-      '<p class="help">Tip: on iPhone you can use Live Text — point the Camera at the label, tap the text icon, then copy and paste here. Include any “Organic” or “Non-GMO” claim on the front so the GMO check can see it.</p>' +
+      '<textarea id="pasteText" rows="6" placeholder="Copy the ingredient list exactly, commas and all.">' + esc(p.ingredients || '') + '</textarea>' +
+      '<p class="help">On iPhone you can use Live Text: point the Camera at the label, tap the text icon, then copy and paste here.</p>' +
+      '<label class="save-line" for="pasteSave"><input type="checkbox" id="pasteSave"> Save this food on this phone</label>' +
       '<button type="submit" class="btn btn-secondary">Grade these ingredients</button></form>';
   }
 
   function bindPaste() {
     var f = $('pasteForm');
-    if (!f) return;
+    if (!f || f.dataset.bound) return;
+    f.dataset.bound = '1';
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       var text = $('pasteText').value.trim();
       if (!text) { $('pasteText').focus(); return; }
       var base = lastProduct || {};
+      var keepOff = base.source === 'off' || base.source === 'catalog';
       var name = $('pasteName') ? $('pasteName').value.trim() : '';
-      renderProduct({
+      var brand = $('pasteBrand') ? $('pasteBrand').value.trim() : '';
+      var ids = readCertIds(f, 'pasteCert');
+      var merged = R.mergeCertifications(base.labels || '', base.labelsTags || [], ids, 'food');
+      var product = {
         code: f.dataset.code || base.code || '',
-        name: name || (base.source === 'off' ? base.name : 'Label you pasted'),
-        brand: base.source === 'off' ? base.brand : '',
+        name: name || (keepOff ? base.name : 'Label you pasted'),
+        brand: brand || (keepOff ? base.brand : ''),
         quantity: base.quantity || '',
-        image: base.source === 'off' ? base.image : '',
+        image: keepOff ? base.image : '',
         ingredients: text,
         ingredientsLang: 'pasted',
         source: 'pasted',
-        novaGroup: base.source === 'off' ? base.novaGroup : null,
-        sugars100g: base.source === 'off' ? base.sugars100g : null,
-        labels: [base.labels || '', name].join(' '),
-        labelsTags: base.labelsTags || []
-      });
+        novaGroup: keepOff ? base.novaGroup : null,
+        sugars100g: keepOff ? base.sugars100g : null,
+        labels: merged.labels,
+        labelsTags: merged.labelsTags,
+        added: base.added || '',
+        offUrl: base.offUrl || ''
+      };
+      if ($('pasteSave') && $('pasteSave').checked) {
+        var stored = storedFromForm('food', {
+          code: product.code, name: product.name, brand: product.brand, ingredients: text
+        }, ids);
+        stored.labels = merged.labels;
+        stored.labelsTags = merged.labelsTags;
+        stored.nova = product.novaGroup;
+        if (product.sugars100g != null) stored.nutriments = { sugars100g: product.sugars100g };
+        product = fromMine(saveMine(stored));
+        renderMine();
+      }
+      renderProduct(product);
     });
   }
 
@@ -345,20 +484,74 @@
     var src = '', srcClass = '';
     if (p.source === 'catalog') { src = 'In the Tortuga catalog'; srcClass = ' catalog'; }
     else if (p.source === 'household') { src = 'In the Tortuga household catalog'; srcClass = ' catalog'; }
+    else if (p.source === 'device') { src = 'Saved on this phone'; srcClass = ' catalog'; }
     else if (p.source === 'off') { src = 'Not in our catalog · live Open Food Facts'; srcClass = ' live'; }
     else if (p.source === 'pasted') { src = 'Ingredients you pasted'; }
     var note = p.source === 'catalog'
       ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>. Graded with our rules, not a lab test.</p>'
       : p.source === 'household'
       ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'the source') + '</a>. Tortuga household grade, not an official Bobby Approved score.</p>'
+      : p.source === 'device'
+      ? '<p class="catalog-note">Saved on this phone ' + esc(formatDate(p.added)) + '. Not uploaded. ' +
+        (p.shadowed ? 'This barcode is already in the shared catalog, so a scan opens that product. This is your copy.' : 'A scan opens this when the barcode isn’t already in the shared catalog.') +
+        '</p>'
       : '';
     return '<div class="card product">' + img + '<div>' +
       '<h2>' + esc(p.name) + '</h2>' +
       (p.brand || p.quantity ? '<p class="brand-line">' + esc([p.brand, p.quantity].filter(Boolean).join(' · ')) + '</p>' : '') +
       (p.code ? '<p class="code">' + esc(p.code) + '</p>' : '') +
       (src ? '<span class="source-tag' + srcClass + '">' + esc(src) + '</span>' : '') +
+      claimPillsHtml(p) +
       note +
       '</div></div>';
+  }
+  function claimPillsHtml(p) {
+    var kind = (p.kind === 'household' || p.source === 'household') ? 'household' : 'food';
+    var list = R.certificationsPresent({
+      productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags,
+      ingredients: kind === 'household' ? p.ingredients : ''
+    }, kind);
+    if (!list.length) return '';
+    return '<p class="claim-row">' + list.map(function (c) {
+      return '<span class="pill claim">' + esc(c.name) + '</span>';
+    }).join('') + '</p><p class="claim-note">These package claims are part of this grade.</p>';
+  }
+  function publishBlock(p, grade) {
+    if (p.source !== 'device') return '';
+    var entry = p.kind === 'household' ? {
+      barcode: p.code || '',
+      name: p.name,
+      brand: p.brand || '',
+      category: p.category || '',
+      ingredients: p.ingredients,
+      labels: p.labels || '',
+      sourceName: 'Added on this phone',
+      added: p.added || todayISO(),
+      grade: { pass: grade.pass, score: grade.score, band: grade.band.id, bandLabel: grade.band.label }
+    } : {
+      barcode: p.code || '',
+      name: p.name,
+      brand: p.brand || '',
+      ingredients: p.ingredients,
+      ingredientsLang: 'en',
+      labels: p.labels || '',
+      labelsTags: p.labelsTags || [],
+      nova: p.novaGroup || null,
+      nutriments: p.sugars100g != null ? { sugars100g: p.sugars100g } : {},
+      added: p.added || todayISO(),
+      grade: {
+        sosPass: grade.sos.pass,
+        gmoStatus: grade.gmo.status,
+        gmoLabel: grade.gmo.label,
+        score: grade.score,
+        band: grade.band.id,
+        bandLabel: grade.band.label
+      }
+    };
+    return '<details class="card disclosure"><summary>Copy for the shared catalog</summary>' +
+      '<p class="help">Paste this into <code>data/' + (p.kind === 'household' ? 'household' : 'catalog') + '.json</code> when you publish it. Add a real source URL first. Don’t invent ingredients or lab results.</p>' +
+      '<textarea class="json-out" readonly>' + esc(JSON.stringify(entry, null, 2)) + '</textarea></details>' +
+      '<button type="button" class="btn btn-outline btn-block" data-act="remove-mine" data-id="' + esc(p.id) + '">Remove from this phone</button>';
   }
   function formatDate(iso) {
     if (!iso) return '';
@@ -398,10 +591,12 @@
       '<p class="legend"><span class="dot green"></span> OK <span class="dot yellow"></span> Limit <span class="dot red"></span> Avoid</p>' +
       renderIngList(light.items) +
       '<p class="ing-text">' + esc(p.ingredients) + '</p>' +
-      '<p class="meta">Copied from ' + esc(p.sourceName || 'the cited source') + '. ' +
-      (p.sourceUrl ? '<a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">Source</a>. ' : '') +
-      'Artificial fragrance (fragrance, parfum, perfume) is a hard avoid. Named essential oils are not that umbrella term.</p></div>';
-    views.result.innerHTML = productHeader(p) + verdict + scoreHtml + ingHtml +
+      '<p class="meta">' + (p.source === 'device'
+        ? 'Ingredient list you entered on this phone. '
+        : 'Copied from ' + esc(p.sourceName || 'the cited source') + '. ' +
+          (p.sourceUrl ? '<a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">Source</a>. ' : '')) +
+      'Artificial fragrance (fragrance, parfum, perfume) is a hard avoid. Named essential oils are not that umbrella term. Fragrance-free and unscented do not erase a fragrance ingredient, and they are not a Bobby Approved badge.</p></div>';
+    views.result.innerHTML = productHeader(p) + verdict + scoreHtml + ingHtml + publishBlock(p, g) +
       '<div class="result-actions"><button type="button" class="btn btn-secondary btn-block" data-act="start-scan">Scan another</button>' +
       '<button type="button" class="btn btn-outline btn-block" data-tab="household">Back to household</button></div>';
   }
@@ -409,12 +604,12 @@
   function renderProduct(p) {
     lastProduct = p;
     show('result');
-    if (p.source === 'household') { renderHousehold(p); return; }
+    if (p.source === 'household' || p.kind === 'household') { renderHousehold(p); return; }
 
     if (!p.ingredients) {
       views.result.innerHTML = productHeader(p) +
-        '<div class="notice" role="status"><strong>No ingredient list on Open Food Facts</strong>We found the product but not its ingredients, so we can’t grade it yet. Paste them from the package below.</div>' +
-        pasteBox(p.code, '');
+        '<div class="notice" role="status"><strong>No ingredient list on Open Food Facts</strong>We found the product but not its ingredients, so we can’t grade it yet. Paste them from the package and mark any certifications.</div>' +
+        pasteBox(p);
       bindPaste();
       return;
     }
@@ -453,7 +648,7 @@
     }[g.gmo.status];
     var gmoHtml = '<div class="verdict v-gmo ' + gmoClass + '"><p class="kicker">GMO status · Tortuga Scan check</p>' +
       '<p class="big">' + esc(g.gmo.label) + '</p><p style="margin:0">' + gmoText + '</p>' +
-      (g.gmo.status === 'possible' ? '<p class="fine">Look for a USDA Organic or Non-GMO Project seal on the package. If you see one, paste the ingredients with the claim to re-grade.</p>' : '') +
+      (g.gmo.status === 'possible' ? '<p class="fine">If the package is organic or non-GMO, mark that certification below and grade again. Grass-fed and pasture-raised change dairy, egg, and meat colors. They don’t change this GMO status.</p>' : '') +
       '</div>';
 
     var scoreClass = g.band.id === 'cleaner' ? 'v-pass' : g.band.id === 'mixed' ? 'v-caution' : 'v-fail';
@@ -502,7 +697,7 @@
       renderIngList(light.items) +
       '<p class="meta">' + sourceLine + langNote + '</p>' +
       '<details class="disclosure"><summary>Original ingredient text</summary><p class="ing-text">' + esc(p.ingredients) + '</p></details>' +
-      '<details class="disclosure"><summary>Label looks different? Fix the ingredients</summary>' + pasteBox(p.code, p.ingredients) + '</details>' +
+      '<details class="disclosure"><summary>Label looks different? Fix the ingredients</summary>' + pasteBox(p) + '</details>' +
       '</div>';
 
     var linkedLabs = labsForProduct(p);
@@ -510,7 +705,7 @@
       ? '<h2 class="small-title">Public lab test for this barcode</h2>' + linkedLabs.map(labCard).join('') +
         '<p class="help">The published test names this barcode. It is not a test we ran.</p>'
       : '';
-    views.result.innerHTML = productHeader(p) + sosHtml + gmoHtml + scoreHtml + flagsHtml + ingHtml + labHtml +
+    views.result.innerHTML = productHeader(p) + sosHtml + gmoHtml + scoreHtml + flagsHtml + ingHtml + labHtml + publishBlock(p, g) +
       '<div class="result-actions"><button type="button" class="btn btn-secondary btn-block" data-act="start-scan">Scan another</button>' +
       '<button type="button" class="btn btn-outline btn-block" data-act="standards">How we grade</button></div>';
     bindPaste();
@@ -519,12 +714,51 @@
   // ------------------------------------------------------------ recent scans
   function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; } }
   function saveRecent(p, g) {
-    if (!p.code || (p.source !== 'off' && p.source !== 'catalog')) return;
+    if (!p.code || (p.source !== 'off' && p.source !== 'catalog' && p.source !== 'device')) return;
     var list = loadRecent().filter(function (r) { return r.code !== p.code; });
     list.unshift({ code: p.code, name: p.name, brand: p.brand, score: g.score, band: g.band.id, pass: g.sos.pass });
     try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 8))); } catch (e) { /* private mode */ }
   }
+  function mineGrade(entry) {
+    if (entry.kind === 'household') return R.gradeHousehold(entry.ingredients);
+    return R.grade(entry.ingredients, {
+      productName: entry.name, brand: entry.brand, labels: entry.labels, labelsTags: entry.labelsTags, novaGroup: entry.nova
+    });
+  }
+  function mineListHtml(entries) {
+    return entries.map(function (p) {
+      var g = mineGrade(p);
+      var claims = R.certificationsPresent({
+        productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags,
+        ingredients: p.kind === 'household' ? p.ingredients : ''
+      }, p.kind === 'household' ? 'household' : 'food').map(function (c) { return c.name; }).join(', ');
+      var meta = (p.kind === 'household' ? 'Household' : 'Food') + ' · ' + g.score + (claims ? ' · ' + claims : '');
+      return '<li><button type="button" data-act="open-mine" data-id="' + esc(p.id) + '"><span class="r-name">' + esc(p.name) + '</span>' +
+        '<span class="r-meta">' + esc(meta) + '</span></button></li>';
+    }).join('');
+  }
+  function renderMine() {
+    var list = loadMine();
+    var card = $('mineCard');
+    if (card) {
+      card.hidden = !list.length;
+      $('mineList').innerHTML = mineListHtml(list);
+    }
+    var food = list.filter(function (p) { return p.kind !== 'household'; });
+    var home = list.filter(function (p) { return p.kind === 'household'; });
+    if ($('catalogMine')) {
+      $('catalogMine').innerHTML = food.length
+        ? '<div class="card"><h2 class="small-title">My products</h2><p class="help">Saved on this phone. A scan still opens the shared catalog when the barcode is already there.</p><ul class="recent">' + mineListHtml(food) + '</ul></div>'
+        : '';
+    }
+    if ($('householdMine')) {
+      $('householdMine').innerHTML = home.length
+        ? '<div class="card"><h2 class="small-title">My household products</h2><p class="help">Saved on this phone. Not an official Bobby Approved score.</p><ul class="recent">' + mineListHtml(home) + '</ul></div>'
+        : '';
+    }
+  }
   function renderRecent() {
+    renderMine();
     var list = loadRecent();
     $('recent').hidden = !list.length;
     var colors = { cleaner: 'background:#E3EDD2;color:#2F6B2A', mixed: 'background:#F7E8C4;color:#6B4600', poor: 'background:#F6E0D6;color:#A2361C' };
@@ -558,6 +792,16 @@
         '<li><strong>Not GMO:</strong> USDA / certified organic, Non-GMO Project, or a clear non-GMO claim.</li>' +
         '<li><strong>Possible GMO (caution, not confirmed):</strong> no organic or non-GMO claim, and it contains conventional crops usually grown GMO in the US: soy, corn (and corn-derived dextrose / maltodextrin), canola / rapeseed, cottonseed, sugar beet, plain “sugar” not listed as cane, generic vegetable oil, papaya, alfalfa. Ingredients listed as organic (e.g. “organic corn”) don’t count.</li>' +
       '</ul>' +
+      '<h3>Package certifications</h3>' +
+      '<p>When you grade a label by hand, paste ingredients for a barcode we couldn’t find, or add a product, you can mark <strong>Organic</strong> (USDA or certified organic), <strong>Non-GMO</strong> (a Non-GMO Project seal or another non-GMO claim), <strong>Grass-fed</strong>, and <strong>Pasture-raised</strong>. Those switches write the same kind of label the score already reads from a product name or from Open Food Facts. You still enter the name, brand, barcode, and ingredient list. A word already in the name or brand, such as Organic, still counts.</p>' +
+      '<ul>' +
+        (s.certifications.food || []).map(function (c) {
+          return '<li><strong>' + esc(c.name) + '.</strong> ' + esc(c.effect) + '</li>';
+        }).join('') +
+      '</ul>' +
+      '<p>These are claims printed on the package. They are not a lab test. Tortuga Scan does not issue an Organic, Non-GMO Project, Olive, or Seed Oil Scout badge. Seed oils, the mainstream brand penalty, NOVA, refined starch, sugars, and the household fragrance rules stay as they are. Organic on the product does not turn a seed oil green, does not clear a Dirty Dozen item by itself, and does not waive corn starch.</p>' +
+      '<p>Household products you add can record <strong>Fragrance-free</strong> or <strong>Unscented</strong>. ' +
+        esc((s.certifications.household || []).map(function (c) { return c.name + ': ' + c.effect; }).join(' ')) + '</p>' +
       '<h3>3. Tortuga Scan clean score (0–100)</h3>' +
       '<p>Our own score, inspired by the categories Olive publicly describes (seed oils, additives, processing, sugar). It is not an official Olive score and isn’t based on lab tests. Start at 100, subtract, and stop at 0:</p>' +
       '<table class="pts-table"><tbody>' +
@@ -692,6 +936,7 @@
   }
   function renderHouseholdList() {
     if (!$('householdList')) return;
+    renderMine();
     $('householdMeta').textContent = household.length
       ? (household.length + ' products')
       : 'Household list is still loading, or it didn’t load.';
@@ -716,6 +961,7 @@
     });
   }
   function renderCatalog() {
+    renderMine();
     var list = filteredCatalog();
     $('catalogMeta').textContent = catalog.length
       ? (list.length + ' of ' + catalog.length + ' products')
@@ -791,7 +1037,45 @@
     e.preventDefault();
     var t = $('pasteHomeText').value.trim();
     if (!t) { $('pasteHomeText').focus(); return; }
-    renderProduct({ code: '', name: 'Label you pasted', brand: '', ingredients: t, ingredientsLang: 'pasted', source: 'pasted', labels: '', labelsTags: [] });
+    var name = $('pasteHomeName').value.trim();
+    var brand = $('pasteHomeBrand').value.trim();
+    var code = $('pasteHomeCode').value.replace(/\D/g, '');
+    var ids = readCertIds($('pasteHomeForm'), 'homeCert');
+    var merged = R.mergeCertifications('', [], ids, 'food');
+    var product = {
+      code: code, name: name || 'Label you pasted', brand: brand, ingredients: t,
+      ingredientsLang: 'pasted', source: 'pasted', labels: merged.labels, labelsTags: merged.labelsTags
+    };
+    if ($('pasteHomeSave').checked) {
+      product = fromMine(saveMine(storedFromForm('food', {
+        code: code, name: product.name, brand: brand, ingredients: t
+      }, ids)));
+      renderMine();
+    }
+    renderProduct(product);
+  });
+
+  document.querySelectorAll('#addProductForm input[name="addKind"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      var household = radio.value === 'household' && radio.checked;
+      $('addFoodBlock').hidden = household;
+      $('addHouseholdBlock').hidden = !household;
+    });
+  });
+  $('addProductForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var kind = ($('addProductForm').querySelector('input[name="addKind"]:checked') || {}).value || 'food';
+    var name = $('addName').value.trim();
+    var ingredients = $('addIngredients').value.trim();
+    if (!name) { $('addName').focus(); return; }
+    if (!ingredients) { $('addIngredients').focus(); return; }
+    var ids = readCertIds($('addProductForm'), kind === 'household' ? 'addClaim' : 'addCert');
+    var stored = saveMine(storedFromForm(kind, {
+      code: $('addCode').value, name: name, brand: $('addBrand').value.trim(),
+      category: $('addCategory').value.trim(), ingredients: ingredients
+    }, ids));
+    renderMine();
+    renderProduct(fromMine(stored));
   });
 
   document.addEventListener('click', function (e) {
@@ -805,6 +1089,12 @@
     else if (act === 'lookup') lookup(b.dataset.code);
     else if (act === 'standards') openStandards();
     else if (act === 'paste-blank') notFound(b.dataset.code);
+    else if (act === 'open-mine') {
+      var mine = loadMine().filter(function (p) { return p.id === b.dataset.id; })[0];
+      if (mine) renderProduct(fromMine(mine));
+    } else if (act === 'remove-mine') {
+      if (b.dataset.id && window.confirm('Remove this product from this phone?')) removeMine(b.dataset.id);
+    }
     else if (act === 'open-lab') {
       showTab('labs');
       var el = document.getElementById('lab-' + b.dataset.lab);
@@ -840,6 +1130,7 @@
     renderStandards();
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
   }
+  mountCertPickers();
   $('openStandards').addEventListener('click', openStandards);
   $('closeStandards').addEventListener('click', function () { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg && dlg.close) dlg.close(); });

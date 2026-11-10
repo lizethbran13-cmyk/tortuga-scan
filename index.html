@@ -47,7 +47,7 @@
     <section id="view-home" class="view" aria-labelledby="homeTitle">
       <div class="card intro">
         <h2 id="homeTitle">Scan a package</h2>
-        <p>Point your camera at the barcode, or browse our catalog. You’ll get a <strong>Seed Oil Safe-style</strong> pass or fail, a <strong>GMO</strong> status, our <strong>clean score</strong>, and a green / yellow / red read of each ingredient.</p>
+        <p>Point your camera at the barcode, or browse our catalog. You’ll get a <strong>Seed Oil Safe-style</strong> pass or fail, a <strong>GMO</strong> status, our <strong>clean score</strong>, and a green / yellow / red read of each ingredient. To add one yourself, use <strong>Add a product</strong> and mark the certifications on the package.</p>
         <button type="button" class="btn btn-scan" id="scanBtn">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4.5A1.5 1.5 0 0 1 4.5 3H7M17 3h2.5A1.5 1.5 0 0 1 21 4.5V7M21 17v2.5a1.5 1.5 0 0 1-1.5 1.5H17M7 21H4.5A1.5 1.5 0 0 1 3 19.5V17M7 8v8M10 8v8M13 8v8M16.5 8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <span id="scanBtnLabel">Scan barcode</span>
@@ -63,11 +63,55 @@
         <p id="manualHelp" class="help">The numbers under the bars. UPC (12 digits) and EAN (13 or 8 digits) both work.</p>
       </form>
 
+      <div class="card" id="addProductCard">
+        <h2 class="small-title">Add a product</h2>
+        <p class="help" id="addProductHelp">Save a food or household product on this phone and grade it immediately. Nothing is uploaded. A scan opens it when that barcode isn’t already in the shared catalog.</p>
+        <form id="addProductForm" class="paste" autocomplete="off">
+          <div class="kind-row" role="radiogroup" aria-label="Food or household">
+            <label class="cert"><input type="radio" name="addKind" value="food" checked> Food</label>
+            <label class="cert"><input type="radio" name="addKind" value="household"> Household</label>
+          </div>
+          <label for="addName" class="label">Name</label>
+          <input id="addName" name="name" type="text" autocomplete="off" placeholder="Rolled oats" required>
+          <label for="addBrand" class="label">Brand</label>
+          <input id="addBrand" name="brand" type="text" autocomplete="off" placeholder="Optional">
+          <label for="addCode" class="label">Barcode</label>
+          <input id="addCode" name="code" type="text" inputmode="numeric" autocomplete="off" placeholder="Optional, 8 to 14 digits" maxlength="18">
+          <fieldset class="certs" id="addFoodBlock">
+            <legend class="label">Certifications on the package</legend>
+            <div id="addFoodCerts" class="cert-grid"></div>
+            <p class="help" id="addFoodCertHelp"></p>
+          </fieldset>
+          <fieldset class="certs" id="addHouseholdBlock" hidden>
+            <legend class="label">On the label</legend>
+            <div id="addHouseholdClaims" class="cert-grid"></div>
+            <p class="help" id="addHouseholdHelp"></p>
+            <label for="addCategory" class="label">Category</label>
+            <input id="addCategory" name="category" type="text" autocomplete="off" placeholder="Laundry detergent">
+          </fieldset>
+          <label for="addIngredients" class="label">Ingredient list</label>
+          <textarea id="addIngredients" name="ingredients" rows="5" required placeholder="Copy the ingredient list from the package. Don’t invent one."></textarea>
+          <button type="submit" class="btn btn-secondary">Save and grade</button>
+        </form>
+      </div>
+
       <details class="card disclosure" id="pasteHome">
         <summary>Grade a label by hand</summary>
-        <form id="pasteHomeForm" class="paste">
-          <label for="pasteHomeText" class="label">Paste or type the ingredient list</label>
-          <textarea id="pasteHomeText" rows="5" placeholder="Organic whole milk, sea salt…"></textarea>
+        <form id="pasteHomeForm" class="paste" autocomplete="off">
+          <label for="pasteHomeName" class="label">Product name</label>
+          <input id="pasteHomeName" name="name" type="text" autocomplete="off" placeholder="Rolled oats">
+          <label for="pasteHomeBrand" class="label">Brand</label>
+          <input id="pasteHomeBrand" name="brand" type="text" autocomplete="off" placeholder="Optional">
+          <label for="pasteHomeCode" class="label">Barcode</label>
+          <input id="pasteHomeCode" name="code" type="text" inputmode="numeric" autocomplete="off" placeholder="Optional" maxlength="18">
+          <fieldset class="certs">
+            <legend class="label">Certifications on the package</legend>
+            <div id="pasteHomeCerts" class="cert-grid"></div>
+            <p class="help" id="pasteHomeCertHelp"></p>
+          </fieldset>
+          <label for="pasteHomeText" class="label">Ingredient list</label>
+          <textarea id="pasteHomeText" rows="5" required placeholder="Rolled oats"></textarea>
+          <label class="save-line" for="pasteHomeSave"><input type="checkbox" id="pasteHomeSave"> Save this food on this phone</label>
           <button type="submit" class="btn btn-secondary">Grade these ingredients</button>
         </form>
       </details>
@@ -77,6 +121,12 @@
         <p id="catalogWelcomeText" class="help"></p>
         <ul id="catalogWelcomeList" class="recent"></ul>
         <button type="button" class="btn btn-outline btn-block" data-tab="catalog">Browse the catalog</button>
+      </div>
+
+      <div id="mineCard" class="card" hidden>
+        <h2 class="small-title">My products</h2>
+        <p class="help">Saved on this phone only. Scanning a barcode opens the shared catalog first, then one of these.</p>
+        <ul id="mineList" class="recent"></ul>
       </div>
 
       <div id="recent" class="card" hidden>
@@ -128,6 +178,7 @@
         <label class="label" for="catalogBrand">Brand</label>
         <select id="catalogBrand"><option value="">All brands</option></select>
       </form>
+      <div id="catalogMine"></div>
       <p id="catalogMeta" class="help" role="status"></p>
       <div id="catalogList" class="catalog-list"></div>
     </section>
@@ -138,6 +189,7 @@
         <h2 id="householdTitle">Household</h2>
         <p>Laundry detergent and other non-food items. Tortuga’s own grade, using the published Bobby Approved ingredient standards. Not an official Bobby Approved score. A scan checks this list when the barcode isn’t in the food catalog.</p>
       </div>
+      <div id="householdMine"></div>
       <p id="householdMeta" class="help" role="status"></p>
       <div id="householdList" class="catalog-list"></div>
     </section>
@@ -162,7 +214,7 @@
   </main>
 
   <footer class="foot">
-    <p class="disclaimer"><strong>Not affiliated with Olive or Seed Oil Scout.</strong> Grades and the green / yellow / red ingredient colors come from the ingredient list in our catalog, on Open Food Facts (which can be incomplete or out of date), or what you pasted. We can’t verify manufacturing processes, cross-contact, or what a lab would find in your box. Lab tests in this app are other people’s published tests. Always read the package.</p>
+    <p class="disclaimer"><strong>Not affiliated with Olive or Seed Oil Scout.</strong> Grades and the green / yellow / red ingredient colors come from the ingredient list in our catalog, on Open Food Facts (which can be incomplete or out of date), or what you pasted. Certifications you check are claims printed on the package. They are not a lab test, and they are not an official Organic, Non-GMO Project, Olive, Seed Oil Scout, or Bobby Approved badge. We can’t verify manufacturing processes, cross-contact, or what a lab would find in your box. Lab tests in this app are other people’s published tests. Always read the package.</p>
     <p class="credit">Food data © <a href="https://world.openfoodfacts.org/" rel="noopener" target="_blank">Open Food Facts</a> contributors. Household ingredient lists © <a href="https://world.openbeautyfacts.org/" rel="noopener" target="_blank">Open Beauty Facts</a> contributors. Both under the Open Database License. Household grades follow published Bobby Approved-style standards and are not official Bobby Approved scores.</p>
   </footer>
 

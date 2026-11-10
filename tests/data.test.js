@@ -106,6 +106,23 @@ test('cites real sources and does not leave findings blank', () => {
   });
 });
 
+console.log('Hand entry');
+test('the app lets you attach certifications when grading or adding a product', () => {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const app = fs.readFileSync(path.join(__dirname, '..', 'app.js'), 'utf8');
+  const sw = fs.readFileSync(path.join(__dirname, '..', 'sw.js'), 'utf8');
+  assert.match(html, /id="addProductForm"/);
+  assert.match(html, /id="pasteHomeCerts"/);
+  assert.match(html, /id="addFoodCerts"/);
+  assert.match(html, /id="addHouseholdClaims"/);
+  assert.match(html, /Grade a label by hand/);
+  assert.match(app, /mergeCertifications/);
+  assert.match(app, /tortuga\.mine\.v1/);
+  assert.match(app, /certPickerHtml/);
+  assert.match(sw, /tortuga-shell-v5/);
+  assert.doesNotMatch(html + app, /Bobby Approved certification/i);
+});
+
 console.log('News');
 test('first report is Monday, November 9, 2026 in Los Angeles', () => {
   assert.equal(news.timezone, 'America/Los_Angeles');

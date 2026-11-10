@@ -46,9 +46,26 @@ No build step.
 ## How it works
 
 1. **Scan.** Tapping *Scan barcode* calls `Html5Qrcode.start({ facingMode: "environment" })` directly from the tap (required on iOS). The video is `playsinline` + `muted`. Formats: EAN-13, EAN-8, UPC-A, UPC-E. A code must pass the GTIN checksum and read the same twice in a row before we accept it. *Stop scanning* releases the camera; it's also released when the app goes to the background.
-2. **Look up.** The barcode is checked against `data/catalog.json` first (including the UPC-A ⇄ EAN-13 form), then `data/household.json`. A food hit is labeled **In the Tortuga catalog**. A household hit is labeled **In the Tortuga household catalog**. If it isn’t in either file, we ask Open Food Facts and label it **Not in our catalog · live Open Food Facts**. Live request: `GET https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=code,product_name,product_name_en,brands,image_front_url,image_front_small_url,ingredients_text,ingredients_text_en,ingredients_text_fr,nova_group,nutriments,labels,labels_tags,quantity` with `User-Agent: TortugaScan/0.1 (personal clean-eating scanner prototype)`. (Browsers usually drop a custom `User-Agent` from `fetch`; OFF's CORS allows it, so it is sent where the browser permits.) We try the code as scanned, then the UPC-A ⇄ EAN-13 variant (add / remove a leading `0`), and UPC-E expanded to UPC-A.
-3. **Missing data.** If the product isn't on Open Food Facts, or has no ingredient list, you get a paste-in box (with an optional product name, so “Organic” / “Non-GMO” claims count) and can grade any label by hand.
-4. **Grade.** `rules.js` normalizes the text (lowercase, accents, OFF's `_allergen_` markup), drops cross-contact lines (“may contain…”, “made in a facility…”), and runs the rules below. Ingredient language preference: English, then the main list, then French (with a warning).
+2. **Look up.** The barcode is checked against `data/catalog.json` first (including the UPC-A ⇄ EAN-13 form), then `data/household.json`, then products you saved on this phone. A food hit is labeled **In the Tortuga catalog**. A household hit is labeled **In the Tortuga household catalog**. A phone-only hit is labeled **Saved on this phone**. If it isn’t in any of those, we ask Open Food Facts and label it **Not in our catalog · live Open Food Facts**. Live request: `GET https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=code,product_name,product_name_en,brands,image_front_url,image_front_small_url,ingredients_text,ingredients_text_en,ingredients_text_fr,nova_group,nutriments,labels,labels_tags,quantity` with `User-Agent: TortugaScan/0.1 (personal clean-eating scanner prototype)`. (Browsers usually drop a custom `User-Agent` from `fetch`; OFF's CORS allows it, so it is sent where the browser permits.) We try the code as scanned, then the UPC-A ⇄ EAN-13 variant (add / remove a leading `0`), and UPC-E expanded to UPC-A.
+3. **Missing data and hand grading.** If the product isn't on Open Food Facts, or has no ingredient list, you get a paste-in box. **Grade a label by hand** on the home screen is the same kind of form. Both ask for the ingredient list, and for a product name, brand, and barcode when you know them. Both have certification switches: Organic, Non-GMO, Grass-fed, and Pasture-raised. You don't have to hide those words in the product name. A word that is already in the name or brand still counts. **Add a product** saves a food or household item on this phone and grades it with the same switches.
+4. **Grade.** `rules.js` normalizes the text (lowercase, accents, OFF's `_allergen_` markup), drops cross-contact lines (“may contain…”, “made in a facility…”), and runs the rules below. Certification switches are saved as `labels` and `labelsTags`, the same fields as `data/catalog.json`, and the existing rules read them from there. Ingredient language preference: English, then the main list, then French (with a warning).
+
+## Certifications you can attach
+
+These are claims printed on the package. They are not lab results, and Tortuga Scan does not issue an Organic, Non-GMO Project, Olive, Seed Oil Scout, or Bobby Approved badge.
+
+| Switch | What it stores | What changes |
+|---|---|---|
+| Organic | `Certified organic`, tags `en:organic` and `en:certified-organic` | Glyphosate-prone crops turn green and that check passes in full. Dairy, eggs, and meat can clear. GMO status can be Not GMO. |
+| Non-GMO | `Non-GMO`, tag `en:no-gmos` | Glyphosate-prone crops turn yellow and cost 12 points. Not a full pass. Dairy and meat can clear. Eggs do not. |
+| Grass-fed | `Grass-fed`, tag `en:grass-fed` | Dairy and meat can clear. |
+| Pasture-raised | `Pasture-raised`, tag `en:pasture-raised` | Eggs and meat can clear. |
+
+Organic on the product does not turn a seed oil green, does not clear Dirty Dozen produce by itself, and does not waive corn starch or the mainstream-brand penalty. If the package is both organic and non-GMO, organic wins on glyphosate-prone crops.
+
+Household products can record **Fragrance-free** or **Unscented**. Those words are not a Bobby Approved certification. If the ingredient list still says fragrance, parfum, or perfume, the household grade still fails.
+
+The chosen claims show on the result, next to the product name, so you can see why the score and the colors moved.
 
 ## The rules
 
@@ -132,7 +149,19 @@ Honey, maple syrup, and coconut sugar are not counted in the added-sugar score d
 
 ## Catalog, lab tests, and news
 
-The bottom nav opens **Scan**, **Catalog**, **Household**, **Lab tests**, and **News**. Both catalogs are static JSON. There is no server. Scans check food, then household, then Open Food Facts.
+The bottom nav opens **Scan**, **Catalog**, **Household**, **Lab tests**, and **News**. Both catalogs are static JSON. There is no server. Scans check the shared food catalog, then the shared household catalog, then products saved on this phone, then Open Food Facts.
+
+**Add a product in the app**
+
+On the home screen, **Add a product** saves a food or household product in this browser (`localStorage`, key `tortuga.mine.v1`). There is no account and nothing is uploaded. The saved entry uses the same fields as `data/catalog.json` (`name`, `brand`, `barcode`, `ingredients`, `labels`, `labelsTags`) or `data/household.json`. It grades immediately with the certifications you marked.
+
+**Grade a label by hand** has the same fields. Leave **Save this food on this phone** unchecked to grade without keeping it. The paste box on a missing barcode can save the same way.
+
+Saved products are listed under **My products** on the home screen, and on the Catalog or Household tab. Open one to see the grade again, copy a JSON block for the shared catalog, or remove it from this phone. The same barcode replaces the copy already saved on this phone. A scan still opens the shared catalog when that barcode is already published there.
+
+**Publish a product into the shared catalog**
+
+The in-app list does not change `data/catalog.json`. To publish, open the saved product, copy the JSON block, and follow the steps below. Add a real source URL. Don’t invent ingredients.
 
 ## Household products
 
@@ -198,7 +227,7 @@ News is a list of daily reports. The first one is **Monday, November 9, 2026** (
 
 `image`, `nova`, and `quantity` may be null or omitted. `grade` must match `rules.js` for the stored ingredients (the data test checks this). The phone grades again when you open a product, so the flags and colors always come from the engine.
 
-**Add a product by hand**
+**Add a food product to `data/catalog.json`**
 
 1. Open the product on Open Food Facts and copy the real ingredient list. Don’t invent one.
 2. Add an object to `products` with the fields above. `added` is the day you added it (`YYYY-MM-DD`).

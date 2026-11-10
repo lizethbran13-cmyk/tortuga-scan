@@ -10,6 +10,10 @@
     'labels_tags', 'quantity'].join(',');
   var RECENT_KEY = 'tortuga.recent.v1';
   var MINE_KEY = 'tortuga.mine.v1';
+  var PLACES_KEY = 'tortuga.places.v1';
+  var REPORTS_KEY = 'tortuga.reports.v1';
+  var MENU_KEY = 'tortuga.menu.v1';
+  var Places = window.TortugaPlaces;
   var GROK_BOT = 'grokbot://app/v1/agent?id=a4483b75-73bb-47ac-8893-938cbf85736a';
   var PHOTO_DB = 'tortuga-photos';
   var PHOTO_STORE = 'photos';
@@ -17,7 +21,9 @@
   var $ = function (id) { return document.getElementById(id); };
   var views = {
     home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result'),
-    catalog: $('view-catalog'), store: $('view-store'), book: $('view-book'), brand: $('view-brand'), more: $('view-more')
+    catalog: $('view-catalog'), store: $('view-store'), book: $('view-book'), brand: $('view-brand'), more: $('view-more'),
+    map: $('view-map'), place: $('view-place'), report: $('view-report'), addplace: $('view-add-place'), menu: $('view-menu'),
+    placemenu: $('view-place-menu'), placeitem: $('view-place-item')
   };
   var scanner = null, scanning = false, lastProduct = null, currentTab = 'scan';
   var catalog = [], catalogByCode = {}, household = [], householdByCode = {}, labTests = [], newsReports = [];
@@ -43,9 +49,13 @@
     var tab = name === 'home' || name === 'result' || name === 'brand' || name === 'bookDetail' ? 'scan' : name;
     if (name === 'catalog') tab = 'catalog';
     if (name === 'store') tab = 'store';
-    if (name === 'book') tab = 'book';
+    if (name === 'book') tab = 'more';
     if (name === 'more') tab = 'more';
-    if (name === 'brand' || name === 'result') tab = currentTab === 'store' || currentTab === 'catalog' || currentTab === 'book' || currentTab === 'more' ? currentTab : 'scan';
+    if (name === 'map' || name === 'place' || name === 'report' || name === 'addplace' || name === 'menu' || name === 'placemenu' || name === 'placeitem') tab = 'map';
+    if (name === 'brand' || name === 'result') {
+      tab = currentTab === 'store' || currentTab === 'catalog' || currentTab === 'more' || currentTab === 'map' ? currentTab : 'scan';
+      if (currentTab === 'book') tab = 'more';
+    }
     document.querySelectorAll('.tabbar button').forEach(function (b) {
       if (b.dataset.tab === tab) b.setAttribute('aria-current', 'page');
       else b.removeAttribute('aria-current');
@@ -67,6 +77,7 @@
   function productPath(code) { return baseDir() + 'product/' + encodeURIComponent(code); }
   function brandPath(slug) { return baseDir() + 'brand/' + encodeURIComponent(slug); }
   function ingredientPath(slug) { return baseDir() + 'ingredient/' + encodeURIComponent(slug); }
+  function placePath(id) { return baseDir() + 'place/' + encodeURIComponent(id); }
   function tabPath(tab) {
     if (!tab || tab === 'scan' || tab === 'home') return baseDir();
     if (tab === 'store') return baseDir() + 'store';
@@ -1055,6 +1066,11 @@
       '<h3>Brand labels</h3><p>' + esc(s.meterNote) + '</p>' +
       '<h3>Ingredient colors</h3><p>Green, yellow, and red follow Lizeth’s ingredient rules: Dirty Dozen ' + s.dirtyDozen.year + ', glyphosate-prone crops, dairy, eggs, meat, and sugars. Organic on a Dirty Dozen ingredient turns it green. A gum can be yellow and still cost points. The book writes a short Tortuga note for each ingredient. It is not a copied entry from another app.</p>' +
       '<p>Glyphosate crops follow public surveys, not a test of your box: <a href="' + s.glyphosate.sources[0].url + '" target="_blank" rel="noopener">CFIA</a>, <a href="' + s.glyphosate.sources[1].url + '" target="_blank" rel="noopener">EWG oats</a>, <a href="' + s.glyphosate.sources[2].url + '" target="_blank" rel="noopener">EPA</a>. Dirty Dozen: <a href="' + s.dirtyDozen.url + '" target="_blank" rel="noopener">' + esc(s.dirtyDozen.source) + '</a>.</p>';
+    if (Places && Places.rulesSummary) {
+      var placeRules = Places.rulesSummary();
+      $('standardsBody').innerHTML += '<h3>Places, 0 to 10</h3><p>' + esc(placeRules.note) + '</p>' +
+        '<p>The map is Tortuga’s catalog of Las Vegas and Henderson places on an OpenFreeMap basemap, which uses OpenStreetMap data. A place is Tortuga approved only at ' + placeRules.approvedAt + '.0 or higher, with at least ' + placeRules.minReportsForApproved + ' ratings that agree, and fat evidence that is not mixed or only a partial company claim. Reports stay on this phone until you copy the JSON. This is not a Seed Oil Scout map, score, or badge.</p>';
+    }
   }
 
   function labsForProduct(p) {
@@ -1124,6 +1140,7 @@
     if (name === 'store') renderStore();
     if (name === 'book') { $('bookList').hidden = false; $('bookDetail').hidden = true; renderBook(); }
     if (name === 'more') { renderNews(); renderLabs(); }
+    if (name === 'map') openMap();
   }
   function openCode(code, push) {
     if (push) writeUrl(productPath(code), false);
@@ -1137,6 +1154,20 @@
       writeUrl(baseDir().replace(/\/$/, '') + entry, true);
     }
     var route = R.parseRoute(location.pathname, location.search);
+    if (route.place) {
+      window.__tortugaData.then(function () {
+        if (route.form === 'report') showReport(route.place, true);
+        else if (route.form === 'menu') showMenu(route.place, true);
+        else if (route.form === 'place-item' && route.item) showPlaceItem(route.place, route.item, true);
+        else if (route.form === 'place-menu') showPlaceMenu(route.place, true);
+        else showPlace(route.place, true);
+      });
+      return;
+    }
+    if (route.form === 'add-place') {
+      window.__tortugaData.then(function () { showAddPlace(true); });
+      return;
+    }
     if (route.code) { openCode(route.code, false); return; }
     if (route.brand) { showBrand(route.brand, true); return; }
     if (route.ingredient) {
@@ -1172,6 +1203,557 @@
     return fetch(new URL(file, document.baseURI).href, { cache: 'no-cache' }).then(function (res) {
       if (!res.ok) throw new Error(file + ' ' + res.status);
       return res.json();
+    });
+  }
+
+  var sharedPlaces = [];
+  var sharedReports = [];
+  var mapFilter = { q: '', kind: '', city: '', score: '' };
+  var map = null;
+  var mapFitted = false;
+  var dropMode = false;
+  var dropMarker = null;
+  var activePlaceId = '';
+  var pendingReportPhoto = null;
+  var pendingPlacePhoto = null;
+  var pendingMenuPhoto = null;
+  var KIND_COLOR = { restaurant: '#3B5323', cafe: '#8A5A32', grocer: '#5E7F3A', chocolatier: '#6B3E2E', shop: '#8A6A3B' };
+
+  function loadLocalPlaces() { try { return JSON.parse(localStorage.getItem(PLACES_KEY)) || []; } catch (e) { return []; } }
+  function writeLocalPlaces(list) { try { localStorage.setItem(PLACES_KEY, JSON.stringify(list)); } catch (e) {} }
+  function loadReports() { try { return JSON.parse(localStorage.getItem(REPORTS_KEY)) || []; } catch (e) { return []; } }
+  function writeReports(list) { try { localStorage.setItem(REPORTS_KEY, JSON.stringify(list)); } catch (e) {} }
+  function loadMenuItems() { try { return JSON.parse(localStorage.getItem(MENU_KEY)) || []; } catch (e) { return []; } }
+  function writeMenuItems(list) { try { localStorage.setItem(MENU_KEY, JSON.stringify(list)); } catch (e) {} }
+  function savePhoneMenuItem(placeId, fields) {
+    if (!placeId || !fields || !fields.name) return null;
+    var id = fields.id || Places.slugItem(fields.name);
+    var next = {
+      id: id,
+      placeId: placeId,
+      name: String(fields.name).slice(0, 140),
+      note: fields.note || '',
+      ingredients: fields.ingredients || '',
+      fats: fields.fats || '',
+      origin: 'phone'
+    };
+    var list = loadMenuItems().filter(function (it) { return !(it.placeId === placeId && it.id === id); });
+    list.push(next);
+    writeMenuItems(list);
+    return next;
+  }
+  function indexPlaces(file) {
+    sharedPlaces = (file && file.places) || [];
+    sharedReports = (file && file.reports) || [];
+  }
+  function allPlaces() {
+    var byId = {};
+    sharedPlaces.forEach(function (p) { byId[p.id] = Object.assign({ origin: 'catalog' }, p); });
+    loadLocalPlaces().forEach(function (p) { byId[p.id] = Object.assign({ origin: 'phone' }, p); });
+    return Object.keys(byId).map(function (id) { return byId[id]; });
+  }
+  function findPlace(id) {
+    var list = allPlaces();
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+  function reportsFor(id) {
+    return sharedReports.filter(function (r) { return r && r.placeId === id; })
+      .concat(loadReports().filter(function (r) { return r && r.placeId === id; }));
+  }
+  function gradedPlace(p) {
+    return Places.gradePlace(p, reportsFor(p.id));
+  }
+  function filteredPlaces() {
+    var q = mapFilter.q.trim().toLowerCase();
+    return allPlaces().filter(function (p) {
+      if (mapFilter.kind && p.kind !== mapFilter.kind) return false;
+      if (mapFilter.city && p.city !== mapFilter.city) return false;
+      if (q && (p.name + ' ' + (p.address || '') + ' ' + (p.city || '')).toLowerCase().indexOf(q) < 0) return false;
+      if (mapFilter.score) {
+        var g = gradedPlace(p);
+        if (mapFilter.score === 'needs' && g.score != null) return false;
+        if (mapFilter.score === 'scored' && g.score == null) return false;
+        if (mapFilter.score === 'approved' && !g.approved) return false;
+      }
+      return true;
+    }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+  }
+  function placesGeo(list) {
+    return {
+      type: 'FeatureCollection',
+      features: list.filter(function (p) { return typeof p.lat === 'number' && typeof p.lng === 'number'; }).map(function (p) {
+        var g = gradedPlace(p);
+        return {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [p.lng, p.lat] },
+          properties: { id: p.id, name: p.name, kind: p.kind || 'shop', origin: p.origin || 'catalog', label: g.label }
+        };
+      })
+    };
+  }
+  function tortyImg(alt) {
+    var src = new URL('icons/torty-portrait.png', document.baseURI).href;
+    return '<img src="' + esc(src) + '" alt="' + esc(alt) + '" width="280" height="200" decoding="async">';
+  }
+  function placeGauge(markerPct) {
+    var marker = markerPct == null ? '' : '<span class="place-marker" style="left:' + markerPct + '%"></span>';
+    return '<div class="place-gauge" aria-hidden="true"><div class="place-track"><span class="avoid"></span><span class="limit"></span><span class="eat"></span></div>' + marker + '</div>' +
+      '<p class="place-scale" aria-hidden="true"><span>0</span><span>Avoid</span><span>Limit</span><span>Eat</span><span>10</span></p>';
+  }
+  function scoreBlock(p, g) {
+    if (g.score == null) {
+      return '<div class="place-meter unrated"><p class="place-unrated-badge">Unrated</p>' +
+        placeGauge(null) +
+        '<p class="place-unrated-prompt">No score yet. The scale stays empty until a report names what you ordered and which fats you saw.</p>' +
+        '<button type="button" class="btn btn-secondary" data-act="report" data-place="' + esc(p.id) + '">Add the first report</button></div>';
+    }
+    var cls = g.approved ? 'eat' : (g.band ? g.band.id : '');
+    var pos = Math.max(2, Math.min(98, Math.round(g.score * 10)));
+    return '<div class="place-meter scored ' + esc(cls) + '">' + placeGauge(pos) +
+      '<p class="place-num">' + esc(g.score) + '<span class="of"> / 10</span></p>' +
+      '<p class="pills"><span class="pill ' + esc(cls) + '">' + esc(g.label) + '</span></p>' +
+      '<p class="help">' + esc(g.headline) + '</p></div>';
+  }
+  function directionLinks(p) {
+    var q = encodeURIComponent((p.name || '') + ', ' + (p.address || ''));
+    return '<a class="btn btn-outline" href="https://maps.apple.com/?daddr=' + q + '" target="_blank" rel="noopener">Apple Maps</a>' +
+      '<a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&destination=' + q + '" target="_blank" rel="noopener">Google Maps</a>';
+  }
+  function listRows(items, empty) {
+    if (!items.length) return '<p>' + esc(empty) + '</p>';
+    return '<ul class="recent">' + items.map(function (item) {
+      return '<li><span class="r-name">' + esc(item.name) + '</span><span class="why">' + esc(item.why || '') + '</span>' +
+        (item.source ? ' <a href="' + esc(item.source) + '" target="_blank" rel="noopener">Source</a>' : '') + '</li>';
+    }).join('') + '</ul>';
+  }
+  function placePage(p) {
+    var g = gradedPlace(p);
+    var reports = reportsFor(p.id);
+    var lists = Places.whatLists(p, reports);
+    var known = (p.offerings || []).filter(function (o) { return o && !o.suggest; });
+    var reportCards = reports.map(function (r) {
+      var fats = Array.isArray(r.fats) ? r.fats.join(', ') : (r.fats || '');
+      var extra = '';
+      if (r.ingredients) {
+        var line = Places.gradeMenuLine({ name: r.ordered || '', ingredients: r.ingredients });
+        if (line.status === 'graded') extra = '<p class="help">Package read of the ingredients on this report: ' + line.score + ' · ' + esc(line.band && line.band.label) + '.</p>';
+        else extra = '<p class="help">' + esc(line.summary) + '</p>';
+      }
+      return '<article class="card"><h3>' + esc(r.ordered || 'Report') + '</h3><p class="pills"><span class="pill">' + esc(r.rating) + ' / 10</span>' +
+        (r.date ? '<span class="pill">' + esc(r.date) + '</span>' : '') + '</p>' +
+        (fats ? '<p>Fats noted: ' + esc(fats) + '</p>' : '') +
+        (r.notes ? '<p>' + esc(r.notes) + '</p>' : '') + extra +
+        (String(r.id || '').indexOf('phone-') === 0 ? '<button type="button" class="btn btn-outline" data-act="remove-report" data-id="' + esc(r.id) + '">Remove from this phone</button>' : '') +
+        '</article>';
+    }).join('');
+    return '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-tab="map">Map</button></p>' +
+      '<p class="pills"><span class="pill">' + esc(p.kind || '') + '</span><span class="pill">' + esc(p.city || '') + '</span>' +
+      (p.origin === 'phone' ? '<span class="pill">On this phone</span>' : '<span class="pill">Catalog</span>') + '</p>' +
+      '<h2 id="placeTitle">' + esc(p.name) + '</h2>' +
+      '<p>' + esc(p.address || '') + '</p>' +
+      (p.phone ? '<p><a href="tel:' + esc(String(p.phone).replace(/[^\d+]/g, '')) + '">' + esc(p.phone) + '</a></p>' : '') +
+      (p.website ? '<p><a href="' + esc(p.website) + '" target="_blank" rel="noopener">Official website</a></p>' : '') +
+      scoreBlock(p, g) +
+      '<div class="link-row">' + directionLinks(p) + '</div></div>' +
+      '<div class="card torty-card torty-place">' + tortyImg('Torty, the tortoise') + '<div class="speech"><span class="who">Torty</span><p>' + esc(Places.tortyPlace(p, g)) + '</p></div></div>' +
+      (g.conflicts && g.conflicts.length ? '<div class="notice"><strong>Reports disagree</strong><p>' + esc(g.conflicts.join(' ')) + '</p></div>' : '') +
+      '<div class="card"><h2 class="small-title">What to get</h2>' + (lists.get.length ? listRows(lists.get, '') : '<p>Nothing is marked to get yet.</p>') +
+      '<h2 class="small-title">What to skip</h2>' + (lists.skip.length ? listRows(lists.skip, '') : '<p>Nothing is marked to skip yet.</p>') +
+      (lists.prompt ? '<p class="help">Snap a menu or send a report that names the dish and the fat you saw.</p>' : '') + '</div>' +
+      (known.length ? '<div class="card"><h2 class="small-title">On the record</h2><p class="help">Named in a public source. Not a get or a skip, because the ingredients or the cooking fat are not established.</p>' + listRows(known.map(function (o) { return { name: o.name, why: o.note, source: o.sourceUrl }; }), '') + '</div>' : '') +
+      '<div class="card"><p>' + esc(p.summary || '') + '</p>' +
+      (p.hoursNote ? '<p class="help">' + esc(p.hoursNote) + '</p>' : '') +
+      (p.coordinateNote ? '<p class="help">' + esc(p.coordinateNote) + '</p>' : '') +
+      ((p.sourcedNotes || []).length ? '<h2 class="small-title">Sourced notes</h2>' + (p.sourcedNotes || []).map(function (n) {
+        return '<p>' + esc(n.text || '') + (n.sourceUrl ? ' <a href="' + esc(n.sourceUrl) + '" target="_blank" rel="noopener">Source</a>' : '') + '</p>';
+      }).join('') : '') +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="place-menu" data-place="' + esc(p.id) + '">Menu and products</button>' +
+      '<button type="button" class="btn btn-outline" data-act="report" data-place="' + esc(p.id) + '">Submit a report</button>' +
+      '<button type="button" class="btn btn-outline" data-act="menu" data-place="' + esc(p.id) + '">Snap a menu</button></div>' +
+      (p.origin === 'phone' ? '<div class="link-row"><button type="button" class="btn btn-outline" data-act="remove-place" data-id="' + esc(p.id) + '">Remove this place from this phone</button></div>' : '') +
+      '</div>' +
+      '<div class="card" id="placePhoto" hidden></div>' +
+      '<div class="card"><h2 class="small-title">Reports</h2>' + (reportCards || '<p>No reports yet. Yours stay on this phone and change the score here right away.</p>') + '</div>' +
+      '<div class="card"><h2 class="small-title">Sources</h2><ul class="recent">' + (p.sources || []).map(function (s) {
+        return '<li><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.title || s.url) + '</a>' + (s.note ? '<span class="why">' + esc(s.note) + '</span>' : '') + '</li>';
+      }).join('') + '</ul><p class="help"><button type="button" class="btn btn-outline" data-act="standards">How place scores work</button></p></div>';
+  }
+  function showPlace(id, replace) {
+    if (scanning) stopScan();
+    activePlaceId = id;
+    var p = findPlace(id);
+    showView('place');
+    currentTab = 'map';
+    setTabCurrent('place');
+    writeUrl(placePath(id), replace !== false);
+    if (!p) {
+      views.place.innerHTML = '<div class="card"><h2 id="placeTitle">That place isn’t on this phone</h2><p><button type="button" class="btn btn-outline" data-tab="map">Back to the map</button></p></div>';
+      return;
+    }
+    views.place.innerHTML = placePage(p);
+    var frame = $('placePhoto');
+    if (frame) {
+      idbGet('place:' + p.id).then(function (blob) {
+        if (!blob) { frame.hidden = true; return; }
+        var url = URL.createObjectURL(blob);
+        frame.hidden = false;
+        frame.innerHTML = '<img src="' + url + '" alt="Photo saved on this phone">';
+      });
+    }
+  }
+  function orderButtons(place, itemName) {
+    var choice = Places.orderChoices(place);
+    var bits = [];
+    if (choice.grok && itemName) {
+      bits.push('<a class="btn btn-secondary" href="' + esc(grokHref(itemName)) + '">Buy with Grok Bot</a>');
+    }
+    if (choice.orderUrl) {
+      bits.push('<a class="btn btn-outline" href="' + esc(choice.orderUrl) + '" target="_blank" rel="noopener">Order on their website</a>');
+    }
+    if (!bits.length) return '<p class="order-note">View only. There is no checkout here, and this place has no verified order page on file.</p>';
+    var note = '<p class="order-note">';
+    if (choice.grok) note += 'Buy with Grok Bot opens the Grok Bot app with this name. This page cannot check out. ';
+    if (choice.orderUrl) note += 'Order on their website opens a page on the restaurant or shop’s own site.';
+    note += '</p>';
+    return '<div class="link-row">' + bits.join('') + '</div>' + note;
+  }
+  function showPlaceMenu(id, replace) {
+    if (scanning) stopScan();
+    activePlaceId = id;
+    var p = findPlace(id);
+    showView('placemenu');
+    currentTab = 'map';
+    setTabCurrent('placemenu');
+    writeUrl(baseDir() + '?tab=map&form=place-menu&place=' + encodeURIComponent(id), replace !== false);
+    if (!p || !views.placemenu) return;
+    var items = Places.mergeMenu(p, loadMenuItems());
+    var choice = Places.orderChoices(p);
+    var list = items.length ? items.map(function (it) {
+      var grade = Places.gradeMenuLine(it);
+      var pill = grade.status === 'graded' ? (grade.score + ' · ' + (grade.band ? grade.band.label : '')) : 'Needs ingredients';
+      return '<button type="button" class="cat-card" data-act="place-item" data-place="' + esc(p.id) + '" data-item="' + esc(it.id) + '">' +
+        '<span class="thumb">' + (it.origin === 'phone' ? 'Phone' : 'Menu') + '</span>' +
+        '<span><span class="name">' + esc(it.name) + '</span><span class="brand">' + (it.origin === 'phone' ? 'On this phone' : 'From a public source') + '</span>' +
+        '<span class="pills"><span class="pill">' + esc(pill) + '</span></span></span></button>';
+    }).join('') : '<p class="menu-empty">Nothing is listed yet. Snap a menu or send a report, and the items stay on this phone.</p>';
+    views.placemenu.innerHTML = '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-act="place" data-place="' + esc(p.id) + '">Back to the place</button></p>' +
+      '<h2 id="placeMenuTitle">' + esc(p.name) + '</h2><p class="help">Menu and products. A dish name is not graded until ingredients are known.</p>' +
+      (choice.orderUrl ? '<div class="link-row"><a class="btn btn-outline" href="' + esc(choice.orderUrl) + '" target="_blank" rel="noopener">Order on their website</a></div><p class="order-note">That link is a page on their own site. This app does not check out.</p>' : '') +
+      '</div><div class="catalog-list">' + list + '</div>' +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="menu" data-place="' + esc(p.id) + '">Snap a menu</button>' +
+      '<button type="button" class="btn btn-outline" data-act="report" data-place="' + esc(p.id) + '">Submit a report</button></div>';
+  }
+  function showPlaceItem(placeId, itemId, replace) {
+    if (scanning) stopScan();
+    activePlaceId = placeId;
+    var p = findPlace(placeId);
+    showView('placeitem');
+    currentTab = 'map';
+    setTabCurrent('placeitem');
+    writeUrl(baseDir() + '?tab=map&form=place-item&place=' + encodeURIComponent(placeId) + '&item=' + encodeURIComponent(itemId), replace !== false);
+    if (!p || !views.placeitem) return;
+    var item = Places.mergeMenu(p, loadMenuItems()).filter(function (it) { return it.id === itemId; })[0];
+    if (!item) {
+      views.placeitem.innerHTML = '<div class="card"><h2 id="placeItemTitle">That item isn’t on this menu</h2><p><button type="button" class="btn btn-outline" data-act="place-menu" data-place="' + esc(placeId) + '">Back to the menu</button></p></div>';
+      return;
+    }
+    var grade = Places.gradeMenuLine(item);
+    var gradeHtml = grade.status === 'graded'
+      ? '<p class="place-num">' + grade.score + '<span class="of"> / 100</span></p><p class="pills"><span class="pill ' + esc(grade.band && grade.band.id) + '">' + esc(grade.band ? grade.band.label : '') + '</span><span class="pill">' + (grade.pass ? 'Pass' : 'Fail') + '</span></p><p>' + esc(grade.summary) + '</p>'
+      : '<p class="place-unrated-badge">Needs ingredients</p><p>' + esc(grade.summary) + '</p>';
+    var fats = Array.isArray(item.fats) ? item.fats.filter(Boolean).join(', ') : String(item.fats || '');
+    views.placeitem.innerHTML = '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-act="place-menu" data-place="' + esc(p.id) + '">Menu</button></p>' +
+      '<p class="pills"><span class="pill">' + (item.origin === 'phone' ? 'On this phone' : 'Public source') + '</span></p>' +
+      '<h2 id="placeItemTitle">' + esc(item.name) + '</h2>' +
+      (item.note ? '<p>' + esc(item.note) + '</p>' : '<p class="help">No description is on file. A dish name is not a description of the ingredients.</p>') +
+      (item.ingredients ? '<h3 class="small-title">Ingredients</h3><p>' + esc(item.ingredients) + '</p>' : '<p class="help">Ingredients are not on file.</p>') +
+      (fats ? '<p class="help">Fats named with this item: ' + esc(fats) + '</p>' : '') +
+      (item.sourceUrl ? '<p><a href="' + esc(item.sourceUrl) + '" target="_blank" rel="noopener">Source</a></p>' : '') +
+      gradeHtml + orderButtons(p, item.name) + '</div>' +
+      '<div class="card torty-card torty-place">' + tortyImg('Torty, the tortoise') +
+      '<div class="speech"><span class="who">Torty</span><p>' + esc(grade.status === 'graded'
+        ? 'I can grade ' + item.name + ' only from the ingredients on file. The package score is ' + grade.score + ', ' + (grade.band ? grade.band.label : '') + '. That is not a place score, and it is not a Yelp or Seed Oil Scout score.'
+        : 'I can’t grade ' + item.name + ' yet. I have the name, and I don’t have an ingredient list. I won’t guess the cooking fat from the name.') + '</p></div></div>';
+  }
+  function showReport(id, replace) {
+    if (scanning) stopScan();
+    activePlaceId = id;
+    var p = findPlace(id);
+    showView('report');
+    currentTab = 'map';
+    setTabCurrent('report');
+    writeUrl(baseDir() + '?tab=map&form=report&place=' + encodeURIComponent(id), replace !== false);
+    if ($('reportForm')) $('reportForm').dataset.place = id;
+    if ($('reportPlaceName')) $('reportPlaceName').textContent = p ? p.name : 'This place';
+    if ($('reportDate') && !$('reportDate').value) $('reportDate').value = todayISO();
+    if ($('reportPhotoNote')) $('reportPhotoNote').textContent = pendingReportPhoto ? 'Photo ready. It stays on this phone.' : 'Optional. The photo stays on this phone. A picture of food does not show a hidden cooking oil.';
+  }
+  function showMenu(id, replace) {
+    if (scanning) stopScan();
+    activePlaceId = id;
+    var p = findPlace(id);
+    showView('menu');
+    currentTab = 'map';
+    setTabCurrent('menu');
+    writeUrl(baseDir() + '?tab=map&form=menu&place=' + encodeURIComponent(id), replace !== false);
+    if ($('menuPlaceName')) $('menuPlaceName').textContent = p ? p.name : '';
+    if ($('menuForm')) $('menuForm').dataset.place = id;
+  }
+  function showAddPlace(replace) {
+    if (scanning) stopScan();
+    dropMode = false;
+    showView('addplace');
+    currentTab = 'map';
+    setTabCurrent('addplace');
+    writeUrl(baseDir() + '?tab=map&form=add-place', replace !== false);
+  }
+  function renderMapList() {
+    var list = filteredPlaces();
+    if ($('mapMeta')) $('mapMeta').textContent = list.length + ' places';
+    if (!$('mapList')) return;
+    $('mapList').innerHTML = list.map(function (p) {
+      var g = gradedPlace(p);
+      var pill = g.score == null ? 'Unrated' : (g.score + ' · ' + g.label);
+      return '<button type="button" class="cat-card" data-act="place" data-place="' + esc(p.id) + '">' +
+        '<span class="thumb"><span class="dot ' + esc(p.kind || 'shop') + (p.origin === 'phone' ? ' origin-phone' : '') + '"></span></span>' +
+        '<span><span class="name">' + esc(p.name) + '</span><span class="brand">' + esc(p.city || '') + ' · ' + esc(p.kind || '') +
+        (p.origin === 'phone' ? ' · On this phone' : '') + '</span>' +
+        '<span class="pills"><span class="pill ' + esc(g.band ? g.band.id : '') + '">' + esc(pill) + '</span></span></span></button>';
+    }).join('') || '<div class="card"><p>No places match.</p></div>';
+  }
+  function showPeek(id) {
+    var p = findPlace(id);
+    var box = $('mapPeek');
+    if (!p || !box) return;
+    var g = gradedPlace(p);
+    box.hidden = false;
+    box.innerHTML = '<h2 class="small-title">' + esc(p.name) + '</h2><p>' + esc(p.city || '') + ' · ' + esc(p.kind || '') +
+      (p.origin === 'phone' ? ' · On this phone' : '') + '</p><p class="help">' + esc(g.score == null ? g.label : (g.score + ' / 10 · ' + g.label)) + '</p>' +
+      '<button type="button" class="btn btn-secondary" data-act="place" data-place="' + esc(p.id) + '">Open</button>';
+  }
+  function loadMapLibre() {
+    if (window.maplibregl) return Promise.resolve(window.maplibregl);
+    if (!document.getElementById('maplibre-css')) {
+      var link = document.createElement('link');
+      link.id = 'maplibre-css';
+      link.rel = 'stylesheet';
+      link.href = new URL('vendor/maplibre-gl.css', document.baseURI).href;
+      document.head.appendChild(link);
+    }
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = new URL('vendor/maplibre-gl.js', document.baseURI).href;
+      s.onload = function () { resolve(window.maplibregl); };
+      s.onerror = function () { reject(new Error('map')); };
+      document.head.appendChild(s);
+    });
+  }
+  function addPlaceLayers() {
+    if (map.getSource('places')) return;
+    map.addSource('places', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] },
+      cluster: true,
+      clusterRadius: 46,
+      clusterMaxZoom: 13
+    });
+    map.addLayer({
+      id: 'places-cluster',
+      type: 'circle',
+      source: 'places',
+      filter: ['has', 'point_count'],
+      paint: {
+        'circle-color': '#E7EBD4',
+        'circle-stroke-color': '#3B5323',
+        'circle-stroke-width': 2,
+        'circle-radius': ['step', ['get', 'point_count'], 16, 8, 20, 16, 24]
+      }
+    });
+    map.addLayer({
+      id: 'places-count',
+      type: 'symbol',
+      source: 'places',
+      filter: ['has', 'point_count'],
+      layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 13 },
+      paint: { 'text-color': '#243516' }
+    });
+    map.addLayer({
+      id: 'places-point',
+      type: 'circle',
+      source: 'places',
+      filter: ['!', ['has', 'point_count']],
+      paint: {
+        'circle-radius': 8,
+        'circle-color': ['match', ['get', 'kind'], 'restaurant', KIND_COLOR.restaurant, 'cafe', KIND_COLOR.cafe, 'grocer', KIND_COLOR.grocer, 'chocolatier', KIND_COLOR.chocolatier, 'shop', KIND_COLOR.shop, '#3B5323'],
+        'circle-stroke-width': ['case', ['==', ['get', 'origin'], 'phone'], 4, 2],
+        'circle-stroke-color': '#FCF5E3'
+      }
+    });
+    map.addLayer({
+      id: 'places-label',
+      type: 'symbol',
+      source: 'places',
+      minzoom: 12,
+      filter: ['!', ['has', 'point_count']],
+      layout: {
+        'text-field': ['get', 'name'],
+        'text-font': ['Noto Sans Regular'],
+        'text-size': 12,
+        'text-offset': [0, 1.15],
+        'text-anchor': 'top',
+        'text-max-width': 12
+      },
+      paint: { 'text-color': '#243516', 'text-halo-color': '#FCF5E3', 'text-halo-width': 1.4 }
+    });
+    map.on('click', function (e) {
+      if (dropMode) {
+        setDroppedPin(e.lngLat);
+        return;
+      }
+      var cluster = map.queryRenderedFeatures(e.point, { layers: ['places-cluster'] });
+      if (cluster.length) {
+        var cid = cluster[0].properties.cluster_id;
+        map.getSource('places').getClusterExpansionZoom(cid, function (err, zoom) {
+          if (!err) map.easeTo({ center: cluster[0].geometry.coordinates, zoom: zoom });
+        });
+        return;
+      }
+      var hit = map.queryRenderedFeatures(e.point, { layers: ['places-point'] });
+      if (hit.length) showPeek(hit[0].properties.id);
+    });
+    map.on('mouseenter', 'places-point', function () { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', 'places-point', function () { map.getCanvas().style.cursor = ''; });
+  }
+  function fitPlaces(list) {
+    if (!map || !list.length) return;
+    var bounds = new maplibregl.LngLatBounds();
+    list.forEach(function (p) { if (typeof p.lng === 'number') bounds.extend([p.lng, p.lat]); });
+    map.fitBounds(bounds, { padding: 42, maxZoom: 12, duration: 0 });
+  }
+  function syncMap() {
+    renderMapList();
+    if (!map || !map.getSource('places')) return;
+    var list = filteredPlaces();
+    map.getSource('places').setData(placesGeo(list));
+    if (!mapFitted) {
+      mapFitted = true;
+      fitPlaces(list);
+    }
+  }
+  function ensureMap() {
+    var node = $('foodMap');
+    if (!node) return Promise.resolve();
+    return loadMapLibre().then(function (ml) {
+      if (map) return map;
+      map = new ml.Map({
+        container: 'foodMap',
+        style: new URL('data/map-style.json', document.baseURI).href,
+        center: [-115.14, 36.08],
+        zoom: 10.4,
+        attributionControl: false,
+        fadeDuration: 0
+      });
+      map.addControl(new ml.AttributionControl({ compact: false, customAttribution: 'Tortuga catalog' }), 'bottom-left');
+      map.addControl(new ml.NavigationControl({ showCompass: false }), 'top-right');
+      map.addControl(new ml.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: false,
+        showUserLocation: true
+      }), 'top-right');
+      map.on('load', function () {
+        addPlaceLayers();
+        syncMap();
+      });
+      return map;
+    });
+  }
+  function openMap() {
+    showView('map');
+    currentTab = 'map';
+    setTabCurrent('map');
+    renderMapList();
+    refreshExport();
+    ensureMap().then(function () {
+      syncMap();
+      setTimeout(function () { if (map) map.resize(); }, 80);
+    }).catch(function () {
+      if ($('mapStatus')) $('mapStatus').textContent = 'The map couldn’t start in this browser. The list below is the same catalog.';
+    });
+  }
+  function setDroppedPin(lngLat) {
+    if ($('addPlaceLat')) $('addPlaceLat').value = Number(lngLat.lat).toFixed(6);
+    if ($('addPlaceLng')) $('addPlaceLng').value = Number(lngLat.lng).toFixed(6);
+    if (dropMarker) dropMarker.setLngLat(lngLat);
+    else if (window.maplibregl) {
+      dropMarker = new maplibregl.Marker({ color: '#3B5323' }).setLngLat(lngLat).addTo(map);
+    }
+    if ($('mapBanner')) {
+      $('mapBanner').hidden = false;
+      $('mapBanner').textContent = 'Pin set. ';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-secondary';
+      btn.dataset.act = 'use-pin';
+      btn.textContent = 'Use this pin';
+      $('mapBanner').appendChild(btn);
+    }
+  }
+  function finishDropPin() {
+    dropMode = false;
+    if ($('mapBanner')) $('mapBanner').hidden = true;
+    showAddPlace(false);
+    if ($('addPlaceGeoNote')) $('addPlaceGeoNote').textContent = 'Pin saved on the form. It stays on this phone.';
+  }
+  function exportPayload() {
+    return { kind: 'tortuga-places-export', version: 1, exported: new Date().toISOString(), places: loadLocalPlaces(), reports: loadReports(), menuItems: loadMenuItems() };
+  }
+  function refreshExport() {
+    if ($('placeExport')) $('placeExport').value = JSON.stringify(exportPayload(), null, 2);
+  }
+  function exportPlaces() {
+    var text = JSON.stringify(exportPayload(), null, 2);
+    refreshExport();
+    var done = function () { if ($('mapStatus')) $('mapStatus').textContent = 'Copied the places and reports from this phone.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(function () { done(); });
+    else done();
+  }
+  function removeReport(id) {
+    writeReports(loadReports().filter(function (r) { return r.id !== id; }));
+    idbDelete('report:' + id);
+    if (activePlaceId) showPlace(activePlaceId, true);
+    syncMap();
+  }
+  function removeLocalPlace(id) {
+    if (!window.confirm('Remove this place from this phone?')) return;
+    writeLocalPlaces(loadLocalPlaces().filter(function (p) { return p.id !== id; }));
+    writeReports(loadReports().filter(function (r) { return r.placeId !== id; }));
+    writeMenuItems(loadMenuItems().filter(function (it) { return it.placeId !== id; }));
+    idbDelete('place:' + id);
+    openMap();
+    writeUrl(tabPath('map'), false);
+  }
+  function placeIdFromName(name) {
+    var slug = String(name || 'place').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'place';
+    return 'phone-' + slug.slice(0, 36) + '-' + Date.now().toString(36);
+  }
+  function watchBlob(inputId, setter, noteId, readyText) {
+    var input = $(inputId);
+    if (!input) return;
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      fileToPhoto(file).then(function (blob) {
+        setter(blob);
+        if ($(noteId)) $(noteId).textContent = blob ? readyText : 'Optional. The photo stays on this phone.';
+        if (inputId === 'menuCam' || inputId === 'menuFile') {
+          var img = $('menuPreview');
+          if (img && blob) {
+            img.hidden = false;
+            img.src = URL.createObjectURL(blob);
+            img.alt = 'Menu photo on this phone';
+          }
+        }
+      });
     });
   }
 
@@ -1272,13 +1854,243 @@
     } else if (act === 'ingredient') {
       writeUrl(ingredientPath(R.brandSlug(b.dataset.name)), false);
       showIngredient(b.dataset.name, b.dataset.kind || 'food');
-    } else if (act === 'book-list') {
+    }     else if (act === 'book-list') {
       writeUrl(tabPath('book'), false);
       $('bookList').hidden = false;
       $('bookDetail').hidden = true;
       renderBook();
-    }
+    } else if (act === 'place') showPlace(b.dataset.place, false);
+    else if (act === 'add-place') showAddPlace(false);
+    else if (act === 'report') showReport(b.dataset.place, false);
+    else if (act === 'menu') showMenu(b.dataset.place, false);
+    else if (act === 'place-menu') showPlaceMenu(b.dataset.place || activePlaceId, false);
+    else if (act === 'place-item') showPlaceItem(b.dataset.place || activePlaceId, b.dataset.item, false);
+    else if (act === 'back-place') { if (activePlaceId) showPlace(activePlaceId, false); else openMap(); }
+    else if (act === 'export-places') exportPlaces();
+    else if (act === 'remove-report') removeReport(b.dataset.id);
+    else if (act === 'remove-place') removeLocalPlace(b.dataset.id);
+    else if (act === 'use-pin') finishDropPin();
   });
+
+  if ($('mapQ')) $('mapQ').addEventListener('input', function () { mapFilter.q = $('mapQ').value; syncMap(); });
+  if ($('mapForm')) $('mapForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  document.querySelectorAll('#mapForm [data-map-kind]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      mapFilter.kind = chip.dataset.mapKind;
+      document.querySelectorAll('#mapForm [data-map-kind]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      syncMap();
+    });
+  });
+  document.querySelectorAll('#mapForm [data-map-city]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      mapFilter.city = chip.dataset.mapCity;
+      document.querySelectorAll('#mapForm [data-map-city]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      syncMap();
+    });
+  });
+  document.querySelectorAll('#mapForm [data-map-score]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      mapFilter.score = chip.dataset.mapScore;
+      document.querySelectorAll('#mapForm [data-map-score]').forEach(function (c) { c.classList.toggle('on', c === chip); });
+      syncMap();
+    });
+  });
+  if ($('reportForm')) $('reportForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var id = $('reportForm').dataset.place;
+    var ordered = $('reportOrdered').value.trim();
+    var rating = Number($('reportRating').value);
+    if (!id || !ordered || rating !== rating || rating < 0 || rating > 10) return;
+    var report = {
+      id: 'phone-report-' + Date.now().toString(36),
+      placeId: id,
+      date: $('reportDate').value || todayISO(),
+      ordered: ordered,
+      fats: $('reportFats').value.trim(),
+      ingredients: $('reportIngredients').value.trim(),
+      rating: Math.round(rating * 10) / 10,
+      notes: $('reportNotes').value.trim(),
+      source: 'this-phone'
+    };
+    var list = loadReports();
+    list.push(report);
+    writeReports(list);
+    if ($('reportAddMenu') && $('reportAddMenu').checked) {
+      savePhoneMenuItem(id, { name: ordered, ingredients: report.ingredients, fats: report.fats, note: 'Added from a report on this phone.' });
+    }
+    var photo = pendingReportPhoto;
+    pendingReportPhoto = null;
+    var done = photo ? idbPut('report:' + report.id, photo) : Promise.resolve();
+    done.then(function () { showPlace(id, false); syncMap(); });
+  });
+  watchBlob('reportCam', function (blob) { pendingReportPhoto = blob; }, 'reportPhotoNote', 'Photo ready. It stays on this phone.');
+  watchBlob('reportFile', function (blob) { pendingReportPhoto = blob; }, 'reportPhotoNote', 'Photo ready. It stays on this phone.');
+  if ($('useMyLocation')) $('useMyLocation').addEventListener('click', function () {
+    var note = $('addPlaceGeoNote');
+    if (!navigator.geolocation) { if (note) note.textContent = 'This browser has no location. Drop a pin instead.'; return; }
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      $('addPlaceLat').value = pos.coords.latitude.toFixed(6);
+      $('addPlaceLng').value = pos.coords.longitude.toFixed(6);
+      if (note) note.textContent = 'Using where you are. You can still drop a different pin.';
+    }, function () {
+      if (note) note.textContent = 'Location stayed off. Drop a pin on the map or type coordinates.';
+    }, { enableHighAccuracy: true, timeout: 8000 });
+  });
+  if ($('dropPin')) $('dropPin').addEventListener('click', function () {
+    dropMode = true;
+    openMap();
+    writeUrl(baseDir() + '?tab=map&form=add-place', false);
+    if ($('mapBanner')) {
+      $('mapBanner').hidden = false;
+      $('mapBanner').textContent = 'Tap the map to drop a pin.';
+    }
+    if (map) setTimeout(function () { map.resize(); }, 80);
+  });
+  if ($('addPlaceForm')) $('addPlaceForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = $('addPlaceName').value.trim();
+    var address = $('addPlaceAddress').value.trim();
+    var lat = parseFloat($('addPlaceLat').value);
+    var lng = parseFloat($('addPlaceLng').value);
+    var note = $('addPlaceGeoNote');
+    if (!name || !address) return;
+    if (lat !== lat || lng !== lng) {
+      if (note) note.textContent = 'Add a latitude and longitude, use where you are, or drop a pin.';
+      return;
+    }
+    var website = $('addPlaceWeb').value.trim();
+    if (website && !/^https:\/\//i.test(website)) {
+      if (note) note.textContent = 'The website needs to start with https://, or leave it blank.';
+      return;
+    }
+    var place = {
+      id: placeIdFromName(name),
+      name: name,
+      kind: $('addPlaceKind').value,
+      city: $('addPlaceCity').value,
+      address: address,
+      lat: Math.round(lat * 1e6) / 1e6,
+      lng: Math.round(lng * 1e6) / 1e6,
+      website: website,
+      summary: $('addPlaceNotes').value.trim() || 'Added on this phone. Not in the shared catalog.',
+      notes: $('addPlaceNotes').value.trim(),
+      offerings: [],
+      sourcedNotes: [],
+      sources: [{ title: 'Added on this phone', url: 'https://www.openstreetmap.org/copyright', note: 'Coordinates came from the pin or the location you entered.', accessed: todayISO() }],
+      origin: 'phone'
+    };
+    var list = loadLocalPlaces().filter(function (p) { return p.id !== place.id; });
+    list.push(place);
+    writeLocalPlaces(list);
+    var photo = pendingPlacePhoto;
+    pendingPlacePhoto = null;
+    var done = photo ? idbPut('place:' + place.id, photo) : Promise.resolve();
+    done.then(function () { showPlace(place.id, false); });
+  });
+  watchBlob('addPlaceCam', function (blob) { pendingPlacePhoto = blob; }, 'addPlacePhotoNote', 'Photo ready. It stays on this phone.');
+  watchBlob('addPlaceFile', function (blob) { pendingPlacePhoto = blob; }, 'addPlacePhotoNote', 'Photo ready. It stays on this phone.');
+  function loadTesseract() {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+      s.onload = function () { resolve(window.Tesseract); };
+      s.onerror = function () { reject(new Error('ocr')); };
+      document.head.appendChild(s);
+    });
+  }
+  if ($('readMenu')) $('readMenu').addEventListener('click', function () {
+    var status = $('menuOcr');
+    if (!pendingMenuPhoto) { if (status) status.textContent = 'Choose a photo first, or type the lines.'; return; }
+    if (status) status.textContent = 'Loading the reader…';
+    loadTesseract().then(function (T) {
+      return T.recognize(pendingMenuPhoto, 'eng', {
+        logger: function (m) {
+          if (!status || !m) return;
+          var pct = m.progress ? ' ' + Math.round(m.progress * 100) + '%' : '';
+          status.textContent = (m.status || 'Reading') + pct;
+        }
+      });
+    }).then(function (res) {
+      var text = (res && res.data && res.data.text || '').trim();
+      if ($('menuLines')) $('menuLines').value = text;
+      if (status) status.textContent = text ? 'Check the lines and fix anything wrong, then grade.' : 'No words came back. Type the lines.';
+    }).catch(function () {
+      if (status) status.textContent = 'The reader didn’t load. Type the lines instead.';
+    });
+  });
+  watchBlob('menuCam', function (blob) { pendingMenuPhoto = blob; }, 'menuOcr', 'Photo ready. Read it, or type the lines.');
+  watchBlob('menuFile', function (blob) { pendingMenuPhoto = blob; }, 'menuOcr', 'Photo ready. Read it, or type the lines.');
+  function renderMenuDraft(lines) {
+    $('menuItems').innerHTML = lines.map(function (line, i) {
+      return '<article class="card menu-line"><h3>' + esc(line) + '</h3>' +
+        '<label class="label" for="ing-' + i + '">Ingredients you know</label>' +
+        '<textarea id="ing-' + i + '" class="menu-ing" data-name="' + esc(line) + '" rows="2" placeholder="Leave this blank if you only have the dish name."></textarea>' +
+        '<p class="menu-result help" id="ing-result-' + i + '">Not graded yet.</p></article>';
+    }).join('') + '<div class="link-row"><button type="button" class="btn btn-secondary" id="gradeMenuIngredients">Grade with these ingredients</button>' +
+      '<button type="button" class="btn btn-outline" id="menuToReport">Put this in a report</button>' +
+      '<button type="button" class="btn btn-outline" id="menuSaveItems">Save on this phone’s menu</button></div>';
+    $('gradeMenuIngredients').addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.menu-ing'), function (box, i) {
+        var result = Places.gradeMenuLine({ name: box.getAttribute('data-name'), ingredients: box.value });
+        var el = $('ing-result-' + i);
+        if (!el) return;
+        if (result.status !== 'graded') el.textContent = result.summary;
+        else el.textContent = result.summary + ' Score ' + result.score + ' · ' + (result.band ? result.band.label : '') + (result.pass ? ' · Pass.' : ' · Fail.');
+      });
+    });
+    $('menuToReport').addEventListener('click', function () {
+      var bits = [];
+      Array.prototype.forEach.call(document.querySelectorAll('.menu-ing'), function (box) {
+        var result = Places.gradeMenuLine({ name: box.getAttribute('data-name'), ingredients: box.value });
+        bits.push(result.name + (result.status === 'graded' ? ' — package score ' + result.score : ' — needs ingredients'));
+      });
+      pendingReportPhoto = pendingMenuPhoto;
+      showReport(activePlaceId, false);
+      if ($('reportNotes')) $('reportNotes').value = bits.join('\n');
+      if ($('reportOrdered') && bits[0]) $('reportOrdered').value = (document.querySelector('.menu-ing').getAttribute('data-name') || '').slice(0, 80);
+    });
+    $('menuSaveItems').addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.menu-ing'), function (box) {
+        savePhoneMenuItem(activePlaceId, {
+          name: box.getAttribute('data-name'),
+          ingredients: box.value.trim(),
+          note: 'Added from a menu photo on this phone.'
+        });
+      });
+      if ($('menuOcr')) $('menuOcr').textContent = 'Saved on this phone’s menu for this place. Nothing was uploaded.';
+      showPlaceMenu(activePlaceId, false);
+    });
+  }
+  if ($('menuForm')) $('menuForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var lines = $('menuLines').value.split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!lines.length) { $('menuLines').focus(); return; }
+    renderMenuDraft(lines);
+  });
+  if ($('placeImportForm')) $('placeImportForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var note = $('placeImportNote');
+    var data;
+    try { data = JSON.parse($('placeImportText').value); } catch (err) { if (note) note.textContent = 'That was not JSON.'; return; }
+    var placesIn = data.places || [];
+    var reportsIn = data.reports || [];
+    var menuIn = data.menuItems || [];
+    if (!Array.isArray(placesIn) || !Array.isArray(reportsIn) || !Array.isArray(menuIn)) { if (note) note.textContent = 'Need places and reports arrays.'; return; }
+    function merge(current, incoming) {
+      var byId = {};
+      current.forEach(function (x) { if (x && x.id) byId[x.id] = x; });
+      incoming.forEach(function (x) { if (x && x.id) byId[x.id] = x; });
+      return Object.keys(byId).map(function (k) { return byId[k]; });
+    }
+    writeLocalPlaces(merge(loadLocalPlaces(), placesIn));
+    writeReports(merge(loadReports(), reportsIn));
+    writeMenuItems(merge(loadMenuItems(), menuIn));
+    if (note) note.textContent = 'Saved on this phone. Nothing was uploaded.';
+    refreshExport();
+    syncMap();
+  });
+  refreshExport();
 
   $('catalogQ').addEventListener('input', function () { catalogFilter.q = $('catalogQ').value; renderCatalog(); });
   $('catalogForm').addEventListener('submit', function (e) { e.preventDefault(); });
@@ -1336,13 +2148,15 @@
     loadJson('data/lab-tests.json').catch(function () { return { tests: [] }; }),
     loadJson('data/news.json').catch(function () { return { reports: [] }; }),
     loadJson('data/household.json').catch(function () { return { products: [] }; }),
-    loadJson('data/websites.json').catch(function () { return { sites: {} }; })
+    loadJson('data/websites.json').catch(function () { return { sites: {} }; }),
+    loadJson('data/places.json').catch(function () { return { places: [], reports: [] }; })
   ]).then(function (all) {
     indexCatalog((all[0] && all[0].products) || []);
     labTests = (all[1] && all[1].tests) || [];
     newsReports = (all[2] && all[2].reports) || [];
     websites = (all[4] && all[4].sites) || {};
     indexHousehold((all[3] && all[3].products) || []);
+    indexPlaces(all[5] || {});
   });
   window.__tortugaData.then(function () { applyLocation(true); });
 

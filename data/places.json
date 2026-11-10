@@ -1,0 +1,1132 @@
+{
+  "version": 1,
+  "updated": "2026-11-10",
+  "area": {
+    "name": "Las Vegas and Henderson, Nevada",
+    "center": [-115.14, 36.08],
+    "zoom": 10.4
+  },
+  "reports": [],
+  "about": "Starter places for Las Vegas and Henderson. Coordinates are from OpenStreetMap. Nothing here is a Yelp, Google, Olive, or Seed Oil Scout score. Community reports are not invented; the reports array is empty until someone pastes real ones. Hours change.",
+  "places": [
+    {
+      "id": "ethel-m-henderson-flagship",
+      "name": "Ethel M Chocolates Factory, Flagship Store, and Cactus Garden",
+      "kind": "chocolatier",
+      "city": "Henderson",
+      "address": "2 Cactus Garden Drive, Henderson, NV 89014",
+      "lat": 36.073934,
+      "lng": -115.072082,
+      "phone": "702-435-2608",
+      "website": "https://www.ethelm.com/en-us/locations/henderson-flagship",
+      "orderUrl": "https://www.ethelm.com/en-us/shop/shop-c.html",
+      "hoursNote": "Copied from the official flagship page on November 10, 2026: open daily 9am–7pm. The page also says factory production viewing is generally Monday–Friday 10am–3:30pm, while the viewing aisle is accessible when the store is open. Hours change.",
+      "summary": "Ethel M’s Henderson factory, flagship shop, and cactus garden, at the address on the company’s location page. The page says chocolates are made in small batches with no artificial flavors or colors, and colors from natural sources. It does not print ingredient lists or a cooking fat for the cafe, so Tortuga does not turn that into a chocolate score.",
+      "offerings": [
+        {
+          "name": "Chocolate dipped strawberry",
+          "basis": "official-menu",
+          "note": "Listed on the flagship cafe menu as a strawberry dipped in milk or dark chocolate. Ingredients are not printed there.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Caramel and chocolate dipped apple",
+          "basis": "official-menu",
+          "note": "Listed as a hand-made caramel and chocolate dipped apple drizzled with white chocolate. Ingredients are not printed there.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Milkshake",
+          "basis": "official-menu",
+          "note": "The cafe menu lists milkshakes. It does not list the ingredients.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Chocolate madeleines",
+          "basis": "official-menu",
+          "note": "The flagship cafe menu lists chocolate madeleines dipped in milk or dark chocolate. Ingredients are not printed there.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Chocolate pretzels",
+          "basis": "official-menu",
+          "note": "The flagship cafe menu lists chocolate pretzels in milk or dark chocolate. Ingredients are not printed there.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Peanut brittle milk chocolate bar",
+          "basis": "official-shop",
+          "note": "Named on Ethel M’s online shop. The shop page does not print an ingredient list.",
+          "sourceUrl": "https://www.ethelm.com/en-us/shop/shop-c.html"
+        },
+        {
+          "name": "Peppermint bark ganache dark chocolate bar",
+          "basis": "official-shop",
+          "note": "Named on Ethel M’s online shop. The shop page does not print an ingredient list.",
+          "sourceUrl": "https://www.ethelm.com/en-us/shop/shop-c.html"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "ethel-m-no-artificial",
+          "kind": "quality",
+          "text": "The flagship page says the chocolates are made in small batches with no artificial flavors or colors, and colors derived from natural sources.",
+          "fats": [],
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Ethel M Henderson flagship",
+          "url": "https://www.ethelm.com/en-us/locations/henderson-flagship",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Ethel M cactus garden",
+          "url": "https://www.ethelm.com/en-us/locations/henderson-flagship/cactus-garden",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap, Ethel M Chocolate Factory",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Coordinates from the OSM feature named Ethel M. Chocolate Factory at 2 Cactus Garden Drive, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "ethel-m-california-hotel",
+      "name": "Ethel M Chocolates Gift Shop at California Hotel & Casino",
+      "kind": "chocolatier",
+      "city": "Las Vegas",
+      "address": "12 E Ogden Avenue, Las Vegas, NV 89101",
+      "lat": 36.173161,
+      "lng": -115.144881,
+      "phone": "702-383-3340",
+      "website": "https://www.ethelm.com/en-us/locations/california-hotel",
+      "orderUrl": "https://www.ethelm.com/en-us/shop/shop-c.html",
+      "hoursNote": "Copied from the official California Hotel shop page on November 10, 2026: Monday–Thursday 9am–8pm, Friday–Sunday 9am–10pm. Hours change.",
+      "coordinateNote": "The pin is the California Hotel building at the address Ethel M publishes. The company says the shop is on the second floor near the top of the escalator. OpenStreetMap does not have a separate suite node.",
+      "summary": "Ethel M’s gift shop inside the California Hotel, at the address on the company’s location page. No ingredient list is published there, so this shop stays unrated until someone reports what they bought.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Ethel M at the California Hotel",
+          "url": "https://www.ethelm.com/en-us/locations/california-hotel",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap, California Hotel and Casino",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Coordinates for 12 East Ogden Avenue, the hotel address Ethel M prints for this shop.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "whole-foods-henderson",
+      "name": "Whole Foods Market Henderson",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "100 S Green Valley Parkway, Henderson, NV 89012",
+      "lat": 36.023366,
+      "lng": -115.082503,
+      "phone": "702-361-8183",
+      "website": "https://www.wholefoodsmarket.com/stores/henderson",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7am–10pm every day. Hours change.",
+      "summary": "A Whole Foods grocery store in Henderson. Tortuga does not give a grocery store a restaurant seed-oil score. Scan packaged items, or report a prepared-food bar if you saw the fat.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Whole Foods Market Henderson",
+          "url": "https://www.wholefoodsmarket.com/stores/henderson",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Whole Foods Market at 100 South Green Valley Parkway, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "whole-foods-summerlin",
+      "name": "Whole Foods Market Summerlin",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "2475 S Town Center Drive, Las Vegas, NV 89135",
+      "lat": 36.145354,
+      "lng": -115.328226,
+      "phone": "702-254-8655",
+      "website": "https://www.wholefoodsmarket.com/stores/summerlin",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7am–10pm every day. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Whole Foods Market beside Town Center Drive. That node does not repeat the house number. The street address is from the company’s store page.",
+      "summary": "Whole Foods at Downtown Summerlin’s Town Center Drive address. The store page lists a coffee and juice bar, pizza, sandwiches, and a hot plate. Those counters are not graded here, because the page does not print their cooking fats.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Whole Foods Market Summerlin",
+          "url": "https://www.wholefoodsmarket.com/stores/summerlin",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Whole Foods Market next to South Town Center Drive in Summerlin.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "whole-foods-tenaya",
+      "name": "Whole Foods Market Tenaya",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "7250 W Lake Mead Boulevard, Las Vegas, NV 89128",
+      "lat": 36.197574,
+      "lng": -115.250208,
+      "phone": "702-942-1500",
+      "website": "https://www.wholefoodsmarket.com/stores/tenaya",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 8am–9pm every day. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap shop node named Whole Foods Market at Tenaya Way and Lake Mead. The company’s page gives 7250 W Lake Mead Boulevard.",
+      "summary": "Whole Foods on Lake Mead Boulevard. A grocery store stays unrated as a place until there are reports or published ingredient lists for something specific. Use Scan for packaged food.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Whole Foods Market Tenaya",
+          "url": "https://www.wholefoodsmarket.com/stores/tenaya",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Whole Foods Market near North Tenaya Way, Las Vegas 89128.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "whole-foods-las-vegas-blvd",
+      "name": "Whole Foods Market Las Vegas Boulevard",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "6689 S Las Vegas Boulevard, Las Vegas, NV 89119",
+      "lat": 36.067617,
+      "lng": -115.174247,
+      "phone": "702-589-7711",
+      "website": "https://www.wholefoodsmarket.com/stores/lvb",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7am–10pm every day. Hours change.",
+      "summary": "Whole Foods on South Las Vegas Boulevard, near Town Square. The store page mentions a hot and salad bar and does not list the fats used there, so those bars are not scored.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Whole Foods Market Las Vegas Boulevard",
+          "url": "https://www.wholefoodsmarket.com/stores/lvb",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Whole Foods Market at 6689 South Las Vegas Boulevard.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "sprouts-henderson-stephanie",
+      "name": "Sprouts Farmers Market, Stephanie Street",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "515 N Stephanie Street, Henderson, NV 89014",
+      "lat": 36.05689,
+      "lng": -115.048336,
+      "phone": "702-777-7095",
+      "website": "https://www.sprouts.com/store/nv/henderson/henderson-stephanie-st/",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7:00am–10:00pm. Hours change.",
+      "summary": "Sprouts on North Stephanie Street in Henderson, close to Green Valley. It is a grocery store, not a scored restaurant. The store page lists a deli and sandwich bar and does not say which fats they use.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Sprouts Henderson Stephanie Street",
+          "url": "https://www.sprouts.com/store/nv/henderson/henderson-stephanie-st/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Sprouts Nevada store list",
+          "url": "https://www.sprouts.com/stores/nv/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Sprouts Farmers Market at 515 North Stephanie Street, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "sprouts-henderson-green-valley",
+      "name": "Sprouts Farmers Market, Green Valley Parkway",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "635 S Green Valley Parkway, Henderson, NV 89052",
+      "lat": 36.004324,
+      "lng": -115.084936,
+      "phone": "702-322-2229",
+      "website": "https://www.sprouts.com/store/nv/henderson/hederson-green-valley/",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7:00am–10:00pm. Hours change.",
+      "coordinateNote": "Sprouts’ own page says 635 S Green Valley Parkway. The OpenStreetMap shop node on that parkway is tagged 515 Green Valley Parkway. The pin is that named Sprouts node, not a guessed door.",
+      "summary": "Sprouts on South Green Valley Parkway in Henderson. Unrated as a place. Scan products in the store, and report the deli only if you saw the ingredients or the fat.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Sprouts Henderson Green Valley",
+          "url": "https://www.sprouts.com/store/nv/henderson/hederson-green-valley/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Sprouts Farmers Market on Green Valley Parkway in Henderson. OSM’s address tag says 515; the company page says 635.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "sprouts-henderson-lake-mead",
+      "name": "Sprouts Farmers Market, Lake Mead Parkway",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "280 W Lake Mead Parkway, Henderson, NV 89015",
+      "lat": 36.039117,
+      "lng": -114.991354,
+      "website": "https://www.sprouts.com/store/nv/henderson/lake-mead-pkwy/",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7:00am–10:00pm. Hours change.",
+      "summary": "Sprouts at Lake Mead Parkway and Water Street in Henderson. A grocery store with no packaged ingredient list attached here, so the place score stays unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Sprouts Henderson Lake Mead Parkway",
+          "url": "https://www.sprouts.com/store/nv/henderson/lake-mead-pkwy/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Sprouts Farmers Market at 280 West Lake Mead Parkway, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "sprouts-las-vegas-tropicana",
+      "name": "Sprouts Farmers Market, Tropicana Avenue",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "3365 E Tropicana Avenue, Las Vegas, NV 89121",
+      "lat": 36.09878,
+      "lng": -115.102107,
+      "phone": "702-777-0650",
+      "website": "https://www.sprouts.com/store/nv/las-vegas/las-vegas-tropicana-ave/",
+      "hoursNote": "Copied from the official store page on November 10, 2026: 7:00am–10:00pm. Hours change.",
+      "summary": "Sprouts on East Tropicana Avenue. Same rule as the other grocers: no invented seed-oil score for the building.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Sprouts Las Vegas Tropicana",
+          "url": "https://www.sprouts.com/store/nv/las-vegas/las-vegas-tropicana-ave/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Sprouts Farmers Market at 3365 East Tropicana Avenue.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "trader-joes-henderson",
+      "name": "Trader Joe’s Henderson",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "2716 N Green Valley Parkway, Henderson, NV 89014",
+      "lat": 36.069615,
+      "lng": -115.081311,
+      "phone": "702-433-6773",
+      "website": "https://locations.traderjoes.com/nv/henderson/97/",
+      "hoursNote": "The official store page listed 8:00am–9:00pm for the week of November 8–14, 2026. Hours change.",
+      "summary": "Trader Joe’s on North Green Valley Parkway, next to Mothership Coffee. Packaged Trader Joe’s products belong in the scanner. This pin is not a score of the store.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Trader Joe’s Henderson store 97",
+          "url": "https://locations.traderjoes.com/nv/henderson/97/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Trader Joe’s at 2716 North Green Valley Parkway, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "trader-joes-anthem",
+      "name": "Trader Joe’s Anthem",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "10345 S Eastern Avenue, Henderson, NV 89052",
+      "lat": 36.000894,
+      "lng": -115.109256,
+      "phone": "702-407-8673",
+      "website": "https://locations.traderjoes.com/nv/henderson/280/",
+      "hoursNote": "The official store page listed 8:00am–9:00pm around November 10, 2026. Hours change.",
+      "summary": "Trader Joe’s on South Eastern Avenue in Henderson. Unrated as a place. Grade individual products from their packages.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Trader Joe’s Anthem store 280",
+          "url": "https://locations.traderjoes.com/nv/henderson/280/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Trader Joe’s at 10345 Eastern Avenue, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "trader-joes-downtown-summerlin",
+      "name": "Trader Joe’s Downtown Summerlin",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "2315 Summa Drive, Suite 100, Las Vegas, NV 89135",
+      "lat": 36.145576,
+      "lng": -115.335281,
+      "phone": "702-242-0597",
+      "website": "https://locations.traderjoes.com/nv/las-vegas/284/",
+      "hoursNote": "The official store page listed 8:00am–9:00pm for the week of November 8–14, 2026. Hours change.",
+      "summary": "Trader Joe’s at Downtown Summerlin on Summa Drive. A grocery pin, not a cooking-fat score.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Trader Joe’s Downtown Summerlin store 284",
+          "url": "https://locations.traderjoes.com/nv/las-vegas/284/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Trader Joe’s at 2315 Summa Drive, Las Vegas.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "trader-joes-summerlin",
+      "name": "Trader Joe’s Summerlin",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "7575 W Washington Avenue, Las Vegas, NV 89128",
+      "lat": 36.180614,
+      "lng": -115.257803,
+      "phone": "702-242-8240",
+      "website": "https://locations.traderjoes.com/nv/las-vegas/86/",
+      "hoursNote": "The official store page listed 8:00am–9:00pm for the week of November 8–14, 2026. Hours change.",
+      "summary": "Trader Joe’s on West Washington Avenue in Summerlin. Unrated until reports or package scans say something specific.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Trader Joe’s Summerlin store 86",
+          "url": "https://locations.traderjoes.com/nv/las-vegas/86/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Trader Joe’s at 7575 West Washington Avenue.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "natural-grocers-henderson",
+      "name": "Natural Grocers Henderson",
+      "kind": "grocer",
+      "city": "Henderson",
+      "address": "1660 W Sunset Road, Henderson, NV 89014",
+      "lat": 36.064285,
+      "lng": -115.057783,
+      "phone": "702-547-1837",
+      "website": "https://www.naturalgrocers.com/store/henderson",
+      "coordinateNote": "Natural Grocers’ page says 1660 W Sunset Road. The OpenStreetMap shop node is tagged 1600 W Sunset Road, a short distance away. The pin is the named Natural Grocers node.",
+      "summary": "Natural Grocers on Sunset Road in Henderson. The company describes the store as a natural grocer with organic produce. That description is not a Tortuga score, and the page does not list cooking fats for prepared food.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Natural Grocers Henderson",
+          "url": "https://www.naturalgrocers.com/store/henderson",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Shop node named Natural Grocers on West Sunset Road in Henderson. OSM’s address tag says 1600; the company page says 1660.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "true-food-forum",
+      "name": "True Food Kitchen, Forum Shops",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3500 S Las Vegas Boulevard, Space R-15A, Las Vegas, NV 89109",
+      "lat": 36.11891,
+      "lng": -115.173237,
+      "phone": "702-340-2600",
+      "website": "https://www.truefoodkitchen.com/locations/las-vegas/",
+      "orderUrl": "https://order.truefoodkitchen.com/locations/nv/las-vegas/3500-s-las-vegas-blvd-south-space-r-15a/",
+      "hoursNote": "Copied from the company’s Las Vegas order page on November 10, 2026: Sunday 9:30am–9pm, Monday–Thursday 11am–9pm, Friday 11am–10pm, Saturday 9:30am–10pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named True Food Kitchen at the Forum Shops. The suite number is from the company’s location page, not from that map node.",
+      "summary": "True Food Kitchen inside the Forum Shops. The company’s own seed-oil page says its restaurants cook with avocado oil and olive oil and that 98% of kitchen ingredients are seed oil-free. A different company page says the chain is 100% seed oil-free and still working through ingredients. Tortuga keeps both sentences and does not treat the kitchen as finished or approved.",
+      "offerings": [],
+      "sourcedNotes": [
+        {
+          "id": "tfk-seed-oil",
+          "kind": "cooking-fat",
+          "text": "True Food Kitchen’s seed-oil page says the company cooks exclusively with avocado and olive oils, and that 98% of the ingredients used in its kitchens are seed oil-free. The company story page says the chain is 100% seed oil-free and that it switched in 2022 to cooking exclusively with avocado and olive oils while still eliminating seed oils from ingredients. Those two pages do not use the same figure.",
+          "fats": ["avocado oil", "olive oil"],
+          "completeness": "partial",
+          "sourceUrl": "https://www.truefoodkitchen.com/whats-new/seed-oil/",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "True Food Kitchen Las Vegas",
+          "url": "https://www.truefoodkitchen.com/locations/las-vegas/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "True Food Kitchen on seed oil",
+          "url": "https://www.truefoodkitchen.com/whats-new/seed-oil/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "True Food Kitchen story",
+          "url": "https://www.truefoodkitchen.com/truestory/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named True Food Kitchen at the Forum Shops.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "true-food-summerlin",
+      "name": "True Food Kitchen Summerlin",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "10970 Rosemary Park Drive, Suite 160, Las Vegas, NV 89135",
+      "lat": 36.151102,
+      "lng": -115.333129,
+      "phone": "702-863-1000",
+      "website": "https://www.truefoodkitchen.com/locations/summerlin/",
+      "orderUrl": "https://order.truefoodkitchen.com/locations/nv/las-vegas/10970-rosemary-park-drive-suite-160/",
+      "hoursNote": "Copied from the Summerlin location page on November 10, 2026: Monday–Friday 11am–9pm, Saturday–Sunday 10am–9pm. Hours change.",
+      "summary": "True Food Kitchen at the Shops at Summerlin. The chain’s seed-oil pages are the same ones cited for the Forum Shops location: avocado oil and olive oil for cooking, with the company’s 98% and 100% wording left side by side. Dish names on the Summerlin page are not graded, because the page does not give their ingredient lists.",
+      "offerings": [],
+      "sourcedNotes": [
+        {
+          "id": "tfk-seed-oil",
+          "kind": "cooking-fat",
+          "text": "True Food Kitchen’s seed-oil page says the company cooks exclusively with avocado and olive oils, and that 98% of the ingredients used in its kitchens are seed oil-free. The company story page says the chain is 100% seed oil-free and that it switched in 2022 to cooking exclusively with avocado and olive oils while still eliminating seed oils from ingredients. Those two pages do not use the same figure.",
+          "fats": ["avocado oil", "olive oil"],
+          "completeness": "partial",
+          "sourceUrl": "https://www.truefoodkitchen.com/whats-new/seed-oil/",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "True Food Kitchen Summerlin",
+          "url": "https://www.truefoodkitchen.com/locations/summerlin/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "True Food Kitchen on seed oil",
+          "url": "https://www.truefoodkitchen.com/whats-new/seed-oil/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "True Food Kitchen story",
+          "url": "https://www.truefoodkitchen.com/truestory/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named True Food Kitchen at 10970 Rosemary Park Drive.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "flower-child-las-vegas",
+      "name": "Flower Child Las Vegas",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "1007 S Rampart Boulevard, Las Vegas, NV 89145",
+      "lat": 36.160507,
+      "lng": -115.292275,
+      "phone": "702-507-2545",
+      "website": "https://www.iamaflowerchild.com/locations/las-vegas-nv/",
+      "hoursNote": "Copied from the official Las Vegas location page on November 10, 2026: daily 11am–9pm. Hours change.",
+      "summary": "Flower Child on South Rampart Boulevard. The company’s published menu names one side as olive-oil roasted vegetables. That is one dish, not a claim that every plate is cooked in olive oil. Other dishes on that menu do not state a cooking fat, so they are not listed as skips or gets.",
+      "offerings": [
+        {
+          "name": "Olive oil roasted vegetables",
+          "basis": "official-menu",
+          "fats": ["olive oil"],
+          "suggest": "get",
+          "note": "The company’s menu names this side as olive oil roasted vegetables: cauliflower, broccoli, heirloom carrot, green bean, lemon, and thyme. It is one side on a chain menu, not a survey of the fryer.",
+          "sourceUrl": "https://www.iamaflowerchild.com/wp-content/uploads/2026/01/FC-T1_AFrame_10.26_MP_v3_WEB.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "fc-olive-veg",
+          "kind": "menu-item",
+          "text": "Flower Child’s published menu lists olive oil roasted vegetables. The same menu does not state a cooking fat for every dish.",
+          "fats": [],
+          "sourceUrl": "https://www.iamaflowerchild.com/wp-content/uploads/2026/10/FC_Nutritional-Sheet_10.22.26_MP_v4.pdf",
+          "accessed": "2026-11-10"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Flower Child Las Vegas",
+          "url": "https://www.iamaflowerchild.com/locations/las-vegas-nv/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Flower Child menu",
+          "url": "https://www.iamaflowerchild.com/wp-content/uploads/2026/01/FC-T1_AFrame_10.26_MP_v3_WEB.pdf",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Flower Child at 1007 South Rampart Boulevard.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "esthers-kitchen",
+      "name": "Esther’s Kitchen",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "1131 S Main Street, Las Vegas, NV 89104",
+      "lat": 36.157729,
+      "lng": -115.153421,
+      "phone": "702-570-7864",
+      "website": "https://www.estherslv.com/",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 1131 South Main Street in the Arts District. OSM does not give that building the restaurant’s name.",
+      "summary": "Seasonal Italian restaurant in the Arts District. The website describes the cooking as seasonal and Italian. It does not say which fats are used, so Tortuga has no place score yet.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Esther’s Kitchen",
+          "url": "https://www.estherslv.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Esther’s Kitchen contact",
+          "url": "https://www.estherslv.com/contact/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 1131 South Main Street, Las Vegas 89104.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "honey-salt",
+      "name": "Honey Salt",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "1031 S Rampart Boulevard, Las Vegas, NV 89145",
+      "lat": 36.160469,
+      "lng": -115.293062,
+      "phone": "702-445-6100",
+      "website": "https://honeysalt.com/contact-us/",
+      "summary": "Honey Salt at Rampart Commons. The contact page gives the address and says the dining room is open for onsite meals, pickup, and delivery. It does not publish cooking fats, so the place is unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Honey Salt contact",
+          "url": "https://honeysalt.com/contact-us/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Honey Salt at 1031 South Rampart Boulevard.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "echo-rig-tivoli",
+      "name": "Echo & Rig at Tivoli Village",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "440 S Rampart Boulevard, Las Vegas, NV 89145",
+      "lat": 36.167463,
+      "lng": -115.287327,
+      "phone": "702-489-3525",
+      "website": "https://www.echoandrig.com/contact",
+      "hoursNote": "Copied from the contact page on November 10, 2026: dinner Monday–Thursday and Sunday 4pm–10pm, Friday and Saturday 4pm–11pm. The same page also has older event lines. Hours change.",
+      "coordinateNote": "The contact page prints “440. Rampart Blvd, Las Vegas, NV 89145.” The pin is the OpenStreetMap address point for 440 South Rampart Boulevard, 89145.",
+      "summary": "Echo & Rig’s butcher-steakhouse at Tivoli Village. The contact page has the address and dinner hours. It does not say which fats the kitchen uses, so there is no place score.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Echo & Rig contact",
+          "url": "https://www.echoandrig.com/contact",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 440 South Rampart Boulevard, Las Vegas 89145.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "echo-rig-henderson",
+      "name": "Echo & Rig at The District",
+      "kind": "restaurant",
+      "city": "Henderson",
+      "address": "2270 Village Walk Drive, Henderson, NV 89052",
+      "lat": 36.021296,
+      "lng": -115.088213,
+      "phone": "725-258-3246",
+      "website": "https://www.echoandrig.com/contact",
+      "hoursNote": "Copied from the contact page on November 10, 2026: lunch Monday–Friday 11am–4pm, dinner Monday–Thursday and Sunday 4pm–10pm, Friday and Saturday 4pm–11pm. Hours change.",
+      "summary": "Echo & Rig at The District at Green Valley Ranch. Address and hours are on the company contact page. Cooking fats are not, so the place is unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Echo & Rig contact",
+          "url": "https://www.echoandrig.com/contact",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Echo & Rig at 2270 Village Walk Drive, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "mothership-green-valley",
+      "name": "Mothership Coffee Roasters, Green Valley",
+      "kind": "cafe",
+      "city": "Henderson",
+      "address": "2708 N Green Valley Parkway, Henderson, NV 89014",
+      "lat": 36.069674,
+      "lng": -115.08172,
+      "phone": "702-456-1869",
+      "website": "https://mothershipcoffee.com/pages/locations",
+      "hoursNote": "Copied from the company’s locations page on November 10, 2026: daily 7am–6pm. Hours change.",
+      "summary": "Mothership’s original Green Valley cafe, next to Trader Joe’s on the company’s locations page. The page describes coffee and the room. It does not list pastry ingredients or cooking fats, so the cafe is unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Mothership Coffee locations",
+          "url": "https://mothershipcoffee.com/pages/locations",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Mothership Coffee Roasters at 2708 North Green Valley Parkway.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "mothership-st-rose",
+      "name": "Mothership Coffee Roasters, St. Rose",
+      "kind": "cafe",
+      "city": "Henderson",
+      "address": "2625 St. Rose Parkway, Henderson, NV 89052",
+      "lat": 36.014663,
+      "lng": -115.102545,
+      "phone": "725-204-5209",
+      "website": "https://mothershipcoffee.com/pages/locations",
+      "hoursNote": "Copied from the company’s locations page on November 10, 2026: daily 6am–6pm. Hours change.",
+      "summary": "Mothership cafe on St. Rose Parkway in Henderson, with a drive-thru noted on the company page. No food score without ingredients or reports.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Mothership Coffee locations",
+          "url": "https://mothershipcoffee.com/pages/locations",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Mothership Coffee Roasters at 2625 Saint Rose Parkway, Henderson.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "mothership-summerlin",
+      "name": "Mothership Coffee Roasters, Downtown Summerlin",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "1980 Festival Plaza Drive, Las Vegas, NV 89135",
+      "lat": 36.150009,
+      "lng": -115.333172,
+      "phone": "702-268-7027",
+      "website": "https://mothershipcoffee.com/pages/locations",
+      "hoursNote": "Copied from the company’s locations page on November 10, 2026: daily 7am–8pm. Hours change.",
+      "coordinateNote": "OpenStreetMap has more than one feature at 1980 Festival Plaza Drive, including a shop and an office address point. The pin is that street-address point. It is not a separate node named Mothership.",
+      "summary": "Mothership’s Downtown Summerlin cafe, at the Festival Plaza address on the company locations page. Unrated until someone reports a food item and its ingredients.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Mothership Coffee locations",
+          "url": "https://mothershipcoffee.com/pages/locations",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 1980 Festival Plaza Drive, Las Vegas 89135.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "mothership-fergusons",
+      "name": "Mothership Coffee Roasters, Fergusons Downtown",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "1028 E Fremont Street, Suite B122, Las Vegas, NV 89101",
+      "lat": 36.167026,
+      "lng": -115.133851,
+      "phone": "725-735-4539",
+      "website": "https://mothershipcoffee.com/pages/mothership-coffee-fergusons-downtown",
+      "hoursNote": "Copied from the company’s locations page on November 10, 2026: Monday–Wednesday 8am–5pm, Thursday–Sunday 8am–6pm. Hours change.",
+      "summary": "Mothership inside Fergusons Downtown on East Fremont Street. The company page describes the cafe and does not list food ingredients, so there is no score.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Mothership at Fergusons",
+          "url": "https://mothershipcoffee.com/pages/mothership-coffee-fergusons-downtown",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Mothership Coffee locations",
+          "url": "https://mothershipcoffee.com/pages/locations",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Mothership Coffee Roasters at 1028 Fremont Street.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "vesta-arts-district",
+      "name": "VESTA Coffee Roasters, Arts District",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "1114 S Casino Center Boulevard, #1, Las Vegas, NV 89104",
+      "lat": 36.158137,
+      "lng": -115.152593,
+      "website": "https://vestacoffee.com/pages/location",
+      "hoursNote": "Copied from the company’s location page on November 10, 2026: seven days, 7am–4pm. Hours change.",
+      "summary": "VESTA’s Arts District cafe and roastery, at the address on the company location page. The page does not list food ingredients. Unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "VESTA Coffee locations",
+          "url": "https://vestacoffee.com/pages/location",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Vesta Coffee Roasters at 1114 South Casino Center Boulevard.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "vesta-sahara",
+      "name": "VESTA Coffee Roasters, Sahara and Fort Apache",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "9031 W Sahara Avenue, Las Vegas, NV 89117",
+      "lat": 36.143832,
+      "lng": -115.294081,
+      "website": "https://vestacoffee.com/pages/location",
+      "hoursNote": "Copied from the company’s location page on November 10, 2026: seven days, 6:30am–4pm. The page says this shop has a bakery and a drive-thru. Hours change.",
+      "summary": "VESTA on West Sahara Avenue. A bakery is mentioned and no ingredient list is printed, so Tortuga does not score the pastries from the shop name.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "VESTA Coffee locations",
+          "url": "https://vestacoffee.com/pages/location",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Vesta Coffee Roasters at 9031 West Sahara Avenue.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "skinnyfats-warm-springs",
+      "name": "SkinnyFATS, Warm Springs",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "8680 W Warm Springs Road, Las Vegas, NV 89148",
+      "lat": 36.056256,
+      "lng": -115.280448,
+      "phone": "702-359-0106",
+      "website": "https://skinnyfats.com/",
+      "orderUrl": "https://skinnyfatswarmsprings.toast.site/order",
+      "summary": "SkinnyFATS on Warm Springs Road. The company homepage lists this Las Vegas address. It does not print cooking fats, so the playful name is not a score. The ordering page names truffle oil on truffle fries; truffle oil is not treated as olive oil or as a seed oil unless a report says what it actually was.",
+      "offerings": [
+        {
+          "name": "Truffle fries",
+          "basis": "official-menu",
+          "note": "The Warm Springs ordering page lists truffle fries as truffle oil, parmesan, and parsley. It does not say which fat the potatoes were fried in.",
+          "sourceUrl": "https://skinnyfatswarmsprings.toast.site/order"
+        }
+      ],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "SkinnyFATS",
+          "url": "https://skinnyfats.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "SkinnyFATS Warm Springs ordering page",
+          "url": "https://skinnyfatswarmsprings.toast.site/order",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named SkinnyFats at 8680 West Warm Springs Road.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "lotus-of-siam-flamingo",
+      "name": "Lotus of Siam, Flamingo",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "620 E Flamingo Road, Las Vegas, NV 89119",
+      "lat": 36.115161,
+      "lng": -115.149705,
+      "phone": "702-735-3033",
+      "website": "https://www.lotusofsiamlv.com/",
+      "hoursNote": "Copied from the official contact page on November 10, 2026: the Flamingo restaurant is open daily 11:30am–10:00pm. The same page says only the Flamingo location is open. Hours change.",
+      "summary": "Lotus of Siam’s Flamingo Road restaurant, the location the company says is open. The contact page gives the address and hours. It does not say which fats the kitchen uses, so the place is unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Lotus of Siam contact",
+          "url": "https://www.lotusofsiamlv.com/contact",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Lotus of Siam at 620 East Flamingo Road.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "carson-kitchen",
+      "name": "Carson Kitchen",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "124 S 6th Street, Suite 100, Las Vegas, NV 89101",
+      "lat": 36.167898,
+      "lng": -115.140607,
+      "phone": "702-473-9523",
+      "website": "https://www.carsonkitchen.com/",
+      "hoursNote": "Copied from the official homepage on November 10, 2026: Monday–Thursday 11:30am–10:00pm, Friday–Saturday 11:30am–11:00pm, Sunday 11:30am–10:00pm. Hours change.",
+      "summary": "Carson Kitchen in the John E. Carson Hotel downtown, at the address on the company site. The site describes creative American food and a rooftop. It does not name cooking fats, so there is no place score.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Carson Kitchen",
+          "url": "https://www.carsonkitchen.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Carson Kitchen at 124 South 6th Street.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "sparrow-and-wolf",
+      "name": "Sparrow + Wolf",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "4480 Spring Mountain Road, Suite 100, Las Vegas, NV 89102",
+      "lat": 36.126386,
+      "lng": -115.201412,
+      "phone": "702-790-2147",
+      "website": "https://sparrowandwolflv.com/",
+      "hoursNote": "Copied from the official homepage on November 10, 2026: open daily 5:00pm–10:00pm. The same page also carries older event notes. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 4480 Spring Mountain Road. OSM does not have a separate node named Sparrow + Wolf. The ZIP is on that address point. The suite is from the restaurant’s site.",
+      "summary": "Sparrow + Wolf on Spring Mountain Road. The company site describes neighborhood cookery and a hearth grill, and it says ingredients are chosen for seasonality. It does not name a cooking fat, so Tortuga does not score the kitchen.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Sparrow + Wolf",
+          "url": "https://sparrowandwolflv.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 4480 Spring Mountain Road, Las Vegas 89102.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "eataly-las-vegas",
+      "name": "Eataly Las Vegas",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "Park MGM, 3770 S Las Vegas Boulevard, Las Vegas, NV 89109",
+      "lat": 36.10431,
+      "lng": -115.173791,
+      "phone": "702-730-7777",
+      "website": "https://www.eataly.com/us_en/stores/las-vegas",
+      "hoursNote": "The official store page listed daily 7am–11pm on November 10, 2026. The contact page listed different hours the same day, so this is not treated as a fixed schedule. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap room named Eataly and tagged as a supermarket inside the building. The street address is from Eataly’s store page. OSM does not repeat the boulevard number on that node.",
+      "summary": "Eataly inside Park MGM, a market with restaurants. The store page gives the address and a phone number. It does not print cooking fats for the counters, so this is not a restaurant seed-oil score. Packaged goods belong in the scanner.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Eataly Las Vegas",
+          "url": "https://www.eataly.com/us_en/stores/las-vegas",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Eataly contact",
+          "url": "https://www.eataly.com/us_en/contact-us",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Indoor shop node named Eataly at Park MGM.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "paymons-fresh-kitchen",
+      "name": "Paymon’s Fresh Kitchen",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "8380 W Sahara Avenue, Las Vegas, NV 89117",
+      "lat": 36.144083,
+      "lng": -115.274445,
+      "phone": "702-804-0293",
+      "website": "https://paymons.com/",
+      "hoursNote": "Copied from the official contact page on November 10, 2026, for the kitchen: Monday–Thursday and Sunday 11am–9pm, Friday–Saturday 11am–11pm. The lounge on the same page lists longer hours. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 8380 West Sahara Avenue. The restaurant’s own page also publishes a nearby coordinate.",
+      "summary": "Paymon’s Mediterranean kitchen on West Sahara Avenue. The site describes Mediterranean dishes and vegetarian options. It does not name cooking fats, so the place stays unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Paymon’s Fresh Kitchen",
+          "url": "https://paymons.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Paymon’s contact",
+          "url": "https://paymons.com/contact-us/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 8380 West Sahara Avenue, Las Vegas 89117.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    }
+  ]
+}

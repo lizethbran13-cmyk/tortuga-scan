@@ -83,7 +83,7 @@ main { max-width: 720px; margin: 0 auto; padding: 10px 16px 0; outline: none; }
 .row input { flex: 1; min-width: 0; }
 .link-row, .photo-actions, .buy-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 
-input[type="text"], input[type="search"], textarea {
+input[type="text"], input[type="search"], input[type="date"], input[type="number"], input[type="url"], textarea {
   width: 100%; font: 18px/1.35 var(--sans); color: var(--ink); background: #fff;
   border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 14px; min-height: 52px;
 }
@@ -331,6 +331,72 @@ select {
 .links { display: flex; flex-wrap: wrap; gap: 8px; }
 .more-jump { display: flex; flex-wrap: wrap; gap: 8px; }
 .more-jump a { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; text-decoration: none; font-weight: 750; min-height: 40px; }
+
+#view-map .intro.slim { padding: 12px 14px 10px; }
+#view-map .intro h2 { font-size: 28px; margin-bottom: 4px; }
+#view-map .filters { padding: 12px 12px 10px; }
+.map-shell {
+  position: relative; height: min(62vh, 560px); min-height: 320px; max-height: 640px;
+  border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #E7EBD4;
+  box-shadow: var(--shadow);
+}
+#foodMap { position: absolute; inset: 0; }
+.maplibregl-ctrl-attrib { font-size: 11px; }
+.map-float-credit {
+  position: absolute; left: 8px; top: 8px; z-index: 2; margin: 0;
+  background: rgba(252, 245, 227, .94); border-radius: 8px; padding: 3px 8px;
+  font-size: 11px; color: var(--ink-2); max-width: calc(100% - 64px);
+}
+.map-banner {
+  position: absolute; left: 10px; right: 10px; top: 10px; z-index: 2; margin: 0;
+  background: rgba(252, 245, 227, .95); border-radius: 14px; padding: 10px 12px;
+  font-weight: 750; color: var(--olive-deep);
+}
+.map-credit { margin: 0; font-size: 13px; color: var(--ink-2); }
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 0; padding: 0; font-weight: 750; font-size: 14px; }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.legend .dot { margin-top: 0; }
+.dot.restaurant { background: #3B5323; }
+.dot.cafe { background: #8A5A32; }
+.dot.grocer { background: #5E7F3A; }
+.dot.chocolatier { background: #6B3E2E; }
+.dot.shop { background: #8A6A3B; }
+.place-meter { display: grid; gap: 8px; justify-items: center; margin-top: 12px; }
+.place-gauge { position: relative; width: min(100%, 300px); height: 18px; }
+.place-track {
+  display: grid; grid-template-columns: 44fr 15fr 41fr; height: 12px; margin-top: 3px;
+  border-radius: 999px; overflow: hidden; border: 1px solid var(--line); background: #E6E0D2;
+}
+.place-track span { display: block; min-width: 0; }
+.place-meter.unrated .place-track span { background: #E4DDD0; }
+.place-meter.scored .place-track .avoid { background: #E7C4B8; }
+.place-meter.scored .place-track .limit { background: #F3E0B0; }
+.place-meter.scored .place-track .eat { background: #D5E4C4; }
+.place-meter.scored.avoid .place-track .avoid,
+.place-meter.scored.limit .place-track .limit,
+.place-meter.scored.eat .place-track .eat { filter: saturate(1.15); }
+.place-marker {
+  position: absolute; top: 0; width: 4px; height: 18px; margin-left: -2px;
+  border-radius: 2px; background: var(--olive-deep);
+}
+.place-scale {
+  display: flex; justify-content: space-between; width: min(100%, 300px); margin: 0;
+  font-size: 11px; font-weight: 750; color: var(--ink-2); letter-spacing: .01em;
+}
+.place-unrated-badge {
+  margin: 0; padding: 6px 14px; border-radius: 999px;
+  background: var(--moss); color: var(--olive-deep); font-weight: 800; letter-spacing: .04em;
+}
+.place-unrated-prompt { margin: 0; text-align: center; color: var(--ink-2); font-size: 15px; }
+.place-num { margin: 0; font: 700 36px/1 var(--serif); color: var(--olive-deep); }
+.place-num .of { font: 700 16px var(--sans); color: var(--ink-2); }
+.menu-empty { margin: 0; }
+.order-note { margin: 8px 0 0; }
+.torty-place { align-items: start; }
+.torty-place img { width: 96px; height: auto; max-height: 120px; object-fit: contain; object-position: center top; }
+.menu-preview { width: 100%; max-height: 240px; object-fit: contain; border-radius: 16px; background: var(--cream); border: 1px solid var(--line); margin-top: 10px; }
+.menu-line h3 { font-size: 20px; }
+.origin-phone { box-shadow: inset 0 0 0 3px var(--cream); }
 
 .foot { max-width: 720px; margin: 22px auto 0; padding: 0 16px 8px; font-size: 14px; color: var(--ink-2); }
 .foot .disclaimer { background: var(--moss); border-radius: 16px; padding: 14px 16px; margin: 0 0 10px; color: var(--ink); }

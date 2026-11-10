@@ -1,8 +1,10 @@
 /* Tortuga Scan service worker: caches the app shell for offline launch. Lookups always need the network. */
-var CACHE = 'tortuga-shell-v7';
-var SHELL = ['./', 'index.html', '404.html', 'styles.css', 'app.js', 'rules.js', 'manifest.webmanifest',
+var CACHE = 'tortuga-shell-v8';
+var SHELL = ['./', 'index.html', '404.html', 'styles.css', 'app.js', 'rules.js', 'places.js', 'manifest.webmanifest',
   'data/catalog.json', 'data/household.json', 'data/lab-tests.json', 'data/news.json', 'data/websites.json',
-  'vendor/html5-qrcode.min.js', 'icons/tortuga-logo.png', 'icons/torty-portrait.png', 'icons/icon-192.png', 'icons/icon-512.png',
+  'data/places.json', 'data/map-style.json',
+  'vendor/html5-qrcode.min.js', 'vendor/maplibre-gl.js', 'vendor/maplibre-gl.css',
+  'icons/tortuga-logo.png', 'icons/torty-portrait.png', 'icons/icon-192.png', 'icons/icon-512.png',
   'icons/apple-touch-icon.png', 'icons/tortoise-mark.svg'];
 
 self.addEventListener('install', function (e) {

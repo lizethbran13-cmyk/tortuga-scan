@@ -945,6 +945,159 @@
           "accessed": "2026-11-10"
         }
       ]
+    },
+    {
+      "id": "lotus-of-siam-flamingo",
+      "name": "Lotus of Siam, Flamingo",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "620 E Flamingo Road, Las Vegas, NV 89119",
+      "lat": 36.115161,
+      "lng": -115.149705,
+      "phone": "702-735-3033",
+      "website": "https://www.lotusofsiamlv.com/",
+      "hoursNote": "Copied from the official contact page on November 10, 2026: the Flamingo restaurant is open daily 11:30am–10:00pm. The same page says only the Flamingo location is open. Hours change.",
+      "summary": "Lotus of Siam’s Flamingo Road restaurant, the location the company says is open. The contact page gives the address and hours. It does not say which fats the kitchen uses, so the place is unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Lotus of Siam contact",
+          "url": "https://www.lotusofsiamlv.com/contact",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Lotus of Siam at 620 East Flamingo Road.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "carson-kitchen",
+      "name": "Carson Kitchen",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "124 S 6th Street, Suite 100, Las Vegas, NV 89101",
+      "lat": 36.167898,
+      "lng": -115.140607,
+      "phone": "702-473-9523",
+      "website": "https://www.carsonkitchen.com/",
+      "hoursNote": "Copied from the official homepage on November 10, 2026: Monday–Thursday 11:30am–10:00pm, Friday–Saturday 11:30am–11:00pm, Sunday 11:30am–10:00pm. Hours change.",
+      "summary": "Carson Kitchen in the John E. Carson Hotel downtown, at the address on the company site. The site describes creative American food and a rooftop. It does not name cooking fats, so there is no place score.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Carson Kitchen",
+          "url": "https://www.carsonkitchen.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Node named Carson Kitchen at 124 South 6th Street.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "sparrow-and-wolf",
+      "name": "Sparrow + Wolf",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "4480 Spring Mountain Road, Suite 100, Las Vegas, NV 89102",
+      "lat": 36.126386,
+      "lng": -115.201412,
+      "phone": "702-790-2147",
+      "website": "https://sparrowandwolflv.com/",
+      "hoursNote": "Copied from the official homepage on November 10, 2026: open daily 5:00pm–10:00pm. The same page also carries older event notes. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 4480 Spring Mountain Road. OSM does not have a separate node named Sparrow + Wolf. The ZIP is on that address point. The suite is from the restaurant’s site.",
+      "summary": "Sparrow + Wolf on Spring Mountain Road. The company site describes neighborhood cookery and a hearth grill, and it says ingredients are chosen for seasonality. It does not name a cooking fat, so Tortuga does not score the kitchen.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Sparrow + Wolf",
+          "url": "https://sparrowandwolflv.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 4480 Spring Mountain Road, Las Vegas 89102.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "eataly-las-vegas",
+      "name": "Eataly Las Vegas",
+      "kind": "grocer",
+      "city": "Las Vegas",
+      "address": "Park MGM, 3770 S Las Vegas Boulevard, Las Vegas, NV 89109",
+      "lat": 36.10431,
+      "lng": -115.173791,
+      "phone": "702-730-7777",
+      "website": "https://www.eataly.com/us_en/stores/las-vegas",
+      "hoursNote": "The official store page listed daily 7am–11pm on November 10, 2026. The contact page listed different hours the same day, so this is not treated as a fixed schedule. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap room named Eataly and tagged as a supermarket inside the building. The street address is from Eataly’s store page. OSM does not repeat the boulevard number on that node.",
+      "summary": "Eataly inside Park MGM, a market with restaurants. The store page gives the address and a phone number. It does not print cooking fats for the counters, so this is not a restaurant seed-oil score. Packaged goods belong in the scanner.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Eataly Las Vegas",
+          "url": "https://www.eataly.com/us_en/stores/las-vegas",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Eataly contact",
+          "url": "https://www.eataly.com/us_en/contact-us",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Indoor shop node named Eataly at Park MGM.",
+          "accessed": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "paymons-fresh-kitchen",
+      "name": "Paymon’s Fresh Kitchen",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "8380 W Sahara Avenue, Las Vegas, NV 89117",
+      "lat": 36.144083,
+      "lng": -115.274445,
+      "phone": "702-804-0293",
+      "website": "https://paymons.com/",
+      "hoursNote": "Copied from the official contact page on November 10, 2026, for the kitchen: Monday–Thursday and Sunday 11am–9pm, Friday–Saturday 11am–11pm. The lounge on the same page lists longer hours. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point for 8380 West Sahara Avenue. The restaurant’s own page also publishes a nearby coordinate.",
+      "summary": "Paymon’s Mediterranean kitchen on West Sahara Avenue. The site describes Mediterranean dishes and vegetarian options. It does not name cooking fats, so the place stays unrated.",
+      "offerings": [],
+      "sourcedNotes": [],
+      "sources": [
+        {
+          "title": "Paymon’s Fresh Kitchen",
+          "url": "https://paymons.com/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "Paymon’s contact",
+          "url": "https://paymons.com/contact-us/",
+          "accessed": "2026-11-10"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "note": "Address point for 8380 West Sahara Avenue, Las Vegas 89117.",
+          "accessed": "2026-11-10"
+        }
+      ]
     }
   ]
 }

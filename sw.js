@@ -1,7 +1,7 @@
 /* Tortuga Scan service worker: caches the app shell for offline launch. Lookups always need the network. */
-var CACHE = 'tortuga-shell-v2';
+var CACHE = 'tortuga-shell-v4';
 var SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'rules.js', 'manifest.webmanifest',
-  'data/catalog.json', 'data/lab-tests.json', 'data/news.json',
+  'data/catalog.json', 'data/household.json', 'data/lab-tests.json', 'data/news.json',
   'vendor/html5-qrcode.min.js', 'icons/tortuga-logo.png', 'icons/icon-192.png', 'icons/icon-512.png',
   'icons/apple-touch-icon.png', 'icons/tortoise-mark.svg'];
 

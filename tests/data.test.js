@@ -47,6 +47,7 @@ test('every product has ingredients, a source URL, and a grade that matches rule
       novaGroup: p.nova,
       sugars100g: p.nutriments && p.nutriments.sugars100g,
       productName: p.name,
+      brand: p.brand,
       labels: p.labels,
       labelsTags: p.labelsTags
     });
@@ -57,6 +58,31 @@ test('every product has ingredients, a source URL, and a grade that matches rule
     const light = R.classifyIngredients(p.ingredients);
     assert.ok(light.items.length > 0, p.barcode + ' colors');
   });
+});
+
+console.log('Household');
+const household = read('household.json');
+test('starter household catalog uses real cited lists and matching grades', () => {
+  assert.ok(household.products.length >= 8, 'count ' + household.products.length);
+  assert.match(household.about, /not an official Bobby Approved/i);
+  assert.match(household.standard, /shopflavcity\.com\/pages\/bobby-approved-app/);
+  const seen = new Set();
+  let fragranceFail = 0, pass = 0;
+  household.products.forEach(p => {
+    assert.ok(p.barcode && p.name && p.brand, p.barcode);
+    assert.ok(p.ingredients && p.ingredients.length >= 40, p.barcode);
+    assert.match(p.sourceUrl, /^https:\/\/world\.openbeautyfacts\.org\/product\//);
+    assert.ok(!seen.has(p.barcode), 'duplicate ' + p.barcode);
+    seen.add(p.barcode);
+    const g = R.gradeHousehold(p.ingredients);
+    assert.equal(p.grade.pass, g.pass, p.barcode + ' pass');
+    assert.equal(p.grade.score, g.score, p.barcode + ' score');
+    assert.equal(p.grade.band, g.band.id, p.barcode);
+    if (!g.pass && g.deductions.some(d => /fragrance/i.test(d.label))) fragranceFail++;
+    if (g.pass) pass++;
+  });
+  assert.ok(fragranceFail >= 3, 'fragrance fails ' + fragranceFail);
+  assert.ok(pass >= 2, 'passes ' + pass);
 });
 
 console.log('Lab tests');

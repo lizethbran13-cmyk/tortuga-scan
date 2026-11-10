@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
   "about": "Tortuga Scan catalog, seeded from Open Food Facts. How to add a product: README.md. Grades come from rules.js in this repo, not from Olive or Seed Oil Scout, and they are not lab results.",
   "source": "Open Food Facts (Open Database License). Ingredient lists copied from each product page on the date in \"added\".",
   "license": "Product data © Open Food Facts contributors, ODbL. https://world.openfoodfacts.org/",
@@ -32,7 +32,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 8,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -92,7 +92,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 46,
+        "score": 3,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -125,7 +125,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 87,
+        "score": 95,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -160,7 +160,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 65,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -200,7 +200,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -236,7 +236,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -273,9 +273,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 31,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -312,7 +312,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -344,9 +344,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 92,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 53,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "12 OZ (340 g)"
     },
@@ -380,7 +380,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 100,
+        "score": 84,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -413,7 +413,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -447,9 +447,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 61,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "2Lb (908g)"
     },
@@ -488,7 +488,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 49,
+        "score": 38,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -556,9 +556,9 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       }
     },
     {
@@ -593,7 +593,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 65,
+        "score": 58,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -625,7 +625,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 47,
+        "score": 5,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -660,7 +660,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 26,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -692,7 +692,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 41,
+        "score": 42,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -733,7 +733,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 18,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -765,7 +765,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 40,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -799,9 +799,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 39,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "18.8 oz (1lb. 2.8 oz) 533 g"
     },
@@ -832,9 +832,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 5,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -854,9 +854,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 94,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 55,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       }
     },
     {
@@ -886,9 +886,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 78,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 39,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -952,9 +952,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 81,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 34,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -985,7 +985,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -1019,7 +1019,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -1055,9 +1055,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 86,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 39,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "18 oz (510 g)"
     },
@@ -1088,7 +1088,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -1120,7 +1120,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -1218,7 +1218,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -1250,7 +1250,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -1287,7 +1287,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 20,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -1319,9 +1319,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -1351,7 +1351,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
+        "score": 96,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -1384,9 +1384,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -1416,7 +1416,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
+        "score": 96,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -1660,7 +1660,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 18,
+        "score": 11,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -1721,9 +1721,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 13,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "16.9 fl oz"
     },
@@ -1752,9 +1752,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 13,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "355g"
     },
@@ -1785,9 +1785,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "330 ml"
     },
@@ -1816,7 +1816,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 61,
+        "score": 50,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -1879,9 +1879,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 20,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "48 oz"
     },
@@ -1914,7 +1914,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 28,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -1950,7 +1950,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 28,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -1981,7 +1981,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 28,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -2014,7 +2014,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 28,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2046,9 +2046,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 0,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -2077,7 +2077,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 19,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2108,7 +2108,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 45,
+        "score": 34,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2140,7 +2140,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 33,
+        "score": 22,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2172,7 +2172,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 49,
+        "score": 38,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2203,7 +2203,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2260,7 +2260,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2292,7 +2292,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -2393,7 +2393,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2425,7 +2425,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 6,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2460,7 +2460,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 41,
+        "score": 30,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2492,9 +2492,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 9,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -2524,9 +2524,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 9,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -2558,7 +2558,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
+        "score": 96,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -2595,7 +2595,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 16,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -2631,7 +2631,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 41,
+        "score": 30,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -2669,7 +2669,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 24,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -2704,9 +2704,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 7,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "1"
     },
@@ -2738,9 +2738,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 50,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 11,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "400.0 g"
     },
@@ -2773,7 +2773,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 30,
+        "score": 23,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2805,7 +2805,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 61,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -2839,7 +2839,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -2876,7 +2876,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 30,
+        "score": 23,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -2908,9 +2908,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 15,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "262.2 g"
     },
@@ -2941,7 +2941,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3008,7 +3008,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 47,
+        "score": 40,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3043,7 +3043,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 24,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3075,7 +3075,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 16,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3098,7 +3098,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 62,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -3162,7 +3162,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -3197,7 +3197,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 24,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3232,7 +3232,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 23,
+        "score": 12,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3265,7 +3265,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 24,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3297,7 +3297,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 23,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3331,7 +3331,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3364,7 +3364,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 36,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3392,7 +3392,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3424,7 +3424,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
+        "score": 91,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -3457,7 +3457,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3560,9 +3560,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 89,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 50,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "15.25 oz"
     },
@@ -3599,9 +3599,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 19,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "13 oz"
     },
@@ -3632,9 +3632,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 13,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -3664,9 +3664,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 52,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 41,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "44 oz"
     },
@@ -3696,7 +3696,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 65,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -3731,7 +3731,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 16,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -3764,7 +3764,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 16,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3801,7 +3801,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 87,
+        "score": 83,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -3863,7 +3863,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 30,
+        "score": 7,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3897,7 +3897,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 40,
+        "score": 36,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -3961,9 +3961,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 13,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "331 g"
     },
@@ -3996,7 +3996,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 47,
+        "score": 1,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -4185,9 +4185,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 82,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 43,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -4217,9 +4217,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 69,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 30,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "296 ml"
     },
@@ -4250,9 +4250,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 77,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 38,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "10 fl oz"
     },
@@ -4280,9 +4280,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 69,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 30,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -4338,7 +4338,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 46,
+        "score": 27,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -4374,7 +4374,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 28,
+        "score": 21,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -4405,7 +4405,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 62,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -4437,7 +4437,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 62,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -4467,7 +4467,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
+        "score": 96,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -4497,7 +4497,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 62,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -4818,7 +4818,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 77,
+        "score": 70,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -4855,7 +4855,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 58,
+        "score": 51,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -4886,9 +4886,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 20,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -4917,7 +4917,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -4943,7 +4943,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 95,
+        "score": 91,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -4966,7 +4966,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
+        "score": 96,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       },
@@ -4997,7 +4997,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -5032,7 +5032,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 28,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5101,9 +5101,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 54,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 15,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "64 oz"
     },
@@ -5309,7 +5309,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 17,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5369,9 +5369,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 52,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 6,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -5441,7 +5441,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 65,
+        "score": 50,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -5476,9 +5476,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 60,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       }
     },
     {
@@ -5508,7 +5508,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -5541,7 +5541,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 47,
+        "score": 1,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -5574,7 +5574,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -5607,7 +5607,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 58,
+        "score": 51,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -5639,7 +5639,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 58,
+        "score": 51,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -5712,7 +5712,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 15,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5751,7 +5751,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 15,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5788,7 +5788,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 3,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5813,9 +5813,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 89,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 50,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "150 calories, 3 grams of sar fat, 130 mg sodium, 0g total sugars"
     },
@@ -5846,7 +5846,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -5878,7 +5878,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -5917,7 +5917,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 65,
+        "score": 58,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -5956,7 +5956,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -5990,7 +5990,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -6123,7 +6123,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -6226,9 +6226,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 81,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 77,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "8oz"
     },
@@ -6261,9 +6261,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 5,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -6288,9 +6288,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 55,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 44,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -6310,9 +6310,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 55,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 9,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -6345,9 +6345,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 0,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "9 ounces"
     },
@@ -6381,7 +6381,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 36,
+        "score": 25,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -6481,7 +6481,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -6543,7 +6543,7 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 63,
+        "score": 52,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -6573,9 +6573,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "7.5 fl oz"
     },
@@ -6606,9 +6606,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "355 ml"
     },
@@ -6638,7 +6638,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 16,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -6669,9 +6669,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 13,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "12 fl oz"
     },
@@ -6704,7 +6704,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 4,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -6801,7 +6801,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -7004,7 +7004,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 65,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7041,7 +7041,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 77,
+        "score": 70,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7146,7 +7146,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7181,7 +7181,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 65,
+        "score": 58,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7317,7 +7317,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 47,
+        "score": 1,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -7350,7 +7350,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -7386,7 +7386,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -7423,9 +7423,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 13,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "19 oz (1 lb 3 oz) 538g"
     },
@@ -7454,7 +7454,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 61,
+        "score": 50,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7482,9 +7482,9 @@
         "sosPass": true,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 94,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 55,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "24 oz"
     },
@@ -7516,7 +7516,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -7647,7 +7647,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7679,7 +7679,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7711,7 +7711,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -7744,7 +7744,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7776,7 +7776,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 8,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -7809,7 +7809,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -7844,7 +7844,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 60,
+        "score": 56,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -7876,7 +7876,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -7908,9 +7908,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "28 g"
     },
@@ -7941,9 +7941,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "16 oz"
     },
@@ -7971,7 +7971,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 43,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -8010,7 +8010,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -8049,7 +8049,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -8088,7 +8088,7 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 87,
+        "score": 95,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -8314,7 +8314,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 65,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -8352,7 +8352,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 26,
+        "score": 3,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8384,7 +8384,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 35,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -8420,7 +8420,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 41,
+        "score": 30,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8495,9 +8495,9 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       },
       "quantity": "9.0 oz"
     },
@@ -8556,9 +8556,9 @@
         "sosPass": true,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       },
       "quantity": "10.4 oz"
     },
@@ -8592,9 +8592,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 75,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 95,
+        "band": "cleaner",
+        "bandLabel": "Cleaner"
       },
       "quantity": "9.0 oz"
     },
@@ -8667,7 +8667,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 12,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -8702,7 +8702,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8734,7 +8734,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 16,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -8757,7 +8757,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8791,7 +8791,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 19,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8825,7 +8825,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 19,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8860,7 +8860,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 19,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -8895,7 +8895,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 19,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -8919,7 +8919,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 39,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9015,7 +9015,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 27,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9047,7 +9047,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 23,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9110,7 +9110,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 65,
+        "score": 58,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -9141,7 +9141,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
+        "score": 91,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -9172,7 +9172,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
+        "score": 91,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -9269,7 +9269,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 95,
+        "score": 91,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -9303,7 +9303,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 65,
+        "score": 58,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -9340,7 +9340,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 65,
+        "score": 58,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -9374,7 +9374,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 62,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -9409,7 +9409,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 65,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -9442,7 +9442,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Organic — not GMO",
-        "score": 73,
+        "score": 62,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -9473,7 +9473,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 36,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9498,9 +9498,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "500 ml"
     },
@@ -9530,9 +9530,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       },
       "quantity": "225 g"
     },
@@ -9565,9 +9565,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       }
     },
     {
@@ -9597,9 +9597,9 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 85,
-        "band": "cleaner",
-        "bandLabel": "Cleaner"
+        "score": 74,
+        "band": "mixed",
+        "bandLabel": "Mixed"
       }
     },
     {
@@ -9628,7 +9628,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 24,
+        "score": 0,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9659,9 +9659,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 20,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -9694,7 +9694,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 30,
+        "score": 7,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -9731,7 +9731,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 38,
+        "score": 15,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -9757,7 +9757,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 30,
+        "score": 7,
         "band": "poor",
         "bandLabel": "Poor"
       },
@@ -9789,9 +9789,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 58,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 47,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -9818,9 +9818,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 48,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -9849,9 +9849,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 42,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "52 oz"
     },
@@ -9872,7 +9872,7 @@
         "sosPass": true,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 100,
+        "score": 96,
         "band": "cleaner",
         "bandLabel": "Cleaner"
       }
@@ -10066,9 +10066,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 51,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 0,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "4 x 5.3 oz (4 x 150 g)"
     },
@@ -10101,9 +10101,9 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 53,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 7,
+        "band": "poor",
+        "bandLabel": "Poor"
       },
       "quantity": "5 oz"
     },
@@ -10136,7 +10136,7 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 40,
+        "score": 29,
         "band": "poor",
         "bandLabel": "Poor"
       }
@@ -10168,7 +10168,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 65,
+        "score": 54,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -10199,9 +10199,9 @@
         "sosPass": false,
         "gmoStatus": "possible",
         "gmoLabel": "Possible GMO — not confirmed",
-        "score": 59,
-        "band": "mixed",
-        "bandLabel": "Mixed"
+        "score": 5,
+        "band": "poor",
+        "bandLabel": "Poor"
       }
     },
     {
@@ -10224,7 +10224,7 @@
         "sosPass": false,
         "gmoStatus": "none",
         "gmoLabel": "No GMO indicators",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       },
@@ -10258,7 +10258,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -10291,7 +10291,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }
@@ -10325,7 +10325,7 @@
         "sosPass": false,
         "gmoStatus": "non-gmo",
         "gmoLabel": "Non-GMO",
-        "score": 73,
+        "score": 66,
         "band": "mixed",
         "bandLabel": "Mixed"
       }

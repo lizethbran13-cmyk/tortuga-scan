@@ -13,10 +13,10 @@
   var $ = function (id) { return document.getElementById(id); };
   var views = {
     home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result'),
-    catalog: $('view-catalog'), labs: $('view-labs'), news: $('view-news')
+    catalog: $('view-catalog'), labs: $('view-labs'), news: $('view-news'), household: $('view-household')
   };
   var scanner = null, scanning = false, lastProduct = null, currentTab = 'scan';
-  var catalog = [], catalogByCode = {}, labTests = [], newsReports = [];
+  var catalog = [], catalogByCode = {}, household = [], householdByCode = {}, labTests = [], newsReports = [];
   var catalogFilter = { q: '', sos: '', gmo: '', brand: '' };
 
   // ------------------------------------------------------------ helpers
@@ -69,6 +69,7 @@
     window.scrollTo(0, 0);
     updateUrl();
     if (name === 'catalog') renderCatalog();
+    if (name === 'household') renderHouseholdList();
     if (name === 'labs') renderLabs();
     if (name === 'news') renderNews();
   }
@@ -189,6 +190,28 @@
     }
     return null;
   }
+  function findHousehold(raw) {
+    var candidates = R.barcodeCandidates(raw);
+    for (var i = 0; i < candidates.length; i++) {
+      if (householdByCode[candidates[i]]) return householdByCode[candidates[i]];
+    }
+    return null;
+  }
+  function fromHousehold(entry) {
+    return {
+      code: entry.barcode,
+      name: entry.name,
+      brand: entry.brand || '',
+      quantity: entry.quantity || '',
+      image: entry.image || '',
+      ingredients: entry.ingredients || '',
+      source: 'household',
+      category: entry.category || '',
+      sourceName: entry.sourceName || 'Open Beauty Facts',
+      sourceUrl: entry.sourceUrl || '',
+      added: entry.added || ''
+    };
+  }
   function fromCatalog(entry) {
     var nuts = entry.nutriments || {};
     return {
@@ -215,6 +238,8 @@
   function lookupNow(raw) {
     var hit = findCatalog(raw);
     if (hit) { renderProduct(fromCatalog(hit)); return; }
+    var homeHit = findHousehold(raw);
+    if (homeHit) { renderProduct(fromHousehold(homeHit)); return; }
     var candidates = R.barcodeCandidates(raw);
     if (!candidates.length) return;
     show('status');
@@ -319,10 +344,13 @@
       : '<div class="thumb empty">No photo</div>';
     var src = '', srcClass = '';
     if (p.source === 'catalog') { src = 'In the Tortuga catalog'; srcClass = ' catalog'; }
+    else if (p.source === 'household') { src = 'In the Tortuga household catalog'; srcClass = ' catalog'; }
     else if (p.source === 'off') { src = 'Not in our catalog · live Open Food Facts'; srcClass = ' live'; }
     else if (p.source === 'pasted') { src = 'Ingredients you pasted'; }
     var note = p.source === 'catalog'
       ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>. Graded with our rules, not a lab test.</p>'
+      : p.source === 'household'
+      ? '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'the source') + '</a>. Tortuga household grade, not an official Bobby Approved score.</p>'
       : '';
     return '<div class="card product">' + img + '<div>' +
       '<h2>' + esc(p.name) + '</h2>' +
@@ -351,9 +379,38 @@
     }).join('') + '</ul>';
   }
 
+  function renderHousehold(p) {
+    var g = R.gradeHousehold(p.ingredients);
+    var light = R.classifyHousehold(p.ingredients);
+    var scoreClass = g.band.id === 'cleaner' ? 'v-pass' : g.band.id === 'mixed' ? 'v-caution' : 'v-fail';
+    var verdict = '<div class="verdict ' + (g.pass ? 'v-pass' : 'v-fail') + '"><p class="kicker">Household check</p>' +
+      '<p class="big">' + (g.pass ? 'PASS' : 'FAIL') + '</p>' +
+      '<p style="margin:0">Tortuga’s own grade, using the published Bobby Approved ingredient standards (no harmful fragrances, and the other label checks below). Not an official Bobby Approved score or badge.</p></div>';
+    var math = '<ul class="math"><li><span>Start</span><span class="pts">100</span></li>' +
+      g.deductions.map(function (d) {
+        return '<li><span>' + esc(d.label) + (d.detail ? '<span class="detail">' + esc(d.detail) + '</span>' : '') + '</span><span class="pts">−' + d.points + '</span></li>';
+      }).join('') +
+      '<li class="total"><span>Tortuga household score</span><span class="pts">' + g.score + '</span></li></ul>';
+    var scoreHtml = '<div class="verdict ' + scoreClass + '"><p class="kicker">Tortuga household score</p>' +
+      '<div class="score-row"><p class="big">' + g.score + '<small> / 100</small></p><span class="band ' + g.band.id + '">' + g.band.label + '</span></div>' +
+      math + '</div>';
+    var ingHtml = '<div class="card ingredients"><h2>Ingredients</h2>' +
+      '<p class="legend"><span class="dot green"></span> OK <span class="dot yellow"></span> Limit <span class="dot red"></span> Avoid</p>' +
+      renderIngList(light.items) +
+      '<p class="ing-text">' + esc(p.ingredients) + '</p>' +
+      '<p class="meta">Copied from ' + esc(p.sourceName || 'the cited source') + '. ' +
+      (p.sourceUrl ? '<a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">Source</a>. ' : '') +
+      'Artificial fragrance (fragrance, parfum, perfume) is a hard avoid. Named essential oils are not that umbrella term.</p></div>';
+    views.result.innerHTML = productHeader(p) + verdict + scoreHtml + ingHtml +
+      '<div class="result-actions"><button type="button" class="btn btn-secondary btn-block" data-act="start-scan">Scan another</button>' +
+      '<button type="button" class="btn btn-outline btn-block" data-tab="household">Back to household</button></div>';
+  }
+
   function renderProduct(p) {
     lastProduct = p;
     show('result');
+    if (p.source === 'household') { renderHousehold(p); return; }
+
     if (!p.ingredients) {
       views.result.innerHTML = productHeader(p) +
         '<div class="notice" role="status"><strong>No ingredient list on Open Food Facts</strong>We found the product but not its ingredients, so we can’t grade it yet. Paste them from the package below.</div>' +
@@ -362,7 +419,8 @@
       return;
     }
 
-    var g = R.grade(p.ingredients, { novaGroup: p.novaGroup, sugars100g: p.sugars100g, productName: p.name, labels: p.labels, labelsTags: p.labelsTags });
+    var gradeOpts = { novaGroup: p.novaGroup, sugars100g: p.sugars100g, productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags };
+    var g = R.grade(p.ingredients, gradeOpts);
     saveRecent(p, g);
 
     var sosCats = g.sos.categories;
@@ -379,6 +437,9 @@
         '<li class="sep">Tortuga Scan check (not on the SOS list)</li>' +
         '<li><span class="mark ' + (g.gmo.status === 'gmo' ? 'bad' : g.gmo.status === 'possible' ? 'warn' : 'ok') + '" aria-hidden="true">' +
           (g.gmo.status === 'gmo' ? '✕' : g.gmo.status === 'possible' ? '!' : '✓') + '</span><span>GMO: ' + esc(g.gmo.label) + '</span></li>' +
+        '<li><span class="mark ' + (g.glyphosate.pass ? 'ok' : g.glyphosate.status === 'limit' ? 'warn' : 'bad') + '" aria-hidden="true">' +
+          (g.glyphosate.pass ? '✓' : g.glyphosate.status === 'limit' ? '!' : '✕') + '</span><span>Glyphosate-prone crops: ' +
+          esc(g.glyphosate.pass ? (g.glyphosate.cleared ? 'Pass — organic' : 'None found') : g.glyphosate.status === 'limit' ? 'Limit — non-GMO, not organic' : 'Fail') + '</span></li>' +
         '</ul>' +
         '<p class="fine">Our implementation of Seed Oil Scout’s published Seed Oil Safe guidelines. Not an official certification or badge. We can’t check manufacturing processes.</p>' +
       '</div>';
@@ -413,6 +474,7 @@
     sosCats.forEach(function (c) { c.hits.forEach(function (h) { flags.push({ cat: 'Seed Oil Safe · ' + c.name, h: h, cls: '' }); }); });
     g.gmo.confirmed.forEach(function (h) { flags.push({ cat: 'GMO · Tortuga Scan check', h: h, cls: '' }); });
     g.gmo.risky.forEach(function (h) { flags.push({ cat: 'Possible GMO · caution', h: h, cls: 'f-warn' }); });
+    (g.glyphosate.hits || []).forEach(function (h) { flags.push({ cat: 'Glyphosate-prone crop · Tortuga Scan check', h: h, cls: '' }); });
     g.additives.forEach(function (h) { flags.push({ cat: 'Other additive · score only', h: h, cls: 'f-warn' }); });
     g.sugars.forEach(function (h) { flags.push({ cat: 'Added sugar · score only', h: h, cls: 'f-warn' }); });
     var flagsHtml = '<div class="card flags"><h2>What we found</h2>' + (flags.length
@@ -428,7 +490,7 @@
 
     var langNote = p.ingredientsLang === 'fr' ? ' Only a French ingredient list was available; our rules are written for English, so results may miss things.'
       : p.ingredientsLang === 'default' ? ' This is the main-language list on Open Food Facts; if it isn’t English, results may miss things.' : '';
-    var light = R.classifyIngredients(p.ingredients);
+    var light = R.classifyIngredients(p.ingredients, gradeOpts);
     var counts = light.counts || { red: 0, yellow: 0, green: 0 };
     var sourceLine = p.source === 'pasted' ? 'From what you pasted.'
       : p.source === 'catalog' ? 'From our catalog (copied from Open Food Facts). It can be out of date — check the package.'
@@ -504,24 +566,34 @@
         '<tr><td>GMO / bioengineered confirmed</td><td>−' + P.gmoConfirmed + '</td></tr>' +
         '<tr><td>Possible GMO caution</td><td>−' + P.gmoPossible + '</td></tr>' +
         '<tr><td>Other additives: BHA, BHT, TBHQ, benzoates, sorbates, nitrites / nitrates, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, artificial flavor, MSG</td><td>−' + P.additiveEach + ' each, max −' + P.additiveCap + '</td></tr>' +
-        '<tr><td>Added sugar in the ingredients (sugar, cane sugar, syrups, HFCS, dextrose, maltodextrin, honey, agave…)</td><td>−' + P.sugarBase + '</td></tr>' +
+        '<tr><td>Added sugar in the ingredients (unnamed sugar, cane sugar, agave, syrups, HFCS, dextrose, maltodextrin). Honey, maple syrup, and coconut sugar are not deducted</td><td>−' + P.sugarBase + '</td></tr>' +
         '<tr><td>…and if sugars are ≥ ' + P.sugarHigh.at + ' g per 100 g (Open Food Facts nutrition)</td><td>−' + P.sugarHigh.extra + ' more</td></tr>' +
         '<tr><td>…or if sugars are ≥ ' + P.sugarVeryHigh.at + ' g per 100 g (instead of the line above)</td><td>−' + P.sugarVeryHigh.extra + ' more</td></tr>' +
         '<tr><td>NOVA group 4 (ultra-processed)</td><td>−' + P.nova[4] + '</td></tr>' +
         '<tr><td>NOVA group 3 (processed)</td><td>−' + P.nova[3] + '</td></tr>' +
+        '<tr><td>Glyphosate-prone crop, conventional (not organic or non-GMO), once</td><td>−' + P.glyphosate + '</td></tr>' +
+        '<tr><td>Glyphosate-prone crop, non-GMO but not organic (yellow, not a full pass)</td><td>−' + P.glyphosateLimit + '</td></tr>' +
+        '<tr><td>Refined starch: corn starch, or modified food starch that isn’t a named potato, tapioca, rice, arrowroot, or cassava starch</td><td>−' + P.refinedStarchEach + ' each, max −' + P.refinedStarchCap + '</td></tr>' +
+        '<tr><td>Mainstream brand (a well-known mass-market packaged-food brand)</td><td>−' + P.mainstream + '</td></tr>' +
       '</tbody></table>' +
-      '<p>The high-sugar extra only applies when added sugar is listed, so fruit’s natural sugar isn’t penalized. NOVA comes from Open Food Facts; pasted labels have no NOVA deduction.</p>' +
+      '<p>The high-sugar extra only applies when added sugar is listed, so fruit’s natural sugar isn’t penalized. NOVA comes from Open Food Facts; pasted labels have no NOVA deduction. A lone NOVA 4 deduction is −' + P.nova[4] + ', so ultra-processed foods don’t land in Cleaner on processing alone.</p>' +
+      '<p>The mainstream deduction is flat −' + P.mainstream + ', the middle of a 3-to-5 range, once per product. It matches the brand or the product name against a list of mass-market names (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). It is not a guess about which company owns which brand. A simple mainstream food, such as milk or sparkling water, loses only those ' + P.mainstream + ' points.</p>' +
       '<p><strong>Bands:</strong> 80–100 Cleaner · 50–79 Mixed · 0–49 Poor.</p>' +
-      '<h3>4. Ingredient colors (OK / limit / avoid)</h3>' +
-      '<p>Each ingredient on the label gets a color. This is our aisle guide. It is not a Seed Oil Safe badge, not an Olive score, and not a lab test. A product can <em>pass</em> the Seed Oil Safe-style check and still have red ingredients (plain sugar and corn starch are the usual ones). A gum or natural flavor is yellow here and still fails that pass/fail check.</p>' +
+      '<h3>4. Glyphosate-prone crops (Tortuga Scan check)</h3>' +
+      '<p>This is our own check. It does not change the Seed Oil Safe-style pass / fail, and it is not a lab test of the package in your hand. Wheat, oats, barley, rye, sorghum, millet, corn, dry beans, chickpeas, lentils, peas (not snap or snow peas), soy foods, sunflower, flax, canola, cottonseed, and sugar beet are the list. Organic on the ingredient or the product is green and a full pass. Non-GMO only is yellow, not a full pass, and costs −' + P.glyphosateLimit + '. Conventional or unlabeled is red and costs −' + P.glyphosate + ' once.</p>' +
+      '<p>The list follows public residue surveys and registered uses, not a measurement we made: <a href="' + s.glyphosate.sources[0].url + '" target="_blank" rel="noopener">CFIA’s 2015–2016 glyphosate survey</a> (grains, beans, peas, lentils, chickpeas, soy, wheat, barley), <a href="' + s.glyphosate.sources[1].url + '" target="_blank" rel="noopener">EWG’s 2018 oat-cereal tests</a>, and the <a href="' + s.glyphosate.sources[2].url + '" target="_blank" rel="noopener">EPA glyphosate page</a>. Rice, quinoa, buckwheat, potatoes, green beans, and snap peas are not on this list. Lecithin keeps its own color. Olive, avocado, and coconut oil are not treated as these crops.</p>' +
+      '<h3>5. Ingredient colors (OK / limit / avoid)</h3>' +
+      '<p>Each ingredient on the label gets a color. This is our aisle guide. It is not a Seed Oil Safe badge, not an Olive score, and not a lab test. A product can pass the Seed Oil Safe-style check and still have red ingredients. Corn starch and conventional oats are the usual ones. Cane sugar and unnamed sugar are yellow. A gum or natural flavor is yellow and still fails that pass/fail check.</p>' +
       '<ul>' +
-        '<li><strong>Green — OK.</strong> Nothing in the avoid or limit lists matched. Olive, avocado, coconut, and animal fats, salt, water, herbs, spices, whole foods, and organic Dirty Dozen produce land here.</li>' +
-        '<li><strong>Yellow — limit.</strong> Natural flavors and other unnamed flavors, gums (including carrageenan), plant lecithins that aren’t a soy derivative, soy foods such as tofu or tamari, added sugars that name a source (cane, honey, maple, coconut, and organic or non-GMO sugar), sugar alcohols, enriched or bleached flour, caramel color, hydrogenated fat that isn’t already a seed oil, conventional corn that isn’t a refined starch or syrup, and non-organic produce from the Dirty Dozen.</li>' +
-        '<li><strong>Red — avoid.</strong> Seed oils (same list as the pass/fail check, including organic canola or sunflower oil), artificial sweeteners, artificial dyes, artificial flavors, confirmed GMO or bioengineered wording, conventional corn starch, corn syrup, dextrose, and maltodextrin, modified food starch when the source isn’t named as something else, conventional sugar that doesn’t say cane (or another named non-beet source), beet sugar, refined soy derivatives (soy protein, soy flour, soy lecithin, TVP), and the other additives in the clean score (BHA, BHT, TBHQ, benzoates, sorbates, nitrites, polysorbates, mono- and diglycerides, DATEM, propylene glycol, titanium dioxide, potassium bromate, azodicarbonamide, MSG).</li>' +
+        '<li><strong>Green — OK.</strong> Olive, avocado, coconut, and rendered animal fats, salt, water, herbs, spices, organic glyphosate-prone crops, honey, maple syrup, coconut sugar, dairy that is organic, non-GMO, or grass-fed, eggs that are organic or pasture-raised, meat that is organic, non-GMO, or grass-fed / pasture-raised, and organic Dirty Dozen produce.</li>' +
+        '<li><strong>Yellow — limit.</strong> Dirty Dozen produce that is not organic. Non-GMO (not organic) glyphosate-prone crops. Dairy that is not organic, non-GMO, or grass-fed, when the brand is not a mainstream one. Cane sugar, unnamed sugar, brown sugar, and agave. Natural flavors, gums, plant lecithins, sugar alcohols, organic enriched flour, caramel color.</li>' +
+        '<li><strong>Red — avoid.</strong> Seed oils, artificial sweeteners, dyes, and flavors, confirmed GMO wording, conventional glyphosate-prone crops, refined corn starch and similar, conventional eggs, conventional meat, and dairy from a mainstream brand that is not organic, non-GMO, or grass-fed. The other clean-score additives (BHA, BHT, TBHQ, and the rest of that list) stay red.</li>' +
       '</ul>' +
+      '<h3>6. Household products</h3>' +
+      '<p>Laundry detergent and other non-food items use a separate Tortuga household grade. It follows the published <a href="https://www.shopflavcity.com/pages/bobby-approved-app" target="_blank" rel="noopener">10 Commandments of Bobby Approved Ingredients</a> (FlavCity). It is not an official Bobby Approved score, badge, or certification, and it does not use the Bobby Approved app. Fragrance, parfum, and perfume are a hard avoid. Named essential oils are not that umbrella term. We also flag label-visible isothiazolinone and formaldehyde-releasing preservatives, parabens, triclosan, artificial colors, optical brighteners, seed oils, and flavors.</p>' +
       '<p><strong>Dirty Dozen, ' + s.dirtyDozen.year + '.</strong> Non-organic ' + s.dirtyDozen.items.join('; ') + '. List published by the <a href="' + s.dirtyDozen.url + '" target="_blank" rel="noopener">' + esc(s.dirtyDozen.source) + '</a>. If that ingredient phrase says organic, we mark it green. Non-GMO alone does not — the list is about pesticide residue, not genetic engineering. We only look at the ingredient line, not the brand name, because a certified-organic product can still include a small non-organic share.</p>' +
-      '<p>Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make that additive green, and it does not make a seed oil okay. Added sugar stays yellow even when it says cane: we don’t call added sugar completely OK, and we don’t try to guess whether it’s a small amount. Raisins and sultanas count as grapes. Sweet potatoes, mustard (the condiment), green beans, and bell peppers are not on the ' + s.dirtyDozen.year + ' list. Potato starch counts as potatoes.</p>' +
-      '<h3>Data</h3><p>Our catalog is seeded from <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food Facts</a>, a free, volunteer-built database (ODbL). A scan checks the catalog first, then a live lookup. Either can be incomplete or out of date, so check the package when it matters. Lab tests elsewhere in the app are other organizations’ published tests.</p>';
+      '<p>Organic or non-GMO on a refined corn or soy additive moves it from red to yellow. It does not make that additive green, and it does not make a seed oil okay. Cane sugar and unnamed sugar stay yellow. Honey, maple syrup, and coconut sugar are green. Agave is yellow. Raisins and sultanas count as grapes. Sweet potatoes, mustard (the condiment), green beans, and bell peppers are not on the ' + s.dirtyDozen.year + ' list. Potato starch counts as potatoes.</p>' +
+      '<h3>Data</h3><p>Our food catalog is seeded from <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener">Open Food Facts</a>. Household products are copied from <a href="https://world.openbeautyfacts.org/" target="_blank" rel="noopener">Open Beauty Facts</a>. A scan checks the food catalog, then the household list, then a live food lookup. Lists can be incomplete or out of date, so check the package. Lab tests elsewhere in the app are other organizations’ published tests.</p>';
   }
 
   function labsForProduct(p) {
@@ -618,6 +690,31 @@
       return blob.indexOf(q) >= 0 || R.barcodeCandidates(q).some(function (c) { return p.barcode.indexOf(c) >= 0 || c.indexOf(p.barcode) >= 0; });
     });
   }
+  function renderHouseholdList() {
+    if (!$('householdList')) return;
+    $('householdMeta').textContent = household.length
+      ? (household.length + ' products')
+      : 'Household list is still loading, or it didn’t load.';
+    $('householdList').innerHTML = household.length ? household.map(function (p) {
+      var g = p.grade || {};
+      var img = p.image
+        ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
+        : '<span class="thumb">No photo</span>';
+      return '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '">' + img +
+        '<span><span class="name">' + esc(p.name) + '</span>' +
+        (p.brand ? '<span class="brand">' + esc(p.brand) + '</span>' : '') +
+        '<span class="pills"><span class="pill ' + (g.pass ? 'pass' : 'fail') + '">' + (g.pass ? 'Pass' : 'Fail') + '</span>' +
+        '<span class="pill">' + (g.score != null ? g.score : '—') + '</span></span></span></button>';
+    }).join('') : '<div class="card"><p>The household file didn’t load.</p></div>';
+  }
+  function indexHousehold(products) {
+    household = products || [];
+    householdByCode = {};
+    household.forEach(function (p) {
+      householdByCode[String(p.barcode)] = p;
+      R.barcodeCandidates(p.barcode).forEach(function (c) { householdByCode[c] = p; });
+    });
+  }
   function renderCatalog() {
     var list = filteredCatalog();
     $('catalogMeta').textContent = catalog.length
@@ -699,6 +796,8 @@
 
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-act]');
+    var tabBtn = e.target.closest('[data-tab]');
+    if (tabBtn && !b) { showTab(tabBtn.dataset.tab); return; }
     if (!b) return;
     var act = b.dataset.act;
     if (act === 'retry-scan' || act === 'start-scan') startScan();
@@ -756,11 +855,13 @@
   window.__tortugaData = Promise.all([
     loadJson('data/catalog.json').catch(function () { return { products: [] }; }),
     loadJson('data/lab-tests.json').catch(function () { return { tests: [] }; }),
-    loadJson('data/news.json').catch(function () { return { reports: [] }; })
+    loadJson('data/news.json').catch(function () { return { reports: [] }; }),
+    loadJson('data/household.json').catch(function () { return { products: [] }; })
   ]).then(function (all) {
     indexCatalog((all[0] && all[0].products) || []);
     labTests = (all[1] && all[1].tests) || [];
     newsReports = (all[2] && all[2].reports) || [];
+    indexHousehold((all[3] && all[3].products) || []);
     renderWelcome();
     var intro = document.querySelector('#view-home .intro p');
     if (intro && catalog.length) {

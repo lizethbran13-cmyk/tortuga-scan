@@ -6,7 +6,7 @@
   <script>
     (function () {
       var path = location.pathname;
-      var m = path.match(/^(.*)\/(product|brand|ingredient|store)(\/.*)?$/);
+      var m = path.match(/^(.*)\/(product|brand|ingredient|store|place)(\/.*)?$/);
       if (!m) return;
       var rest = path.slice(m[1].length) + location.search + location.hash;
       try { sessionStorage.setItem('tortuga.entry', rest); } catch (e) {}

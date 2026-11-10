@@ -20,22 +20,26 @@ The published standard we follow for the idea of the rules is the [10 Commandmen
 ```
 index.html             App shell, tabs, forms
 styles.css             Cream and olive, mobile-first
-app.js                 Camera, routing, meter, Torty, store, book
-rules.js               Rules engine (browser + Node)
-sw.js                  Service worker (cache name tortuga-shell-v7)
+app.js                 Camera, routing, meter, Torty, store, book, map
+rules.js               Package rules engine (browser + Node)
+places.js              Place scores, 0–10 (browser + Node)
+sw.js                  Service worker (cache name tortuga-shell-v8)
 404.html               GitHub Pages fallback so /product/… reloads
 manifest.webmanifest   Add to Home Screen
 data/catalog.json      Food catalog
 data/household.json    Household catalog
 data/websites.json     Brand homepages that were checked
+data/places.json       Las Vegas and Henderson places
+data/map-style.json    OpenFreeMap Positron, recolored for Tortuga
 data/lab-tests.json    Public lab tests we cite
 data/news.json         Daily news reports
 icons/torty-portrait.png   Torty, the talking mascot (cream background)
 icons/tortuga-logo.png     Walking tortoise used as the app icon
 scripts/seed-catalog.js    Optional: rebuild the food catalog from Open Food Facts
-vendor/                html5-qrcode 2.3.8 (Apache-2.0)
+vendor/                html5-qrcode 2.3.8 (Apache-2.0), MapLibre GL JS 5.15.0 (BSD-3)
 tests/rules.test.js    Rules, meter, brands, routes
 tests/data.test.js     Catalog, household, labs, news, shell
+tests/places.test.js   Place scores and the starter map catalog
 ```
 
 ## Run / deploy
@@ -45,7 +49,7 @@ No build step.
 - **Local:** `python3 -m http.server 8000` in this folder, then open <http://localhost:8000>. The camera works on `localhost`. A phone needs HTTPS.
 - **GitHub Pages:** Settings → Pages → Deploy from a branch → `main` / `(root)`. Open the `https://` link in Safari.
 - **Add to Home Screen (iPhone):** Share → Add to Home Screen.
-- **Tests:** `node tests/rules.test.js` and `node tests/data.test.js` (Node 18+, `node:assert` only).
+- **Tests:** `node tests/rules.test.js`, `node tests/data.test.js`, and `node tests/places.test.js` (Node 18+, `node:assert` only).
 
 ### Links
 
@@ -55,11 +59,13 @@ No build step.
 | Catalog | `?tab=catalog` |
 | Household inside the catalog | `?tab=household` |
 | Store | `?tab=store` or `/store` |
-| Ingredient book | `?tab=book` or `/ingredient/oats` |
+| Ingredient book | `?tab=book` or `/ingredient/oats` (Book lives in More; the route is unchanged) |
 | A brand | `/brand/cheerios` |
+| Food map | `?tab=map` |
+| A place | `/place/ethel-m-henderson-flagship` |
 | News, lab tests | `?tab=news`, `?tab=labs` (both open More) |
 
-On GitHub Pages, a reload of `/product/…`, `/brand/…`, `/ingredient/…`, or `/store` is served by `404.html`, which sends the browser back to the app and restores the page. Query links work everywhere, including a local static server.
+On GitHub Pages, a reload of `/product/…`, `/brand/…`, `/ingredient/…`, `/place/…`, or `/store` is served by `404.html`, which sends the browser back to the app and restores the page. Query links work everywhere, including a local static server.
 
 ## How a scan works
 
@@ -100,6 +106,30 @@ A seed oil alone is 44, which is a Fail on Avoid. A single conventional glyphosa
 Sources for the crop list, not numbers we measured: [CFIA, glyphosate testing in 2015–2016](https://open-science.canada.ca/handle/123456789/3743), [EWG’s 2018 oat-cereal tests](https://www.ewg.org/news-insights/news/2018/10/new-round-ewg-testing-finds-glyphosate-kids-breakfast-foods-quaker-oats), and the [EPA glyphosate page](https://www.epa.gov/ingredients-used-pesticide-products/glyphosate).
 
 **Stack.** A product with several flag groups at once cannot sit in the 50s on the strength of any one of them being small. Mainstream brand and NOVA 3 are not stack groups.
+
+## Place scores
+
+Places on the food map use a **0–10** score. It is not the package meter and not a Yelp, Google, Olive, or Seed Oil Scout score.
+
+| Band | Score |
+|---|---|
+| Avoid | 0–4.4 |
+| Limit | 4.5–5.9 |
+| Eat / favorable | 6.0–10 |
+
+**Unrated — need reports** when there are fewer than two ratings and no sourced cooking-fat note or published ingredient lists. One rating is never enough. A made-up 7 is not allowed.
+
+**Cooking fats weigh the most** for a restaurant or cafe (olive oil, avocado oil, butter, ghee, tallow, and lard against canola, vegetable oil, and the other seed oils). Ingredient lists and the average of ratings come after that. Consistent seed-oil evidence caps the score at 4.4. Mixed fats, or ratings that spread by 3.5 or more, cap it at 5.9 and block the badge.
+
+**Tortuga approved** needs 7.0 or higher, at least three ratings averaging 7 or higher, and favorable fat evidence that is not mixed. A company page that says the kitchen is only partly clear of seed oils can produce a preliminary number, and it cannot approve the place by itself.
+
+**Grocers, shops, and chocolatiers** do not get a restaurant seed-oil score for being a store. They stay unrated unless people report what they bought, or the catalog has real ingredient lists. Ethel M’s Henderson flagship stays unrated: the company page says no artificial flavors or colors, and it does not print a formula.
+
+Reports, photos, and places you add stay on the phone (`localStorage` keys `tortuga.places.v1` and `tortuga.reports.v1`, photos in the existing `tortuga-photos` IndexedDB). Copy JSON from the map when you want them in the shared file later. The shared `reports` array ships empty.
+
+The basemap is [OpenFreeMap](https://openfreemap.org/) (a recolored Positron style in `data/map-style.json`) on [OpenStreetMap](https://www.openstreetmap.org/copyright) data, drawn with MapLibre. Directions open Apple Maps or Google Maps with the place name and address. The app does not call those map companies’ tile or place APIs.
+
+A menu photo can be read on the phone with Tesseract.js, loaded only after you tap Read the photo. You correct the lines. A dish name is not graded until you type ingredients. “Caesar salad” is not assumed seed-oil free or not. A picture of a plated dish can sit on a report, and it is not treated as a view of the cooking oil.
 
 ## Ingredient colors
 

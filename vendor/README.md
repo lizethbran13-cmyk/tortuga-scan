@@ -1,1 +1,3 @@
 `html5-qrcode.min.js` is html5-qrcode v2.3.8 by Minhaz (https://github.com/mebjas/html5-qrcode), Apache License 2.0, vendored unmodified from https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js so the scanner works without a third-party CDN and can be cached offline.
+
+`maplibre-gl.js` and `maplibre-gl.css` are MapLibre GL JS v5.15.0 (https://github.com/maplibre/maplibre-gl-js), 3-Clause BSD, vendored unmodified from https://unpkg.com/maplibre-gl@5.15.0/dist/ so the food map can load without a third-party script CDN. Map tiles and the style’s glyphs still come from OpenFreeMap (`tiles.openfreemap.org`) when the phone is online. The menu reader, when used, loads Tesseract.js on demand and is not part of this folder.

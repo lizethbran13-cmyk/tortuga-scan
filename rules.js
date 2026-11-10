@@ -1815,7 +1815,7 @@
     var parts = combined.split('/').filter(Boolean);
     var kind = '', slug = '';
     for (var i = 0; i < parts.length; i++) {
-      if (parts[i] === 'product' || parts[i] === 'brand' || parts[i] === 'ingredient' || parts[i] === 'store') {
+      if (parts[i] === 'product' || parts[i] === 'brand' || parts[i] === 'ingredient' || parts[i] === 'store' || parts[i] === 'place') {
         kind = parts[i];
         slug = parts[i + 1] ? decodeURIComponent(parts[i + 1]) : '';
       }
@@ -1825,11 +1825,14 @@
     var code = (kind === 'product' && slug) ? slug : (q.get('code') || q.get('product') || '');
     var brand = (kind === 'brand' && slug) ? slug : (q.get('brand') || '');
     var ingredient = (kind === 'ingredient' && slug) ? slug : (q.get('ingredient') || '');
+    var place = (kind === 'place' && slug) ? slug : (q.get('place') || '');
     return {
       tab: tab,
       code: String(code || '').trim(),
       brand: String(brand || '').trim(),
       ingredient: String(ingredient || '').trim(),
+      place: String(place || '').trim(),
+      form: String(q.get('form') || '').trim(),
       kind: kind
     };
   }

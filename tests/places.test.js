@@ -129,6 +129,36 @@ test('peanut butter is not a cooking fat, and what-to-get comes only from a mark
   assert.ok(withReport.skip.some(s => s.name === 'fries' && s.from === 'report'));
 });
 
+test('a place menu grades ingredients only and order links stay on official sites', () => {
+  const ethel = places.find(p => p.id === 'ethel-m-henderson-flagship');
+  const items = P.mergeMenu(ethel, []);
+  assert.ok(items.some(it => /strawberry/i.test(it.name)));
+  assert.ok(items.some(it => /peanut brittle milk/i.test(it.name)));
+  items.forEach(it => {
+    assert.equal(P.gradeMenuLine(it).status, 'needs-ingredients');
+    assert.equal(it.ingredients || '', '');
+  });
+  const order = P.orderChoices(ethel);
+  assert.equal(order.grok, true);
+  assert.match(order.orderUrl, /^https:\/\/www\.ethelm\.com\//);
+  assert.equal(order.viewOnly, false);
+  const forum = P.orderChoices(places.find(p => p.id === 'true-food-forum'));
+  assert.equal(forum.grok, false);
+  assert.match(forum.orderUrl, /^https:\/\/order\.truefoodkitchen\.com\//);
+  const bare = P.orderChoices({ kind: 'restaurant', orderUrl: 'https://www.doordash.com/store/example' });
+  assert.equal(bare.orderUrl, '');
+  assert.equal(bare.viewOnly, true);
+  const phone = P.mergeMenu(ethel, [{ placeId: ethel.id, id: 'peppermint-shake', name: 'Peppermint shake', ingredients: 'milk, cocoa' }]);
+  const added = phone.find(it => it.id === 'peppermint-shake');
+  assert.equal(added.origin, 'phone');
+  assert.equal(P.gradeMenuLine(added).status, 'graded');
+  places.forEach(p => {
+    if (!p.orderUrl) return;
+    assert.match(p.orderUrl, /^https:\/\//, p.id);
+    assert.doesNotMatch(p.orderUrl, /doordash|ubereats|grubhub|yelp\.com|google\.com/i, p.id);
+  });
+});
+
 test('bands are the 0–10 place bands', () => {
   assert.equal(P.placeBand(4.4).id, 'avoid');
   assert.equal(P.placeBand(4.5).id, 'limit');
@@ -200,6 +230,9 @@ test('shell points at the map, place routes, and cache v8', () => {
   assert.match(html, /id="reportForm"/);
   assert.match(html, /id="addPlaceForm"/);
   assert.match(html, /id="menuForm"/);
+  assert.match(html, /id="view-place-menu"/);
+  assert.match(app, /tortuga\.menu\.v1/);
+  assert.match(app, /Buy with Grok Bot/);
   assert.match(html, /capture="environment"/);
   assert.match(missing, /place/);
   assert.match(rules, /place/);

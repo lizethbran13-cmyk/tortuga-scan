@@ -12,6 +12,7 @@
   var MINE_KEY = 'tortuga.mine.v1';
   var PLACES_KEY = 'tortuga.places.v1';
   var REPORTS_KEY = 'tortuga.reports.v1';
+  var MENU_KEY = 'tortuga.menu.v1';
   var Places = window.TortugaPlaces;
   var GROK_BOT = 'grokbot://app/v1/agent?id=a4483b75-73bb-47ac-8893-938cbf85736a';
   var PHOTO_DB = 'tortuga-photos';
@@ -21,7 +22,8 @@
   var views = {
     home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result'),
     catalog: $('view-catalog'), store: $('view-store'), book: $('view-book'), brand: $('view-brand'), more: $('view-more'),
-    map: $('view-map'), place: $('view-place'), report: $('view-report'), addplace: $('view-add-place'), menu: $('view-menu')
+    map: $('view-map'), place: $('view-place'), report: $('view-report'), addplace: $('view-add-place'), menu: $('view-menu'),
+    placemenu: $('view-place-menu'), placeitem: $('view-place-item')
   };
   var scanner = null, scanning = false, lastProduct = null, currentTab = 'scan';
   var catalog = [], catalogByCode = {}, household = [], householdByCode = {}, labTests = [], newsReports = [];
@@ -49,7 +51,7 @@
     if (name === 'store') tab = 'store';
     if (name === 'book') tab = 'more';
     if (name === 'more') tab = 'more';
-    if (name === 'map' || name === 'place' || name === 'report' || name === 'addplace' || name === 'menu') tab = 'map';
+    if (name === 'map' || name === 'place' || name === 'report' || name === 'addplace' || name === 'menu' || name === 'placemenu' || name === 'placeitem') tab = 'map';
     if (name === 'brand' || name === 'result') {
       tab = currentTab === 'store' || currentTab === 'catalog' || currentTab === 'more' || currentTab === 'map' ? currentTab : 'scan';
       if (currentTab === 'book') tab = 'more';
@@ -1156,6 +1158,8 @@
       window.__tortugaData.then(function () {
         if (route.form === 'report') showReport(route.place, true);
         else if (route.form === 'menu') showMenu(route.place, true);
+        else if (route.form === 'place-item' && route.item) showPlaceItem(route.place, route.item, true);
+        else if (route.form === 'place-menu') showPlaceMenu(route.place, true);
         else showPlace(route.place, true);
       });
       return;
@@ -1219,6 +1223,25 @@
   function writeLocalPlaces(list) { try { localStorage.setItem(PLACES_KEY, JSON.stringify(list)); } catch (e) {} }
   function loadReports() { try { return JSON.parse(localStorage.getItem(REPORTS_KEY)) || []; } catch (e) { return []; } }
   function writeReports(list) { try { localStorage.setItem(REPORTS_KEY, JSON.stringify(list)); } catch (e) {} }
+  function loadMenuItems() { try { return JSON.parse(localStorage.getItem(MENU_KEY)) || []; } catch (e) { return []; } }
+  function writeMenuItems(list) { try { localStorage.setItem(MENU_KEY, JSON.stringify(list)); } catch (e) {} }
+  function savePhoneMenuItem(placeId, fields) {
+    if (!placeId || !fields || !fields.name) return null;
+    var id = fields.id || Places.slugItem(fields.name);
+    var next = {
+      id: id,
+      placeId: placeId,
+      name: String(fields.name).slice(0, 140),
+      note: fields.note || '',
+      ingredients: fields.ingredients || '',
+      fats: fields.fats || '',
+      origin: 'phone'
+    };
+    var list = loadMenuItems().filter(function (it) { return !(it.placeId === placeId && it.id === id); });
+    list.push(next);
+    writeMenuItems(list);
+    return next;
+  }
   function indexPlaces(file) {
     sharedPlaces = (file && file.places) || [];
     sharedReports = (file && file.reports) || [];
@@ -1345,7 +1368,8 @@
       ((p.sourcedNotes || []).length ? '<h2 class="small-title">Sourced notes</h2>' + (p.sourcedNotes || []).map(function (n) {
         return '<p>' + esc(n.text || '') + (n.sourceUrl ? ' <a href="' + esc(n.sourceUrl) + '" target="_blank" rel="noopener">Source</a>' : '') + '</p>';
       }).join('') : '') +
-      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="report" data-place="' + esc(p.id) + '">Submit a report</button>' +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="place-menu" data-place="' + esc(p.id) + '">Menu and products</button>' +
+      '<button type="button" class="btn btn-outline" data-act="report" data-place="' + esc(p.id) + '">Submit a report</button>' +
       '<button type="button" class="btn btn-outline" data-act="menu" data-place="' + esc(p.id) + '">Snap a menu</button></div>' +
       (p.origin === 'phone' ? '<div class="link-row"><button type="button" class="btn btn-outline" data-act="remove-place" data-id="' + esc(p.id) + '">Remove this place from this phone</button></div>' : '') +
       '</div>' +
@@ -1377,6 +1401,80 @@
         frame.innerHTML = '<img src="' + url + '" alt="Photo saved on this phone">';
       });
     }
+  }
+  function orderButtons(place, itemName) {
+    var choice = Places.orderChoices(place);
+    var bits = [];
+    if (choice.grok && itemName) {
+      bits.push('<a class="btn btn-secondary" href="' + esc(grokHref(itemName)) + '">Buy with Grok Bot</a>');
+    }
+    if (choice.orderUrl) {
+      bits.push('<a class="btn btn-outline" href="' + esc(choice.orderUrl) + '" target="_blank" rel="noopener">Order on their website</a>');
+    }
+    if (!bits.length) return '<p class="order-note">View only. There is no checkout here, and this place has no verified order page on file.</p>';
+    var note = '<p class="order-note">';
+    if (choice.grok) note += 'Buy with Grok Bot opens the Grok Bot app with this name. This page cannot check out. ';
+    if (choice.orderUrl) note += 'Order on their website opens a page on the restaurant or shop’s own site.';
+    note += '</p>';
+    return '<div class="link-row">' + bits.join('') + '</div>' + note;
+  }
+  function showPlaceMenu(id, replace) {
+    if (scanning) stopScan();
+    activePlaceId = id;
+    var p = findPlace(id);
+    showView('placemenu');
+    currentTab = 'map';
+    setTabCurrent('placemenu');
+    writeUrl(baseDir() + '?tab=map&form=place-menu&place=' + encodeURIComponent(id), replace !== false);
+    if (!p || !views.placemenu) return;
+    var items = Places.mergeMenu(p, loadMenuItems());
+    var choice = Places.orderChoices(p);
+    var list = items.length ? items.map(function (it) {
+      var grade = Places.gradeMenuLine(it);
+      var pill = grade.status === 'graded' ? (grade.score + ' · ' + (grade.band ? grade.band.label : '')) : 'Needs ingredients';
+      return '<button type="button" class="cat-card" data-act="place-item" data-place="' + esc(p.id) + '" data-item="' + esc(it.id) + '">' +
+        '<span class="thumb">' + (it.origin === 'phone' ? 'Phone' : 'Menu') + '</span>' +
+        '<span><span class="name">' + esc(it.name) + '</span><span class="brand">' + (it.origin === 'phone' ? 'On this phone' : 'From a public source') + '</span>' +
+        '<span class="pills"><span class="pill">' + esc(pill) + '</span></span></span></button>';
+    }).join('') : '<p class="menu-empty">Nothing is listed yet. Snap a menu or send a report, and the items stay on this phone.</p>';
+    views.placemenu.innerHTML = '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-act="place" data-place="' + esc(p.id) + '">Back to the place</button></p>' +
+      '<h2 id="placeMenuTitle">' + esc(p.name) + '</h2><p class="help">Menu and products. A dish name is not graded until ingredients are known.</p>' +
+      (choice.orderUrl ? '<div class="link-row"><a class="btn btn-outline" href="' + esc(choice.orderUrl) + '" target="_blank" rel="noopener">Order on their website</a></div><p class="order-note">That link is a page on their own site. This app does not check out.</p>' : '') +
+      '</div><div class="catalog-list">' + list + '</div>' +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="menu" data-place="' + esc(p.id) + '">Snap a menu</button>' +
+      '<button type="button" class="btn btn-outline" data-act="report" data-place="' + esc(p.id) + '">Submit a report</button></div>';
+  }
+  function showPlaceItem(placeId, itemId, replace) {
+    if (scanning) stopScan();
+    activePlaceId = placeId;
+    var p = findPlace(placeId);
+    showView('placeitem');
+    currentTab = 'map';
+    setTabCurrent('placeitem');
+    writeUrl(baseDir() + '?tab=map&form=place-item&place=' + encodeURIComponent(placeId) + '&item=' + encodeURIComponent(itemId), replace !== false);
+    if (!p || !views.placeitem) return;
+    var item = Places.mergeMenu(p, loadMenuItems()).filter(function (it) { return it.id === itemId; })[0];
+    if (!item) {
+      views.placeitem.innerHTML = '<div class="card"><h2 id="placeItemTitle">That item isn’t on this menu</h2><p><button type="button" class="btn btn-outline" data-act="place-menu" data-place="' + esc(placeId) + '">Back to the menu</button></p></div>';
+      return;
+    }
+    var grade = Places.gradeMenuLine(item);
+    var gradeHtml = grade.status === 'graded'
+      ? '<p class="place-num">' + grade.score + '<span class="of"> / 100</span></p><p class="pills"><span class="pill ' + esc(grade.band && grade.band.id) + '">' + esc(grade.band ? grade.band.label : '') + '</span><span class="pill">' + (grade.pass ? 'Pass' : 'Fail') + '</span></p><p>' + esc(grade.summary) + '</p>'
+      : '<p class="place-unrated-badge">Needs ingredients</p><p>' + esc(grade.summary) + '</p>';
+    var fats = Array.isArray(item.fats) ? item.fats.filter(Boolean).join(', ') : String(item.fats || '');
+    views.placeitem.innerHTML = '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-act="place-menu" data-place="' + esc(p.id) + '">Menu</button></p>' +
+      '<p class="pills"><span class="pill">' + (item.origin === 'phone' ? 'On this phone' : 'Public source') + '</span></p>' +
+      '<h2 id="placeItemTitle">' + esc(item.name) + '</h2>' +
+      (item.note ? '<p>' + esc(item.note) + '</p>' : '<p class="help">No description is on file. A dish name is not a description of the ingredients.</p>') +
+      (item.ingredients ? '<h3 class="small-title">Ingredients</h3><p>' + esc(item.ingredients) + '</p>' : '<p class="help">Ingredients are not on file.</p>') +
+      (fats ? '<p class="help">Fats named with this item: ' + esc(fats) + '</p>' : '') +
+      (item.sourceUrl ? '<p><a href="' + esc(item.sourceUrl) + '" target="_blank" rel="noopener">Source</a></p>' : '') +
+      gradeHtml + orderButtons(p, item.name) + '</div>' +
+      '<div class="card torty-card torty-place">' + tortyImg('Torty, the tortoise') +
+      '<div class="speech"><span class="who">Torty</span><p>' + esc(grade.status === 'graded'
+        ? 'I can grade ' + item.name + ' only from the ingredients on file. The package score is ' + grade.score + ', ' + (grade.band ? grade.band.label : '') + '. That is not a place score, and it is not a Yelp or Seed Oil Scout score.'
+        : 'I can’t grade ' + item.name + ' yet. I have the name, and I don’t have an ingredient list. I won’t guess the cooking fat from the name.') + '</p></div></div>';
   }
   function showReport(id, replace) {
     if (scanning) stopScan();
@@ -1608,7 +1706,7 @@
     if ($('addPlaceGeoNote')) $('addPlaceGeoNote').textContent = 'Pin saved on the form. It stays on this phone.';
   }
   function exportPayload() {
-    return { kind: 'tortuga-places-export', version: 1, exported: new Date().toISOString(), places: loadLocalPlaces(), reports: loadReports() };
+    return { kind: 'tortuga-places-export', version: 1, exported: new Date().toISOString(), places: loadLocalPlaces(), reports: loadReports(), menuItems: loadMenuItems() };
   }
   function refreshExport() {
     if ($('placeExport')) $('placeExport').value = JSON.stringify(exportPayload(), null, 2);
@@ -1630,6 +1728,7 @@
     if (!window.confirm('Remove this place from this phone?')) return;
     writeLocalPlaces(loadLocalPlaces().filter(function (p) { return p.id !== id; }));
     writeReports(loadReports().filter(function (r) { return r.placeId !== id; }));
+    writeMenuItems(loadMenuItems().filter(function (it) { return it.placeId !== id; }));
     idbDelete('place:' + id);
     openMap();
     writeUrl(tabPath('map'), false);
@@ -1764,6 +1863,8 @@
     else if (act === 'add-place') showAddPlace(false);
     else if (act === 'report') showReport(b.dataset.place, false);
     else if (act === 'menu') showMenu(b.dataset.place, false);
+    else if (act === 'place-menu') showPlaceMenu(b.dataset.place || activePlaceId, false);
+    else if (act === 'place-item') showPlaceItem(b.dataset.place || activePlaceId, b.dataset.item, false);
     else if (act === 'back-place') { if (activePlaceId) showPlace(activePlaceId, false); else openMap(); }
     else if (act === 'export-places') exportPlaces();
     else if (act === 'remove-report') removeReport(b.dataset.id);
@@ -1814,6 +1915,9 @@
     var list = loadReports();
     list.push(report);
     writeReports(list);
+    if ($('reportAddMenu') && $('reportAddMenu').checked) {
+      savePhoneMenuItem(id, { name: ordered, ingredients: report.ingredients, fats: report.fats, note: 'Added from a report on this phone.' });
+    }
     var photo = pendingReportPhoto;
     pendingReportPhoto = null;
     var done = photo ? idbPut('report:' + report.id, photo) : Promise.resolve();
@@ -1924,7 +2028,8 @@
         '<textarea id="ing-' + i + '" class="menu-ing" data-name="' + esc(line) + '" rows="2" placeholder="Leave this blank if you only have the dish name."></textarea>' +
         '<p class="menu-result help" id="ing-result-' + i + '">Not graded yet.</p></article>';
     }).join('') + '<div class="link-row"><button type="button" class="btn btn-secondary" id="gradeMenuIngredients">Grade with these ingredients</button>' +
-      '<button type="button" class="btn btn-outline" id="menuToReport">Put this in a report</button></div>';
+      '<button type="button" class="btn btn-outline" id="menuToReport">Put this in a report</button>' +
+      '<button type="button" class="btn btn-outline" id="menuSaveItems">Save on this phone’s menu</button></div>';
     $('gradeMenuIngredients').addEventListener('click', function () {
       Array.prototype.forEach.call(document.querySelectorAll('.menu-ing'), function (box, i) {
         var result = Places.gradeMenuLine({ name: box.getAttribute('data-name'), ingredients: box.value });
@@ -1945,6 +2050,17 @@
       if ($('reportNotes')) $('reportNotes').value = bits.join('\n');
       if ($('reportOrdered') && bits[0]) $('reportOrdered').value = (document.querySelector('.menu-ing').getAttribute('data-name') || '').slice(0, 80);
     });
+    $('menuSaveItems').addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.menu-ing'), function (box) {
+        savePhoneMenuItem(activePlaceId, {
+          name: box.getAttribute('data-name'),
+          ingredients: box.value.trim(),
+          note: 'Added from a menu photo on this phone.'
+        });
+      });
+      if ($('menuOcr')) $('menuOcr').textContent = 'Saved on this phone’s menu for this place. Nothing was uploaded.';
+      showPlaceMenu(activePlaceId, false);
+    });
   }
   if ($('menuForm')) $('menuForm').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1959,7 +2075,8 @@
     try { data = JSON.parse($('placeImportText').value); } catch (err) { if (note) note.textContent = 'That was not JSON.'; return; }
     var placesIn = data.places || [];
     var reportsIn = data.reports || [];
-    if (!Array.isArray(placesIn) || !Array.isArray(reportsIn)) { if (note) note.textContent = 'Need places and reports arrays.'; return; }
+    var menuIn = data.menuItems || [];
+    if (!Array.isArray(placesIn) || !Array.isArray(reportsIn) || !Array.isArray(menuIn)) { if (note) note.textContent = 'Need places and reports arrays.'; return; }
     function merge(current, incoming) {
       var byId = {};
       current.forEach(function (x) { if (x && x.id) byId[x.id] = x; });
@@ -1968,6 +2085,7 @@
     }
     writeLocalPlaces(merge(loadLocalPlaces(), placesIn));
     writeReports(merge(loadReports(), reportsIn));
+    writeMenuItems(merge(loadMenuItems(), menuIn));
     if (note) note.textContent = 'Saved on this phone. Nothing was uploaded.';
     refreshExport();
     syncMap();

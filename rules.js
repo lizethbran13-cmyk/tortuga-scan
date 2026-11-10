@@ -1833,6 +1833,7 @@
       ingredient: String(ingredient || '').trim(),
       place: String(place || '').trim(),
       form: String(q.get('form') || '').trim(),
+      item: String(q.get('item') || '').trim(),
       kind: kind
     };
   }

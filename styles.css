@@ -390,6 +390,8 @@ select {
 .place-unrated-prompt { margin: 0; text-align: center; color: var(--ink-2); font-size: 15px; }
 .place-num { margin: 0; font: 700 36px/1 var(--serif); color: var(--olive-deep); }
 .place-num .of { font: 700 16px var(--sans); color: var(--ink-2); }
+.menu-empty { margin: 0; }
+.order-note { margin: 8px 0 0; }
 .torty-place { align-items: start; }
 .torty-place img { width: 96px; height: auto; max-height: 120px; object-fit: contain; object-position: center top; }
 .menu-preview { width: 100%; max-height: 240px; object-fit: contain; border-radius: 16px; background: var(--cream); border: 1px solid var(--line); margin-top: 10px; }

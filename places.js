@@ -411,6 +411,63 @@
     return line;
   }
 
+  function slugItem(name) {
+    var s = String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    return s || 'item';
+  }
+
+  var ORDER_DENY = /(^|\.)(doordash|ubereats|grubhub|postmates|yelp|google|facebook|instagram)\./i;
+
+  function orderChoices(place) {
+    place = place || {};
+    var shop = !!SHOP_KINDS[place.kind];
+    var raw = String(place.orderUrl || '').trim();
+    var orderUrl = (/^https:\/\//i.test(raw) && !ORDER_DENY.test(raw)) ? raw : '';
+    return {
+      grok: shop,
+      orderUrl: orderUrl,
+      viewOnly: !shop && !orderUrl
+    };
+  }
+
+  function catalogMenuItems(place) {
+    place = place || {};
+    return (place.offerings || []).filter(function (o) { return o && o.name; }).map(function (o) {
+      return {
+        id: o.id || slugItem(o.name),
+        placeId: place.id,
+        name: String(o.name),
+        note: o.note || '',
+        ingredients: o.ingredients || '',
+        sourceUrl: o.sourceUrl || '',
+        fats: o.fats || [],
+        origin: 'catalog'
+      };
+    });
+  }
+
+  function mergeMenu(place, phoneItems) {
+    var byId = {};
+    catalogMenuItems(place).forEach(function (it) { byId[it.id] = it; });
+    (phoneItems || []).forEach(function (it) {
+      if (!it || it.placeId !== (place && place.id) || !it.name) return;
+      var id = it.id || slugItem(it.name);
+      byId[id] = {
+        id: id,
+        placeId: place.id,
+        name: String(it.name),
+        note: it.note || '',
+        ingredients: it.ingredients || '',
+        sourceUrl: it.sourceUrl || '',
+        fats: it.fats || [],
+        origin: 'phone'
+      };
+    });
+    return Object.keys(byId).map(function (k) { return byId[k]; }).sort(function (a, b) {
+      return a.name.localeCompare(b.name);
+    });
+  }
+
   function rulesSummary() {
     return {
       scale: '0-10',
@@ -432,6 +489,9 @@
     classifyFatText: classifyFatText,
     gradePlace: gradePlace,
     gradeMenuLine: gradeMenuLine,
+    slugItem: slugItem,
+    orderChoices: orderChoices,
+    mergeMenu: mergeMenu,
     whatLists: whatLists,
     tortyPlace: tortyPlace,
     rulesSummary: rulesSummary

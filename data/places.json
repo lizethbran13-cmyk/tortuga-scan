@@ -19,6 +19,7 @@
       "lng": -115.072082,
       "phone": "702-435-2608",
       "website": "https://www.ethelm.com/en-us/locations/henderson-flagship",
+      "orderUrl": "https://www.ethelm.com/en-us/shop/shop-c.html",
       "hoursNote": "Copied from the official flagship page on November 10, 2026: open daily 9am–7pm. The page also says factory production viewing is generally Monday–Friday 10am–3:30pm, while the viewing aisle is accessible when the store is open. Hours change.",
       "summary": "Ethel M’s Henderson factory, flagship shop, and cactus garden, at the address on the company’s location page. The page says chocolates are made in small batches with no artificial flavors or colors, and colors from natural sources. It does not print ingredient lists or a cooking fat for the cafe, so Tortuga does not turn that into a chocolate score.",
       "offerings": [
@@ -39,6 +40,30 @@
           "basis": "official-menu",
           "note": "The cafe menu lists milkshakes. It does not list the ingredients.",
           "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Chocolate madeleines",
+          "basis": "official-menu",
+          "note": "The flagship cafe menu lists chocolate madeleines dipped in milk or dark chocolate. Ingredients are not printed there.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Chocolate pretzels",
+          "basis": "official-menu",
+          "note": "The flagship cafe menu lists chocolate pretzels in milk or dark chocolate. Ingredients are not printed there.",
+          "sourceUrl": "https://www.ethelm.com/en-us/locations/henderson-flagship"
+        },
+        {
+          "name": "Peanut brittle milk chocolate bar",
+          "basis": "official-shop",
+          "note": "Named on Ethel M’s online shop. The shop page does not print an ingredient list.",
+          "sourceUrl": "https://www.ethelm.com/en-us/shop/shop-c.html"
+        },
+        {
+          "name": "Peppermint bark ganache dark chocolate bar",
+          "basis": "official-shop",
+          "note": "Named on Ethel M’s online shop. The shop page does not print an ingredient list.",
+          "sourceUrl": "https://www.ethelm.com/en-us/shop/shop-c.html"
         }
       ],
       "sourcedNotes": [
@@ -80,6 +105,7 @@
       "lng": -115.144881,
       "phone": "702-383-3340",
       "website": "https://www.ethelm.com/en-us/locations/california-hotel",
+      "orderUrl": "https://www.ethelm.com/en-us/shop/shop-c.html",
       "hoursNote": "Copied from the official California Hotel shop page on November 10, 2026: Monday–Thursday 9am–8pm, Friday–Sunday 9am–10pm. Hours change.",
       "coordinateNote": "The pin is the California Hotel building at the address Ethel M publishes. The company says the shop is on the second floor near the top of the escalator. OpenStreetMap does not have a separate suite node.",
       "summary": "Ethel M’s gift shop inside the California Hotel, at the address on the company’s location page. No ingredient list is published there, so this shop stays unrated until someone reports what they bought.",
@@ -480,6 +506,7 @@
       "lng": -115.173237,
       "phone": "702-340-2600",
       "website": "https://www.truefoodkitchen.com/locations/las-vegas/",
+      "orderUrl": "https://order.truefoodkitchen.com/locations/nv/las-vegas/3500-s-las-vegas-blvd-south-space-r-15a/",
       "hoursNote": "Copied from the company’s Las Vegas order page on November 10, 2026: Sunday 9:30am–9pm, Monday–Thursday 11am–9pm, Friday 11am–10pm, Saturday 9:30am–10pm. Hours change.",
       "coordinateNote": "The pin is the OpenStreetMap node named True Food Kitchen at the Forum Shops. The suite number is from the company’s location page, not from that map node.",
       "summary": "True Food Kitchen inside the Forum Shops. The company’s own seed-oil page says its restaurants cook with avocado oil and olive oil and that 98% of kitchen ingredients are seed oil-free. A different company page says the chain is 100% seed oil-free and still working through ingredients. Tortuga keeps both sentences and does not treat the kitchen as finished or approved.",
@@ -529,6 +556,7 @@
       "lng": -115.333129,
       "phone": "702-863-1000",
       "website": "https://www.truefoodkitchen.com/locations/summerlin/",
+      "orderUrl": "https://order.truefoodkitchen.com/locations/nv/las-vegas/10970-rosemary-park-drive-suite-160/",
       "hoursNote": "Copied from the Summerlin location page on November 10, 2026: Monday–Friday 11am–9pm, Saturday–Sunday 10am–9pm. Hours change.",
       "summary": "True Food Kitchen at the Shops at Summerlin. The chain’s seed-oil pages are the same ones cited for the Forum Shops location: avocado oil and olive oil for cooking, with the company’s 98% and 100% wording left side by side. Dish names on the Summerlin page are not graded, because the page does not give their ingredient lists.",
       "offerings": [],
@@ -917,6 +945,7 @@
       "lng": -115.280448,
       "phone": "702-359-0106",
       "website": "https://skinnyfats.com/",
+      "orderUrl": "https://skinnyfatswarmsprings.toast.site/order",
       "summary": "SkinnyFATS on Warm Springs Road. The company homepage lists this Las Vegas address. It does not print cooking fats, so the playful name is not a score. The ordering page names truffle oil on truffle fries; truffle oil is not treated as olive oil or as a seed oil unless a report says what it actually was.",
       "offerings": [
         {

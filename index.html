@@ -202,6 +202,7 @@
           <label class="btn btn-outline file-btn">Choose a photo<input id="reportFile" type="file" accept="image/*"></label>
         </div>
         <p id="reportPhotoNote" class="help">Optional. The photo stays on this phone. A picture of food does not show a hidden cooking oil.</p>
+        <label class="save-line" for="reportAddMenu"><input type="checkbox" id="reportAddMenu" checked> Also add what I ordered to this place’s menu on this phone</label>
         <button type="submit" class="btn btn-secondary">Save report on this phone</button>
       </form>
     </section>
@@ -274,6 +275,9 @@
       </div>
       <div id="menuItems" class="stack"></div>
     </section>
+
+    <section id="view-place-menu" class="view" hidden aria-labelledby="placeMenuTitle"></section>
+    <section id="view-place-item" class="view" hidden aria-labelledby="placeItemTitle"></section>
 
     <section id="view-catalog" class="view" hidden aria-labelledby="catalogTitle">
       <div class="card intro">

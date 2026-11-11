@@ -1,0 +1,27 @@
+{
+  "kind": "tortuga-report",
+  "version": 1,
+  "exported": "2026-11-11T00:00:00.000Z",
+  "profile": { "id": "local-example", "name": "Alex" },
+  "item": {
+    "listing": "unverified",
+    "product": {
+      "name": "Shape sample only, not a real product",
+      "brand": "",
+      "code": "",
+      "kind": "food",
+      "ingredients": "corn, sunflower oil, salt",
+      "labels": "",
+      "certifications": []
+    },
+    "report": {
+      "ingredients": "corn, sunflower oil, salt",
+      "oils": "sunflower oil",
+      "certifications": [],
+      "betterForYou": true,
+      "note": "Looks like a swap for a dyed cheese puff, but the oil is still sunflower.",
+      "analysis": "Sunflower oil is a seed oil. A Better for You request does not move that into Eat as you like."
+    },
+    "grade": { "score": 44, "band": "avoid", "pass": false }
+  }
+}

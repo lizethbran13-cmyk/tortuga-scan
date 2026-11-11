@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-10",
+  "updated": "2026-11-11",
   "about": "Tortuga Scan food catalog, seeded from Open Food Facts. Grades are Tortuga’s own 0–100 scores on an Olive-style meter, inspired by published Bobby Approved standards. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout, and not a lab result. How to add a product: README.md.",
   "source": "Open Food Facts (Open Database License). Ingredient lists copied from each product page on the date in \"added\".",
   "license": "Product data © Open Food Facts contributors, ODbL. https://world.openfoodfacts.org/",
-  "count": 311,
+  "count": 316,
   "products": [
     {
       "barcode": "0761720205501",
@@ -10639,6 +10639,226 @@
         "score": 56,
         "band": "limit",
         "bandLabel": "Limit"
+      }
+    },
+    {
+      "barcode": "810197740876",
+      "name": "Cowgirl Cheddar Cheezmos Puffs",
+      "brand": "LesserEvil",
+      "image": null,
+      "quantity": "6.5 oz",
+      "ingredients": "Organic Milled Corn, Organic Avocado Oil, Organic Coconut Oil, Organic Tapioca Solids, Organic Cheddar Cheese (Organic Milk, Cultures, Salt, Enzymes), Sea Salt, Organic Buttermilk, Organic Flavor, Organic Butter (Organic Cream, Salt), Organic Annatto Extract, Organic Yeast Extract, Organic Nonfat Dry Milk, Lactic Acid.",
+      "ingredientsLang": "en",
+      "labels": "USDA Organic",
+      "labelsTags": [
+        "en:usda-organic"
+      ],
+      "nova": null,
+      "nutriments": {},
+      "added": "2026-11-11",
+      "listing": "verified",
+      "storePick": true,
+      "sourceName": "LesserEvil",
+      "sourceUrl": "https://www.lesserevil.com/products/cowgirl-cheddar-cheezmos-puffs",
+      "research": {
+        "reviewed": "2026-11-11",
+        "sourceName": "LesserEvil product page",
+        "sourceUrl": "https://www.lesserevil.com/products/cowgirl-cheddar-cheezmos-puffs",
+        "barcodeSource": "Amazon and Nassau Candy list UPC 810197740876 for the 6.5 oz bag",
+        "barcodeSourceUrl": "https://www.amazon.com/Lesserevil-Organic-Cowgirl-Cheddar-Cheezmos/dp/B0GYZ32KZC",
+        "basis": "Official LesserEvil ingredient list for Cowgirl Cheddar Cheezmos Puffs uses organic milled corn, organic avocado oil, and organic coconut oil, and the page says no seed oil. That is a meaningfully cleaner swap for cheese puffs that are usually made with seed oils and synthetic dyes. The list also includes organic flavor. Tortuga’s score from the published list was already in Eat as you like, so the default +12 bump does not change a 100. The badge does not require a flawless list, and it is not a certification."
+      },
+      "badges": [
+        {
+          "id": "better-for-you",
+          "strength": "default",
+          "scope": "product",
+          "swapFor": "Typical cheese puffs such as Cheetos",
+          "basis": "Official LesserEvil ingredient list for Cowgirl Cheddar Cheezmos Puffs uses organic milled corn, organic avocado oil, and organic coconut oil, and the page says no seed oil. That is a meaningfully cleaner swap for cheese puffs that are usually made with seed oils and synthetic dyes. The list also includes organic flavor. Tortuga’s score from the published list was already in Eat as you like, so the default +12 bump does not change a 100. The badge does not require a flawless list, and it is not a certification."
+        },
+        {
+          "id": "super-clean-brand",
+          "scope": "brand",
+          "basis": "LesserEvil’s page for these puffs says they are made with clean oils and “No seed oil.” The brand’s innovation note says puffed snacks start from coconut, avocado, olive, or ghee rather than vegetable oil. Tortuga did not open every SKU. This is a Tortuga badge, not a certification."
+        }
+      ],
+      "grade": {
+        "pass": true,
+        "avoidPass": true,
+        "gmoStatus": "non-gmo",
+        "gmoLabel": "Organic — not GMO",
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      }
+    },
+    {
+      "barcode": "850042519653",
+      "name": "Vanilla Cream Protein Smoothie",
+      "brand": "FlavCity",
+      "image": null,
+      "quantity": "10 servings",
+      "ingredients": "Whey Protein Concentrate (Grass-Fed, Undenatured), Collagen (Grass-Fed), Coconut Milk Powder, Banana Powder, Vanilla Powder, Unrefined Sea Salt, Organic Stevia Leaf Extract (Reb A), Milk Protein Concentrate (Grass-fed), Fermented Nutritional Yeast Protein, Monk Fruit Extract, Organic Cordyceps Powder, Organic Reishi Powder.",
+      "ingredientsLang": "en",
+      "labels": "Grass-fed",
+      "labelsTags": [
+        "en:grass-fed"
+      ],
+      "nova": null,
+      "nutriments": {},
+      "added": "2026-11-11",
+      "listing": "verified",
+      "storePick": true,
+      "sourceName": "FlavCity",
+      "sourceUrl": "https://www.shopflavcity.com/products/vanilla-protein-smoothie",
+      "research": {
+        "reviewed": "2026-11-11",
+        "sourceName": "FlavCity product page",
+        "sourceUrl": "https://www.shopflavcity.com/products/vanilla-protein-smoothie",
+        "barcodeSource": "Walmart lists UPC 850042519653 for the 10-serving Vanilla Cream bag",
+        "barcodeSourceUrl": "https://www.walmart.com/ip/Protein-Smoothie-Vanilla-Cream-10-Serving/19458168875",
+        "basis": "Ingredients are the key ingredients published on the FlavCity Vanilla Cream Protein Smoothie page. Grass-fed is printed on that list. The score is Tortuga’s own reading of those ingredients. It is not an official FlavCity, Bobby Approved, Olive, or Seed Oil Scout score."
+      },
+      "badges": [],
+      "grade": {
+        "pass": true,
+        "avoidPass": true,
+        "gmoStatus": "none",
+        "gmoLabel": "No GMO indicators",
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      }
+    },
+    {
+      "barcode": "850042519127",
+      "name": "Chocolate Protein Smoothie",
+      "brand": "FlavCity",
+      "image": null,
+      "quantity": "20 servings",
+      "ingredients": "Whey Protein Concentrate (Grass-Fed, Undenatured), Collagen (Grass-Fed), Organic Cocoa Powder, Coconut Milk Powder, Milk Protein Concentrate (Grass-Fed), Fermented Nutritional Yeast Protein, Banana Powder, Unrefined Sea Salt, Organic Stevia Leaf Extract (Reb A), Stevia Leaf Extract (Reb M), Organic Cordyceps Powder, Organic Reishi Powder.",
+      "ingredientsLang": "en",
+      "labels": "Grass-fed",
+      "labelsTags": [
+        "en:grass-fed"
+      ],
+      "nova": null,
+      "nutriments": {},
+      "added": "2026-11-11",
+      "listing": "verified",
+      "storePick": true,
+      "sourceName": "FlavCity",
+      "sourceUrl": "https://www.shopflavcity.com/products/chocolate-protein-smoothie",
+      "research": {
+        "reviewed": "2026-11-11",
+        "sourceName": "FlavCity product page",
+        "sourceUrl": "https://www.shopflavcity.com/products/chocolate-protein-smoothie",
+        "barcodeSource": "Amazon lists UPC 850042519127 for the 20-serving chocolate bag",
+        "barcodeSourceUrl": "https://www.amazon.com/FlavCity-Grass-Fed-Whey-Protein-Powder-Smoothie-Shake/dp/B0C5FJ9GHD",
+        "basis": "Ingredients are the key ingredients published on the FlavCity Chocolate Protein Smoothie page. Grass-fed is printed on that list. The score is Tortuga’s own reading of those ingredients. It is not an official FlavCity, Bobby Approved, Olive, or Seed Oil Scout score."
+      },
+      "badges": [],
+      "grade": {
+        "pass": true,
+        "avoidPass": true,
+        "gmoStatus": "none",
+        "gmoLabel": "No GMO indicators",
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      }
+    },
+    {
+      "barcode": "863699000108",
+      "name": "Mayo with Avocado Oil",
+      "brand": "Primal Kitchen",
+      "image": null,
+      "quantity": "12 fl oz",
+      "ingredients": "Avocado Oil, Organic Vinegar, Organic Eggs, Organic Egg Yolks, Salt, Rosemary Extract, Mustard Seed Extract.",
+      "ingredientsLang": "en",
+      "labels": "Certified Humane",
+      "labelsTags": [
+        "en:certified-humane"
+      ],
+      "nova": null,
+      "nutriments": {},
+      "added": "2026-11-11",
+      "listing": "verified",
+      "storePick": true,
+      "sourceName": "Primal Kitchen",
+      "sourceUrl": "https://www.primalkitchen.com/products/avocado-oil-mayo",
+      "research": {
+        "reviewed": "2026-11-11",
+        "sourceName": "Primal Kitchen product page",
+        "sourceUrl": "https://www.primalkitchen.com/products/avocado-oil-mayo",
+        "barcodeSource": "Amazon and Vitacost list UPC 863699000108 for the 12 fl oz mayo",
+        "barcodeSourceUrl": "https://www.amazon.com/Primal-Kitchen-Mayo-Avocado-Oil/dp/B00ZAD36ZS",
+        "basis": "Primal Kitchen’s official mayo page lists avocado oil, organic vinegar, organic eggs, organic egg yolks, salt, rosemary extract, and mustard seed extract, and it contrasts that list with a soybean-oil mayonnaise. Certified Humane is stated for the eggs and does not change the Tortuga score. The strong Better for You bump is +15. The published list already scored 100, so the bump does not move the band. This is not a certification."
+      },
+      "badges": [
+        {
+          "id": "better-for-you",
+          "strength": "strong",
+          "scope": "product",
+          "swapFor": "Mayonnaise made with soybean oil",
+          "basis": "Primal Kitchen’s official mayo page lists avocado oil, organic vinegar, organic eggs, organic egg yolks, salt, rosemary extract, and mustard seed extract, and it contrasts that list with a soybean-oil mayonnaise. Certified Humane is stated for the eggs and does not change the Tortuga score. The strong Better for You bump is +15. The published list already scored 100, so the bump does not move the band. This is not a certification."
+        }
+      ],
+      "grade": {
+        "pass": true,
+        "avoidPass": true,
+        "gmoStatus": "none",
+        "gmoLabel": "No GMO indicators",
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
+      }
+    },
+    {
+      "barcode": "853807005828",
+      "name": "100% Pure Avocado Oil",
+      "brand": "Chosen Foods",
+      "image": null,
+      "quantity": "25.4 fl oz",
+      "ingredients": "Avocado Oil",
+      "ingredientsLang": "en",
+      "labels": "Non-GMO Project Verified, Glyphosate Residue Free",
+      "labelsTags": [
+        "en:non-gmo-project",
+        "en:glyphosate-residue-free"
+      ],
+      "nova": null,
+      "nutriments": {},
+      "added": "2026-11-11",
+      "listing": "verified",
+      "storePick": true,
+      "sourceName": "Chosen Foods",
+      "sourceUrl": "https://chosenfoods.com/products/100-pure-avocado-oil-750ml-glass-bottle",
+      "research": {
+        "reviewed": "2026-11-11",
+        "sourceName": "Chosen Foods product page",
+        "sourceUrl": "https://chosenfoods.com/products/100-pure-avocado-oil-750ml-glass-bottle",
+        "barcodeSource": "Vitacost and Co-op Market list UPC 853807005828 for the 25.4 fl oz (750 ml) bottle",
+        "barcodeSourceUrl": "https://www.vitacost.com/products/chosen-foods-100-pure-avocado-oil-25-4-fl-oz-750-ml-156892",
+        "basis": "Chosen Foods’ official 750 ml avocado oil page lists one ingredient, avocado oil, and says the bottle does not add canola, soybean, or other seed oils. The same page lists Non-GMO Project Verified and Glyphosate Residue Free. The strong Better for You bump is +15. The list already scored 100. This is not a certification."
+      },
+      "badges": [
+        {
+          "id": "better-for-you",
+          "strength": "strong",
+          "scope": "product",
+          "swapFor": "Canola, soybean, or other vegetable cooking oil",
+          "basis": "Chosen Foods’ official 750 ml avocado oil page lists one ingredient, avocado oil, and says the bottle does not add canola, soybean, or other seed oils. The same page lists Non-GMO Project Verified and Glyphosate Residue Free. The strong Better for You bump is +15. The list already scored 100. This is not a certification."
+        }
+      ],
+      "grade": {
+        "pass": true,
+        "avoidPass": true,
+        "gmoStatus": "non-gmo",
+        "gmoLabel": "Non-GMO",
+        "score": 100,
+        "band": "eat",
+        "bandLabel": "Eat as you like"
       }
     }
   ]

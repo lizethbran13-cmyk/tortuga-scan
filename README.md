@@ -9,7 +9,7 @@ You get:
 3. **Torty**, the tortoise, saying what she thinks from the flags that are actually on the label.
 4. **A Tortuga score, 0–100**, with the math shown. Floor is 0.
 5. **Ingredient colors** (green / yellow / red) and an Ingredient Book of cleaned ingredient names, not raw label scraps.
-6. **An approved store** of products that score 60 or more, with a Grok Bot link and a brand website when we have a real one.
+6. **An approved store** of individually checked Tortuga verified picks, with a Grok Bot link and a brand website when we have a real one. It is not every product that scores 60.
 
 > **Disclaimer.** Inspired by published Bobby Approved standards and an Olive-style meter. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout. Not their score, badge, lab test, or certification. Grades use the ingredient list in our catalog, on Open Food Facts or Open Beauty Facts (which can be incomplete or out of date), or what you paste. We can’t verify manufacturing, cross-contact, or what a lab would find in the box. Always read the package.
 
@@ -23,7 +23,9 @@ styles.css             Cream and olive, mobile-first
 app.js                 Camera, routing, meter, Torty, store, book, map
 rules.js               Package rules engine (browser + Node)
 places.js              Place scores, 0–10 (browser + Node)
-sw.js                  Service worker (cache name tortuga-shell-v10)
+torty.js               On-device Torty chat
+scout.js               Report and catalog-upload payloads (no upload)
+sw.js                  Service worker (cache name tortuga-shell-v11)
 404.html               GitHub Pages fallback so /product/… reloads
 manifest.webmanifest   Add to Home Screen
 data/catalog.json      Food catalog
@@ -49,7 +51,7 @@ No build step.
 - **Local:** `python3 -m http.server 8000` in this folder, then open <http://localhost:8000>. The camera works on `localhost`. A phone needs HTTPS.
 - **GitHub Pages:** Settings → Pages → Deploy from a branch → `main` / `(root)`. Open the `https://` link in Safari.
 - **Add to Home Screen (iPhone):** Share → Add to Home Screen.
-- **Tests:** `node tests/rules.test.js`, `node tests/data.test.js`, and `node tests/places.test.js` (Node 18+, `node:assert` only).
+- **Tests:** `node tests/rules.test.js`, `node tests/data.test.js`, `node tests/places.test.js`, and `node tests/features.test.js` (Node 18+, `node:assert` only).
 
 ### Links
 
@@ -71,7 +73,7 @@ On GitHub Pages, a reload of `/product/…`, `/brand/…`, `/ingredient/…`, `/
 
 1. **Scan.** *Scan barcode* calls `Html5Qrcode.start({ facingMode: "environment" })` from the tap (required on iOS). The video is `playsinline` and muted. Formats: EAN-13, EAN-8, UPC-A, UPC-E. A code must pass the GTIN checksum and read the same twice in a row. *Stop scanning* releases the camera. So does leaving the app.
 2. **Look up.** The barcode is checked against `data/catalog.json` (including UPC-A ⇄ EAN-13), then `data/household.json`, then products saved on this phone (`localStorage`, key `tortuga.mine.v1`). If it isn’t in any of those, we ask Open Food Facts and say so. Live request: `GET https://world.openfoodfacts.org/api/v2/product/{code}.json` with `User-Agent: TortugaScan/0.3 (personal clean-eating scanner)`. Browsers may drop a custom User-Agent. We try the scanned code, the UPC-A ⇄ EAN-13 form, and UPC-E expanded to UPC-A.
-3. **Grade by hand / add a product.** Both live under **More**. Certification switches: Organic, Non-GMO, Grass-fed, Pasture-raised. A word already in the name or brand still counts. Household can record Fragrance-free or Unscented. Those words do not erase fragrance, parfum, or perfume in the ingredient list, and they are not a Bobby Approved badge.
+3. **Grade by hand / add a product.** Both live under **More**. Certification switches include Organic, USDA Organic, Non-GMO, Non-GMO Project Verified, Grass-fed, American Grassfed, Pasture-raised, Glyphosate Residue Free, Regenerative Organic Certified, Real Organic Project, Demeter Biodynamic, Certified Gluten-Free, Certified Humane, Animal Welfare Approved, Global Animal Partnership, rBGH/rBST-free, Fair Trade, MSC, and Clean Label Project Purity Award. Organic, non-GMO, grass-fed, pasture-raised, regenerative, biodynamic, and glyphosate-residue-free follow the ingredient rules. Gluten-free and the other names stay visible and do not change the score. A word already in the name or brand still counts. Household can record Fragrance-free or Unscented. Those words do not erase fragrance, parfum, or perfume in the ingredient list.
 4. **Photos.** Catalog and household cards use the `image` URL when the record has one (Open Food Facts or Open Beauty Facts front-of-pack). If that URL fails, the card shows a placeholder. On a product with no photo, or to override one, *Take a photo* or *Choose a photo* stores a resized JPEG in IndexedDB (`tortuga-photos`) on this phone. Nothing is uploaded.
 5. **Pages.** A product tap opens its page: photo, meter, Torty, flags, and More (colored ingredients linking into the book, nutrition when we have it, GMO, sources). A brand tap opens that brand’s food and household items. **Tortuga Certified Clean Brand** means every catalog item for that brand scores **above 60**. **Tortuga Certified Garbage Brand** means every one scores **below 35**. Anything mixed gets neither badge. The page says the label uses only the products in this catalog, not the brand’s full lineup, and that it is Tortuga’s own label.
 
@@ -159,7 +161,7 @@ The grade is Tortuga’s own, on the same meter. It is not an official Bobby App
 
 ## Store and websites
 
-The store lists food and household products with a score of 60 or more. **Buy with Grok Bot** opens:
+The store lists products marked `storePick` after a person checked an official product page. Those records use `listing: "verified"`. The rest of the Open Food Facts catalog stays searchable and is not marked verified by the phone. **Buy with Grok Bot** opens:
 
 `grokbot://app/v1/agent?id=a4483b75-73bb-47ac-8893-938cbf85736a`
 
@@ -174,7 +176,11 @@ plus `&q=` and the product name. That is a Grok Bot app link. This site cannot c
 
 ## Saved products
 
-**Add a product** stores a food or household item in this browser (`localStorage`, key `tortuga.mine.v1`). There is no account and nothing is uploaded. A package photo, if you take one, goes to IndexedDB instead of the product record. The saved entry uses the same fields as the catalog JSON, including `labels` and `labelsTags` from the certification switches. A scan still opens the shared catalog when that barcode is already published there.
+**Add a product** stores a food or household item in this browser (`localStorage`, key `tortuga.mine.v1`) with `listing: "unverified"`. A display name lives on this phone (`tortuga.profile.v1`). There is no cloud login. **Upload to catalog** does not publish the item. It builds the same JSON a report uses (`tortuga-catalog`, version 1, `item.listing` always `unverified`) so you can copy it, share it, or open a pre-filled GitHub issue on `lizethbran13-cmyk/tortuga-scan`. The phone cannot mark a shared catalog item verified. A package photo, if you take one, goes to IndexedDB instead of the product record. The saved entry uses the same fields as the catalog JSON, including `labels` and `labelsTags` from the certification switches. A scan still opens the shared catalog when that barcode is already published there.
+
+Product reports stay on the phone (`tortuga.productReports.v1`), separate from place reports. Torty’s chat is on-device and rule-based (`torty.js`). She can walk through a report and pack it for Scout. She cannot deliver it. See `scout.js` and `data/scout-payload.example.json`.
+
+**Better for You** adds 10, 12, or 15 points (modest, default, strong). A requested badge does not change the score. A seed oil cannot be bumped into Eat as you like (60+). **Super Clean Brand** is a brand badge, not a score change. Both are Tortuga’s. The fine print at the bottom of the site says so. Torty does not recite that disclaimer.
 
 **Grade a label by hand** can save the same way. Leave the checkbox off to grade without keeping it.
 
@@ -216,6 +222,8 @@ plus `&q=` and the product name. That is a Grok Bot app link. This site cannot c
 ## Lab tests and news
 
 Unchanged in shape. Lab tests are public results we looked up. A barcode is set only when the source names that product. News is a list of daily reports. The first one is **Monday, November 9, 2026** (`America/Los_Angeles`). Don’t invent a recall, a study, or a lab number. Summarize and link.
+
+**Editorial.** Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news. The same note is `editorial` in `data/news.json`. Don’t rewrite past reports to match it.
 
 ## Credits
 

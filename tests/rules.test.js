@@ -548,11 +548,17 @@ function certOpts(ids, extra, kind) {
   const merged = R.mergeCertifications('', [], ids, kind);
   return Object.assign({}, extra || {}, merged);
 }
-test('certification list is the four food claims and two household on-label words', () => {
-  assert.deepEqual(R.foodCertifications.map(c => c.id), ['organic', 'non-gmo', 'grass-fed', 'pasture-raised']);
+test('certification list keeps the original four and adds real package claims', () => {
+  const ids = R.foodCertifications.map(c => c.id);
+  ['organic', 'non-gmo', 'grass-fed', 'pasture-raised', 'usda-organic', 'non-gmo-project', 'glyphosate-residue-free', 'regenerative-organic', 'certified-gluten-free', 'certified-humane', 'animal-welfare-approved', 'global-animal-partnership', 'american-grassfed', 'rbst-free', 'demeter-biodynamic', 'fair-trade', 'msc', 'real-organic', 'clean-label-purity'].forEach(id => {
+    assert.ok(ids.includes(id), id);
+  });
+  assert.ok(ids.length >= 19, 'count ' + ids.length);
   assert.deepEqual(R.householdClaims.map(c => c.id), ['fragrance-free', 'unscented']);
   assert.match(R.rulesSummary().certifications.note, /not a lab test/i);
   assert.match(R.rulesSummary().certifications.note, /Bobby Approved/i);
+  assert.equal(R.foodCertifications.find(c => c.id === 'certified-gluten-free').scoreRole, 'none');
+  assert.equal(R.foodCertifications.find(c => c.id === 'glyphosate-residue-free').scoreRole, 'glyphosate');
 });
 test('conventional oats vs the same oats marked organic', () => {
   const plain = R.grade('rolled oats', { brand: 'Local mill' });
@@ -717,7 +723,7 @@ test('brand standing uses only the scores it is given', () => {
   assert.equal(mixed.id, 'mixed');
   assert.equal(R.brandSlug("Kellogg's"), 'kellogg-s');
 });
-test('Torty speaks from the grade and does not invent a lab or an official badge', () => {
+test('Torty speaks from the grade in a friendly voice and leaves disclaimers out', () => {
   const line = R.tortySays({
     name: 'Cheerios', score: 11, flags: ['Added sugar in ingredients', 'Glyphosate-prone crop'],
     mainstream: true, hasIngredients: true, certifications: []
@@ -726,9 +732,8 @@ test('Torty speaks from the grade and does not invent a lab or an official badge
   assert.match(line, /Fail/);
   assert.match(line, /Avoid/);
   assert.match(line, /Added sugar/);
-  assert.match(line, /not quoting a lab/i);
-  assert.match(line, /isn’t an official/);
-  assert.doesNotMatch(line, /ppm|certified by Bobby|Olive score/i);
+  assert.match(line, /I’d skip/);
+  assert.doesNotMatch(line, /Bobby|Seed Oil Scout|not quoting a lab|isn’t an official|Olive score/i);
   const clean = R.tortySays({ name: 'Olive oil', score: 100, flags: [], kind: 'food', hasIngredients: true });
   assert.match(clean, /I’d eat Olive oil/);
 });
@@ -759,6 +764,56 @@ test('glossary names are real ingredients, not raw label scraps', () => {
   assert.equal(R.glossaryNames('Lavandula Angustifolia (Lavender) Oil')[0].endsWith(')'), true);
 });
 
+test('Better for You adds 10, 12, or 15 and cannot lift a seed oil into Eat', () => {
+  const plain = R.grade('safflower oil');
+  assert.equal(plain.score, 44);
+  assert.equal(plain.betterForYou, null);
+  const modest = R.grade('safflower oil', { badges: [{ id: 'better-for-you', strength: 'modest' }] });
+  assert.equal(modest.score, 54);
+  assert.equal(modest.band.id, 'limit');
+  assert.equal(modest.betterForYou.points, 10);
+  const usual = R.grade('safflower oil', { badges: [{ id: 'better-for-you' }] });
+  assert.equal(usual.score, 56);
+  assert.equal(usual.betterForYou.points, 12);
+  assert.notEqual(usual.band.id, 'eat');
+  const strong = R.grade('safflower oil', { badges: [{ id: 'better-for-you', strength: 'strong' }] });
+  assert.equal(strong.score, 59);
+  assert.equal(strong.band.id, 'limit');
+  assert.equal(strong.pass, true);
+  const capped = R.applyScoreBump(50, { points: 12, strength: 'default' }, true);
+  assert.equal(capped.score, 59);
+  assert.equal(capped.bump.capped, true);
+  const oats = R.grade('rolled oats', { badges: [{ id: 'better-for-you' }] });
+  assert.equal(oats.score, 71);
+  assert.equal(oats.band.id, 'eat');
+  const asked = R.grade('rolled oats', { badges: [{ id: 'better-for-you', status: 'requested' }] });
+  assert.equal(asked.score, 59);
+  assert.equal(asked.betterForYou, null);
+});
+test('extra certifications follow the ingredient rules or stay visible only', () => {
+  const oats = 'rolled oats';
+  const gluten = R.grade(oats, certOpts(['certified-gluten-free']));
+  assert.equal(gluten.score, 59);
+  const humane = R.grade(oats, certOpts(['certified-humane']));
+  assert.equal(humane.score, 59);
+  assert.equal(R.classifyIngredients('eggs', certOpts(['certified-humane'])).items[0].color, 'red');
+  const fair = R.grade(oats, certOpts(['fair-trade', 'msc', 'rbst-free', 'clean-label-purity']));
+  assert.equal(fair.score, 59);
+  const residue = R.grade(oats, certOpts(['glyphosate-residue-free']));
+  assert.equal(residue.score, 100);
+  assert.equal(residue.glyphosate.pass, true);
+  assert.notEqual(residue.gmo.status, 'non-gmo');
+  assert.equal(R.classifyIngredients('whole milk', certOpts(['glyphosate-residue-free'])).items[0].color, 'yellow');
+  const demeter = R.grade(oats, certOpts(['demeter-biodynamic']));
+  assert.equal(demeter.score, 100);
+  assert.equal(demeter.glyphosate.pass, true);
+  assert.equal(R.classifyIngredients('whole milk', certOpts(['american-grassfed'])).items[0].color, 'green');
+  assert.equal(R.grade(oats, certOpts(['american-grassfed'])).score, 59);
+  const project = certOpts(['non-gmo-project']);
+  assert.match(project.labels, /Non-GMO Project Verified/);
+  assert.equal(R.grade(oats, project).score, 88);
+  assert.equal(R.grade('canola oil', certOpts(['usda-organic'])).sos.pass, false);
+});
 test('rules summary cites the 2026 Dirty Dozen', () => {
   const d = R.rulesSummary().dirtyDozen;
   assert.equal(d.year, 2026);

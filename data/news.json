@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "timezone": "America/Los_Angeles",
   "about": "Daily Tortuga Scan notes. Add a new object at the start of reports[]. Date is the local day in America/Los_Angeles. Every item needs a real source URL. See README.md.",
+  "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
       "id": "2026-11-10",

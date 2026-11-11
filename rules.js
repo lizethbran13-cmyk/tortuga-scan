@@ -312,6 +312,7 @@
   var GMO_CLEAR_CLAIMS = [
     { re: /\bnon[\s-]?gmo project\b|\ben:non-gmo-project[a-z-]*\b/, label: 'Non-GMO Project' },
     { re: /\b(?:usda|certified|eu|canada|ccof|qai|oregon tilth)[\s-]+organic\b|\ben:(?:usda-organic|eu-organic|organic|certified-organic|canada-organic|ab-agriculture-biologique)\b|^organic\b|\b100% organic\b/, label: 'Certified organic' },
+    { re: /\bdemeter\b|\bbiodynamic\b/, label: 'Biodynamic' },
     { re: /\bnon[\s-]?gmo\b|\bno gmos?\b|\bgmo[\s-]free\b|\bwithout gmos?\b|\bnot bio[\s-]?engineered\b|\ben:(?:no-gmos?|gmo-free|without-gmos?)\b/, label: 'Non-GMO claim' }
   ];
   // Conventional US crops that are usually GMO. Only a caution, never a confirmed fail.
@@ -345,7 +346,7 @@
     GMO_CLEAR_CLAIMS.forEach(function (c) {
       var re = new RegExp(c.re.source, 'm');
       // Whole-product non-GMO claims can also be printed with the ingredients ("Non-GMO Project Verified").
-      var src = c.label === 'Certified organic' ? claimsRaw : claimsRaw + ' . ' + text.replace(/\bnon[\s-]?gmo\s+(?=[a-z])(?!project|verified|certified)/g, ' ');
+      var src = (c.label === 'Certified organic' || c.label === 'Biodynamic') ? claimsRaw : claimsRaw + ' . ' + text.replace(/\bnon[\s-]?gmo\s+(?=[a-z])(?!project|verified|certified)/g, ' ');
       if (re.test(src) && claims.indexOf(c.label) < 0) claims.push(c.label);
     });
     // "Organic" only counts as a whole-product claim from the name/labels, not from one ingredient.
@@ -363,7 +364,7 @@
     }
     var status, label, points = 0;
     if (confirmed.length) { status = 'gmo'; label = 'GMO / bioengineered'; points = GMO_POINTS.confirmed; }
-    else if (claims.length) { status = 'non-gmo'; label = claims[0] === 'Certified organic' ? 'Organic — not GMO' : 'Non-GMO'; }
+    else if (claims.length) { status = 'non-gmo'; label = (claims[0] === 'Certified organic' || claims[0] === 'Biodynamic') ? 'Organic — not GMO' : 'Non-GMO'; }
     else if (risky.length) { status = 'possible'; label = 'Possible GMO — not confirmed'; points = GMO_POINTS.possible; }
     else { status = 'none'; label = 'No GMO indicators'; }
     return { status: status, label: label, points: points, confirmed: confirmed, claims: claims, risky: risky };
@@ -496,6 +497,16 @@
   function hasPastureRaised(text) {
     return /\bpasture[\s-]?raised\b|\bpastured\b/.test(normalize(text));
   }
+  function hasBiodynamic(text) {
+    var t = normalize(text);
+    return /\bdemeter\b/.test(t) || /\bbiodynamic\b/.test(t);
+  }
+  function hasGlyphosateResidueFree(text) {
+    return /\bglyphosate[\s-]+residue[\s-]+free\b/.test(normalize(text));
+  }
+  function hasOrganicEquivalent(text) {
+    return hasOrganicClaim(text) || hasBiodynamic(text);
+  }
 
   // On-label claims a person can attach when they grade or add a product.
   // Stored as labels / labelsTags, the same fields as data/catalog.json.
@@ -535,44 +546,149 @@
   }
   var FOOD_CERTIFICATIONS = [
     {
-      id: 'organic', name: 'Organic', label: 'Certified organic',
+      id: 'organic', name: 'Organic', label: 'Certified organic', scoreRole: 'organic',
       tags: ['en:organic', 'en:certified-organic'],
       alsoTags: ['en:organic', 'en:usda-organic', 'en:eu-organic', 'en:certified-organic', 'en:canada-organic', 'en:ab-agriculture-biologique'],
       effect: 'Glyphosate-prone crops turn green and that check passes in full. Dairy, eggs, and meat can clear. GMO status can be Not GMO.',
       detect: hasOrganicClaim, strip: stripOrganicLabel
     },
     {
-      id: 'non-gmo', name: 'Non-GMO', label: 'Non-GMO',
+      id: 'usda-organic', name: 'USDA Organic', label: 'USDA Organic', scoreRole: 'organic',
+      tags: ['en:usda-organic'], alsoTags: ['en:usda-organic'],
+      effect: 'Counts as organic. Crops, dairy, eggs, and meat can clear.',
+      detect: function (text) { return /\busda[\s-]+organic\b/.test(normalize(text)); },
+      strip: stripPhrase(/\busda[\s-]+organics?\b/gi)
+    },
+    {
+      id: 'non-gmo', name: 'Non-GMO', label: 'Non-GMO', scoreRole: 'nongmo',
       tags: ['en:no-gmos'],
       alsoTags: ['en:no-gmos', 'en:non-gmo', 'en:non-gmo-project', 'en:gmo-free', 'en:without-gmos'],
       effect: 'Glyphosate-prone crops turn yellow and cost 12 points. That is not a full pass. Dairy and meat can clear. Eggs do not.',
       detect: hasNonGmoClaim, strip: stripNonGmoLabel
     },
     {
-      id: 'grass-fed', name: 'Grass-fed', label: 'Grass-fed',
+      id: 'non-gmo-project', name: 'Non-GMO Project Verified', label: 'Non-GMO Project Verified', scoreRole: 'nongmo',
+      tags: ['en:non-gmo-project'], alsoTags: ['en:non-gmo-project'],
+      effect: 'Same as a non-GMO claim. Glyphosate-prone crops turn yellow and cost 12 points.',
+      detect: function (text) { return /\bnon[\s-]?gmo project\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bnon[\s-]?gmo project(?:[\s-]+verified)?\b/gi)
+    },
+    {
+      id: 'grass-fed', name: 'Grass-fed', label: 'Grass-fed', scoreRole: 'grass',
       tags: ['en:grass-fed'], alsoTags: ['en:grass-fed'],
       effect: 'Dairy and meat can clear.',
       detect: hasGrassFed, strip: stripGrassFedLabel
     },
     {
-      id: 'pasture-raised', name: 'Pasture-raised', label: 'Pasture-raised',
+      id: 'american-grassfed', name: 'American Grassfed', label: 'American Grassfed', scoreRole: 'grass',
+      tags: ['en:american-grassfed'], alsoTags: ['en:american-grassfed'],
+      effect: 'Counts as grass-fed. Dairy and meat can clear.',
+      detect: function (text) { return /\bamerican grass[\s-]?fed\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bamerican grass[\s-]?fed\b/gi)
+    },
+    {
+      id: 'pasture-raised', name: 'Pasture-raised', label: 'Pasture-raised', scoreRole: 'pasture',
       tags: ['en:pasture-raised'], alsoTags: ['en:pasture-raised'],
       effect: 'Eggs and meat can clear.',
       detect: hasPastureRaised, strip: stripPastureLabel
+    },
+    {
+      id: 'glyphosate-residue-free', name: 'Glyphosate Residue Free', label: 'Glyphosate Residue Free', scoreRole: 'glyphosate',
+      tags: ['en:glyphosate-residue-free'], alsoTags: ['en:glyphosate-residue-free'],
+      effect: 'Clears the glyphosate-prone crop deduction. It does not clear dairy, eggs, or meat, and it does not waive a seed oil.',
+      detect: hasGlyphosateResidueFree,
+      strip: stripPhrase(/\bglyphosate[\s-]+residue[\s-]+free\b/gi)
+    },
+    {
+      id: 'regenerative-organic', name: 'Regenerative Organic Certified', label: 'Regenerative Organic Certified', scoreRole: 'organic',
+      tags: ['en:regenerative-organic-certified'], alsoTags: ['en:regenerative-organic-certified'],
+      effect: 'Counts as organic. Crops, dairy, eggs, and meat can clear.',
+      detect: function (text) { return /\bregenerative organic\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bregenerative organic(?:[\s-]+certified)?\b/gi)
+    },
+    {
+      id: 'real-organic', name: 'Real Organic Project', label: 'Real Organic Project', scoreRole: 'organic',
+      tags: ['en:real-organic-project'], alsoTags: ['en:real-organic-project'],
+      effect: 'Counts as organic. Crops, dairy, eggs, and meat can clear.',
+      detect: function (text) { return /\breal organic project\b/.test(normalize(text)); },
+      strip: stripPhrase(/\breal organic project\b/gi)
+    },
+    {
+      id: 'demeter-biodynamic', name: 'Demeter Biodynamic', label: 'Demeter Biodynamic', scoreRole: 'organic',
+      tags: ['en:biodynamic'], alsoTags: ['en:biodynamic', 'en:demeter'],
+      effect: 'Treated like organic for crops, dairy, eggs, and meat. It does not waive a seed oil.',
+      detect: hasBiodynamic,
+      strip: stripPhrase(/\bdemeter(?:[\s-]+biodynamic)?\b|\bbiodynamic\b/gi)
+    },
+    {
+      id: 'certified-gluten-free', name: 'Certified Gluten-Free', label: 'Certified Gluten-Free', scoreRole: 'none',
+      tags: ['en:certified-gluten-free'], alsoTags: ['en:certified-gluten-free', 'en:gluten-free'],
+      effect: 'Shows on the product. A gluten-free claim does not change the score.',
+      detect: function (text) { return /\b(?:certified[\s-]+)?gluten[\s-]?free\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bcertified[\s-]+gluten[\s-]?free\b|\bgluten[\s-]?free\b/gi)
+    },
+    {
+      id: 'certified-humane', name: 'Certified Humane', label: 'Certified Humane', scoreRole: 'none',
+      tags: ['en:certified-humane'], alsoTags: ['en:certified-humane'],
+      effect: 'Shows on the product. It does not by itself mean grass-fed, pasture-raised, or organic, so the score stays the same.',
+      detect: function (text) { return /\bcertified humane\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bcertified humane\b/gi)
+    },
+    {
+      id: 'animal-welfare-approved', name: 'Animal Welfare Approved', label: 'Animal Welfare Approved', scoreRole: 'none',
+      tags: ['en:animal-welfare-approved'], alsoTags: ['en:animal-welfare-approved'],
+      effect: 'Shows on the product. It does not change the score on its own.',
+      detect: function (text) { return /\banimal welfare approved\b/.test(normalize(text)); },
+      strip: stripPhrase(/\banimal welfare approved\b/gi)
+    },
+    {
+      id: 'global-animal-partnership', name: 'Global Animal Partnership', label: 'Global Animal Partnership', scoreRole: 'none',
+      tags: ['en:global-animal-partnership'], alsoTags: ['en:global-animal-partnership'],
+      effect: 'Shows on the product. It does not change the score on its own.',
+      detect: function (text) { return /\bglobal animal partnership\b|\bgap step\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bglobal animal partnership\b|\bgap step(?:\s*\d)?\b/gi)
+    },
+    {
+      id: 'rbst-free', name: 'rBGH/rBST-free', label: 'rBGH/rBST-free', scoreRole: 'none',
+      tags: ['en:rbst-free'], alsoTags: ['en:rbst-free'],
+      effect: 'Shows on the product. It does not clear dairy or change the score.',
+      detect: function (text) { return /\brb(?:gh|st)[\s-]?free\b|\bno rb(?:gh|st)\b|\bfree of rb(?:gh|st)\b/.test(normalize(text)); },
+      strip: stripPhrase(/\brb(?:gh|st)[\s/-]?free\b|\brbgh\/rbst-free\b|\bno rb(?:gh|st)\b|\bfree of rb(?:gh|st)\b/gi)
+    },
+    {
+      id: 'fair-trade', name: 'Fair Trade', label: 'Fair Trade', scoreRole: 'none',
+      tags: ['en:fair-trade'], alsoTags: ['en:fair-trade'],
+      effect: 'Shows on the product. It does not change the score.',
+      detect: function (text) { return /\bfair[\s-]?trade\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bfair[\s-]?trade(?:[\s-]+(?:certified|usa))?\b/gi)
+    },
+    {
+      id: 'msc', name: 'MSC', label: 'MSC', scoreRole: 'none',
+      tags: ['en:msc'], alsoTags: ['en:msc', 'en:marine-stewardship-council'],
+      effect: 'Shows on the product. A fishery label does not change the score.',
+      detect: function (text) { return /\bmarine stewardship council\b|\bmsc certified\b|\bcertified msc\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bmarine stewardship council\b|\bmsc certified\b|\bcertified msc\b/gi)
+    },
+    {
+      id: 'clean-label-purity', name: 'Clean Label Project Purity Award', label: 'Clean Label Project Purity Award', scoreRole: 'none',
+      tags: ['en:clean-label-project-purity-award'], alsoTags: ['en:clean-label-project-purity-award'],
+      effect: 'Shows on the product. It is not a Tortuga lab test and it does not change the score.',
+      detect: function (text) { return /\bclean label project\b/.test(normalize(text)); },
+      strip: stripPhrase(/\bclean label project(?:[\s-]+purity(?:[\s-]+award)?)?\b/gi)
     }
   ];
   var HOUSEHOLD_CLAIMS = [
     {
       id: 'fragrance-free', name: 'Fragrance-free', label: 'Fragrance-free',
       tags: [], alsoTags: [],
-      effect: 'Records the words on the package. It does not erase fragrance, parfum, or perfume in the ingredient list, and it is not a Bobby Approved badge.',
+      effect: 'Records the words on the package. It does not erase fragrance, parfum, or perfume in the ingredient list.',
       detect: function (text) { return /\b(?:fragrances?|parfums?|perfumes?)[\s-]*free\b/.test(normalize(text)); },
       strip: stripPhrase(/\b(?:fragrances?|parfums?|perfumes?)[\s-]*free\b/gi)
     },
     {
       id: 'unscented', name: 'Unscented', label: 'Unscented',
       tags: [], alsoTags: [],
-      effect: 'Records the word on the package. Unscented is not itself a fragrance, and it is not a Bobby Approved badge.',
+      effect: 'Records the word on the package. Unscented is not itself a fragrance.',
       detect: function (text) { return /\bunscented\b/.test(normalize(text)); },
       strip: stripPhrase(/\bunscented\b/gi)
     }
@@ -581,7 +697,7 @@
     return kind === 'household' ? HOUSEHOLD_CLAIMS : FOOD_CERTIFICATIONS;
   }
   function publicCert(c) {
-    return { id: c.id, name: c.name, label: c.label, tags: c.tags.slice(), effect: c.effect };
+    return { id: c.id, name: c.name, label: c.label, tags: c.tags.slice(), effect: c.effect, scoreRole: c.scoreRole || 'none' };
   }
   function certificationsPresent(opts, kind) {
     opts = opts || {};
@@ -589,32 +705,54 @@
     if (kind === 'household') blob += ' ' + (opts.ingredients || '');
     return certificationCatalog(kind).filter(function (c) { return c.detect(blob); }).map(publicCert);
   }
+  function escapeReg(s) {
+    return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
   function mergeCertifications(labels, labelsTags, ids, kind) {
     var selected = {};
     (ids || []).forEach(function (id) { selected[String(id)] = true; });
+    var catalog = certificationCatalog(kind);
+    var protect = catalog.filter(function (c) { return selected[c.id]; }).map(function (c) { return c.label; });
+    function masked(text) {
+      var t = String(text || '');
+      protect.forEach(function (p, i) {
+        t = t.replace(new RegExp(escapeReg(p), 'ig'), 'KEEP' + i + 'KEEP');
+      });
+      return t;
+    }
+    function unmask(text) {
+      var t = String(text || '');
+      protect.forEach(function (p, i) {
+        t = t.replace(new RegExp('KEEP' + i + 'KEEP', 'g'), p);
+      });
+      return t;
+    }
     var nextLabels = String(labels || '');
     var nextTags = (labelsTags || []).map(function (t) { return String(t); });
-    certificationCatalog(kind).forEach(function (c) {
-      var on = !!selected[c.id];
-      var already = c.detect(claimBlob({ labels: nextLabels, labelsTags: nextTags }));
-      if (on && !already) {
+    catalog.slice().sort(function (a, b) { return b.label.length - a.label.length; }).forEach(function (c) {
+      if (selected[c.id]) return;
+      if (!c.detect(claimBlob({ labels: nextLabels, labelsTags: nextTags }))) return;
+      nextLabels = unmask(c.strip(masked(nextLabels)));
+      var drop = {};
+      (c.alsoTags || []).forEach(function (t) { drop[t] = true; });
+      nextTags = nextTags.filter(function (t) {
+        var key = String(t).toLowerCase();
+        return !drop[key] && !c.detect(key);
+      });
+    });
+    catalog.forEach(function (c) {
+      if (!selected[c.id]) return;
+      if (!c.detect(claimBlob({ labels: nextLabels, labelsTags: nextTags }))) {
         nextLabels = tidyLabelList([nextLabels, c.label].filter(Boolean).join(', '));
-        c.tags.forEach(function (t) { if (nextTags.indexOf(t) < 0) nextTags.push(t); });
-      } else if (!on && already) {
-        nextLabels = c.strip(nextLabels);
-        var drop = {};
-        (c.alsoTags || []).forEach(function (t) { drop[t] = true; });
-        nextTags = nextTags.filter(function (t) {
-          var key = String(t).toLowerCase();
-          return !drop[key] && !c.detect(key);
-        });
       }
+      c.tags.forEach(function (t) { if (nextTags.indexOf(t) < 0) nextTags.push(t); });
     });
     return { labels: tidyLabelList(nextLabels), labelsTags: nextTags };
   }
   // organic beats non-GMO. Non-GMO is a limit for glyphosate crops, not a full pass.
+  // Glyphosate Residue Free clears the crop deduction only. Biodynamic counts as organic.
   function glyphosateTierOf(text) {
-    if (hasOrganicClaim(text)) return 'organic';
+    if (hasOrganicEquivalent(text) || hasGlyphosateResidueFree(text)) return 'organic';
     if (hasNonGmoClaim(text)) return 'nongmo';
     return 'none';
   }
@@ -631,20 +769,20 @@
     var blob = claimBlob(opts);
     return {
       glyphosateTier: glyphosateTierOf(blob),
-      dairyClear: hasOrganicClaim(blob) || hasNonGmoClaim(blob) || hasGrassFed(blob),
-      eggClear: hasOrganicClaim(blob) || hasPastureRaised(blob),
-      meatClear: hasOrganicClaim(blob) || hasNonGmoClaim(blob) || hasGrassFed(blob) || hasPastureRaised(blob),
+      dairyClear: hasOrganicEquivalent(blob) || hasNonGmoClaim(blob) || hasGrassFed(blob),
+      eggClear: hasOrganicEquivalent(blob) || hasPastureRaised(blob),
+      meatClear: hasOrganicEquivalent(blob) || hasNonGmoClaim(blob) || hasGrassFed(blob) || hasPastureRaised(blob),
       mainstream: !!mainstreamMatch(opts)
     };
   }
   function phraseDairyClear(text) {
-    return hasOrganicClaim(text) || hasNonGmoClaim(text) || hasGrassFed(text);
+    return hasOrganicEquivalent(text) || hasNonGmoClaim(text) || hasGrassFed(text);
   }
   function phraseEggClear(text) {
-    return hasOrganicClaim(text) || hasPastureRaised(text);
+    return hasOrganicEquivalent(text) || hasPastureRaised(text);
   }
   function phraseMeatClear(text) {
-    return hasOrganicClaim(text) || hasNonGmoClaim(text) || hasGrassFed(text) || hasPastureRaised(text);
+    return hasOrganicEquivalent(text) || hasNonGmoClaim(text) || hasGrassFed(text) || hasPastureRaised(text);
   }
 
   // Crops that are commonly desiccated with glyphosate before harvest, or sprayed
@@ -1134,6 +1272,46 @@
     return { score: n, pass: pass, verdict: pass ? 'Pass' : 'Fail', band: b };
   }
 
+  // Better for You is a Tortuga badge. +10 modest, +12 default, +15 strong.
+  // A seed oil is a serious red flag: the bump cannot land the score in Eat (60+).
+  var BETTER_MODEST = 10, BETTER_DEFAULT = 12, BETTER_STRONG = 15;
+  function betterForYouSpec(opts) {
+    opts = opts || {};
+    var found = null;
+    (opts.badges || []).forEach(function (b) {
+      if (!b) return;
+      var id = typeof b === 'string' ? b : b.id;
+      if (id !== 'better-for-you') return;
+      if (typeof b === 'object' && (b.status === 'requested' || b.requested === true)) return;
+      found = typeof b === 'string' ? { id: id } : b;
+    });
+    if (!found) return null;
+    var points = BETTER_DEFAULT;
+    if (found.points != null && isFinite(Number(found.points))) points = Number(found.points);
+    else if (found.strength === 'strong') points = BETTER_STRONG;
+    else if (found.strength === 'modest') points = BETTER_MODEST;
+    if (points < BETTER_MODEST) points = BETTER_MODEST;
+    if (points > BETTER_STRONG) points = BETTER_STRONG;
+    return {
+      points: points,
+      strength: found.strength || (points === BETTER_STRONG ? 'strong' : points === BETTER_MODEST ? 'modest' : 'default')
+    };
+  }
+  function applyScoreBump(score, spec, serious) {
+    var base = Math.max(0, Math.min(100, Math.round(num(score) || 0)));
+    if (!spec) return { score: base, bump: null };
+    var lifted = Math.min(100, base + spec.points);
+    var capped = false;
+    if (serious && lifted >= EAT_AT) {
+      lifted = EAT_AT - 1;
+      capped = true;
+    }
+    return {
+      score: lifted,
+      bump: { points: spec.points, strength: spec.strength, from: base, capped: capped }
+    };
+  }
+
   function num(v) {
     var n = typeof v === 'string' ? parseFloat(v) : v;
     return typeof n === 'number' && isFinite(n) ? n : null;
@@ -1234,7 +1412,10 @@
     }
 
     var total = deductions.reduce(function (s, d) { return s + d.points; }, 0);
-    var score = Math.max(0, 100 - total);
+    var rawScore = Math.max(0, 100 - total);
+    var seedOil = categories.some(function (c) { return c.id === 'seedOils' && c.failed; });
+    var bumped = applyScoreBump(rawScore, betterForYouSpec(opts), seedOil);
+    var score = bumped.score;
     var meter = meterFor(score);
 
     return {
@@ -1243,6 +1424,7 @@
       pass: meter.pass,
       verdict: meter.verdict,
       score: score,
+      betterForYou: bumped.bump,
       band: meter.band,
       stack: stackPts ? { groups: strikes, points: stackPts } : null,
       deductions: deductions,
@@ -1472,12 +1654,13 @@
         refinedStarchEach: REFINED_STARCH_EACH, refinedStarchCap: REFINED_STARCH_CAP,
         stackFrom: STACK_FROM, stackEach: STACK_EACH, stackCap: STACK_CAP,
         passAt: PASS_AT, eatAt: EAT_AT,
+        betterForYou: { modest: BETTER_MODEST, default: BETTER_DEFAULT, strong: BETTER_STRONG },
         householdFragrance: HOUSEHOLD_FRAGRANCE,
         householdPreservative: HOUSEHOLD_PRESERVATIVE,
         householdColor: HOUSEHOLD_COLOR
       },
       mainstreamNote: 'Flat −' + MAINSTREAM_POINTS + ' when the brand or product name is a well-known mass-market packaged-food brand (General Mills, Cheerios, Kellogg’s, Nestlé, Coca-Cola, Pepsi, Kraft, Heinz, Post, and the same kind of grocery brand). Not a map of who owns whom.',
-      meterNote: 'Avoid (red) is 0–44 and a Fail. Limit (yellow) is 45–59 and a Pass. Eat as you like (green) is 60–100 and a Pass. Tortuga Certified Clean Brand means every catalog product from that brand scores above 60. Tortuga Certified Garbage Brand means every catalog product scores below 35. Those labels are Tortuga’s own and cover only the products in this catalog.',
+      meterNote: 'Avoid (red) is 0–44 and a Fail. Limit (yellow) is 45–59 and a Pass. Eat as you like (green) is 60–100 and a Pass. Tortuga Certified Clean Brand means every catalog product from that brand scores above 60. Tortuga Certified Garbage Brand means every catalog product scores below 35. Better for You adds 10, 12, or 15 points and cannot by itself move a seed oil into Eat. Super Clean Brand is a Tortuga badge for a brand, not one jar. Those labels are Tortuga’s own and cover only what this catalog actually checked.',
       glyphosate: {
         points: GLYPHOSATE_POINTS,
         limitPoints: GLYPHOSATE_LIMIT,
@@ -1499,7 +1682,7 @@
       certifications: {
         food: FOOD_CERTIFICATIONS.map(publicCert),
         household: HOUSEHOLD_CLAIMS.map(publicCert),
-        note: 'Package claims you can attach when grading or adding a product. Not a lab test, and not an Olive, Seed Oil Scout, Non-GMO Project, or Bobby Approved badge we issue.'
+        note: 'Package claims you can attach when grading or adding a product. Not a lab test, and not an Olive, Seed Oil Scout, Non-GMO Project, or Bobby Approved badge we issue. Organic, non-GMO, grass-fed, pasture-raised, regenerative, biodynamic, and glyphosate-residue-free follow the ingredient rules. Gluten-free, Fair Trade, MSC, rBGH/rBST-free, and the animal-welfare names are visible and do not change the score.'
       }
     };
   }
@@ -1555,19 +1738,22 @@
     });
     var line;
     if (!input.hasIngredients && input.hasIngredients !== undefined && !input.hasIngredients) {
-      line = 'I can’t grade ' + name + ' yet, because I don’t have an ingredient list to read.';
+      line = 'Hey, I can’t really weigh in on ' + name + ' yet. I need the ingredient list from the package.';
     } else if (score >= EAT_AT && !flags.length) {
-      line = 'I’d ' + verb + ' ' + name + '. I don’t see a flag on my list, and the score is ' + score + ', over on Eat as you like.';
+      line = 'This looks like a solid one. I’d ' + verb + ' ' + name + '. My take is ' + score + ', over on Eat as you like.';
     } else if (score >= EAT_AT) {
-      line = 'The score is ' + score + ', so the arrow sits on Eat as you like. I would still name ' + joinList(flags) + ' before I ' + verb + ' it.';
+      line = 'I’d still ' + verb + ' ' + name + '. My take is ' + score + ', on Eat as you like, and I’d keep an eye on ' + joinList(flags) + '.';
     } else if (score >= PASS_AT) {
-      line = 'I’d limit ' + name + '. Score ' + score + ' is a Pass, in the yellow Limit band.' + (flags.length ? ' What I noticed: ' + joinList(flags) + '.' : '');
+      line = 'I’d go easy on ' + name + '. My take is ' + score + ', a Pass in the yellow Limit band.' + (flags.length ? ' What stood out: ' + joinList(flags) + '.' : '');
     } else {
-      line = 'I’d skip ' + name + '. Score ' + score + ' is a Fail, on Avoid.' + (flags.length ? ' The reasons I can actually see: ' + joinList(flags) + '.' : '');
+      line = 'I’d skip ' + name + '. My take is ' + score + ', and that’s a Fail on Avoid.' + (flags.length ? ' Here’s what I actually see: ' + joinList(flags) + '.' : '');
     }
-    if (certs.length) line += ' The package says ' + joinList(certs) + ', and that claim is part of this grade.';
-    if (input.mainstream) line += ' The brand is one I treat as mainstream, so that costs points on its own.';
-    line += ' I’m not quoting a lab, and this isn’t an official Bobby Approved, Olive, or Seed Oil Scout score.';
+    if (certs.length) line += ' The package mentions ' + joinList(certs) + ', so I counted that.';
+    if (input.mainstream) line += ' This brand is one I treat as mainstream, so that costs a few points.';
+    if (input.betterForYou && input.betterForYou.points) {
+      line += ' I gave it a Better for You bump of ' + input.betterForYou.points + '.';
+      if (input.betterForYou.capped) line += ' There’s still a serious red-flag ingredient, so I’m keeping it out of Eat as you like.';
+    }
     return line;
   }
 
@@ -1611,7 +1797,7 @@
     if (variants && variants.nongmo && variants.nongmo !== color && variants.nongmo !== (variants && variants.organic)) {
       sentence += ' Non-GMO without organic reads as ' + variants.nongmo + '.';
     }
-    sentence += ' Short Tortuga note, not a lab test and not a Bobby Approved badge.';
+    sentence += ' Short Tortuga note from the wording on the label.';
     return sentence;
   }
 
@@ -1852,6 +2038,8 @@
     brandSlug: brandSlug,
     brandStanding: brandStanding,
     tortySays: tortySays,
+    betterForYouSpec: betterForYouSpec,
+    applyScoreBump: applyScoreBump,
     ingredientBlurb: ingredientBlurb,
     glossaryNames: glossaryNames,
     ingredientProfile: ingredientProfile,

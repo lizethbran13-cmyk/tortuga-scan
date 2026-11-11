@@ -12,8 +12,13 @@
   var MINE_KEY = 'tortuga.mine.v1';
   var PLACES_KEY = 'tortuga.places.v1';
   var REPORTS_KEY = 'tortuga.reports.v1';
+  var PRODUCT_REPORTS_KEY = 'tortuga.productReports.v1';
+  var PROFILE_KEY = 'tortuga.profile.v1';
+  var CHAT_KEY = 'tortuga.chat.v1';
   var MENU_KEY = 'tortuga.menu.v1';
   var Places = window.TortugaPlaces;
+  var Chat = window.TortugaChat;
+  var Scout = window.TortugaScout;
   var GROK_BOT = 'grokbot://app/v1/agent?id=a4483b75-73bb-47ac-8893-938cbf85736a';
   var PHOTO_DB = 'tortuga-photos';
   var PHOTO_STORE = 'photos';
@@ -23,7 +28,7 @@
     home: $('view-home'), scan: $('view-scan'), status: $('view-status'), result: $('view-result'),
     catalog: $('view-catalog'), store: $('view-store'), book: $('view-book'), brand: $('view-brand'), more: $('view-more'),
     map: $('view-map'), place: $('view-place'), report: $('view-report'), addplace: $('view-add-place'), menu: $('view-menu'),
-    placemenu: $('view-place-menu'), placeitem: $('view-place-item')
+    placemenu: $('view-place-menu'), placeitem: $('view-place-item'), torty: $('view-torty')
   };
   var scanner = null, scanning = false, lastProduct = null, currentTab = 'scan';
   var catalog = [], catalogByCode = {}, household = [], householdByCode = {}, labTests = [], newsReports = [];
@@ -33,7 +38,11 @@
   var bookFilter = { q: '', color: '' };
   var bookCache = null;
   var pendingAddPhoto = null;
+  var pendingProductReportPhoto = null;
   var activePhotoUrl = '';
+  var lastGrade = null;
+  var scoutAfter = null;
+  var lastChatReport = null;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -52,8 +61,9 @@
     if (name === 'book') tab = 'more';
     if (name === 'more') tab = 'more';
     if (name === 'map' || name === 'place' || name === 'report' || name === 'addplace' || name === 'menu' || name === 'placemenu' || name === 'placeitem') tab = 'map';
+    if (name === 'torty') tab = 'torty';
     if (name === 'brand' || name === 'result') {
-      tab = currentTab === 'store' || currentTab === 'catalog' || currentTab === 'more' || currentTab === 'map' ? currentTab : 'scan';
+      tab = currentTab === 'store' || currentTab === 'catalog' || currentTab === 'more' || currentTab === 'map' || currentTab === 'torty' ? currentTab : 'scan';
       if (currentTab === 'book') tab = 'more';
     }
     document.querySelectorAll('.tabbar button').forEach(function (b) {
@@ -175,6 +185,8 @@
       added: entry.added || '',
       sourceName: 'Added on this phone',
       sourceUrl: '',
+      listing: entry.listing || 'unverified',
+      badges: entry.badges || [],
       shadowed: !!entry.shadowed
     };
   }
@@ -194,6 +206,8 @@
       nova: null,
       nutriments: {},
       added: todayISO(),
+      listing: 'unverified',
+      badges: [],
       shadowed: !!(code && (findCatalog(code) || findHousehold(code)))
     };
   }
@@ -390,7 +404,13 @@
       source: 'catalog', kind: 'food', novaGroup: entry.nova || null,
       sugars100g: nuts.sugars100g != null ? nuts.sugars100g : null,
       labels: entry.labels || '', labelsTags: entry.labelsTags || [], added: entry.added || '',
-      offUrl: entry.offUrl || ''
+      offUrl: entry.offUrl || '',
+      listing: entry.listing || '',
+      storePick: !!entry.storePick,
+      badges: entry.badges || [],
+      sourceName: entry.sourceName || '',
+      sourceUrl: entry.sourceUrl || '',
+      research: entry.research || null
     };
   }
   function lookup(raw) {
@@ -645,6 +665,32 @@
       ingredients: kind === 'household' ? p.ingredients : ''
     }, kind).map(function (c) { return c.name; });
   }
+  function gradeOptsFor(p) {
+    return {
+      novaGroup: p.novaGroup,
+      sugars100g: p.sugars100g,
+      productName: p.name,
+      brand: p.brand,
+      labels: p.labels,
+      labelsTags: p.labelsTags,
+      badges: p.badges || []
+    };
+  }
+  function badgeName(b) {
+    if (!b) return '';
+    if (b.id === 'better-for-you') return 'Better for You';
+    if (b.id === 'super-clean-brand') return 'Super Clean Brand';
+    return b.name || b.id || '';
+  }
+  function badgeBlock(p) {
+    var list = p.badges || [];
+    if (!list.length) return '';
+    return '<div class="claim-row">' + list.map(function (b) {
+      return '<p><span class="pill badge-own">' + esc(badgeName(b)) + '</span></p>' +
+        (b.basis ? '<p class="help">' + esc(b.basis) + '</p>' : '') +
+        (b.swapFor ? '<p class="help">Swap for: ' + esc(b.swapFor) + '</p>' : '');
+    }).join('') + '<p class="help">Tortuga badges, not official certifications.</p></div>';
+  }
   function tortyHtml(p, grade) {
     var flags = shortFlags(grade.deductions);
     var line = R.tortySays({
@@ -654,7 +700,8 @@
       flags: flags,
       certifications: claimNames(p),
       mainstream: !!(grade.mainstream),
-      hasIngredients: grade.hasIngredients !== false && !!(p.ingredients)
+      hasIngredients: grade.hasIngredients !== false && !!(p.ingredients),
+      betterForYou: grade.betterForYou || null
     });
     return '<div class="card torty-card"><img src="icons/torty-portrait.png" alt="Torty, a smiling tortoise" width="280" height="200">' +
       '<div class="speech"><span class="who">Torty thinks</span><p>' + esc(line) + '</p></div></div>';
@@ -668,9 +715,10 @@
     else if (p.source === 'off') { src = 'Live Open Food Facts'; srcClass = ' live'; }
     else if (p.source === 'pasted') { src = 'Ingredients you pasted'; }
     var note = '';
-    if (p.source === 'catalog') note = '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>.</p>';
+    if (p.source === 'catalog' && p.listing === 'verified' && p.sourceUrl) note = '<p class="catalog-note">Verified pick, added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'the brand page') + '</a>. Tortuga scored that list.</p>';
+    else if (p.source === 'catalog') note = '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.offUrl) + '" target="_blank" rel="noopener">Open Food Facts</a>.</p>';
     else if (p.source === 'household') note = '<p class="catalog-note">Added ' + esc(formatDate(p.added)) + '. Ingredients copied from <a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName || 'the source') + '</a>.</p>';
-    else if (p.source === 'device') note = '<p class="catalog-note">Saved on this phone ' + esc(formatDate(p.added)) + '. Not uploaded.</p>';
+    else if (p.source === 'device') note = '<p class="catalog-note">Saved on this phone ' + esc(formatDate(p.added)) + '. Unverified. Not in the shared catalog until someone reviews an upload.</p>';
     var brandBtn = p.brand
       ? '<button type="button" class="brand-link" data-act="brand" data-brand="' + esc(R.brandSlug(p.brand)) + '">' + esc(p.brand) + '</button>'
       : '';
@@ -681,14 +729,19 @@
       (brandBtn || p.quantity ? '<p class="brand-line">' + brandBtn + (p.quantity ? (brandBtn ? ' · ' : '') + esc(p.quantity) : '') + '</p>' : '') +
       (p.code ? '<p class="code">' + esc(p.code) + '</p>' : '') +
       (src ? '<span class="source-tag' + srcClass + '">' + esc(src) + (kind === 'household' ? ' · Household' : '') + '</span>' : '') +
-      (claims.length ? '<p class="claim-row">' + claims.map(function (c) { return '<span class="pill claim">' + esc(c) + '</span>'; }).join('') + '</p><p class="claim-note">These package claims are part of this grade.</p>' : '') +
+      (p.listing === 'verified' ? ' <span class="pill eat">Verified</span>' : '') +
+      (p.listing === 'unverified' || p.source === 'device' ? ' <span class="pill unverified">Unverified</span>' : '') +
+      (claims.length ? '<p class="claim-row">' + claims.map(function (c) { return '<span class="pill claim">' + esc(c) + '</span>'; }).join('') + '</p><p class="claim-note">' + (p.listing === 'verified' ? 'These claims were checked for this catalog pick.' : 'These are package claims. On a phone-only item they stay unverified until a person reviews them.') + '</p>' : '') +
+      badgeBlock(p) +
       note + '</div>';
   }
   function mathHtml(grade, title) {
+    var bump = grade.betterForYou;
     return '<ul class="math"><li><span>Start</span><span class="pts">100</span></li>' +
       (grade.deductions || []).map(function (d) {
         return '<li><span>' + esc(d.label) + (d.detail ? '<span class="detail">' + esc(d.detail) + '</span>' : '') + '</span><span class="pts">−' + d.points + '</span></li>';
       }).join('') +
+      (bump ? '<li><span>Better for You' + (bump.capped ? ' (held out of Eat)' : '') + '</span><span class="pts">+' + bump.points + '</span></li>' : '') +
       '<li class="total"><span>' + esc(title) + '</span><span class="pts">' + grade.score + '</span></li></ul>';
   }
   function publishBlock(p, grade) {
@@ -712,6 +765,246 @@
       '<button type="button" class="btn btn-outline btn-block" data-act="remove-mine" data-id="' + esc(p.id) + '">Remove from this phone</button>';
   }
 
+  function loadProfile() {
+    try { return JSON.parse(localStorage.getItem(PROFILE_KEY)) || null; } catch (e) { return null; }
+  }
+  function ensureProfile() {
+    var profile = loadProfile();
+    if (profile && profile.id) return profile;
+    profile = { id: 'local-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6), name: '' };
+    try { localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); } catch (e) {}
+    return profile;
+  }
+  function saveProfile(name) {
+    var profile = ensureProfile();
+    profile.name = String(name || '').trim().slice(0, 40);
+    try { localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); } catch (e) {}
+    return profile;
+  }
+  function renderProfile() {
+    var profile = ensureProfile();
+    if ($('profileName') && document.activeElement !== $('profileName')) $('profileName').value = profile.name || '';
+    if ($('profileId')) $('profileId').textContent = 'On this phone only. Id ' + profile.id + '.';
+  }
+  function loadProductReports() {
+    try { return JSON.parse(localStorage.getItem(PRODUCT_REPORTS_KEY)) || []; } catch (e) { return []; }
+  }
+  function writeProductReports(list) {
+    try { localStorage.setItem(PRODUCT_REPORTS_KEY, JSON.stringify(list.slice(0, 200))); } catch (e) {}
+  }
+  function reportsForProduct(p) {
+    var code = p && p.code ? String(p.code) : '';
+    var id = p && p.id ? String(p.id) : '';
+    return loadProductReports().filter(function (r) {
+      if (code && r.productCode && String(r.productCode) === code) return true;
+      if (id && r.productId && String(r.productId) === id) return true;
+      return false;
+    });
+  }
+  function saveProductReport(report) {
+    var profile = ensureProfile();
+    report.id = report.id || ('pr-' + Date.now().toString(36));
+    report.created = report.created || new Date().toISOString();
+    report.authorId = profile.id;
+    report.authorName = profile.name || '';
+    var list = loadProductReports().filter(function (r) { return r.id !== report.id; });
+    list.unshift(report);
+    writeProductReports(list);
+    return report;
+  }
+  function scoutCard(data) {
+    if (!Scout || !data) return '';
+    var json = JSON.stringify(data, null, 2);
+    var text = Scout.plainText(data);
+    var href = Scout.githubIssueUrl(data);
+    return '<section class="card" id="scoutCard"><h2 class="small-title">Send to Scout</h2>' +
+      '<p class="help">Nothing is uploaded by itself. Copy it, share it, or open a GitHub issue. Scout is not in the chat. A photo stays on this phone and is not in this file. The listing stays unverified until someone updates the shared catalog.</p>' +
+      '<label class="label" for="scoutText">Summary</label><textarea id="scoutText" class="json-out" readonly rows="6">' + esc(text) + '</textarea>' +
+      '<label class="label" for="scoutJson">JSON</label><textarea id="scoutJson" class="json-out" readonly rows="8">' + esc(json) + '</textarea>' +
+      '<div class="link-row"><button type="button" class="btn btn-outline" data-act="copy-scout">Copy JSON</button>' +
+      '<button type="button" class="btn btn-outline" data-act="share-scout">Share summary</button>' +
+      '<button type="button" class="btn btn-outline" data-act="download-scout">Download JSON</button>' +
+      '<a class="btn btn-secondary" href="' + esc(href) + '" target="_blank" rel="noopener">Send as a GitHub issue</a></div></section>';
+  }
+  function scoutAfterHtml() {
+    var html = scoutAfter ? scoutCard(scoutAfter) : '';
+    scoutAfter = null;
+    return html;
+  }
+  function productPayload(p, grade, report) {
+    if (!Scout) return null;
+    var input = {
+      profile: ensureProfile(),
+      product: {
+        name: p.name, brand: p.brand, code: p.code, kind: (p.kind === 'household' || p.source === 'household') ? 'household' : 'food',
+        ingredients: p.ingredients || '', labels: p.labels || '',
+        certifications: claimNames(p)
+      },
+      grade: grade || lastGrade,
+      report: report || null
+    };
+    return report ? Scout.reportPayload(input) : Scout.catalogPayload(input);
+  }
+  function productReportSection(p) {
+    var kind = (p.kind === 'household' || p.source === 'household') ? 'household' : 'food';
+    var certs = kind === 'household' ? (R.householdClaims || []) : (R.foodCertifications || []);
+    var mine = reportsForProduct(p);
+    var cards = mine.length ? mine.map(function (r) {
+      return '<article class="flag"><div class="cat">' + esc(r.created ? r.created.slice(0, 10) : 'Saved') +
+        (r.authorName ? ' · ' + esc(r.authorName) : '') + '</div>' +
+        '<p>' + esc(r.ingredients || 'No ingredient note') + '</p>' +
+        (r.oils ? '<p class="help">Oils: ' + esc(r.oils) + '</p>' : '') +
+        (r.betterForYou ? '<p><span class="pill badge-own">Better for You requested</span></p>' : '') +
+        (r.note ? '<p class="help">' + esc(r.note) + '</p>' : '') +
+        (r.analysis ? '<p class="help">' + esc(r.analysis) + '</p>' : '') +
+        '<p class="help" id="report-photo-' + esc(r.id) + '"></p>' +
+        '<button type="button" class="btn btn-outline" data-act="send-product-report" data-id="' + esc(r.id) + '">Send this report</button></article>';
+    }).join('') : '<p>No reports on this phone yet.</p>';
+    return '<section class="card" id="productReports"><h2 class="small-title">Reports on this phone</h2>' + cards +
+      '<details class="disclosure"><summary>Report this product</summary>' +
+      '<form id="productReportForm" class="paste">' +
+      '<label class="label" for="productReportIngredients">Ingredients you noticed</label>' +
+      '<textarea id="productReportIngredients" rows="3" placeholder="Paste what you read. Don’t invent a list."></textarea>' +
+      '<label class="label" for="productReportOils">Oils or fats</label>' +
+      '<input id="productReportOils" type="text" placeholder="Olive, avocado, canola, or not sure">' +
+      '<fieldset class="certs"><legend class="label">Certifications you saw</legend><div class="cert-grid">' +
+      certPickerHtml('reportCert', certs, []) + '</div></fieldset>' +
+      '<label class="save-line" for="productReportBetter"><input type="checkbox" id="productReportBetter"> This looks like a Better for You swap</label>' +
+      '<label class="label" for="productReportNote">Note</label>' +
+      '<textarea id="productReportNote" rows="3" placeholder="What stood out"></textarea>' +
+      '<p class="label">Photo</p><div class="photo-actions">' +
+      '<label class="btn btn-outline file-btn">Take a photo<input id="productReportCam" type="file" accept="image/*" capture="environment"></label>' +
+      '<label class="btn btn-outline file-btn">Choose a photo<input id="productReportFile" type="file" accept="image/*"></label>' +
+      '</div><p id="productReportPhotoNote" class="help">Optional. The photo stays on this phone.</p>' +
+      '<button type="submit" class="btn btn-secondary">Save report on this phone</button></form></details></section>';
+  }
+  function bindProductReport(p) {
+    reportsForProduct(p).forEach(function (r) {
+      var slot = document.getElementById('report-photo-' + r.id);
+      if (!slot) return;
+      idbGet('product-report:' + r.id).then(function (blob) {
+        if (!blob || !slot) return;
+        slot.innerHTML = '<img alt="Report photo on this phone" src="' + URL.createObjectURL(blob) + '" style="max-width:100%;border-radius:12px">';
+      });
+    });
+    function watch(id) {
+      var input = $(id);
+      if (!input) return;
+      input.addEventListener('change', function () {
+        var file = input.files && input.files[0];
+        fileToPhoto(file).then(function (blob) {
+          pendingProductReportPhoto = blob;
+          if ($('productReportPhotoNote')) $('productReportPhotoNote').textContent = blob ? 'Photo ready. It stays on this phone.' : 'Optional. The photo stays on this phone.';
+        });
+      });
+    }
+    watch('productReportCam');
+    watch('productReportFile');
+    var form = $('productReportForm');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var kind = (p.kind === 'household' || p.source === 'household') ? 'household' : 'food';
+      var ids = readCertIds(form, 'reportCert');
+      var report = saveProductReport({
+        productCode: p.code || '',
+        productId: p.id || '',
+        productName: p.name || '',
+        brand: p.brand || '',
+        kind: kind,
+        ingredients: $('productReportIngredients').value.trim(),
+        oils: $('productReportOils').value.trim(),
+        certifications: ids,
+        betterForYou: !!($('productReportBetter') && $('productReportBetter').checked),
+        note: $('productReportNote').value.trim()
+      });
+      var photo = pendingProductReportPhoto;
+      pendingProductReportPhoto = null;
+      var done = photo ? idbPut('product-report:' + report.id, photo) : Promise.resolve();
+      done.then(function () { renderProduct(p); });
+    });
+  }
+  function loadChat() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(CHAT_KEY));
+      if (saved && saved.messages) return saved;
+    } catch (e) {}
+    return Chat ? Chat.fresh() : { messages: [], flow: null };
+  }
+  function saveChat(session) {
+    try { localStorage.setItem(CHAT_KEY, JSON.stringify(session)); } catch (e) {}
+  }
+  function tortyContext(text) {
+    var hits = [];
+    var q = String(text || '').trim().toLowerCase();
+    if (q.length > 2) {
+      combined().forEach(function (row) {
+        if (hits.length >= 3) return;
+        var blob = (row.raw.name + ' ' + (row.raw.brand || '')).toLowerCase();
+        if (blob.indexOf(q) >= 0) {
+          hits.push({ name: row.raw.name, brand: row.raw.brand || '', score: row.raw.grade && row.raw.grade.score, band: row.raw.grade && row.raw.grade.bandLabel });
+        }
+      });
+    }
+    return {
+      product: lastProduct ? { name: lastProduct.name, brand: lastProduct.brand, code: lastProduct.code, kind: lastProduct.kind, ingredients: lastProduct.ingredients } : null,
+      grade: lastGrade,
+      certifications: lastProduct ? claimNames(lastProduct) : [],
+      hits: hits,
+      profile: ensureProfile()
+    };
+  }
+  function renderTorty() {
+    if (!Chat || !$('tortyLog')) return;
+    var session = loadChat();
+    $('tortyLog').innerHTML = (session.messages || []).map(function (m) {
+      return '<p class="bubble ' + (m.role === 'user' ? 'me' : 'torty') + '">' + esc(m.text) + '</p>';
+    }).join('');
+    $('tortyLog').scrollTop = $('tortyLog').scrollHeight;
+    if ($('tortyChips') && !$('tortyChips').childElementCount) {
+      ['How does a score work?', 'What do you think of this?', 'report'].forEach(function (label) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.textContent = label;
+        btn.addEventListener('click', function () {
+          if ($('tortyInput')) $('tortyInput').value = label === 'report' ? 'report' : label;
+          sendTorty(label === 'report' ? 'report' : label);
+        });
+        $('tortyChips').appendChild(btn);
+      });
+    }
+  }
+  function sendTorty(text) {
+    if (!Chat) return;
+    var session = loadChat();
+    var result = Chat.respond(session, text, tortyContext(text));
+    saveChat(result.session);
+    if (result.action && result.action.type === 'save-report') {
+      var draft = result.action.report || {};
+      var saved = saveProductReport({
+        productCode: draft.productCode || (lastProduct && lastProduct.code) || '',
+        productId: lastProduct && lastProduct.id || '',
+        productName: draft.productName || (lastProduct && lastProduct.name) || '',
+        brand: draft.brand || (lastProduct && lastProduct.brand) || '',
+        kind: draft.kind || 'food',
+        ingredients: draft.ingredients || '',
+        oils: draft.oils || '',
+        certifications: draft.certs ? [draft.certs] : [],
+        betterForYou: /^(y|yes|yeah|yep)\b/i.test(draft.better || ''),
+        note: draft.note || '',
+        analysis: result.action.analysis || ''
+      });
+      lastChatReport = saved;
+    }
+    if (result.action && result.action.type === 'send') {
+      var report = lastChatReport || (loadProductReports()[0] || null);
+      var product = lastProduct || { name: report && report.productName, brand: report && report.brand, code: report && report.productCode, kind: report && report.kind, ingredients: report && report.ingredients };
+      var data = productPayload(product, lastGrade, report);
+      if ($('tortyScout')) $('tortyScout').innerHTML = scoutCard(data);
+    }
+    renderTorty();
+  }
   function renderProduct(p) {
     lastProduct = p;
     if (p.code) writeUrl(productPath(p.code), true);
@@ -721,14 +1014,16 @@
     if (!p.ingredients) {
       views.result.innerHTML = headerBlock(p) +
         '<div class="notice" role="status"><strong>No ingredient list yet</strong>Paste the list from the package and mark any certifications.</div>' +
-        pasteBox(p);
+        pasteBox(p) + productReportSection(p);
       attachPhoto(p, $('packFrame'));
       bindPaste();
+      bindProductReport(p);
       return;
     }
     if (householdKind) return renderHousehold(p);
-    var gradeOpts = { novaGroup: p.novaGroup, sugars100g: p.sugars100g, productName: p.name, brand: p.brand, labels: p.labels, labelsTags: p.labelsTags };
+    var gradeOpts = gradeOptsFor(p);
     var g = R.grade(p.ingredients, gradeOpts);
+    lastGrade = g;
     saveRecent(p, g);
     var light = R.classifyIngredients(p.ingredients, gradeOpts);
     var flags = [];
@@ -761,14 +1056,16 @@
       '</section>';
     var labs = labsForProduct(p);
     var labHtml = labs.length ? labs.map(labCard).join('') : '';
-    views.result.innerHTML = headerBlock(p) + meterHtml(g.score) + tortyHtml(p, g) + flagsHtml + more + buyHtml(p, g.score) + labHtml + publishBlock(p, g) +
-      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="start-scan">Scan another</button></div>';
+    views.result.innerHTML = headerBlock(p) + meterHtml(g.score) + tortyHtml(p, g) + flagsHtml + more + buyHtml(p, g.score) + labHtml + productReportSection(p) + publishBlock(p, g) + scoutAfterHtml() +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="start-scan">Scan another</button><button type="button" class="btn btn-outline" data-act="ask-torty">Ask Torty</button></div>';
     animateNeedles(views.result);
     attachPhoto(p, $('packFrame'));
     bindPaste();
+    bindProductReport(p);
   }
   function renderHousehold(p) {
     var g = R.gradeHousehold(p.ingredients);
+    lastGrade = g;
     var light = R.classifyHousehold(p.ingredients);
     var flags = (g.deductions || []).filter(function (d) { return d.level !== 'stack'; });
     var flagsHtml = '<section class="card flags"><h2>Flags</h2>' + (flags.length
@@ -784,10 +1081,11 @@
       '<details class="disclosure"><summary>Original ingredient text</summary><p class="help">' + esc(p.ingredients) + '</p></details>' +
       mathHtml(g, 'Tortuga household score') +
       '</section>';
-    views.result.innerHTML = headerBlock(p) + meterHtml(g.score) + tortyHtml(p, g) + flagsHtml + more + buyHtml(p, g.score) + publishBlock(p, g) +
-      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="start-scan">Scan another</button></div>';
+    views.result.innerHTML = headerBlock(p) + meterHtml(g.score) + tortyHtml(p, g) + flagsHtml + more + buyHtml(p, g.score) + productReportSection(p) + publishBlock(p, g) + scoutAfterHtml() +
+      '<div class="link-row"><button type="button" class="btn btn-secondary" data-act="start-scan">Scan another</button><button type="button" class="btn btn-outline" data-act="ask-torty">Ask Torty</button></div>';
     animateNeedles(views.result);
     attachPhoto(p, $('packFrame'));
+    bindProductReport(p);
   }
 
   function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; } }
@@ -799,7 +1097,7 @@
   }
   function mineGrade(entry) {
     if (entry.kind === 'household') return R.gradeHousehold(entry.ingredients);
-    return R.grade(entry.ingredients, { productName: entry.name, brand: entry.brand, labels: entry.labels, labelsTags: entry.labelsTags, novaGroup: entry.nova });
+    return R.grade(entry.ingredients, { productName: entry.name, brand: entry.brand, labels: entry.labels, labelsTags: entry.labelsTags, novaGroup: entry.nova, badges: entry.badges || [] });
   }
   function mineListHtml(entries) {
     return entries.map(function (p) {
@@ -842,6 +1140,9 @@
       '<span class="brand">' + esc(p.brand || '') + (kind === 'household' ? ' · Household' : '') + '</span>' +
       '<span class="pills"><span class="pill ' + (g.pass ? 'pass' : 'fail') + '">' + pass + '</span>' +
       '<span class="pill ' + esc(band) + '">' + esc(g.bandLabel || band) + '</span>' +
+      (p.listing === 'verified' ? '<span class="pill eat">Verified</span>' : '') +
+      (p.listing === 'unverified' ? '<span class="pill unverified">Unverified</span>' : '') +
+      ((p.badges || []).map(function (b) { return '<span class="pill badge-own">' + esc(badgeName(b)) + '</span>'; }).join('')) +
       '<span class="pill">' + (g.score != null ? g.score : '—') + '</span></span></span></button>';
   }
   function combined() {
@@ -913,13 +1214,12 @@
   function renderStore() {
     var q = storeFilter.q.trim().toLowerCase();
     var list = combined().filter(function (row) {
-      var g = row.raw.grade || {};
-      if (!(g.score >= 60)) return false;
+      if (!row.raw.storePick) return false;
       if (storeFilter.kind && row.kind !== storeFilter.kind) return false;
       if (!q) return true;
       return (row.raw.name + ' ' + (row.raw.brand || '')).toLowerCase().indexOf(q) >= 0;
     });
-    $('storeMeta').textContent = list.length + ' approved';
+    $('storeMeta').textContent = list.length + ' verified picks';
     $('storeList').innerHTML = list.length ? list.map(function (row) {
       var p = row.raw;
       var site = websiteFor(p.brand);
@@ -927,7 +1227,9 @@
         '<button type="button" class="cat-card" data-act="lookup" data-code="' + esc(p.barcode) + '" style="border:0;box-shadow:none;padding:0;width:100%">' +
           (p.image ? '<img src="' + esc(p.image) + '" alt="" loading="lazy">' : '<span class="thumb">No photo</span>') +
           '<span><span class="name">' + esc(p.name) + '</span><span class="brand">' + esc(p.brand || '') + '</span>' +
-          '<span class="pills"><span class="pill eat">Eat as you like</span><span class="pill">' + p.grade.score + '</span></span></span></button>' +
+          '<span class="pills"><span class="pill ' + esc(p.grade.band || '') + '">' + esc(p.grade.bandLabel || '') + '</span><span class="pill">' + p.grade.score + '</span>' +
+          ((p.badges || []).map(function (b) { return '<span class="pill badge-own">' + esc(badgeName(b)) + '</span>'; }).join('')) +
+          '</span></span></button>' +
         '<div class="buy-row"><a class="btn btn-secondary" href="' + esc(grokHref(p.name)) + '">Buy with Grok Bot</a>' +
           (site ? '<a class="btn btn-outline" href="' + esc(site) + '" target="_blank" rel="noopener">Go to website</a>' : '') +
           '<button type="button" class="btn btn-outline" data-act="brand" data-brand="' + esc(R.brandSlug(p.brand)) + '">Brand</button></div>' +
@@ -1037,6 +1339,13 @@
     var name = rows[0].raw.brand;
     var standing = R.brandStanding(rows.map(function (row) { return row.raw.grade ? row.raw.grade.score : 0; }));
     var badge = standing.label ? '<p><span class="badge ' + standing.id + '">' + esc(standing.label) + '</span></p>' : '';
+    var superClean = null;
+    rows.forEach(function (row) {
+      (row.raw.badges || []).forEach(function (b) { if (b.id === 'super-clean-brand' && !superClean) superClean = b; });
+    });
+    if (superClean) {
+      badge += '<p><span class="pill badge-own">Super Clean Brand</span></p><p class="help">' + esc(superClean.basis || '') + '</p><p class="help">Tortuga badge, not an official certification.</p>';
+    }
     views.brand.innerHTML = '<div class="card"><p class="back-row"><button type="button" class="btn btn-outline" data-act="back">Back</button></p>' +
       '<h2 id="brandTitle">' + esc(name) + '</h2>' + badge +
       '<p class="caveat">' + esc(standing.caveat) + '</p>' +
@@ -1060,7 +1369,9 @@
         '<tr><td>Refined starch</td><td>−' + P.refinedStarchEach + ' each, max −' + P.refinedStarchCap + '</td></tr>' +
         '<tr><td>Mainstream brand</td><td>−' + P.mainstream + '</td></tr>' +
         '<tr><td>Stacked flags, from ' + P.stackFrom + ' groups</td><td>−' + P.stackEach + ' per extra group, max −' + P.stackCap + '</td></tr>' +
+        (P.betterForYou ? '<tr><td>Better for You bump</td><td>+' + P.betterForYou.modest + ' to +' + P.betterForYou.strong + ', default +' + P.betterForYou.default + '</td></tr>' : '') +
       '</tbody></table>' +
+      '<p>Better for You is a Tortuga badge for a cleaner swap. A seed oil still cannot ride that bump into Eat as you like. Super Clean Brand is a Tortuga badge for a brand. Neither is an official certification.</p>' +
       '<p>' + esc(s.mainstreamNote) + ' Organic clears a glyphosate-prone crop. Non-GMO without organic leaves the smaller ' + P.glyphosateLimit + ' point limit. Those certifications do not waive a seed oil, refined starch, or the mainstream penalty. Honey, maple syrup, and coconut sugar are not the added-sugar deduction.</p>' +
       '<h3>Household</h3><p>Fragrance, parfum, and perfume are a hard avoid (−' + P.householdFragrance + '). A named essential oil is not that umbrella. Harmful preservatives, optical brighteners, dyes, and flavors are red. Two or more red groups stack. Sodium benzoate, potassium sorbate, and phenoxyethanol are yellow limits.</p>' +
       '<h3>Brand labels</h3><p>' + esc(s.meterNote) + '</p>' +
@@ -1139,7 +1450,8 @@
     if (name === 'catalog') renderCatalog();
     if (name === 'store') renderStore();
     if (name === 'book') { $('bookList').hidden = false; $('bookDetail').hidden = true; renderBook(); }
-    if (name === 'more') { renderNews(); renderLabs(); }
+    if (name === 'more') { renderNews(); renderLabs(); renderProfile(); }
+    if (name === 'torty') renderTorty();
     if (name === 'map') openMap();
   }
   function openCode(code, push) {
@@ -1486,8 +1798,8 @@
       gradeHtml + orderButtons(p, item.name) + '</div>' +
       '<div class="card torty-card torty-place">' + tortyImg('Torty, the tortoise') +
       '<div class="speech"><span class="who">Torty</span><p>' + esc(grade.status === 'graded'
-        ? 'I can grade ' + item.name + ' only from the ingredients on file. The package score is ' + grade.score + ', ' + (grade.band ? grade.band.label : '') + '. That is not a place score, and it is not a Yelp or Seed Oil Scout score.'
-        : 'I can’t grade ' + item.name + ' yet. I have the name, and I don’t have an ingredient list. I won’t guess the cooking fat from the name.') + '</p></div></div>';
+        ? 'I can grade ' + item.name + ' from the ingredients on file. My take is ' + grade.score + ', ' + (grade.band ? grade.band.label : '') + '.'
+        : 'I can’t grade ' + item.name + ' yet. I only have the name, so I won’t guess the cooking fat.') + '</p></div></div>';
   }
   function showReport(id, replace) {
     if (scanning) stopScan();
@@ -1814,8 +2126,7 @@
   }
   watchPhotoInput('addCam');
   watchPhotoInput('addFile');
-  $('addProductForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+  function saveAddedProduct(upload) {
     var kind = ($('addProductForm').querySelector('input[name="addKind"]:checked') || {}).value || 'food';
     var name = $('addName').value.trim();
     var ingredients = $('addIngredients').value.trim();
@@ -1828,8 +2139,28 @@
     var photo = pendingAddPhoto;
     pendingAddPhoto = null;
     var product = fromMine(stored);
+    if (upload) {
+      var preview = kind === 'household' ? R.gradeHousehold(ingredients) : R.grade(ingredients, { productName: name, brand: product.brand, labels: product.labels, labelsTags: product.labelsTags });
+      scoutAfter = productPayload(product, preview, null);
+    }
     var done = photo ? idbPut(photoKey(product), photo) : Promise.resolve();
     done.then(function () { renderMine(); renderProduct(product); });
+  }
+  $('addProductForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    saveAddedProduct(false);
+  });
+  if ($('uploadProduct')) $('uploadProduct').addEventListener('click', function () { saveAddedProduct(true); });
+  if ($('profileForm')) $('profileForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    saveProfile($('profileName').value);
+    renderProfile();
+  });
+  if ($('tortyForm')) $('tortyForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = $('tortyInput').value;
+    $('tortyInput').value = '';
+    sendTorty(text);
   });
 
   document.addEventListener('change', function (e) {
@@ -1881,7 +2212,29 @@
     else if (act === 'place-menu') showPlaceMenu(b.dataset.place || activePlaceId, false);
     else if (act === 'place-item') showPlaceItem(b.dataset.place || activePlaceId, b.dataset.item, false);
     else if (act === 'back-place') { if (activePlaceId) showPlace(activePlaceId, false); else openMap(); }
-    else if (act === 'export-places') exportPlaces();
+    else if (act === 'ask-torty') showTab('torty', false);
+    else if (act === 'copy-scout') {
+      var json = $('scoutJson') ? $('scoutJson').value : '';
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(json).catch(function () {});
+      else if ($('scoutJson')) { $('scoutJson').focus(); $('scoutJson').select(); }
+    } else if (act === 'share-scout') {
+      var summary = $('scoutText') ? $('scoutText').value : '';
+      if (navigator.share) navigator.share({ title: 'Tortuga Scan', text: summary }).catch(function () {});
+      else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(summary).catch(function () {});
+    } else if (act === 'download-scout') {
+      var file = $('scoutJson') ? $('scoutJson').value : '';
+      var blob = new Blob([file], { type: 'application/json' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'tortuga-scout.json';
+      link.click();
+    } else if (act === 'send-product-report') {
+      var found = loadProductReports().filter(function (r) { return r.id === b.dataset.id; })[0];
+      if (found && lastProduct) {
+        scoutAfter = productPayload(lastProduct, lastGrade, found);
+        renderProduct(lastProduct);
+      }
+    } else if (act === 'export-places') exportPlaces();
     else if (act === 'remove-report') removeReport(b.dataset.id);
     else if (act === 'remove-place') removeLocalPlace(b.dataset.id);
     else if (act === 'use-pin') finishDropPin();
@@ -2216,6 +2569,7 @@
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
   }
   mountCertPickers();
+  renderProfile();
   $('openStandards').addEventListener('click', openStandards);
   $('closeStandards').addEventListener('click', function () { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg && dlg.close) dlg.close(); });

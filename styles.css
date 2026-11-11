@@ -154,18 +154,19 @@ fieldset.certs legend { padding: 0; }
 
 .tabbar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
-  padding: 6px 8px calc(6px + var(--safe-b));
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px;
+  padding: 6px 6px calc(6px + var(--safe-b));
   background: rgba(255, 251, 243, .94);
   border-top: 1px solid var(--line);
   backdrop-filter: blur(10px);
 }
 .tabbar button {
   appearance: none; border: 0; background: transparent; color: var(--ink-2);
-  font: 700 11px/1.1 var(--sans); min-height: 52px; border-radius: 14px;
+  font: 700 10px/1.1 var(--sans); min-height: 52px; border-radius: 14px; padding: 2px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer;
 }
 .tabbar button svg { width: 22px; height: 22px; }
+.tabbar button .tab-torty { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; background: var(--cream); }
 .tabbar button[aria-current="page"] { background: var(--moss); color: var(--olive-deep); }
 body.scanning { padding-bottom: calc(16px + var(--safe-b)); }
 body.scanning .tabbar, body.scanning .foot { display: none; }
@@ -398,8 +399,18 @@ select {
 .menu-line h3 { font-size: 20px; }
 .origin-phone { box-shadow: inset 0 0 0 3px var(--cream); }
 
-.foot { max-width: 720px; margin: 22px auto 0; padding: 0 16px 8px; font-size: 14px; color: var(--ink-2); }
-.foot .disclaimer { background: var(--moss); border-radius: 16px; padding: 14px 16px; margin: 0 0 10px; color: var(--ink); }
+.foot { max-width: 720px; margin: 22px auto 0; padding: 0 16px 8px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.foot .disclaimer { background: var(--moss); border-radius: 16px; padding: 12px 14px; margin: 0 0 8px; color: var(--ink); }
+.pill.badge-own { background: var(--olive-deep); color: #fff; }
+.pill.unverified { background: var(--limit-bg); color: var(--ink); }
+.chat-log { display: flex; flex-direction: column; gap: 8px; max-height: 52vh; overflow: auto; margin: 12px 0; }
+.bubble { margin: 0; padding: 10px 12px; border-radius: 16px; max-width: 92%; }
+.bubble.torty { background: var(--moss); }
+.bubble.me { background: #fff; border: 1px solid var(--line); align-self: flex-end; }
+.torty-chat-head { display: flex; gap: 12px; align-items: center; }
+.torty-chat-head img { width: 64px; height: 64px; border-radius: 18px; object-fit: cover; background: var(--cream); }
+.chat-form { display: flex; gap: 8px; align-items: center; }
+.chat-form input { flex: 1; }
 .foot .credit { margin: 0; }
 
 dialog#standards {

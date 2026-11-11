@@ -388,26 +388,25 @@
     var name = place.name || 'this place';
     var line;
     if (result.status === 'unrated' || result.score == null) {
-      line = name + ' is on the map, and I don’t have enough to score it. I need reports that say what you ordered and which fats you actually saw. I won’t guess from the name of a dish or from the kind of place.';
+      line = 'Hey, ' + name + ' is on the map, and I don’t have enough to score it yet. Tell me what you ordered and which fats you actually saw. I won’t guess from a dish name or from the kind of place.';
       if (result.shop) line += ' A shop doesn’t get a restaurant seed-oil score from me.';
     } else if (result.preliminary && result.basis === 'public-notes') {
       line = 'The public notes I have for ' + name + (result.fatNames.length ? ' name ' + joinList(result.fatNames) : ' don’t name a cooking fat I can use') + '.';
       if (result.seedNames.length) line += ' They also name ' + joinList(result.seedNames) + '.';
-      line += ' That is the source talking, not a meal I watched. The place score is ' + result.score + ' (' + (result.band ? result.band.label : 'unrated') + '), and it is not a Tortuga approved badge. I still want reports from the table.';
+      line += ' That’s the source talking, not a meal I watched. My take on the place is ' + result.score + ' (' + (result.band ? result.band.label : 'unrated') + '), and it is not a Tortuga approved badge. I’d still love a report from the table.';
       if (result.partial) line += ' The company pages I read don’t describe every ingredient the same way, so I’m not treating the kitchen as finished.';
     } else if (result.preliminary && result.basis === 'ingredients') {
-      line = name + ' has published ingredient lists I can grade as packages. The place score is ' + result.score + '. That is not a restaurant seed-oil score, and it is not approved.';
+      line = name + ' has published ingredient lists I can read like packages. My take is ' + result.score + '. That’s not a restaurant seed-oil score, and it is not a Tortuga approved badge.';
     } else if (result.status === 'mixed') {
-      line = 'I won’t give ' + name + ' a clean badge. The score on this phone is ' + result.score + ', and the reports disagree. ' + (result.conflicts[0] || '');
+      line = 'I’d hold off on a clean badge for ' + name + '. The score on this phone is ' + result.score + ', and the reports disagree. ' + (result.conflicts[0] || '');
     } else {
-      line = name + ' scores ' + result.score + ' on the place scale, ' + (result.band ? result.band.label : '') + ', from ' + result.reportCount + ' reports.';
+      line = name + ' lands at ' + result.score + ' on the place scale, ' + (result.band ? result.band.label : '') + ', from ' + result.reportCount + ' reports.';
       if (result.fatNames.length) line += ' Fats actually named: ' + joinList(result.fatNames) + '.';
       else line += ' Nobody has written down a cooking fat yet.';
       if (result.seedNames.length) line += ' Seed oils named: ' + joinList(result.seedNames) + '.';
       if (result.approved) line += ' That’s enough, and consistent enough, for a Tortuga approved badge on this phone.';
       else line += ' It is not a Tortuga approved badge.';
     }
-    line += ' This is not a Yelp score, a Google score, or a Seed Oil Scout score.';
     return line;
   }
 

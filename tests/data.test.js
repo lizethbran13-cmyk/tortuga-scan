@@ -38,9 +38,19 @@ test('every product has ingredients, a source URL, and a grade that matches rule
   catalog.products.forEach(p => {
     assert.ok(p.barcode && String(p.barcode).length >= 8, 'barcode');
     assert.ok(p.name && p.name.length > 1, p.barcode);
-    assert.ok(p.ingredients && p.ingredients.length >= 20, p.barcode + ' ingredients');
-    assert.ok(/^https:\/\/world\.openfoodfacts\.org\/product\//.test(p.offUrl), p.barcode);
-    assert.equal(p.added, '2026-11-09', p.barcode);
+    const researched = p.listing === 'verified' && p.research && p.research.sourceUrl;
+    if (researched) {
+      assert.match(p.research.sourceUrl, /^https:\/\//, p.barcode);
+      assert.equal(p.added, '2026-11-11', p.barcode);
+      assert.equal(p.storePick, true, p.barcode);
+      assert.ok(p.ingredients && p.ingredients.length >= 3, p.barcode + ' ingredients');
+      assert.ok(!p.offUrl || /^https:\/\//.test(p.offUrl), p.barcode);
+    } else {
+      assert.ok(p.ingredients && p.ingredients.length >= 20, p.barcode + ' ingredients');
+      assert.ok(/^https:\/\/world\.openfoodfacts\.org\/product\//.test(p.offUrl), p.barcode);
+      assert.equal(p.added, '2026-11-09', p.barcode);
+      assert.ok(!p.listing || p.listing !== 'verified', p.barcode);
+    }
     assert.ok(!seen.has(p.barcode), 'duplicate ' + p.barcode);
     seen.add(p.barcode);
     const g = R.grade(p.ingredients, {
@@ -49,7 +59,8 @@ test('every product has ingredients, a source URL, and a grade that matches rule
       productName: p.name,
       brand: p.brand,
       labels: p.labels,
-      labelsTags: p.labelsTags
+      labelsTags: p.labelsTags,
+      badges: p.badges
     });
     assert.equal(p.grade.pass, g.pass, p.barcode + ' pass');
     assert.equal(p.grade.pass, g.score >= 45, p.barcode + ' pass cutoff');
@@ -132,7 +143,7 @@ test('the app lets you attach certifications when grading or adding a product', 
   assert.match(app, /mergeCertifications/);
   assert.match(app, /tortuga\.mine\.v1/);
   assert.match(app, /certPickerHtml/);
-  assert.match(sw, /tortuga-shell-v10/);
+  assert.match(sw, /tortuga-shell-v11/);
   const css = fs.readFileSync(path.join(__dirname, '..', 'styles.css'), 'utf8');
   assert.doesNotMatch(css, /\.needle\s*\{[^}]*transform-origin/);
   assert.match(app, /rotate\(' \+ \(-90 \+ \(target \+ 90\) \* e\) \+ ' 160 148\)/);
@@ -146,6 +157,19 @@ test('the app lets you attach certifications when grading or adding a product', 
   assert.match(html, /id="view-store"/);
   assert.match(html, /id="view-book"/);
   assert.match(html, /data-tab="book"/);
+  assert.match(html, /data-tab="torty"/);
+  assert.match(html, /id="view-torty"/);
+  assert.match(html, /id="uploadProduct"/);
+  assert.match(html, /id="profileForm"/);
+  assert.match(app, /id="productReportForm"/);
+  assert.match(app, /tortuga\.productReports\.v1/);
+  assert.match(app, /tortuga\.profile\.v1/);
+  assert.match(app, /listing: 'unverified'/);
+  assert.doesNotMatch(app, /listing:\s*'verified'/);
+  assert.match(html, /Tortuga Scan scores and badges are our own/);
+  assert.match(html, /Better for You and Super Clean Brand are Tortuga badges/);
+  assert.match(sw, /torty\.js/);
+  assert.match(sw, /scout\.js/);
 });
 
 test('Cheerios fails the new meter and photos are real URLs when present', () => {
@@ -170,6 +194,11 @@ test('Cheerios fails the new meter and photos are real URLs when present', () =>
 });
 
 console.log('News');
+test('the editorial note prefers clean-living news over routine FDA recalls', () => {
+  assert.match(news.editorial, /Dial down FDA recall items/);
+  assert.match(news.editorial, /Nevada/);
+  assert.match(news.editorial, /clean-product launches/i);
+});
 test('reports are newest first, and the first one is Monday, November 9, 2026 in Los Angeles', () => {
   assert.equal(news.timezone, 'America/Los_Angeles');
   const dates = news.reports.map(r => r.date);

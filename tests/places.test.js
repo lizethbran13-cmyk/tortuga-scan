@@ -264,14 +264,14 @@ test('Flower Child Henderson is the official address and stays unrated', () => {
   });
 });
 
-test('shell points at the map, place routes, and cache v10', () => {
+test('shell points at the map, place routes, and cache v11', () => {
   const root = path.join(__dirname, '..');
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
   const missing = fs.readFileSync(path.join(root, '404.html'), 'utf8');
   const rules = fs.readFileSync(path.join(root, 'rules.js'), 'utf8');
-  assert.match(sw, /tortuga-shell-v10/);
+  assert.match(sw, /tortuga-shell-v11/);
   assert.match(html, /id="addPlaceForm"[^>]*novalidate/);
   assert.match(html, /id="addPlaceStatus"[^>]*aria-live="assertive"/);
   assert.doesNotMatch(html, /id="addPlaceWeb"[^>]*type="url"/);

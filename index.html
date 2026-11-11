@@ -312,7 +312,7 @@
     <section id="view-store" class="view" hidden aria-labelledby="storeTitle">
       <div class="card intro">
         <h2 id="storeTitle">Approved store</h2>
-        <p>Products in this catalog that score 60 or more, so the arrow sits on Eat as you like. This is Tortuga’s own shelf, not the FlavCity store. The site cannot check out. Buy with Grok Bot opens the Grok Bot app, or go to a brand site when we have a real one.</p>
+        <p>A short shelf of products we looked up one by one and marked as Tortuga verified picks. This is our shelf, not an official FlavCity, Bobby Approved, Olive, or Seed Oil Scout list. The site cannot check out. Buy with Grok Bot opens the Grok Bot app, or go to a brand site when we have a real one.</p>
       </div>
       <form id="storeForm" class="card filters" autocomplete="off" role="search">
         <label class="label" for="storeQ">Search</label>
@@ -349,6 +349,26 @@
 
     <section id="view-brand" class="view" hidden aria-labelledby="brandTitle"></section>
 
+    <section id="view-torty" class="view" hidden aria-labelledby="tortyTitle">
+      <div class="card torty-chat">
+        <div class="torty-chat-head">
+          <img src="icons/torty-portrait.png" alt="" width="64" height="64">
+          <div>
+            <h2 id="tortyTitle">Torty</h2>
+            <p class="help">She reads what’s on this phone. There’s no one else in the chat.</p>
+          </div>
+        </div>
+        <div id="tortyLog" class="chat-log" role="log" aria-live="polite"></div>
+        <div id="tortyChips" class="filter-row"></div>
+        <form id="tortyForm" class="chat-form" autocomplete="off">
+          <label class="visually-hidden" for="tortyInput">Message Torty</label>
+          <input id="tortyInput" type="text" maxlength="500" placeholder="Ask about a score, or say report" enterkeyhint="send">
+          <button type="submit" class="btn btn-secondary">Send</button>
+        </form>
+      </div>
+      <div id="tortyScout"></div>
+    </section>
+
     <section id="view-more" class="view" hidden aria-labelledby="moreTitle">
       <div class="card intro">
         <h2 id="moreTitle">More</h2>
@@ -362,9 +382,20 @@
         <a href="#aboutAnchor">About</a>
       </nav>
 
+      <div class="card" id="profileCard">
+        <h2 class="small-title">Name on this phone</h2>
+        <p class="help">Reports and catalog uploads use this name. The profile lives on this device for now. There is no login.</p>
+        <form id="profileForm" class="paste" autocomplete="off">
+          <label for="profileName" class="label">Display name</label>
+          <input id="profileName" name="name" type="text" maxlength="40" placeholder="What should Scout call you?">
+          <p id="profileId" class="help"></p>
+          <button type="submit" class="btn btn-outline">Save name</button>
+        </form>
+      </div>
+
       <div class="card" id="addAnchor">
         <h2 class="small-title">Add a product</h2>
-        <p class="help" id="addProductHelp">Save a food or household product on this phone and grade it immediately. Nothing is uploaded. A scan opens it when that barcode isn’t already in the shared catalog.</p>
+        <p class="help" id="addProductHelp">Save a food or household product on this phone and grade it immediately. Upload to catalog packages the same item so you can send it to Scout. It stays unverified until someone reviews the shared catalog. A scan still opens the shared catalog first.</p>
         <form id="addProductForm" class="paste" autocomplete="off">
           <div class="kind-row" role="radiogroup" aria-label="Food or household">
             <label class="cert"><input type="radio" name="addKind" value="food" checked> Food</label>
@@ -396,7 +427,11 @@
             <label class="btn btn-outline file-btn">Choose a photo<input id="addFile" type="file" accept="image/*"></label>
           </div>
           <p id="addPhotoNote" class="help">Optional. The photo stays on this phone.</p>
-          <button type="submit" class="btn btn-secondary">Save and grade</button>
+          <div class="link-row">
+            <button type="submit" class="btn btn-secondary">Save and grade</button>
+            <button type="button" class="btn btn-outline" id="uploadProduct">Upload to catalog</button>
+          </div>
+          <p class="help">Upload does not publish the item. It builds a file and, if you want, a GitHub issue you can send. The photo stays on this phone.</p>
         </form>
       </div>
 
@@ -424,7 +459,7 @@
       <div id="newsAnchor">
         <div class="card intro slim">
           <h2>News</h2>
-          <p>Short notes with sources. We don’t invent recalls, studies, or product launches.</p>
+          <p>Short notes with sources. We don’t invent recalls, studies, or product launches. Day to day, prefer clean-product launches, studies, and clean-living policy. Skip most FDA recall items unless they clearly affect people here, such as a product sold in Nevada or a nationally relevant clean-living product.</p>
         </div>
         <div id="newsList" class="stack"></div>
       </div>
@@ -442,6 +477,7 @@
         <p>Packaged food and household products use Tortuga’s score from 0 to 100. Under 45 is a Fail and the arrow sits on Avoid. 45 to 59 is a Pass on Limit. 60 to 100 is a Pass on Eat as you like.</p>
         <p>Places on the food map use a different score, 0 to 10. Avoid is 0–4.4. Limit is 4.5–5.9. Eat / favorable is 6.0–10. Tortuga approved needs 7.0 or higher and enough agreeing reports. Thin evidence stays “Unrated — need reports.” That number is not the package score, and it is not a Yelp, Google, or Seed Oil Scout score.</p>
         <p>A brand is a <strong>Tortuga Certified Clean Brand</strong> only when every product of that brand in this catalog scores above 60. It is a <strong>Tortuga Certified Garbage Brand</strong> only when every one of those products scores below 35. Mixed brands get neither badge. Both labels are Tortuga’s own, and they cover only the products in this catalog, not the brand’s full lineup.</p>
+        <p><strong>Better for You</strong> is a Tortuga badge for one product that is a cleaner swap for a usually much worse staple. It can add 10 to 15 points, and a seed oil still cannot ride that bump into Eat as you like. <strong>Super Clean Brand</strong> is a Tortuga badge for a brand, not one jar. Neither one is an official certification.</p>
         <p class="help">Inspired by the published <a href="https://www.shopflavcity.com/pages/bobby-approved-app" target="_blank" rel="noopener">10 Commandments of Bobby Approved Ingredients</a> and an Olive-style meter. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout.</p>
         <button type="button" class="btn btn-outline" data-act="standards">Read the full rules</button>
       </div>
@@ -449,7 +485,8 @@
   </main>
 
   <footer class="foot">
-    <p class="disclaimer"><strong>Inspired by published Bobby Approved standards and an Olive-style meter.</strong> Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout. Not their score, badge, lab test, or certification. Grades use the ingredient list in our catalog, on Open Food Facts or Open Beauty Facts, or what you paste. Package certifications you check are claims on the label, not a badge we issue. Place scores are Tortuga’s own 0–10 reading of reports and sourced notes, not a Yelp, Google, or Seed Oil Scout score. We can’t verify how something was made. Always read the package, and ask what a kitchen cooks with.</p>
+    <p class="disclaimer">Tortuga Scan scores and badges are our own. They are not official certifications, and they are not official Olive, Seed Oil Scout, FlavCity, or Bobby Approved scores, badges, lab tests, or certifications. Not affiliated with FlavCity, Bobby Approved, Olive, or Seed Oil Scout.</p>
+    <p class="disclaimer">Better for You and Super Clean Brand are Tortuga badges. Grades use the ingredient list in our catalog, on Open Food Facts or Open Beauty Facts, or what you paste. Certifications you check are claims on the label until a person reviews them. Place scores are Tortuga’s own 0–10 reading. We can’t verify how something was made. Always read the package.</p>
     <p class="credit">Food data © <a href="https://world.openfoodfacts.org/" rel="noopener" target="_blank">Open Food Facts</a> contributors. Household lists © <a href="https://world.openbeautyfacts.org/" rel="noopener" target="_blank">Open Beauty Facts</a> and <a href="https://world.openproductsfacts.org/" rel="noopener" target="_blank">Open Products Facts</a> contributors, Open Database License. Map data © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap</a> contributors. Tiles and style © <a href="https://openfreemap.org/" rel="noopener" target="_blank">OpenFreeMap</a> © OpenMapTiles. Torty is Tortuga’s mascot.</p>
   </footer>
 
@@ -470,6 +507,10 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 6 4h12l2 5.5M4 9.5h16V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5zM9 13h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
       Store
     </button>
+    <button type="button" data-tab="torty">
+      <img class="tab-torty" src="icons/torty-portrait.png" alt="" width="22" height="22">
+      Torty
+    </button>
     <button type="button" data-tab="more">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       More
@@ -489,6 +530,8 @@
   <script src="vendor/html5-qrcode.min.js" defer></script>
   <script src="rules.js" defer></script>
   <script src="places.js" defer></script>
+  <script src="torty.js" defer></script>
+  <script src="scout.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>

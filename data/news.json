@@ -5,6 +5,114 @@
   "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
+      "id": "2026-11-17",
+      "date": "2026-11-17",
+      "timezone": "America/Los_Angeles",
+      "title": "Tuesday, November 17, 2026",
+      "dek": "Date-based sour candy, a four-ingredient fruit granola at Target, nitrate-free fungi deli slices at Sprouts, a beet red pitched for candy, a UK blood-marker study on ultra-processed diets, a New York additive ban on the governor’s desk, a renewed White House push to define ultra-processed food, and a regenerative farming pledge from 14 big food companies.",
+      "items": [
+        {
+          "id": "actually-fruit-super-loops",
+          "category": "launch",
+          "headline": "Actually Fruit’s Super Loops: sour candy cut from organic dates",
+          "summary": "In a November 14 release, Boulder-based Actually Fruit said its Super Loops are on shelves nationwide at Whole Foods Market, Natural Grocers, and Amazon in Sour Strawberry Lemonade, Sour Blue Raspberry, and Sour Watermelon. The company lists five ingredients (organic dates, organic flavor, organic coconut glycerin, malic acid, citric acid) and says the dates are sliced into rings, with no puree, syrup, or gelatin. The label it cites shows 0 g added sugar, 3 g fiber, and 80 calories per 30 g serving. Dates still carry natural sugar, so this is a cleaner candy swap, not a free pass.",
+          "sourceName": "Actually Fruit via NOSH",
+          "sourceUrl": "https://www.nosh.com/pr/2026/11/14/candy-thats-actually-fruit--sour-date-craze",
+          "sourceDate": "2026-11-14"
+        },
+        {
+          "id": "thats-it-fruitola-target",
+          "category": "launch",
+          "headline": "That’s it. brings Fruitola fruit granola to Target",
+          "summary": "Netty reported on November 16 that That’s it. launched Fruitola Fruit Granola at Target stores nationwide in Banana, Cinnamon, Strawberry, and Blueberry. The company says it is made with four ingredients and no added sugar, is gluten-free, and has 16 g plant-based protein and 7 g fiber per bowl. Those are the brand’s own claims. Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "Netty",
+          "sourceUrl": "https://netty.com/thats-it-brings-fruit-based-granola-to-target/",
+          "sourceDate": "2026-11-16"
+        },
+        {
+          "id": "prime-roots-safe-slice-sprouts",
+          "category": "launch",
+          "headline": "Prime Roots Safe Slice deli cuts roll out at Sprouts nationwide",
+          "summary": "Mass Market Retailers reported on November 10 that Prime Roots is rolling out Safe Slice, ready-to-eat deli slices made from fungi protein, at Sprouts Farmers Market stores nationwide, timed to the No Nitrates November campaign. The company says the line has no added nitrates and no hidden nitrate sources like celery powder, and is gluten-free, soy-free, and free of the top nine allergens, with turkey, ham, salami, and roast beef styles. Sprouts has Las Vegas and Henderson stores, but check your local shelf before you go.",
+          "sourceName": "Mass Market Retailers",
+          "sourceUrl": "https://massmarketretailers.com/prime-roots-launches-safe-slice-at-sprouts-nationwide/",
+          "sourceDate": "2026-11-10"
+        },
+        {
+          "id": "california-natural-color-pure-red-beet",
+          "category": "launch",
+          "headline": "A crystal beet red aimed at candy and dairy debuts at Fi Europe",
+          "summary": "California Natural Color said it is introducing Pure Red Beet, a beet-derived red in its crystal format, at Fi Europe in Frankfurt, November 17 to 19. It is pitched for dairy, candy, and plant-based foods. The supplier says the crystals are 5 to 10 times more concentrated than liquid colors. It’s one more plant-based option for brands moving off synthetic reds like Red 40. These are supplier claims, and it’s an ingredient for manufacturers, not something you’ll buy at the store.",
+          "sourceName": "Snack Food & Wholesale Bakery",
+          "sourceUrl": "https://www.snackandbakery.com/articles/116654-california-natural-color-debuts-red-coloring-for-candy",
+          "sourceDate": "2026-11-13",
+          "alsoSee": [
+            {
+              "name": "theFutureofFood.org",
+              "url": "https://thefutureoffood.org/california-natural-color-to-introduce-a-beet-based-red-food-color-in-crystal-form-for-candy-dairy-and-plant-based-foods/"
+            }
+          ]
+        },
+        {
+          "id": "ucl-upf-blood-signature",
+          "category": "study",
+          "headline": "UK study finds a blood ‘signature’ of ultra-processed diets",
+          "summary": "UCL and Imperial College London researchers used Whitehall II data on more than 6,000 UK adults followed for up to 20 years and measured 233 blood metabolites. The pattern tied to ultra-processed diets had more unhealthy fats and less omega-3, and a minimally processed diet showed the opposite. The researchers say this pattern explained 43% to 51% of the diet’s link to heart disease and type 2 diabetes, even after accounting for sugar, fat, and salt. They also say more research is needed. The paper came out in BMC Medicine in July; UCL publicized it on November 4. It’s observational, so it shows a link, not proof of cause.",
+          "sourceName": "UCL News",
+          "sourceUrl": "https://www.ucl.ac.uk/news/2026/nov/biological-signature-ultra-processed-diet-identified",
+          "sourceDate": "2026-11-04",
+          "alsoSee": [
+            {
+              "name": "BMC Medicine paper",
+              "url": "https://link.springer.com/article/10.1186/s12916-026-05081-7"
+            }
+          ]
+        },
+        {
+          "id": "ny-red3-gras-bill-hochul",
+          "category": "policy",
+          "headline": "New York bill banning Red 3, potassium bromate, and propylparaben reaches Hochul",
+          "summary": "The Food Safety and Chemical Disclosure Act (S1239-F / A1556-G) went to New York Gov. Kathy Hochul on November 13. It would ban food made with Red No. 3, potassium bromate, or propylparaben. It would also make New York the first state to require companies to report ingredients they have self-declared safe (self-affirmed GRAS) to a public state database, with small businesses exempt. Industry groups are urging a veto over costs. As of these reports, she had neither signed nor vetoed it. The ban wouldn’t start right away; the bill builds in phase-in time.",
+          "sourceName": "theFutureofFood.org",
+          "sourceUrl": "https://thefutureoffood.org/new-york-sends-hochul-a-bill-to-ban-red-no-3-food-dye-and-make-companies-disclose-self-affirmed-gras-ingredients/",
+          "sourceDate": "2026-11-17",
+          "alsoSee": [
+            {
+              "name": "NewYorkNews.app",
+              "url": "https://www.newyorknews.app/news/new-york-food-safety-chemical-disclosure-act-red-dye-3-ban-hochul-veto-push-2026-11-15"
+            }
+          ]
+        },
+        {
+          "id": "white-house-upf-definition-push",
+          "category": "policy",
+          "headline": "White House renews its push for a federal ultra-processed food definition",
+          "summary": "Politico reported on November 13, citing two people familiar with the talks, that the administration is again pushing to finalize a federal definition of ultra-processed food after progress stalled last month. Meetings with officials and industry have picked up since Stephen Miller became chief of staff. MAHA supporters see a definition as the first step toward labeling. No text has been published yet, so nothing changes on labels for now.",
+          "sourceName": "Politico",
+          "sourceUrl": "https://www.politico.com/news/2026/11/13/ultraprocessed-food-policy-gains-new-momentum-under-miller-a-maha-ally-01163831",
+          "sourceDate": "2026-11-13"
+        },
+        {
+          "id": "regen-compact-food-companies",
+          "category": "policy",
+          "headline": "Fourteen food companies sign a regenerative farming pledge",
+          "summary": "On November 17, companies including Nestlé, McDonald’s, Mars, Danone, and McCain Foods, plus retailers like Waitrose, Marks & Spencer, Lidl GB, and Aldi Süd, signed the Regen Compact, led by the Circular Bioeconomy Alliance. They commit to building more regenerative agriculture into how they operate and to tracking progress in a farmer-led way. Reports say each company sets its own actions, with no shared numeric target. It’s a pledge, not a certification, so it doesn’t make any one product regenerative or organic.",
+          "sourceName": "FoodNavigator",
+          "sourceUrl": "https://www.foodnavigator.com/Article/2026/11/17/nestle-mcdonalds-join-landmark-regen-compact/",
+          "sourceDate": "2026-11-17"
+        },
+        {
+          "id": "cr-kids-vitamins-label-test",
+          "category": "lab",
+          "headline": "Consumer Reports tests 21 kids’ vitamins against their labels",
+          "summary": "Consumer Reports tested 21 children’s vitamins, including Flintstones, Hiya, Nature Made, and SmartyPants, and says every product had at least one nutrient amount that differed from its label. The article (published November 10, updated November 12) has the brand-by-brand results and also covers heavy metals. Tortuga isn’t repeating figures here. Read CR’s tables before you buy.",
+          "sourceName": "Consumer Reports",
+          "sourceUrl": "https://www.consumerreports.org/babies-kids/kids-vitamins-testing-label-accuracy-heavy-metals-a7079992693/",
+          "sourceDate": "2026-11-12"
+        }
+      ]
+    },
+    {
       "id": "2026-11-16",
       "date": "2026-11-16",
       "timezone": "America/Los_Angeles",

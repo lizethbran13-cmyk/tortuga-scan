@@ -5,6 +5,89 @@
   "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
+      "id": "2026-11-16",
+      "date": "2026-11-16",
+      "timezone": "America/Los_Angeles",
+      "title": "Monday, November 16, 2026",
+      "dek": "A certified avocado oil lands at Walmart, Crunchmaster says its crackers are now seed-oil-free certified, a radish red is pitched in place of Red 40, two papers look at ultra-processed food, glyphosate-residue-free sales are reported at $2.8 billion, and FDA confirms Orange B stays off sausage casings.",
+      "items": [
+        {
+          "id": "pompeian-avocado-oil-walmart",
+          "category": "launch",
+          "headline": "Pompeian launches a certified avocado oil, only at Walmart",
+          "summary": "On November 12, Pompeian said it is selling Pompeian 100% Pure Avocado Oil in a 16-ounce bottle, only at Walmart. The company says the oil is pressed from avocado flesh, naturally refined, and Seed Oil Free Certified by the Seed Oil Free Alliance after a check against that group’s standard. The same release gives two smoke-point figures: up to 500°F in the story and up to 520°F in the bullet list. Tortuga is leaving both numbers on the page rather than picking one. A seed-oil-free certification is one check. It is not a lab test of every bottle on the shelf.",
+          "sourceName": "Pompeian via PR Newswire",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/more-ways-to-cook-more-joy-in-the-kitchen-pompeian-launches-100-pure-avocado-oil-exclusively-at-walmart-302937765.html",
+          "sourceDate": "2026-11-12"
+        },
+        {
+          "id": "crunchmaster-seed-oil-free-certified",
+          "category": "launch",
+          "headline": "Crunchmaster says every cracker and crisp is seed-oil-free certified",
+          "summary": "Crunchmaster’s own page says every cracker and crisp manufactured on or after November 1, 2026, is Seed Oil Free Certified by the Seed Oil Free Alliance, and that the seal is expected on packs in early to mid-2027 even though the certification is already in effect. The page says the oils used are avocado oil and olive oil, reviewed and lab-tested for purity by the Alliance, and that whole seeds in the crackers are not the thing the seal is about. The company also says the certification is not a medical or disease-prevention claim, and that the crackers are still gluten-free. A certification is the certifier’s standard, not a Tortuga grade of a barcode.",
+          "sourceName": "Crunchmaster",
+          "sourceUrl": "https://crunchmaster.com/saveaseed/",
+          "alsoSee": [
+            {
+              "name": "Business Wire release",
+              "url": "https://www.businesswire.com/news/home/20261111091925/en/Crunchmaster-Earns-Seed-Oil-Free-Certification-Across-Its-Entire-Cracker-and-Crisp-Portfolio"
+            }
+          ]
+        },
+        {
+          "id": "oterra-radish-red-color",
+          "category": "launch",
+          "headline": "Oterra pitches a radish powder as a Red 40 stand-in",
+          "summary": "theFutureofFood.org reported on November 13 that Oterra launched ColorFruit Red Radish Powder on November 12, from Mount Pleasant, Wisconsin, and is aiming it at cereals, snacks, baked goods, and frostings. Oterra says the color stays vivid at neutral pH and holds above 350°F through baking and extrusion. The article says those performance claims are the company’s, with no independent test data, no customers, and no price in the announcement. Oterra, citing Innova Market Insights, said about 70% of U.S. food and beverage launches with synthetic colors in the 12 months ending October 2026 contained Red 40. A separate fermentation red Oterra is developing with Debut is not on the market and still needs FDA approval.",
+          "sourceName": "theFutureofFood.org",
+          "sourceUrl": "https://thefutureoffood.org/oterra-launches-a-radish-based-red-color-to-replace-red-40-in-cereals-snacks-and-baked-goods/",
+          "sourceDate": "2026-11-13"
+        },
+        {
+          "id": "glyphosate-residue-free-sales",
+          "category": "launch",
+          "headline": "Glyphosate Residue Free certified sales reported at $2.8 billion",
+          "summary": "Where the Food Comes From, writing on November 16 from a Detox Project report, says SPINS checkout data put U.S. and Canadian sales of Glyphosate Residue Free certified products at $2.8 billion, up 180% from the year before. The same piece says a SPINS report covering the third quarter of 2025 had the market at $1 billion. It also says the Detox Project’s newer CleanScan program, a QR code for heavy-metal and pesticide results, has reached $120 million in certified-product sales. The article describes the Glyphosate Residue Free rule as regular tests by an ISO 17025 lab and no glyphosate down to usual government limits of detection, often 0.01 ppm. That is the certification’s bar, not a new public test of one jar in this catalog.",
+          "sourceName": "Where the Food Comes From",
+          "sourceUrl": "https://wherethefoodcomesfrom.com/shoppers-spent-2-8-billion-on-products-certified-free-of-glyphosate-residue/",
+          "sourceDate": "2026-11-16"
+        },
+        {
+          "id": "uk-nutrient-profiles-miss-upf",
+          "category": "study",
+          "headline": "UK nutrient scores miss a lot of ultra-processed foods, a BMJ Medicine paper says",
+          "summary": "FoodNavigator’s November 12 report on a BMJ Medicine study says researchers scored 1,898 UK products with five nutrient profiling models. The Food Standards Agency model called 57.6% unhealthy. Traffic-light labels called 48.2% unhealthy. Three newer models built from the Eatwell Guide called 91.5%, 94.9%, and 98.7% of the ultra-processed products unhealthy. FoodNavigator says a 2018 revision of the agency model, due in January 2027, still flagged 25 to 35 percent fewer processed and ultra-processed products than the most conservative of those new models. This is a UK shelf study, not a lab test of a U.S. barcode.",
+          "sourceName": "FoodNavigator",
+          "sourceUrl": "https://www.foodnavigator.com/Article/2026/11/12/study-challenges-uk-nutrient-profiling-models/",
+          "sourceDate": "2026-11-12",
+          "alsoSee": [
+            {
+              "name": "BMJ Medicine",
+              "url": "https://bmjmedicine.bmj.com/content/5/1/e001750"
+            }
+          ]
+        },
+        {
+          "id": "upf-research-industry-ties",
+          "category": "study",
+          "headline": "EWG: most papers criticizing the Nova ultra-processed label had industry ties",
+          "summary": "On November 12, EWG described an American Journal of Public Health study of 69 papers, published from 2009 through 2025, that questioned the Nova ultra-processed-food system or pointed to benefits of ultra-processed food. The papers had 232 authors. EWG says 91% of the articles had at least one author with a food-industry tie, about 69% of the authors had such a connection, and for 71% of those authors the tie was not disclosed in the paper and showed up only in a search of public records. Arguments for ultra-processed food showed up in two-fifths of articles with direct industry ties and in 17% of articles with no apparent industry ties. EWG also notes that an industry tie does not by itself throw out a study.",
+          "sourceName": "Environmental Working Group",
+          "sourceUrl": "https://www.ewg.org/news-insights/news/2026/11/big-food-influencing-debate-over-ultra-processed-food",
+          "sourceDate": "2026-11-12"
+        },
+        {
+          "id": "fda-confirms-orange-b-revocation",
+          "category": "policy",
+          "headline": "FDA confirms Orange B is no longer allowed on hot-dog casings",
+          "summary": "A Federal Register notice dated November 13 confirms the September 8, 2026 effective date of FDA’s July 23 order repealing the color-additive listing for Orange B on the casings or surfaces of frankfurters and sausages. FDA says no objections and no hearing requests were filed by the August 24 deadline, so the repeal stands. This is a dye listing that had already been pulled, not a new recall of a product on a Nevada shelf.",
+          "sourceName": "Federal Register",
+          "sourceUrl": "https://www.federalregister.gov/documents/full_text/html/2026/11/13/2026-23112.html",
+          "sourceDate": "2026-11-13"
+        }
+      ]
+    },
+    {
       "id": "2026-11-10",
       "date": "2026-11-10",
       "timezone": "America/Los_Angeles",

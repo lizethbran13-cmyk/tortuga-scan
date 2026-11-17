@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-10",
+  "updated": "2026-11-17",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -1411,6 +1411,2301 @@
           "accessed": "2026-11-10"
         }
       ]
+    },
+    {
+      "id": "aubergine-kitchen-las-vegas",
+      "name": "Aubergine Kitchen Las Vegas",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "5135 S Fort Apache Rd, Ste A100, Las Vegas, NV 89148",
+      "lat": 36.094794,
+      "lng": -115.298161,
+      "phone": "702-302-4207",
+      "website": "https://auberginekitchen.com/locations/las-vegas/",
+      "hoursNote": "Copied from the Las Vegas location page on November 17, 2026: open Monday–Saturday, closed Sunday. Breakfast 7:30–11:00am, until noon on Saturday. Lunch 11:00am–9:00pm. Hours change.",
+      "coordinateNote": "OpenStreetMap has no node named Aubergine Kitchen. The pin is the OSM node for 5135 South Fort Apache Road, which is tagged as another tenant (Streets of New York, unit 35). Aubergine’s page says suite A100 in that center.",
+      "summary": "Aubergine Kitchen on South Fort Apache Road. The Las Vegas page says the kitchen cooks in 100% extra-virgin olive oil, with no added sugar, and that the food is baked, never fried. The menu page says the food is made with no seed oils. Those are the company’s sentences. Tortuga does not treat them as three table reports.",
+      "offerings": [
+        {
+          "name": "Beet Dukkah",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Beets, arugula, mesclun, organic quinoa, apple, carrot, goat cheese, fermented onion, hazelnut, dukkah, mint, beet powder, spicy cashew dressing, walnut balsamic",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Beetroot",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: beet powder, strawberry, banana, whey protein, mushroom blend, unsweetened almond milk",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Spirulina Caesar",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Green spirulina, avocado, parmesan, housemade sourdough crumble, kale, baby spinach, sesame seeds, parsley, cottage caesar dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Ancient Roots",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted sweet potato, ruby fermented onion, avocado, mushroom, almond wild rice, organic quinoa, seasoned kale, cucumber salad, pumpkin seeds, green onion, sesame seeds, microgreens, peanut dressing, aioli",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Pumpkin Spice",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Pumpkin, flaxseed, cinnamon, almond butter, banana, dates, almond milk, vanilla, housemade coconut whipped cream, granola",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Berries & Whey",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Organic açai, whey protein, housemade granola, fresh strawberry, fresh blueberry, coconut chips, caramelized hazelnut",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Cocoa Mint",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Grass-fed whey protein, cocoa powder, avocado, cocoa sauce, mint, vanilla, dates, unsweetened almond milk, coconut whipped cream, chocolate chips",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Mediterranean Egg",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Sunny-side-up eggs, hummus, cashew dressing, mushroom, cherry tomato, kalamata olive, coconut bacon, caramelized hazelnut, pomegranate seeds, microgreens, olive oil, on housemade multiseed whole wheat sourdough",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Almond Orchard",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Almond butter, housemade granola, strawberry, blueberry jam, pistachio, pomegranate seeds, mint, on housemade multiseed whole wheat sourdough",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Jeweled Muhammara",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Muhammara, walnut pesto, soft-boiled eggs, dukkah, green onion, pomegranate seeds, microgreens, on housemade multiseed whole wheat sourdough",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Overnight Oatmeal",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Coconut overnight oats, housemade granola, blueberry jam, fresh strawberry, almond butter, fresh banana, caramelized hazelnut, pomegranate seeds",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Morning Ritual Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Pasture-raised egg, cottage cheese, avocado, mango salsa, blueberry, pumpkin seeds, cabbage salad, mint, sourdough",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Avocado Smash",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Avocado smash, grape tomatoes, hemp seeds, persian cucumber, red pepper, microgreens, olive oil, on housemade multiseed whole wheat sourdough",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Egg Avocado Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Pasture-raised eggs, avocado, goat cheese, kale, tomatoes, red onion, red pepper, hemp seeds, microgreens, on housemade multiseed whole wheat sourdough",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Sunny Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Sunny-side up eggs, quinoa, sweet potato, avocado, mushroom, grape tomatoes, sesame seeds, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Breakfast Plate",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Sunny-side up eggs, avocado, sweet potato, persian cucumber, sesame seeds, cashew cilantro jalapeño dressing, sourdough toast",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Egg Croissant Sandwich",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Croissant roll, pasture-raised eggs, mozzarella, tomato, mixed greens, crushed red pepper, sriracha dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Hummus Plate with Pita",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Hummus finished with a drizzle of olive oil, kalamata olives, golden chickpeas, and a fragrant za'atar. served with our housemade pita",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Hummus Plate with Veggies",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Hummus finished with a drizzle of olive oil, kalamata olives, golden chickpeas, and a fragrant za'atar. served with carrots sticks, radish, persian cucumber",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Baked Sweet Potato Bites",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Baked sweet potato with cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Mac 'N' Cheese",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Italian elbow pasta with our housemade cream of mozzarella, white cheddar, parmesan, and cottage cheese",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Baked Chicken Bites",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: 6 chicken bites with cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Exotic Dip Plate",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Baked falafel, hummus, baba ghanoush, muhammara, pita bread with za'atar, topped with chickpeas, microgreens, pomegranate seeds, walnuts, olives, olive oil",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Very Berry",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted chicken, organic quinoa, kale, mixed greens, goat cheese, green apple, strawberry, blueberry, basil, sweet spicy mango dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Protein Avocado Crisp",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted chicken, pasture-raised egg, mixed greens, kale, red onion, avocado, grape tomato, parmesan crisp, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Greek Salad",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Baked falafel, housemade sourdough breadcrumbs, mixed greens, kale, grape tomato, persian cucumber, kalamata olive, radish, red onion, red bell pepper, feta cheese, oregano, basil, basil vinaigrette dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Tri-Tip",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted tri-tip steak, mixed greens, baby spinach, red onion, green apple, walnut, parmesan cheese, grape tomato, red bell pepper, basil, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Wild Salmon",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Wild salmon, arugula, mixed greens, red cabbage, carrot, persian cucumber, roasted cashew, cilantro, lemon wedge, spicy cashew dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Mango Goat Cheese",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted chicken, arugula, red cabbage, mango salsa, grape tomato, goat cheese, slivered almond, basil, peanut dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Double Protein Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: 2x roasted chicken, almond wild rice, seasoned kale, brussels sprouts, sesame seeds, carrot salad, mango salad, pumpkin seeds, microgreens, spicy cashew dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Coconut Curry Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: roasted chicken, turmeric rice, seasoned kale, broccoli, carrot, green pea, sweet potato, cauliflower, chickpea, sesame seeds, microgreens, mild coconut curry",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Chicken Harvest Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: roasted chicken, almond wild rice, seasoned kale, broccoli, cauliflower, baked sweet potato bites, microgreens, lime tomato vinaigrette, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Tri-Tip Madeira Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: roasted tri-tip steak, turmeric rice, seasoned kale, brussels sprouts, baked sweet potato bites, sesame seeds, microgreens, mushroom & peppercorn madeira sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Rio Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted chicken, turmeric rice, seasoned kale, black bean, roasted onion, red bell pepper, avocado, microgreens, lime tomato vinaigrette, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Vitality Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Crafted with Dr. Josh Redd | Roasted chicken, quinoa, seasoned kale, sweet potato, brussels sprouts, red cabbage salad, sesame seeds, microgreens, sweet and spicy mango dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Mango Salmon Bowl",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Wild salmon, organic quinoa, seasoned kale, red cabbage salad, mushroom, roasted cauliflower, mango salsa, microgreens, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Power Pasture",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: roasted tri-tip steak, pasture-raised egg, turmeric rice, seasoned kale, roasted onion, carrot salad, feta cheese, microgreens, vinaigrette, cashew cilantro jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Mac 'N' Cheese Tri-Tip",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: roasted tri-tip with broccoli and basil vinaigrette. served with our four-cheese mac — made from a housemade cream of mozzarella, white cheddar, parmesan, and cottage cheese",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Roasted Chicken",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: roasted chicken, choice of base: almond wild rice, turmeric rice, or quinoa (no charge), broccoli, sweet potato, house salad, basil vinaigrette",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Roasted Steak",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Roasted tri-tip steak, choice of base: almond wild rice, turmeric rice, or quinoa (no charge), broccoli, sweet potato, house salad, basil vinaigrette",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Wild Salmon Plate",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: wild salmon, choice of base: almond wild rice, turmeric rice, or quinoa (no charge), broccoli, sweet potato, house salad, basil vinaigrette",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Chicken Parmigiana",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: chicken parmigiana (tomato sauce, mozzarella, parmesan, basil), broccoli, turmeric rice or sweet potato bites",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Mediterranean Plate",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Baked falafel, organic quinoa, seasoned kale, aubergine salad, carrot salad, red cabbage, muhammara, pomegranate seeds, za'atar, tahini with hummus or baba ghanoush",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Aubergine Parmigiana Plate",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Eggplant parmigiana, broccoli, turmeric rice or baked sweet potato bites",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Aubergine Melt",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Whole wheat pita bread, mozzarella, aubergine salad, walnut pesto, parmesan cheese, basil, seasoned salad, with sriracha dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Chicken Caprese Melt",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Whole wheat pita bread, roasted chicken, mozzarella, tomato vinaigrette, housemade walnut pesto, basil, seasoned salad, with cilantro cashew jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Hot Steak",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Whole wheat pita bread, roasted tri-tip steak, mozzarella, tomato vinaigrette, seasoned salad, with cilantro cashew jalapeño dressing",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Cucumber Mint Lemonade",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Made with real cucumbers, mint & lemon | no added sugar",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Raspberry Hibiscus Tea",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Made with real raspberries and hibiscus flower | no added sugar",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Strawberry Lemonade",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Made with real strawberries & lemon | no added sugar",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Hot Chocolate",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Housemade cocoa sauce, oat milk, housemade coconut whipped cream",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Chai Tea Latte",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Oat milk, chai, organic stevia, cinnamon",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Nice Açai Cup",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Organic açai, vanilla nice cream and housemade granola with housemade coconut whipped cream and strawberry",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Brazilian",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Organic açai with strawberry, blueberry, banana, coconut chips and our housemade granola",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Sunrise",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Organic açai with mango, peanut butter, strawberry, blueberry, banana, chia seed, and our housemade granola",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Nutty Choco",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Organic açai with housemade granola, almond butter, fresh strawberry, coconut chips, blueberry, cocoa chips, pomegranate seeds, crushed pistachio, mint",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Dragon Mango Crème",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: dragon fruit, mango, pineapple, banana, ginger, mint, creatine, hemp seeds, monk fruit, coconut water, topped with housemade pure mango sauce, housemade whipped cream",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Banana Monkey",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: almond butter, banana, dates, cinnamon, flax seeds, unsweetened almond milk",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Immune Boost",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: blue spirulina, pineapple, spinach, fresh ginger, orange juice, banana, dates, strawberry",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Super Protein Berry",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: plant based protein, almond butter, avocado, blueberry, banana, unsweetened almond milk",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Peanut Butter Bomb",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: unsweetened almond milk, banana, grass-fed vanilla whey protein, peanut butter, cocoa powder, maca, cocoa sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Hi-Vibe",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: green spirulina, turmeric, ginger, spinach, kale, pineapple, persian cucumber, celery, lemon, parsley, banana, flax and hemp seeds, coconut water",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Blue Wave",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: blue spirulina, almond butter, avocado, collagen, coconut, pure vanilla, monk fruit, cinnamon, dates, coconut milk, topped with coconut chips",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Strawberry Glow",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: sea moss, collagen, avocado, banana, pitaya, pure vanilla, monk fruit, strawberry, unsweetened almond milk, topped with housemade coconut whipped cream, housemade strawberry sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Matcha Power",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: matcha, sea moss, mushroom blend, collagen, mint leaves, banana, pure vanilla, monk fruit, unsweetened almond milk, topped with housemade whipped cream",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Olive Oil Pistachio",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Vanilla nice cream with 100% cold-pressed extra virgin olive oil, pistachios and flaky sea salt",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Sundae",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Vanilla and chocolate nice cream with fresh strawberries, banana, almond butter, cocoa sauce and coconut whipped cream",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Brownie Layers",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Rich brownie layered with vanilla nice cream, coconut whipped cream and cocoa sauce, finished with fresh strawberries",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Cocoa Niceshake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Chocolate, vanilla nice cream and coconut milk, topped with coconut whipped cream and cocoa sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Vanilla Niceshake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Vanilla nice cream blended with coconut milk, topped with coconut whipped cream, cocoa sauce and fresh strawberries",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Strawberry Niceshake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Fresh strawberries blended with nice cream and coconut milk, topped with coconut whipped cream and cocoa sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Nocciola Vanilla Niceshake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Hazelnut and vanilla nice cream blended with coconut milk, topped with coconut whipped cream, chocolate chips and housemade chocolate sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Nocciola (Hazelnut) Cocoa Niceshake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Hazelnut and chocolate blended with nice cream, topped with coconut whipped cream, chocolate chips and housemade chocolate sauce",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Tiramisu Niceshake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Vanilla nice cream, coconut milk, mascarpone, cevada, cocoa powder, housemade chocolate sauce, whipped cream, chocolate chips",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Brownie Bite",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Unsweetened cocoa powder, 100% extra virgin olive oil, GF oats, almond flour, dates, and organic stevia (no added sugar).",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Olive Oil Lemon Cake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: almond flour, allulose, extra virgin olive oil, lemon juice, lemon zest, pasture-raised eggs",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Hazelnut Chocolate Cake",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: almond flour, extra virgin olive oil, hazelnut, monk fruit extract, allulose, pasture-raised eggs, unsweetened cocoa powder",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Peanut Butter Cookie",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: peanut butter, almond flour, extra virgin olive oil, GF oats, monk fruit extract, allulose, pasture-raised eggs",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Peanut Power Energy Bite",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: peanut butter, chia seeds, GF oats, coconut, coconut oil, dates, monk fruit extract, allulose",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "coconut oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Chocolate Chip Cookie",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: chocolate chips, almond flour, coconut flour, monk fruit extract, allulose, pasture-raised eggs, extra virgin olive oil",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Banana Bread",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: bananas, dates, almond flour, walnut",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Cocoa Energy Bite",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: almond, coconut oil, unsweetened cocoa, coconut, dates",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "coconut oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Pumpkin Spice Cookie",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: pumpkin, pumpkin spice, extra virgin olive oil, dates",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Basil Vinaigrette",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Fresh basil with a savory finish and a touch of tang",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Sweet & Spicy Mango",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Sweet mango with a hint of chili and a bright, citrusy finish",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Tahini",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Smooth and nutty with an earthy richness and bright, citrusy finish",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Spicy Cashew",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Creamy with a touch of sweetness, warm spice and a bright citrus finish",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Cashew Cilantro Jalapeno",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Creamy and fresh with cilantro, a bright citrus finish and a little jalapeño heat",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Peanut Dressing",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Creamy and savory with a touch of sweetness and a mild spice",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Walnut Balsamic",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: A sweet and tangy blend with toasted walnut flavor and a hint of herbs",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Olive Oil",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: 100% EVOO from Europe",
+          "sourceUrl": "https://auberginekitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Sriracha Sauce",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: A sweet and spicy sauce with bold chili flavor and a little heat",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Aioli",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Smooth and creamy with bold garlic flavor and a savory finish",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        },
+        {
+          "name": "Cottage Caesar Dressing",
+          "basis": "official-menu",
+          "note": "Listed on Aubergine’s menu: Rich and creamy with classic Caesar flavor, savory depth, and a bright, tangy finish",
+          "sourceUrl": "https://auberginekitchen.com/menu/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "aubergine-evoo-kitchen",
+          "kind": "cooking-fat",
+          "text": "The Las Vegas page says this kitchen cooks in 100% extra-virgin olive oil, with no added sugar, and that the food is baked, never fried. The menu page says the food is made with no seed oils.",
+          "fats": [
+            "olive oil"
+          ],
+          "sourceUrl": "https://auberginekitchen.com/locations/las-vegas/",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Aubergine Kitchen Las Vegas",
+          "url": "https://auberginekitchen.com/locations/las-vegas/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Aubergine Kitchen menu",
+          "url": "https://auberginekitchen.com/menu/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Node at 5135 South Fort Apache Road. It is not named Aubergine Kitchen."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "3-little-chicks-sunset",
+      "name": "3 Little Chicks",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "7885 W Sunset Road, Suite 180, Las Vegas, NV 89113",
+      "lat": 36.070214,
+      "lng": -115.264629,
+      "phone": "702-489-0138",
+      "website": "https://www.3littlechicks.com/",
+      "orderUrl": "https://3littlechicks.olo.com/menu/3-little-chicks-southwest",
+      "hoursNote": "Copied from the official site on November 17, 2026: Sunday–Thursday 10am–8pm, Friday–Saturday 10am–9pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address lookup for 7885 West Sunset Road. OSM does not have a separate node named 3 Little Chicks or for suite 180.",
+      "summary": "3 Little Chicks on West Sunset Road. The menu PDF on the official site lists grilled or crispy chicken, salads, fries, and a vegan soft serve. It says the breading is naturally gluten free. It does not name the frying oil, so Tortuga does not guess one.",
+      "offerings": [
+        {
+          "name": "The Original Chick",
+          "basis": "official-menu",
+          "note": "The menu PDF lists a chicken breast with housemade honey mustard, pickles, and apple cabbage slaw, with a choice of grilled or crispy. It does not name a cooking oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "The Hot Chick",
+          "basis": "official-menu",
+          "note": "The menu PDF lists a chicken breast with signature hot sauce, pickles, and apple cabbage slaw, with a choice of grilled or crispy. It does not name a cooking oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "The Plain Chick",
+          "basis": "official-menu",
+          "note": "The menu PDF lists chicken breast with signature sauce. It does not name a cooking oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Original Crispy or Grilled",
+          "basis": "official-menu",
+          "note": "The menu PDF lists 3 chicken tenders with signature sauce, grilled or crispy, and says the breading is naturally gluten free. It does not name the frying oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Original Chopped",
+          "basis": "official-menu",
+          "note": "The menu PDF lists romaine and spinach, cranberry, pecans, apples, and Dijon dressing.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Caesar",
+          "basis": "official-menu",
+          "note": "The menu PDF lists romaine, parmesan, crispy chickpeas, and Caesar dressing. It does not name the oil in the dressing.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Signature Fry Bowl",
+          "basis": "official-menu",
+          "note": "The menu PDF lists fries, seasonal veggies, pickles, and signature sauce. It does not name the fry oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Fries",
+          "basis": "official-menu",
+          "note": "Named on the menu PDF. The page does not say which fat they are fried in.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Sweet potato fries",
+          "basis": "official-menu",
+          "note": "The menu PDF lists sweet potato fries with honey and cinnamon. It does not name the fry oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Apple cabbage slaw",
+          "basis": "official-menu",
+          "note": "The menu PDF lists Granny Smith apple, carrots, rainbow cabbage, and housemade Dijon dressing.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Fried pickles",
+          "basis": "official-menu",
+          "note": "The menu PDF lists dill pickles with signature sauce. It does not name the fry oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Seasonal veggies",
+          "basis": "official-menu",
+          "note": "The menu PDF lists roasted seasonal vegetables. It does not name the roasting fat.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Little Tenders",
+          "basis": "official-menu",
+          "note": "The kids’ menu lists 2 chicken tenders with signature sauce. It does not name a cooking oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Little Sandwich",
+          "basis": "official-menu",
+          "note": "The kids’ menu lists a chicken breast with signature sauce and fries. It does not name a cooking oil.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Madagascan vanilla bean soft serve",
+          "basis": "official-menu",
+          "note": "The menu PDF lists the soft serve as organic, non-GMO, vegan, and gluten free.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Strawberry shortcake",
+          "basis": "official-menu",
+          "note": "Named on the menu PDF under the Swirly Bar. Ingredients are not printed there.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        },
+        {
+          "name": "Swirly cookie sandwich",
+          "basis": "official-menu",
+          "note": "Named on the menu PDF under the Swirly Bar. Ingredients are not printed there.",
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "3lc-menu-oil-unnamed",
+          "kind": "menu-item",
+          "text": "The menu PDF lists grilled or crispy chicken, fried pickles, and fries, and it says the breading is naturally gluten free. It does not name the frying oil. The soft-serve line says the vanilla bean soft serve is organic, non-GMO, vegan, and gluten free.",
+          "fats": [],
+          "sourceUrl": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "3 Little Chicks",
+          "url": "https://www.3littlechicks.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "3 Little Chicks menu PDF",
+          "url": "https://www.3littlechicks.com/s/3LC-TV-MENU-1.pdf",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Address lookup for 7885 West Sunset Road. No node is named 3 Little Chicks."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "saint-honore-summerlin",
+      "name": "Saint Honoré Summerlin",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "9460 W Flamingo Road, 115, Las Vegas, NV 89147",
+      "lat": 36.11509,
+      "lng": -115.299835,
+      "phone": "702-840-3361",
+      "website": "https://www.ilovesainthonore.com/locations",
+      "hoursNote": "Copied from the official locations page on November 17, 2026: open every day 7am–9pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address lookup for 9460 West Flamingo Road. OSM does not have a separate node named Saint Honoré or for suite 115.",
+      "summary": "Saint Honoré, a Las Vegas doughnut and pizza shop. The company says the doughnuts are made from scratch daily from brioche dough. The menu page names the doughnuts, drinks, and pizzas and does not list ingredients or a cooking fat.",
+      "offerings": [
+        {
+          "name": "Rue",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Cookie Butter",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Strawberry White Chocolate",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Vanilla Bean Maple",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Chocolate Salted Caramel",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Crème Brûlée",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "The Cannoli",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pistachio Dubai Chocolate",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Chocolate Caramel Hazelnut",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Caramel Pecan Monkey Bread",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Horchata Milkshake",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Crème Brûlée Latte",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "SH Iced Coffee",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Cookies & Cream Milkshake",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Margherita",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Four Cheese",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Black Truffle & Honey",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pickle",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Buffalo Chicken",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pepperoni",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Veggie",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "saint-honore-menu-names",
+          "kind": "menu-item",
+          "text": "Saint Honoré’s site says the doughnuts are made from scratch daily from brioche dough. The menu page lists doughnut, drink, and pizza names and does not list ingredients or a cooking fat.",
+          "fats": [],
+          "sourceUrl": "https://www.ilovesainthonore.com/menu",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Saint Honoré locations",
+          "url": "https://www.ilovesainthonore.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Saint Honoré menu",
+          "url": "https://www.ilovesainthonore.com/menu",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Saint Honoré",
+          "url": "https://www.ilovesainthonore.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Address lookup for 9460 West Flamingo Road. No node is named Saint Honoré."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "saint-honore-area15",
+      "name": "Saint Honoré at AREA15",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "3071 Rancho Drive, Suite 140, Las Vegas, NV 89102",
+      "lat": 36.134308,
+      "lng": -115.179771,
+      "phone": "702-478-3270",
+      "website": "https://www.ilovesainthonore.com/locations",
+      "hoursNote": "Copied from the official locations page on November 17, 2026: Sunday–Monday 11:30am–9pm, Tuesday closed, Wednesday–Thursday 11:30am–9pm, Friday–Saturday 11:30am–10pm. Hours change.",
+      "coordinateNote": "The company page says 3071 Rancho Drive, Suite 140, Las Vegas, NV 89102. The pin is the OpenStreetMap address lookup for 3071 South Rancho Drive, which OSM tags as 89108. OSM’s Area15 way is a different number, 3215 South Rancho Drive. There is no node named Saint Honoré.",
+      "summary": "Saint Honoré, a Las Vegas doughnut and pizza shop. The company says the doughnuts are made from scratch daily from brioche dough. The menu page names the doughnuts, drinks, and pizzas and does not list ingredients or a cooking fat.",
+      "offerings": [
+        {
+          "name": "Rue",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Cookie Butter",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Strawberry White Chocolate",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Vanilla Bean Maple",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Chocolate Salted Caramel",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Crème Brûlée",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "The Cannoli",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pistachio Dubai Chocolate",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Chocolate Caramel Hazelnut",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Caramel Pecan Monkey Bread",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Horchata Milkshake",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Crème Brûlée Latte",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "SH Iced Coffee",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Cookies & Cream Milkshake",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Margherita",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Four Cheese",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Black Truffle & Honey",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pickle",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Buffalo Chicken",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pepperoni",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Veggie",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "saint-honore-menu-names",
+          "kind": "menu-item",
+          "text": "Saint Honoré’s site says the doughnuts are made from scratch daily from brioche dough. The menu page lists doughnut, drink, and pizza names and does not list ingredients or a cooking fat.",
+          "fats": [],
+          "sourceUrl": "https://www.ilovesainthonore.com/menu",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Saint Honoré locations",
+          "url": "https://www.ilovesainthonore.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Saint Honoré menu",
+          "url": "https://www.ilovesainthonore.com/menu",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Saint Honoré",
+          "url": "https://www.ilovesainthonore.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Address lookup for 3071 South Rancho Drive. OSM tags that point 89108. No node is named Saint Honoré."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "saint-honore-southwest",
+      "name": "Saint Honoré Southwest",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "5020 Blue Diamond Road, A, Las Vegas, NV 89139",
+      "lat": 36.031969,
+      "lng": -115.209402,
+      "phone": "725-258-3361",
+      "website": "https://www.ilovesainthonore.com/locations",
+      "hoursNote": "Copied from the official locations page on November 17, 2026: open every day 7am–9pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address lookup for 5020 Blue Diamond Road. OSM does not have a separate node named Saint Honoré or for unit A.",
+      "summary": "Saint Honoré, a Las Vegas doughnut and pizza shop. The company says the doughnuts are made from scratch daily from brioche dough. The menu page names the doughnuts, drinks, and pizzas and does not list ingredients or a cooking fat.",
+      "offerings": [
+        {
+          "name": "Rue",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Cookie Butter",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Strawberry White Chocolate",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Vanilla Bean Maple",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Chocolate Salted Caramel",
+          "basis": "official-menu",
+          "note": "Named under THE CLASSICS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Crème Brûlée",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "The Cannoli",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pistachio Dubai Chocolate",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Chocolate Caramel Hazelnut",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Caramel Pecan Monkey Bread",
+          "basis": "official-menu",
+          "note": "Named under THE COUTURE on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Horchata Milkshake",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Crème Brûlée Latte",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "SH Iced Coffee",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Cookies & Cream Milkshake",
+          "basis": "official-menu",
+          "note": "Named under THE DRINKS on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Margherita",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Four Cheese",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Black Truffle & Honey",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pickle",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Buffalo Chicken",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Pepperoni",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        },
+        {
+          "name": "Veggie",
+          "basis": "official-menu",
+          "note": "Named under THE PIZZA on Saint Honoré’s menu page. That page does not list ingredients or a cooking fat.",
+          "sourceUrl": "https://www.ilovesainthonore.com/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "saint-honore-menu-names",
+          "kind": "menu-item",
+          "text": "Saint Honoré’s site says the doughnuts are made from scratch daily from brioche dough. The menu page lists doughnut, drink, and pizza names and does not list ingredients or a cooking fat.",
+          "fats": [],
+          "sourceUrl": "https://www.ilovesainthonore.com/menu",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Saint Honoré locations",
+          "url": "https://www.ilovesainthonore.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Saint Honoré menu",
+          "url": "https://www.ilovesainthonore.com/menu",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Saint Honoré",
+          "url": "https://www.ilovesainthonore.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Address lookup for 5020 Blue Diamond Road. No node is named Saint Honoré."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "cafe-lola-summerlin",
+      "name": "Café Lola Summerlin",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "4280 S Hualapai Way #109, Las Vegas, NV 89147",
+      "lat": 36.112031,
+      "lng": -115.314415,
+      "phone": "702-766-5652",
+      "website": "https://www.ilovecafelola.com/locations",
+      "orderUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2",
+      "coordinateNote": "The pin is the OpenStreetMap node named Cafe Lola at 4280 South Hualapai Way, unit 109. That node’s postcode tag says 89135. Café Lola’s locations page and the order page both say 89147.",
+      "summary": "Café Lola. The locations page publishes this address, and the order link on that page is the menu used here. The menu names the dishes and does not state a cooking fat for the kitchen. A toast line says olive salad, which is not a statement of olive oil.",
+      "offerings": [
+        {
+          "name": "Cafe Lola Sugar Cookie",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Cherry Cheese Danish",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Chocolate Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Donut Vegan G/F",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Palmier",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: dipped in chocolate and dusted with freeze dried strawberries",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Organic Acai Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: organic berries, banana, cacao nibs housemade granola, honey",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Granny's Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free scrambled eggs, cheddar, toasted english muffin",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Classic Breakfast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free eggs your way, bacon or The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Spinach & Feta Frittata",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free eggs, baby bell peppers, onion, side salad, buttered toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Bacon & Cheddar Omelet",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free eggs, onion, side salad buttered toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Spicy Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: toasted everything bagel, fried cage-free The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Banana's Foster French Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bruleed bananas, housemade brown sugar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Chocolate Chip Waffle",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: maple almond butter, cacao nibs, banana, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Apple Croissant Bake",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Early Bird Special",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: Available weekdays from 7am to 10am through August 31",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "BAE Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bacon, avocado, cage-free egg & olive salad The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "The Lox Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: smoked salmon, dill & chive cream cheese, red onion, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Avocado Smash Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato, pickled red onion, crispy chickpeas micro cilantro",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Classic Cobb Salad",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: roasted chicken breast, romaine, hardboiled The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Lola's Classic Soup & Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato bisque, grilled cheese, prosciutto",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Buttermilk Ranch Chicken Club",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Chips & Guac",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made guacamole, Siete® mexican street corn tortilla chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Mediterranean Grain Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: quinoa, baby kale, cucumber, tomato, red The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Lola's Chicken Salad Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made chicken curry salad, granny The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Turkey & Cheese Croissant Melt",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: sliced turkey, havarti cheese, dijonnaise, mixed The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "The Monte Cristo",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: prosciutto, turkey, dijonnaise, havarti & cheddar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Bistro Burger",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: angus beef, caramelized onion, cheddar, lettuce, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Margaux's Breakfast Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free scrambled eggs, bacon or chicken sausage, toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Sophie's Waffle Pops",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: chocolate chip waffle, lola’s vanilla bean The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Mila's French Toast Stackers",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cinnamon sugar, organic berries, lola’s vanilla The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Snack Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: turkey breast, cheddar cheese, Siete® kettle The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        },
+        {
+          "name": "Grilled Cheese",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: grilled cheese, Siete® kettle chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "lola-menu-no-oil",
+          "kind": "menu-item",
+          "text": "The order menu linked from Café Lola’s locations page names these dishes. One toast line includes an olive salad. That is the menu’s wording, and it does not name a cooking oil. The menu does not say what the kitchen fries or grills in.",
+          "fats": [],
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Café Lola locations",
+          "url": "https://www.ilovecafelola.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Café Lola order menu",
+          "url": "https://cafelola.olo.com/menu/cafe-lola-summerlin-2",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Node named Cafe Lola, unit 109, at 4280 South Hualapai Way. OSM postcode tag is 89135; the company page says 89147."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "cafe-lola-henderson",
+      "name": "Café Lola Henderson",
+      "kind": "cafe",
+      "city": "Henderson",
+      "address": "10075 S Eastern Avenue #109, Henderson, NV 89052",
+      "lat": 36.004783,
+      "lng": -115.112375,
+      "phone": "702-840-3362",
+      "website": "https://www.ilovecafelola.com/locations",
+      "orderUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2",
+      "coordinateNote": "The pin is the OpenStreetMap node at 10075 South Eastern Avenue. That node is named VegeNation and does not mention Café Lola or suite 109. The street address is from Café Lola’s locations page.",
+      "summary": "Café Lola. The locations page publishes this address, and the order link on that page is the menu used here. The menu names the dishes and does not state a cooking fat for the kitchen. A toast line says olive salad, which is not a statement of olive oil.",
+      "offerings": [
+        {
+          "name": "Cafe Lola Sugar Cookie",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Cherry Cheese Danish",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Chocolate Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Donut Vegan G/F",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Palmier",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: dipped in chocolate and dusted with freeze dried strawberries",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Organic Acai Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: organic berries, banana, cacao nibs housemade granola, honey",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Granny's Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free scrambled eggs, cheddar, toasted english muffin",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Classic Breakfast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free eggs your way, bacon or The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Spinach & Feta Frittata",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free eggs, baby bell peppers, onion, side salad, buttered toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Bacon & Cheddar Omelet",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free eggs, onion, side salad buttered toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Spicy Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: toasted everything bagel, fried cage-free The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Banana's Foster French Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bruleed bananas, housemade brown sugar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Chocolate Chip Waffle",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: maple almond butter, cacao nibs, banana, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Apple Croissant Bake",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Early Bird Special",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: Available weekdays from 7am to 10am through August 31",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "BAE Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bacon, avocado, cage-free egg & olive salad The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "The Lox Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: smoked salmon, dill & chive cream cheese, red onion, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Avocado Smash Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato, pickled red onion, crispy chickpeas micro cilantro",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Classic Cobb Salad",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: roasted chicken breast, romaine, hardboiled The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Lola's Classic Soup & Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato bisque, grilled cheese, prosciutto",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Buttermilk Ranch Chicken Club",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Chips & Guac",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made guacamole, Siete® mexican street corn tortilla chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Mediterranean Grain Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: quinoa, baby kale, cucumber, tomato, red The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Lola's Chicken Salad Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made chicken curry salad, granny The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Turkey & Cheese Croissant Melt",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: sliced turkey, havarti cheese, dijonnaise, mixed The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "The Monte Cristo",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: prosciutto, turkey, dijonnaise, havarti & cheddar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Bistro Burger",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: angus beef, caramelized onion, cheddar, lettuce, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Margaux's Breakfast Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free scrambled eggs, bacon or chicken sausage, toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Sophie's Waffle Pops",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: chocolate chip waffle, lola’s vanilla bean The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Mila's French Toast Stackers",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cinnamon sugar, organic berries, lola’s vanilla The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Snack Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: turkey breast, cheddar cheese, Siete® kettle The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        },
+        {
+          "name": "Grilled Cheese",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: grilled cheese, Siete® kettle chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "lola-menu-no-oil",
+          "kind": "menu-item",
+          "text": "The order menu linked from Café Lola’s locations page names these dishes. One toast line includes an olive salad. That is the menu’s wording, and it does not name a cooking oil. The menu does not say what the kitchen fries or grills in.",
+          "fats": [],
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-henderson-2",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Café Lola locations",
+          "url": "https://www.ilovecafelola.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Café Lola order menu",
+          "url": "https://cafelola.olo.com/menu/cafe-lola-henderson-2",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Node at 10075 South Eastern Avenue. OSM names it VegeNation, not Café Lola."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "cafe-lola-forum",
+      "name": "Café Lola at The Forum Shops",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "3500 S Las Vegas Boulevard, Suite E05, Las Vegas, NV 89109",
+      "lat": 36.118919,
+      "lng": -115.176461,
+      "phone": "725-696-5658",
+      "website": "https://www.ilovecafelola.com/locations",
+      "orderUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2",
+      "coordinateNote": "The locations page gives 3500 S Las Vegas Boulevard. The order page linked from that page adds suite E05. The pin is the OpenStreetMap way for The Forum Shops at Caesars. OSM does not have a separate Café Lola suite node.",
+      "summary": "Café Lola. The locations page publishes this address, and the order link on that page is the menu used here. The menu names the dishes and does not state a cooking fat for the kitchen. A toast line says olive salad, which is not a statement of olive oil.",
+      "offerings": [
+        {
+          "name": "Cafe Lola Sugar Cookie",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Cherry Cheese Danish",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Chocolate Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Cinnamon Roll",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Donut Vegan G/F",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Palmier",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: dipped in chocolate and dusted with freeze dried strawberries",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Organic Acai Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: organic berries, banana, cacao nibs housemade granola, honey",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Granny's Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free scrambled eggs, cheddar, toasted english muffin",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Classic Breakfast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free eggs your way, bacon or The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Apple Croissant Bake",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "BAE Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bacon, avocado, cage-free egg & olive salad The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "The Lox Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: smoked salmon, dill & chive cream cheese, red onion, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Avocado Smash Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato, pickled red onion, crispy chickpeas micro cilantro",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Lola's Classic Soup & Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato bisque, grilled cheese, prosciutto",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Buttermilk Ranch Chicken Club",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Hail Caesar Chicken Salad",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Roasted Chicken Market Salad",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Chips & Guac",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made guacamole, Siete® mexican street corn tortilla chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Mediterranean Grain Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: quinoa, baby kale, cucumber, tomato, red The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Lola's Chicken Salad Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made chicken curry salad, granny The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Turkey & Cheese Croissant Melt",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: sliced turkey, havarti cheese, dijonnaise, mixed The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "The Monte Cristo",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: prosciutto, turkey, dijonnaise, havarti & cheddar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Bistro Burger",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: angus beef, caramelized onion, cheddar, lettuce, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Margaux's Breakfast Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free scrambled eggs, bacon or chicken sausage, toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Sophie's Waffle Pops",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: chocolate chip waffle, lola’s vanilla bean The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Mila's French Toast Stackers",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cinnamon sugar, organic berries, lola’s vanilla The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Snack Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: turkey breast, cheddar cheese, Siete® kettle The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        },
+        {
+          "name": "Grilled Cheese",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: grilled cheese, Siete® kettle chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "lola-menu-no-oil",
+          "kind": "menu-item",
+          "text": "The order menu linked from Café Lola’s locations page names these dishes. One toast line includes an olive salad. That is the menu’s wording, and it does not name a cooking oil. The menu does not say what the kitchen fries or grills in.",
+          "fats": [],
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Café Lola locations",
+          "url": "https://www.ilovecafelola.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Café Lola order menu",
+          "url": "https://cafelola.olo.com/menu/cafe-lola-forum-shops-2",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Way named The Forum Shops at Caesars. No separate node for Café Lola suite E05."
+        }
+      ],
+      "ownerPick": true
+    },
+    {
+      "id": "cafe-lola-southwest",
+      "name": "Café Lola Southwest",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "7379 S Rainbow Boulevard #170, Las Vegas, NV 89139",
+      "lat": 36.054384,
+      "lng": -115.243157,
+      "phone": "702-720-1005",
+      "website": "https://www.ilovecafelola.com/locations",
+      "orderUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2",
+      "coordinateNote": "OpenStreetMap had no address node for 7379 South Rainbow Boulevard. The pin is the U.S. Census Bureau public address-range point for that house number, on the 7301–7399 block of South Rainbow Boulevard. It is not a surveyed rooftop.",
+      "summary": "Café Lola. The locations page publishes this address, and the order link on that page is the menu used here. The menu names the dishes and does not state a cooking fat for the kitchen. A toast line says olive salad, which is not a statement of olive oil.",
+      "offerings": [
+        {
+          "name": "Cafe Lola Sugar Cookie",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Cherry Cheese Danish",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Chocolate Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Croissant",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Donut Vegan G/F",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Palmier",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: dipped in chocolate and dusted with freeze dried strawberries",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Organic Acai Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: organic berries, banana, cacao nibs housemade granola, honey",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Granny's Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free scrambled eggs, cheddar, toasted english muffin",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Classic Breakfast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free eggs your way, bacon or The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Spinach & Feta Frittata",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free eggs, baby bell peppers, onion, side salad, buttered toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Bacon & Cheddar Omelet",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cage-free eggs, onion, side salad buttered toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Spicy Breakfast Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: toasted everything bagel, fried cage-free The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Banana's Foster French Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bruleed bananas, housemade brown sugar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Chocolate Chip Waffle",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: maple almond butter, cacao nibs, banana, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Apple Croissant Bake",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Early Bird Special",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: Available weekdays from 7am to 10am through August 31",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "BAE Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: bacon, avocado, cage-free egg & olive salad The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "The Lox Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: smoked salmon, dill & chive cream cheese, red onion, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Avocado Smash Toast",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato, pickled red onion, crispy chickpeas micro cilantro",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Classic Cobb Salad",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: roasted chicken breast, romaine, hardboiled The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Lola's Classic Soup & Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: tomato bisque, grilled cheese, prosciutto",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Buttermilk Ranch Chicken Club",
+          "basis": "official-menu",
+          "note": "Named on this location’s order menu, linked from Café Lola’s locations page. The list view did not show a description.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Chips & Guac",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made guacamole, Siete® mexican street corn tortilla chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Mediterranean Grain Bowl",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: quinoa, baby kale, cucumber, tomato, red The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Lola's Chicken Salad Sammy",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: house made chicken curry salad, granny The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Turkey & Cheese Croissant Melt",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: sliced turkey, havarti cheese, dijonnaise, mixed The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "The Monte Cristo",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: prosciutto, turkey, dijonnaise, havarti & cheddar The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Bistro Burger",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: angus beef, caramelized onion, cheddar, lettuce, The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Margaux's Breakfast Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: 2 cage-free scrambled eggs, bacon or chicken sausage, toast",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Sophie's Waffle Pops",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: chocolate chip waffle, lola’s vanilla bean The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Mila's French Toast Stackers",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: cinnamon sugar, organic berries, lola’s vanilla The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Snack Plate",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: turkey breast, cheddar cheese, Siete® kettle The list view cuts off the rest, so it is not copied here.",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        },
+        {
+          "name": "Grilled Cheese",
+          "basis": "official-menu",
+          "note": "Listed on this location’s order menu, linked from Café Lola’s locations page: grilled cheese, Siete® kettle chips",
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "lola-menu-no-oil",
+          "kind": "menu-item",
+          "text": "The order menu linked from Café Lola’s locations page names these dishes. One toast line includes an olive salad. That is the menu’s wording, and it does not name a cooking oil. The menu does not say what the kitchen fries or grills in.",
+          "fats": [],
+          "sourceUrl": "https://cafelola.olo.com/menu/cafe-lola-southwest-2",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Café Lola locations",
+          "url": "https://www.ilovecafelola.com/locations",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Café Lola order menu",
+          "url": "https://cafelola.olo.com/menu/cafe-lola-southwest-2",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "U.S. Census Bureau address range",
+          "url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=7379%20S%20Rainbow%20Blvd,%20Las%20Vegas,%20NV%2089139&benchmark=Public_AR_Current&format=json",
+          "accessed": "2026-11-17",
+          "note": "Public address range for 7379 S Rainbow Blvd, Las Vegas, NV 89139. OSM had no node for this house number."
+        }
+      ],
+      "ownerPick": true
     }
   ]
 }

@@ -205,7 +205,7 @@ test('bands are the 0–10 place bands', () => {
 console.log('Catalog');
 const DENY = /(^|\.)(yelp|google|facebook|instagram|tripadvisor|wikipedia|foursquare|mapquest|waze|apple|bing|youtube)\.com$/i;
 test('starter catalog is real-shaped Las Vegas and Henderson data', () => {
-  assert.ok(places.length >= 20 && places.length <= 40, 'count ' + places.length);
+  assert.ok(places.length >= 20 && places.length <= 100, 'count ' + places.length);
   assert.equal(data.reports.length, 0);
   const ids = new Set();
   const cities = new Set();
@@ -264,14 +264,52 @@ test('Flower Child Henderson is the official address and stays unrated', () => {
   });
 });
 
-test('shell points at the map, place routes, and cache v11', () => {
+test('an owner pick can be Tortuga approved without inventing a score, and a fat conflict still blocks it', () => {
+  const bare = { id: 'own', name: 'Owner Cafe', kind: 'cafe', ownerPick: true, sourcedNotes: [], offerings: [] };
+  const g = P.gradePlace(bare, []);
+  assert.equal(g.approved, true);
+  assert.equal(g.score, null);
+  assert.equal(g.ownerPick, true);
+  assert.match(P.tortyPlace(bare, g), /owner pick/i);
+  assert.doesNotMatch(P.tortyPlace(bare, g), /olive oil|canola|seed oil/i);
+  const conflict = {
+    id: 'own2', name: 'Mix Kitchen', kind: 'restaurant', ownerPick: true, offerings: [],
+    sourcedNotes: [{ kind: 'cooking-fat', text: 'canola oil and olive oil', fats: ['canola', 'olive oil'] }]
+  };
+  const c = P.gradePlace(conflict, []);
+  assert.equal(c.approved, false);
+  assert.match(P.tortyPlace(conflict, c), /not giving it the Tortuga approved/i);
+  const aub = places.find(p => p.id === 'aubergine-kitchen-las-vegas');
+  const ag = P.gradePlace(aub, []);
+  assert.equal(ag.approved, true);
+  assert.equal(ag.score, 9);
+  assert.match(P.tortyPlace(aub, ag), /olive oil/i);
+  const lola = places.find(p => p.id === 'cafe-lola-henderson');
+  const lg = P.gradePlace(lola, []);
+  assert.equal(lg.approved, true);
+  assert.equal(lg.score, null);
+  assert.doesNotMatch(P.tortyPlace(lola, lg), /olive oil/i);
+  ['3-little-chicks-sunset', 'saint-honore-summerlin', 'saint-honore-area15', 'saint-honore-southwest',
+    'cafe-lola-summerlin', 'cafe-lola-forum', 'cafe-lola-southwest'].forEach(id => {
+    const place = places.find(p => p.id === id);
+    assert.ok(place, id);
+    assert.equal(place.ownerPick, true, id);
+    const graded = P.gradePlace(place, []);
+    assert.equal(graded.approved, true, id);
+    assert.equal(graded.score, null, id);
+    assert.ok((place.offerings || []).length >= 5, id + ' menu');
+  });
+  assert.ok(aub.offerings.length >= 10);
+});
+
+test('shell points at the map, place routes, and cache v12', () => {
   const root = path.join(__dirname, '..');
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
   const missing = fs.readFileSync(path.join(root, '404.html'), 'utf8');
   const rules = fs.readFileSync(path.join(root, 'rules.js'), 'utf8');
-  assert.match(sw, /tortuga-shell-v11/);
+  assert.match(sw, /tortuga-shell-v12/);
   assert.match(html, /id="addPlaceForm"[^>]*novalidate/);
   assert.match(html, /id="addPlaceStatus"[^>]*aria-live="assertive"/);
   assert.doesNotMatch(html, /id="addPlaceWeb"[^>]*type="url"/);

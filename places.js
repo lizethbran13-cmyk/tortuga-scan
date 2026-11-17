@@ -284,7 +284,7 @@
     }
 
     if (score == null) {
-      return emptyResult(place, shared);
+      return applyOwnerPick(place, emptyResult(place, shared));
     }
     score = round1(Math.max(0, Math.min(10, score)));
     var band = placeBand(score);
@@ -299,7 +299,7 @@
     var headline = approved ? 'Tortuga approved' : (preliminary ? 'From public notes — not enough reports to approve' : (status === 'mixed' ? 'Reports disagree' : 'Scored from reports'));
     if (shop && basis === 'ingredients') headline = 'From published ingredient lists — not a restaurant seed-oil score';
     if (shop && basis === 'reports') headline = 'From reports on what people bought — not a restaurant seed-oil score';
-    return Object.assign(shared, {
+    return applyOwnerPick(place, Object.assign(shared, {
       status: status,
       score: score,
       band: band,
@@ -308,7 +308,29 @@
       basis: basis,
       preliminary: preliminary,
       headline: headline
-    });
+    }));
+  }
+
+  // An owner pick is a catalog flag set by the person who keeps this file.
+  // It can carry the Tortuga approved mark without three table reports.
+  // It does not invent a 0–10 score, and it does not override a seed-oil or mixed-fat conflict.
+  function applyOwnerPick(place, result) {
+    if (!place || place.ownerPick !== true) return result;
+    result.ownerPick = true;
+    if (result.signal === 'seed' || result.signal === 'mixed') {
+      result.headline = 'Owner pick on file. The notes also name a seed oil or a mix, so this is not a Tortuga approved badge.';
+      return result;
+    }
+    result.approved = true;
+    result.label = 'Tortuga approved';
+    if (result.score == null) {
+      result.headline = 'Owner pick. The published menu does not name a cooking fat, so there is no 0–10 score yet.';
+    } else if (result.preliminary) {
+      result.headline = 'Owner pick. The number is from the restaurant’s own pages, not from three table reports.';
+    } else {
+      result.headline = 'Owner pick.';
+    }
+    return result;
   }
 
   function whatLists(place, reports) {
@@ -386,6 +408,22 @@
     place = place || {};
     result = result || gradePlace(place, []);
     var name = place.name || 'this place';
+    if (place.ownerPick) {
+      var noteText = '';
+      var notes = place.sourcedNotes || [];
+      for (var n = 0; n < notes.length; n++) {
+        if (notes[n] && notes[n].text) { noteText = notes[n].text; break; }
+      }
+      var ownerLine = result.signal === 'seed' || result.signal === 'mixed'
+        ? 'Hey, ' + name + ' is filed as an owner pick, but I’m not giving it the Tortuga approved badge. The notes name a conflict.'
+        : 'Hey, ' + name + ' is an owner pick in this catalog, so it carries a Tortuga approved mark.';
+      if (noteText) ownerLine += ' ' + noteText;
+      if (result.signal !== 'seed' && result.signal !== 'mixed') {
+        if (result.score != null) ownerLine += ' On the place scale that reads ' + result.score + '. That number is their pages, not three reports from a table. I’d still take one.';
+        else ownerLine += ' I don’t have a cooking fat to put a number on, and I won’t invent one.';
+      }
+      return ownerLine;
+    }
     var line;
     if (result.status === 'unrated' || result.score == null) {
       line = 'Hey, ' + name + ' is on the map, and I don’t have enough to score it yet. Tell me what you ordered and which fats you actually saw. I won’t guess from a dish name or from the kind of place.';
@@ -542,7 +580,7 @@
       minReportsForScore: MIN_REPORTS_FOR_SCORE,
       minReportsForApproved: MIN_REPORTS_FOR_APPROVED,
       mixedSpread: MIXED_SPREAD,
-      note: 'Place scores run from 0 to 10, one decimal. They are not the 0–100 package score. Avoid is 0–4.4. Limit is 4.5–5.9. Eat / favorable is 6.0–10. Tortuga approved needs 7.0 or higher, three or more ratings averaging at least 7, and fat evidence that is not mixed or only a partial company claim. Fewer than two ratings, and no sourced cooking fats or published ingredient lists, stays Unrated — need reports. Seed-oil evidence caps a place at 4.4. Mixed evidence caps it at 5.9. Grocers, shops, and chocolatiers are not given a restaurant seed-oil score for merely being a store.'
+      note: 'Place scores run from 0 to 10, one decimal. They are not the 0–100 package score. Avoid is 0–4.4. Limit is 4.5–5.9. Eat / favorable is 6.0–10. Tortuga approved needs 7.0 or higher, three or more ratings averaging at least 7, and fat evidence that is not mixed or only a partial company claim. Fewer than two ratings, and no sourced cooking fats or published ingredient lists, stays Unrated — need reports. An owner pick in the shared catalog can carry the Tortuga approved mark without those reports. The 0–10 number, when there is one, still comes only from sourced cooking fats, ratings, or published ingredient lists. Seed-oil evidence caps a place at 4.4. Mixed evidence caps it at 5.9. Grocers, shops, and chocolatiers are not given a restaurant seed-oil score for merely being a store.'
     };
   }
 

@@ -3706,6 +3706,434 @@
         }
       ],
       "ownerPick": true
+    },
+    {
+      "id": "rachels-kitchen-district",
+      "name": "Rachel’s Kitchen at the District",
+      "kind": "restaurant",
+      "city": "Henderson",
+      "address": "2265 Village Walk Dr, Henderson, NV 89052",
+      "lat": 36.021154,
+      "lng": -115.087558,
+      "phone": "725-425-1530",
+      "website": "https://www.rachelskitchen.com/locations/",
+      "hoursNote": "Copied from the locations directory on Rachel’s Kitchen’s locations page on November 17, 2026: Monday–Saturday 8:00am–8:00pm, Sunday 8:00am–7:00pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Rachel’s Kitchen at 2265 Village Walk Drive. Other businesses at that street number have their own nodes.",
+      "summary": "Rachel’s Kitchen at The District at Green Valley Ranch. The locations page publishes this Henderson address. The menu lists breakfast, salads, sandwiches, and juices, and one pasta line names extra virgin olive oil. It does not say what the kitchen cooks in, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Breakfast Burritos",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Scrambled eggs, salsa, avocado & swiss cheese wrapped in a flour tortilla, served with breakfast potatoes or fresh fruit salad. The menu does not name a cooking fat.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "The Favorite",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Three eggs scrambled with goat cheese, sundried tomatoes, avocado, mushrooms & basil, served with toast & breakfast potatoes or fresh fruit salad.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "Chopped Salad",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Chopped broccoli, red cabbage, tomatoes, olives, garbanzo beans & mozzarella cheese served with our balsamic basil vinaigrette. The menu does not name the oil in the vinaigrette.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "Cobb Salad",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Grilled chicken breast, gorgonzola cheese, bacon, avocado, tomatoes, eggs & romaine lettuce served with our ranch dressing.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "Smoked Turkey & Avocado Sandwich",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Smoked turkey, avocado, swiss cheese, mixed greens, tomatoes & chipotle mayo.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "Vegetarian Sandwich",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Goat cheese, eggplant, zucchini, roasted red peppers, yellow squash, red onions, roasted tomatoes & chipotle mayo.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "Traditional Tomato Basil",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Penne with fresh tomatoes, basil, garlic & extra virgin olive oil topped with parmesan cheese. That is one pasta, not a claim about the rest of the kitchen.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get"
+        },
+        {
+          "name": "Energizer Juice",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Beets, apples, carrots, lemon & ginger root.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "The Green Smoothie",
+          "basis": "official-menu",
+          "note": "Listed on Rachel’s Kitchen’s menu: Spinach, pineapples, bananas, coconut milk & honey.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        },
+        {
+          "name": "Kids Penne Pasta",
+          "basis": "official-menu",
+          "note": "Listed on the kids’ menu: Served with butter or marinara sauce. That is a choice on one kids’ dish, not a cooking fat for the kitchen.",
+          "sourceUrl": "https://www.rachelskitchen.com/menu/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "rachel-menu-one-olive-line",
+          "kind": "menu-item",
+          "text": "The menu names extra virgin olive oil on the Traditional Tomato Basil pasta, and it says the kids’ penne is served with butter or marinara sauce. It does not name a cooking fat for the rest of the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://www.rachelskitchen.com/menu/",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rachel’s Kitchen locations",
+          "url": "https://www.rachelskitchen.com/locations/",
+          "accessed": "2026-11-17",
+          "note": "The locations directory lists Rachel’s Kitchen at the District, 2265 Village Walk Dr, Henderson, NV 89052, phone (725) 425-1530."
+        },
+        {
+          "title": "Rachel’s Kitchen menu",
+          "url": "https://www.rachelskitchen.com/menu/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Rachel’s Kitchen menu data",
+          "url": "https://www.rachelskitchen.com/testingmenu3.json",
+          "accessed": "2026-11-17",
+          "note": "The menu page loads this file. The District location is one of the filters, and the dishes copied here are tagged for all locations."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Node named Rachel’s Kitchen at 2265 Village Walk Drive, Henderson 89052."
+        }
+      ]
+    },
+    {
+      "id": "greens-proteins-flamingo",
+      "name": "Greens & Proteins, West Flamingo",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "9809 W Flamingo Rd, Las Vegas, NV 89147",
+      "lat": 36.115047,
+      "lng": -115.305889,
+      "phone": "702-541-6400",
+      "website": "https://greensandproteins.com/",
+      "orderUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road",
+      "hoursNote": "The locations page says the three Las Vegas locations are open 7 days a week. It does not print opening and closing times. Hours change.",
+      "coordinateNote": "OpenStreetMap has no address node for 9809 West Flamingo Road. Other nodes named Greens and Proteins are at different addresses. The pin is the U.S. Census Bureau public address point for 9809 W Flamingo Rd, Las Vegas, NV 89147. It is not a surveyed rooftop.",
+      "summary": "Greens & Proteins on West Flamingo Road. The homepage says the kitchen cooks with zero seed oils, fries in beef tallow, and sautés in olive oil, and that the food is 100% seed oil free. Those are the company’s sentences. Tortuga does not treat them as table reports.",
+      "offerings": [
+        {
+          "name": "Wellness Drink",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu, linked from the Greens & Proteins site: Green grape, green apple, kale, spinach, collard greens, ginger, flax, pineapple, orange, lime, wheat-grass.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "Bison Burger",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: Grilled bison burger with lettuce, tomato, onion and choice of cheddar or Swiss cheese. The line does not name a cooking fat.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "Turkey Club",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: Roasted turkey, turkey bacon, lettuce, tomato, russian dressing. Wraps are served with tofu fries or jicama fries. The line does not name a fry oil.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "Grilled Vegetable Wrap",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: Mushroom, asparagus, squash, zucchini, broccoli, peppers, spinach, tomato, bean puree, walnut cilantro pesto.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "Chicken Teriyaki Bowl",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: Chicken, basmati rice, squash, zucchini, asparagus, mushroom, sesame, teriyaki sauce.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "Salmon Teriyaki Bowl",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: Salmon, basmati rice, cucumber, tomato, asian slaw, carrot, broccoli, sesame, teriyaki sauce.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "G&P Veggie Burger",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: A lentil, brown rice, mushroom, celery, carrot, onion, cilantro, basil, garlic and cashew patty w/ L, T, O, & sprouts.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        },
+        {
+          "name": "Acai Berry Smoothie",
+          "basis": "official-menu",
+          "note": "Listed on the West Flamingo order menu: Acai, green grapes, blueberries, blackberries, pineapple, coconut, spinach, kale, banana, peaches & honey.",
+          "sourceUrl": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "gp-tallow-olive",
+          "kind": "cooking-fat",
+          "text": "The homepage says “We cook with zero seed oils, real whole ingredients, and a kitchen that takes nutrition seriously.” A block on that page says “100% seed oil free” and “Fried in beef tallow. Sautéed in olive oil.” The hero says “Zero seed oils” and “Tallow & olive oil.”",
+          "fats": [
+            "tallow",
+            "olive oil"
+          ],
+          "sourceUrl": "https://greensandproteins.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "id": "gp-named-oils-absent",
+          "kind": "quality",
+          "text": "The homepage also says the food is made with real ingredients and zero canola, soybean, or vegetable oil, and it lists grass-fed bison, wild-caught salmon, and organic produce among what the company is known for. The West Flamingo order menu does not repeat those words on each dish.",
+          "fats": [],
+          "sourceUrl": "https://greensandproteins.com/",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Greens & Proteins",
+          "url": "https://greensandproteins.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Greens & Proteins locations",
+          "url": "https://greensandproteins.com/locations",
+          "accessed": "2026-11-17",
+          "note": "Lists 9809 W Flamingo Rd, Las Vegas, NV 89147, phone (702) 541-6400, and says the locations are open 7 days a week."
+        },
+        {
+          "title": "Greens & Proteins West Flamingo order menu",
+          "url": "https://order.greensandproteins.com/order/greens-proteins-4-west-flamingo-9809-west-flamingo-road",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "U.S. Census Bureau address point",
+          "url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=9809%20W%20Flamingo%20Rd,%20Las%20Vegas,%20NV%2089147&benchmark=Public_AR_Current&format=json",
+          "accessed": "2026-11-17",
+          "note": "Public address point for 9809 W Flamingo Rd, Las Vegas, NV 89147. OSM had no node for this house number."
+        }
+      ]
+    },
+    {
+      "id": "hash-house-west-sahara",
+      "name": "Hash House A Go Go, West Sahara",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "6800 West Sahara Ave, Las Vegas, NV 89146",
+      "lat": 36.144727,
+      "lng": -115.240038,
+      "phone": "702-804-4646",
+      "website": "https://westsahara.hashhouseagogo.com/",
+      "hoursNote": "Copied from the West Sahara page on November 17, 2026: Monday–Friday 8am–2pm, Saturday–Sunday 8am–3pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap way named Hash House A Go Go West Sahara at 6800 West Sahara Avenue.",
+      "summary": "Hash House A Go Go on West Sahara Avenue. The location page gives the address and hours. The menu names sage fried chicken, hashes, and flapjacks, and it says the kitchen fries in zero trans fat oil. It does not name that oil, so Tortuga does not score the fryer.",
+      "offerings": [
+        {
+          "name": "Andy’s Sage Fried Chicken & Eggs",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: with syrup reduction, 2 eggs, bacon, sliced tomatoes, griddled mashed potatoes, biscuit and fresh fruit garnish. The menu does not name the frying oil.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "Andy’s World Famous Sage Fried Chicken & Waffles",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: two sage fried chicken breasts piled high on top of our hickory smoked bacon waffle tower, hot syrup reduction and fried leeks. The menu does not name the frying oil.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "Biscuits & Sausage Gravy",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: 2 eggs, griddled mashed potatoes, homemade biscuit and sausage gravy.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "Big O’ Breakfast Burrito",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: Chorizo, tomato, jalapeño, cheddar cheese, crispy potatoes and scrambled eggs wrapped in a warm flour tortilla, served with a side of pico de gallo and sour cream.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "Avocado Toast",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: a whole avocado spread over our griddled milk bread topped with sliced tomatoes, goat cheese, julienned basil and balsamic glaze drizzle.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "The Kokomo",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: our famous HH griddled meatloaf with roasted tomato & mozzarella on old fashioned milk bread. Sandwiches are served with crispy fries or salad. The menu does not name the fry oil.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "Fried Chicken Sandwich",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: Andy’s sage fried chicken breast on a fresh toasted bun with mayonnaise and pickles. The menu does not name the frying oil.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "The Hash House Cobb",
+          "basis": "official-menu",
+          "note": "Listed on the West Sahara menu: mixed greens, grilled chicken, red onion, tomato, blue cheese crumbles, hickory smoked bacon, hard boiled egg & avocado all tossed w/ blue cheese dressing.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        },
+        {
+          "name": "Classic Buttermilk Flapjack",
+          "basis": "official-menu",
+          "note": "Named on the West Sahara menu, with an add-on of whipped cream. The menu does not print a further ingredient list.",
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "hh-zero-trans-fat-oil",
+          "kind": "menu-item",
+          "text": "The West Sahara menu says “We fry in zero trans fat oil!” It does not name the oil. Fried chicken, fries, and the country fried steak are on the same menu without a named fat.",
+          "fats": [],
+          "sourceUrl": "https://westsahara.hashhouseagogo.com/menu/",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Hash House A Go Go West Sahara",
+          "url": "https://westsahara.hashhouseagogo.com/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Hash House A Go Go West Sahara menu",
+          "url": "https://westsahara.hashhouseagogo.com/menu/",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "Hash House A Go Go locations",
+          "url": "https://www.hashhouseagogo.com/locations/",
+          "accessed": "2026-11-17",
+          "note": "Lists the West Sahara restaurant at 6800 West Sahara Ave, Las Vegas, NV 89146, phone 702-804-4646."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Way named Hash House A Go Go West Sahara at 6800 West Sahara Avenue."
+        }
+      ]
+    },
+    {
+      "id": "egg-works-summerlin",
+      "name": "Egg Works Summerlin",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "2025 Village Center Circle, Las Vegas, NV 89134",
+      "lat": 36.190873,
+      "lng": -115.304509,
+      "phone": "702-445-7330",
+      "website": "https://theeggworks.com/",
+      "hoursNote": "Copied from the official homepage on November 17, 2026: all locations are open daily at 6am until 2pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address for 2025 Village Center Circle, Las Vegas 89134. OSM does not name that building Egg Works.",
+      "summary": "Egg Works on Village Center Circle in Summerlin. The homepage lists this address and says every location is open daily from 6am until 2pm. The menu PDF names the breakfast dishes. One substitution line says “No Oil (Cooking Spray).” That is an option on the menu, not a statement of what the kitchen fries in, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "The Classic",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: Two eggs cooked any style with Habla Diablo seasoned potatoes, and your choice of toast or a homemade banana nut muffin.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Grandma’s Biscuits & Gravy",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: Two buttermilk biscuits smothered in homemade sausage gravy that is straight from grannies kitchen. Served with Habla Diablo seasoned potatoes.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Sunrise Mountain",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: A fluffy breakfast croissant served open faced and piled high with four eggs scrambled with your choice of ham, bacon, or sausage, then topped with melted Cheddar & Jack cheese. Served with a side of Habla Diablo seasoned potatoes.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Stuffed French Toast",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: Scrambled eggs with cheese and your choice of ham, bacon, or sausage stuffed between French toast, dusted with powdered sugar. Served along side Habla Diablo seasoned potatoes with warm maple syrup.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Traditional Benny",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: English muffin grilled golden brown, topped with Canadian bacon, two poached eggs and smothered in hollandaise sauce. Bennys are served with Habla Diablo seasoned potatoes or fruit.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Original Breakfast Burrito",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: A flour tortilla stuffed with four eggs, diced bacon, bell peppers, onions, Habla Diablo seasoned potatoes, and Cheddar & Jack cheese, served with Habla Diablo seasoned potatoes and Habla Diablo Original salsa.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Country Fried Steak",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: A hand battered country fried steak, topped with Grandma’s country gravy and served with two eggs, Habla Diablo seasoned potatoes and your choice of toast or banana nut muffin. The menu does not name the frying oil.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        },
+        {
+          "name": "Fresh Veggie Omelette",
+          "basis": "official-menu",
+          "note": "Listed on the Egg Works menu PDF: Diced onions, mushrooms, tomatoes, green bell peppers and fresh spinach folded and topped with Cheddar & Jack cheese.",
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "egg-works-no-oil-option",
+          "kind": "menu-item",
+          "text": "The menu PDF lists a healthy-options substitution called “No Oil (Cooking Spray),” next to egg whites and a side of fruit. It does not name the oil used for the country fried steak or the rest of the menu.",
+          "fats": [],
+          "sourceUrl": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf",
+          "accessed": "2026-11-17"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Egg Works",
+          "url": "https://theeggworks.com/",
+          "accessed": "2026-11-17",
+          "note": "Lists Egg Works Summerlin at 2025 Village Center Circle, Las Vegas, NV 89134, phone 702-445-7330, open daily 6am until 2pm."
+        },
+        {
+          "title": "Egg Works menu",
+          "url": "https://theeggworks.com/menu/",
+          "accessed": "2026-11-17",
+          "note": "The menu page links the May 2025 menu PDF."
+        },
+        {
+          "title": "Egg Works menu PDF",
+          "url": "https://theeggworks.com/wp-content/uploads/2025/06/Egg-Works-Menu-05.2025.pdf",
+          "accessed": "2026-11-17"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-17",
+          "note": "Address for 2025 Village Center Circle, Las Vegas 89134. The building is not named Egg Works."
+        }
+      ]
     }
   ]
 }

@@ -25,7 +25,7 @@ rules.js               Package rules engine (browser + Node)
 places.js              Place scores, 0–10 (browser + Node)
 torty.js               On-device Torty chat
 scout.js               Report and catalog-upload payloads (no upload)
-sw.js                  Service worker (cache name tortuga-shell-v11)
+sw.js                  Service worker (cache name tortuga-shell-v12)
 404.html               GitHub Pages fallback so /product/… reloads
 manifest.webmanifest   Add to Home Screen
 data/catalog.json      Food catalog
@@ -123,7 +123,7 @@ Places on the food map use a **0–10** score. It is not the package meter and n
 
 **Cooking fats weigh the most** for a restaurant or cafe (olive oil, avocado oil, butter, ghee, tallow, and lard against canola, vegetable oil, and the other seed oils). Ingredient lists and the average of ratings come after that. Consistent seed-oil evidence caps the score at 4.4. Mixed fats, or ratings that spread by 3.5 or more, cap it at 5.9 and block the badge.
 
-**Tortuga approved** needs 7.0 or higher, at least three ratings averaging 7 or higher, and favorable fat evidence that is not mixed. A company page that says the kitchen is only partly clear of seed oils can produce a preliminary number, and it cannot approve the place by itself.
+**Tortuga approved** needs 7.0 or higher, at least three ratings averaging 7 or higher, and favorable fat evidence that is not mixed. A company page that says the kitchen is only partly clear of seed oils can produce a preliminary number, and it cannot approve the place by itself. An `ownerPick` on a shared catalog place can carry the Tortuga approved mark without those reports. That flag does not invent a 0–10 score, and it does not override a seed-oil or mixed-fat conflict.
 
 **Grocers, shops, and chocolatiers** do not get a restaurant seed-oil score for being a store. They stay unrated unless people report what they bought, or the catalog has real ingredient lists. Ethel M’s Henderson flagship stays unrated: the company page says no artificial flavors or colors, and it does not print a formula.
 

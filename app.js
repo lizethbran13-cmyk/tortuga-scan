@@ -1380,7 +1380,7 @@
     if (Places && Places.rulesSummary) {
       var placeRules = Places.rulesSummary();
       $('standardsBody').innerHTML += '<h3>Places, 0 to 10</h3><p>' + esc(placeRules.note) + '</p>' +
-        '<p>The map is Tortuga’s catalog of Las Vegas and Henderson places on an OpenFreeMap basemap, which uses OpenStreetMap data. A place is Tortuga approved only at ' + placeRules.approvedAt + '.0 or higher, with at least ' + placeRules.minReportsForApproved + ' ratings that agree, and fat evidence that is not mixed or only a partial company claim. Reports stay on this phone until you copy the JSON. This is not a Seed Oil Scout map, score, or badge.</p>';
+        '<p>The map is Tortuga’s catalog of Las Vegas and Henderson places on an OpenFreeMap basemap, which uses OpenStreetMap data. A place is Tortuga approved at ' + placeRules.approvedAt + '.0 or higher, with at least ' + placeRules.minReportsForApproved + ' ratings that agree, and fat evidence that is not mixed or only a partial company claim. An owner pick in the shared catalog can carry that mark without those reports. The 0–10 number still needs sourced fats, ratings, or published ingredient lists. Reports stay on this phone until you copy the JSON. This is not a Seed Oil Scout map, score, or badge.</p>';
     }
   }
 
@@ -1622,6 +1622,13 @@
       '<p class="place-scale" aria-hidden="true"><span>0</span><span>Avoid</span><span>Limit</span><span>Eat</span><span>10</span></p>';
   }
   function scoreBlock(p, g) {
+    if (g.score == null && g.approved) {
+      return '<div class="place-meter scored eat"><p class="place-unrated-badge">Tortuga approved</p>' +
+        placeGauge(null) +
+        '<p class="pills"><span class="pill eat">' + esc(g.label) + '</span></p>' +
+        '<p class="help">' + esc(g.headline) + '</p>' +
+        '<button type="button" class="btn btn-outline" data-act="report" data-place="' + esc(p.id) + '">Add a report</button></div>';
+    }
     if (g.score == null) {
       return '<div class="place-meter unrated"><p class="place-unrated-badge">Unrated</p>' +
         placeGauge(null) +
@@ -1839,12 +1846,13 @@
     if (!$('mapList')) return;
     $('mapList').innerHTML = list.map(function (p) {
       var g = gradedPlace(p);
-      var pill = g.score == null ? 'Unrated' : (g.score + ' · ' + g.label);
+      var pill = g.score == null ? (g.approved ? g.label : 'Unrated') : (g.score + ' · ' + g.label);
+      var pillClass = g.approved ? 'eat' : (g.band ? g.band.id : '');
       return '<button type="button" class="cat-card" data-act="place" data-place="' + esc(p.id) + '">' +
         '<span class="thumb"><span class="dot ' + esc(p.kind || 'shop') + (p.origin === 'phone' ? ' origin-phone' : '') + '"></span></span>' +
         '<span><span class="name">' + esc(p.name) + '</span><span class="brand">' + esc(p.city || '') + ' · ' + esc(p.kind || '') +
         (p.origin === 'phone' ? ' · On this phone' : '') + '</span>' +
-        '<span class="pills"><span class="pill ' + esc(g.band ? g.band.id : '') + '">' + esc(pill) + '</span></span></span></button>';
+        '<span class="pills"><span class="pill ' + esc(pillClass) + '">' + esc(pill) + '</span></span></span></button>';
     }).join('') || '<div class="card"><p>No places match.</p></div>';
   }
   function showPeek(id) {

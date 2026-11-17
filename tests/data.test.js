@@ -143,7 +143,7 @@ test('the app lets you attach certifications when grading or adding a product', 
   assert.match(app, /mergeCertifications/);
   assert.match(app, /tortuga\.mine\.v1/);
   assert.match(app, /certPickerHtml/);
-  assert.match(sw, /tortuga-shell-v11/);
+  assert.match(sw, /tortuga-shell-v12/);
   const css = fs.readFileSync(path.join(__dirname, '..', 'styles.css'), 'utf8');
   assert.doesNotMatch(css, /\.needle\s*\{[^}]*transform-origin/);
   assert.match(app, /rotate\(' \+ \(-90 \+ \(target \+ 90\) \* e\) \+ ' 160 148\)/);

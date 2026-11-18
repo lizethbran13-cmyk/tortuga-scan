@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -4132,6 +4132,535 @@
           "url": "https://www.openstreetmap.org/copyright",
           "accessed": "2026-11-17",
           "note": "Address for 2025 Village Center Circle, Las Vegas 89134. The building is not named Egg Works."
+        }
+      ]
+    },
+    {
+      "id": "stephanos-henderson",
+      "name": "Stephano’s Greek & Mediterranean Grill, Henderson",
+      "kind": "restaurant",
+      "city": "Henderson",
+      "address": "10612 S Eastern Ave, Henderson, NV 89052",
+      "lat": 35.998952,
+      "lng": -115.1043019,
+      "phone": "702-795-8444",
+      "website": "https://stephanoslv.com/menu/",
+      "hoursNote": "Copied from the menu page on November 18, 2026, for the Henderson restaurant: Monday–Saturday 10:30am–10pm, Sunday closed. The same hours are listed for the other Stephano’s addresses on that page. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address for 10612 South Eastern Avenue, Henderson 89052. OSM does not name that building Stephano’s.",
+      "summary": "Stephano’s Greek & Mediterranean Grill on South Eastern Avenue in Henderson. The menu page says the fries are fried in avocado oil, marinades and dressings use 100% avocado oil, appetizers are finished with extra virgin olive oil, and there are no seed oils in the cooking. The rice pilaf line says the rice is cooked with 100% real butter. Those are the company’s sentences. Tortuga does not treat them as table reports.",
+      "offerings": [
+        {
+          "name": "Seasoned French Fries",
+          "basis": "official-menu",
+          "fats": [
+            "avocado oil"
+          ],
+          "suggest": "get",
+          "note": "The menu header says “Fries Fried in Avocado Oil.” The fries line itself says golden, crispy-coated fries tossed in house seasoning and served with house-made fry sauce. It does not repeat the oil on that line.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Power Green Tabbouleh",
+          "basis": "official-menu",
+          "fats": [
+            "avocado oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: a take on tabbouleh made with organic kale instead of parsley and tossed in avocado oil.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Mediterranean Chopped Salad",
+          "basis": "official-menu",
+          "fats": [
+            "avocado oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: chopped cucumber, tomato, onion, and parsley tossed in avocado oil and vinegar.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Hummus",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: made fresh in-house daily from whole garbanzo beans, topped with olive oil and Aleppo pepper.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Rice Pilaf",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: fluffy basmati rice cooked with 100% real butter and rich chicken broth. That is this side, not a claim about every plate.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Beef & Lamb Gyro Plate",
+          "basis": "official-menu",
+          "note": "Listed on the menu as the most popular plate: sliced gyro with tzatziki sauce, served with hummus, Mediterranean chopped salad, rice, and pita. The line does not name a cooking fat.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Chicken Kebab Plate",
+          "basis": "official-menu",
+          "note": "Listed on the menu: two marinated skewers of chicken breast kebab, served with hummus, Mediterranean chopped salad, rice, and pita. The line does not name a cooking fat.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Falafel Wrap",
+          "basis": "official-menu",
+          "note": "Listed on the menu: fresh-fried falafels wrapped in warm pita over hummus, topped with tahini, tomato, and onion. The dish line does not name the frying oil. The menu header says there are no seed oils in the cooking and that the fries are fried in avocado oil.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        },
+        {
+          "name": "Creamy Greek Dressing",
+          "basis": "official-menu",
+          "fats": [
+            "avocado oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: a Greek-style ranch made in-house with avocado oil, vinegar, and Mediterranean herbs. The menu header says marinades and dressings use 100% avocado oil.",
+          "sourceUrl": "https://stephanoslv.com/menu/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "stephanos-avocado-olive-butter",
+          "kind": "cooking-fat",
+          "text": "The menu page says “Fries Fried in Avocado Oil,” “Marinades & Dressings Use 100% Avocado Oil,” and “Appetizers Finished With Extra Virgin Olive Oil.” It also says “No Seed Oils in Our Cooking.” The rice pilaf line says the rice is cooked with 100% real butter and chicken broth. The falafel wrap says the falafel is fresh-fried and does not name that oil on the dish line.",
+          "fats": [
+            "avocado oil",
+            "olive oil",
+            "butter"
+          ],
+          "sourceUrl": "https://stephanoslv.com/menu/",
+          "accessed": "2026-11-18"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Stephano’s menu",
+          "url": "https://stephanoslv.com/menu/",
+          "accessed": "2026-11-18",
+          "note": "Lists the Henderson restaurant at 10612 S Eastern Ave, Henderson, NV 89052, phone (702) 795-8444, Monday–Saturday 10:30am–10pm, Sunday closed. The same page states the cooking fats quoted here."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-18",
+          "note": "Address for 10612 South Eastern Avenue, Henderson 89052. The building is not named Stephano’s."
+        }
+      ]
+    },
+    {
+      "id": "nekter-village-trails",
+      "name": "Nékter Juice Bar, Village Trails",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "1990 Village Center Circle, Las Vegas, NV 89134",
+      "lat": 36.1917798,
+      "lng": -115.3046889,
+      "phone": "702-912-4422",
+      "website": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/",
+      "hoursNote": "Copied from the Village Trails location page on November 18, 2026: Monday–Friday 8:00am–5:00pm, Saturday–Sunday 10:00am–5:00pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address for 1990 Village Center Circle, Las Vegas 89134. OSM does not name that building Nékter. A different node named Nékter Juice Bar is at 8015 Blue Diamond Road.",
+      "summary": "Nékter Juice Bar at Village Trails, on Village Center Circle. The location page publishes this address and a menu of juices, smoothies, bowls, and parfaits with the ingredients in the lines. It does not name a cooking fat, so the cafe stays unrated.",
+      "offerings": [
+        {
+          "name": "Immunity Juice",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: fresh-pressed lemon, ginger, turmeric, apple, orange and a dash of cinnamon.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "Greenie",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: parsley, spinach, kale, celery, cucumber, lemon, and red apple.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "Green Apple Detox",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: green apple, cucumber, lemon, kale, and ginger.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "Acai Banana Berry Bowl",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: acai base, strawberries, blueberries, banana, and housemade cashew milk, topped with hempseed granola, blueberries, fresh strawberry, and banana.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "Dragon Fruit Bowl",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: dragon fruit, banana, pineapple, coconut water and agave, topped with strawberry, pineapple, hempseed granola, raw coconut flakes and banana.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "Berry Banana Burst Smoothie",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: strawberry, blueberry, banana, housemade cashew milk and agave nectar.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "Tropical Cooler Smoothie",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: spinach, kale, pineapple, banana, and coconut water.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        },
+        {
+          "name": "PB&J Chia Parfait",
+          "basis": "official-menu",
+          "note": "Listed on the Village Trails menu: housemade peanut butter chia pudding, hempseed granola, housemade strawberry chia jam, fresh strawberries, and a peanut butter drizzle.",
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "nekter-menu-no-fat",
+          "kind": "menu-item",
+          "text": "The Village Trails menu prints the ingredients for the juices, smoothies, bowls, and parfaits. It does not name a cooking oil for the cafe.",
+          "fats": [],
+          "sourceUrl": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/",
+          "accessed": "2026-11-18"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Nékter Juice Bar Village Trails",
+          "url": "https://locations.nekterjuicebar.com/ll/us/nv/las-vegas/1990-village-center-circle/",
+          "accessed": "2026-11-18",
+          "note": "Lists 1990 Village Center Circle, Las Vegas, NV 89134, phone (702) 912-4422, and the menu items copied here."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-18",
+          "note": "Address for 1990 Village Center Circle, Las Vegas 89134. The building is not named Nékter."
+        }
+      ]
+    },
+    {
+      "id": "mon-ami-gabi-paris",
+      "name": "Mon Ami Gabi at Paris Las Vegas",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3655 S Las Vegas Boulevard, Las Vegas, NV 89109",
+      "lat": 36.112855,
+      "lng": -115.172414,
+      "phone": "702-944-4224",
+      "website": "https://www.monamigabi.com/las-vegas/",
+      "hoursNote": "Copied from the Las Vegas page on November 18, 2026: Sunday–Thursday 7:00am–10:00pm, Friday–Saturday 7:00am–11:00pm. Breakfast 7:00am–11:00am, lunch 11:00am–4:00pm, dinner 4:00pm–close. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named mon ami Gabi at 3655 South Las Vegas Boulevard. The phone on that node matches the restaurant page. The page prints the street without a ZIP code. The ZIP on this pin is the OpenStreetMap postcode for that node.",
+      "summary": "Mon Ami Gabi inside Paris Las Vegas. The Las Vegas page gives the address and hours and says the bistro has been there since 1999. The menus name butter on the baguette, the escargots, trout almondine, and steak frites classique. They do not name the fat for the frites or one fat for the kitchen, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Warmed Baguette",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas lunch and dinner menus: sweet cream butter, amuse bouche. That is the bread service, not a cooking fat for the kitchen.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Onion Soup au Gratin",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas lunch and dinner menus: the French classic baked with gruyère cheese. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Wild Escargots de Bourgogne",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Las Vegas lunch and dinner menus: oven-roasted snails, garlic-herb butter. That is this appetizer, not a survey of the kitchen.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Trout Almondine",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Las Vegas lunch and dinner menus: French green beans, brown butter, preserved lemon. That is this fish, not a claim about the frites.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Steak Frites Classique",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas lunch and dinner menus under steak frites: maître d’hôtel butter. The same section says steak frites are served with hand-cut frites. The line does not name the fat the fries are cooked in.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Duck Leg Confit",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas lunch and dinner menus: riesling-braised cabbage, pickled mustard seeds, mustard beurre blanc. The menu uses those words and does not give a separate fat for the confit.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Prime Cheeseburger & Frites",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas lunch and dinner menus: Brandt beef with lettuce, tomato, red onion, cornichons, remoulade sauce, brioche bun, and a choice of cheese, served with frites. The line does not name the fry oil.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "French Toast",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas breakfast menu: mixed berries, blueberry syrup, vanilla sweet cream.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        },
+        {
+          "name": "Ham & Cheese Omelette",
+          "basis": "official-menu",
+          "note": "Listed on the Las Vegas breakfast menu: gruyère cheese, smoked country ham, breakfast potatoes, toast. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "mag-butter-dishes",
+          "kind": "menu-item",
+          "text": "The Las Vegas menus name sweet cream butter on the warmed baguette, garlic-herb butter on the escargots, brown butter on trout almondine, and maître d’hôtel butter on steak frites classique. They do not name the fat for the frites or one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://www.monamigabi.com/las-vegas/menus/",
+          "accessed": "2026-11-18"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Mon Ami Gabi Las Vegas",
+          "url": "https://www.monamigabi.com/las-vegas/",
+          "accessed": "2026-11-18",
+          "note": "Lists 3655 S Las Vegas Blvd, Las Vegas, NV, phone 702-944-4224, and the hours copied here. The page does not print a ZIP code."
+        },
+        {
+          "title": "Mon Ami Gabi Las Vegas menus",
+          "url": "https://www.monamigabi.com/las-vegas/menus/",
+          "accessed": "2026-11-18"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-18",
+          "note": "Node named mon ami Gabi at 3655 South Las Vegas Boulevard, postcode 89109. The phone on that node is +1-702-944-4224."
+        }
+      ]
+    },
+    {
+      "id": "din-tai-fung-aria",
+      "name": "Din Tai Fung at ARIA",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3730 S Las Vegas Boulevard, Las Vegas, NV 89158",
+      "lat": 36.1084176,
+      "lng": -115.1758741,
+      "phone": "702-590-8650",
+      "website": "https://dtf.com/en-us/locations/las-vegas",
+      "hoursNote": "Copied from the Las Vegas location page on November 18, 2026: Monday–Thursday 11:00am–10:00pm, Friday–Sunday 10:30am–10:30pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Din Tai Fung on West Harmon Avenue. That node does not repeat the boulevard number. The street address is from Din Tai Fung’s Las Vegas page, which places the restaurant at ARIA.",
+      "summary": "Din Tai Fung at ARIA. The location page gives the address, phone, and hours. The company’s menu names sesame oil and the house chili oil on the cucumber salad. It does not name a cooking fat for the fried rice or the fried pork chop, so Tortuga does not score the kitchen.",
+      "offerings": [
+        {
+          "name": "Kurobuta Pork Xiao Long Bao",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: xiao long bao weighed and folded by hand to 18 folds, stuffed with Kurobuta pork, with ginger and green onion. The line does not name a cooking fat.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Chicken Xiao Long Bao",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: chicken ground in-house, with carrot, celery, ginger, and green onion. The line does not name a cooking fat.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Chicken Dumplings",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: hand-folded dumplings filled with chicken and sweet onions.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Vegan Dumplings",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: bean curd, baby bok choy, shiitake mushrooms, wood ear mushrooms, glass noodles, and jicama, with spinach juice in the dumpling skin.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Cucumber Salad",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: Persian cucumbers, fresno chili, and garlic, tossed with sesame oil and DTF chili oil. That is this salad, not a cooking fat for the rest of the menu.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "String Beans with Garlic",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: string beans coated with minced garlic and tossed over high heat. The line does not name a cooking fat.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Taiwanese Cabbage with Garlic",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: Taiwanese cabbage tossed over high heat with sliced garlic. The line does not name a cooking fat.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Fried Rice with Pork Chop",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: fried rice with fried eggs and green onion, topped with a Shanghainese-style fried pork cutlet. The line does not name the frying oil.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        },
+        {
+          "name": "Shrimp & Kurobuta Pork Spicy Wontons",
+          "basis": "official-menu",
+          "note": "Listed on Din Tai Fung’s menu: handmade wontons with house spicy sauce, garlic, and green onion. The line does not name a cooking fat.",
+          "sourceUrl": "https://dtf.com/en-us/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "dtf-cucumber-oils",
+          "kind": "menu-item",
+          "text": "The menu says the cucumber salad is tossed with sesame oil and DTF chili oil. Fried rice and the fried pork chop are on the same menu without a named fat.",
+          "fats": [],
+          "sourceUrl": "https://dtf.com/en-us/menu",
+          "accessed": "2026-11-18"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Din Tai Fung Las Vegas",
+          "url": "https://dtf.com/en-us/locations/las-vegas",
+          "accessed": "2026-11-18",
+          "note": "Lists 3730 S Las Vegas Blvd., Las Vegas, NV 89158, phone (702) 590-8650, at ARIA Resort & Casino, with the hours copied here."
+        },
+        {
+          "title": "Din Tai Fung menu",
+          "url": "https://dtf.com/en-us/menu",
+          "accessed": "2026-11-18",
+          "note": "The company’s menu page. The Las Vegas location page does not publish a separate dish list."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-18",
+          "note": "Node named Din Tai Fung on West Harmon Avenue, postcode 89158. The node does not repeat 3730 South Las Vegas Boulevard."
+        }
+      ]
+    },
+    {
+      "id": "herbs-and-rye",
+      "name": "Herbs & Rye",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3713 W Sahara Avenue, Las Vegas, NV 89102",
+      "lat": 36.1439036,
+      "lng": -115.1917334,
+      "phone": "702-982-8036",
+      "website": "https://www.herbsandrye.com/",
+      "hoursNote": "Copied from the homepage and the menu page on November 18, 2026: open Monday–Saturday, 5pm–3am. The pages do not print Sunday hours. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap building named Herbs & Rye at 3713 West Sahara Avenue. The phone on that feature matches the menu page.",
+      "summary": "Herbs & Rye on West Sahara Avenue. The site says the restaurant was established in 2009 and is open Monday through Saturday from 5pm to 3am. The menu names extra virgin olive oil on aglio e olio and olive oil on the bruschetta, and it names butter on the clams, the lobster pappardelle, and the agnolotti. The steaks and the steak fries do not name a cooking fat, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Aglio e Olio",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: extra virgin olive oil, garlic, Calabrian chili, spaghetti. That is this pasta, not a cooking fat for the steaks.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Bruschetta",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the flatbreads: tomatoes, capers, olive oil, garlic, balsamic glaze, mozzarella.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Tomato Caprese",
+          "basis": "official-menu",
+          "note": "Listed on the menu: buffalo mozzarella, basil, balsamic glaze, EVOO. The menu uses the abbreviation EVOO on this salad.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Littleneck Clams",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: herb butter, white wine, garlic, lemon. That is this dish, not a claim about the fryer.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Lobster Pappardelle",
+          "basis": "official-menu",
+          "note": "Listed on the menu: pappardelle, butter poached lobster, creamy lobster sauce, parmesan, lemon zest. The butter is named for the lobster, not for the rest of the menu.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Agnolotti",
+          "basis": "official-menu",
+          "note": "Listed on the menu: short rib, red wine jus, brown butter, horseradish.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Filet Mignon",
+          "basis": "official-menu",
+          "note": "Listed under meats: an 8 oz filet. The line does not name a cooking fat. Bearnaise and other sauces are separate additions on the same menu.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Truffle Parmesan Steak Fries",
+          "basis": "official-menu",
+          "note": "Named on the sides list. The menu does not say which fat the fries are cooked in.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        },
+        {
+          "name": "Pan Seared Salmon",
+          "basis": "official-menu",
+          "note": "Listed on the menu: spinach, leeks, tomato garlic coulis. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.herbsandrye.com/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "herbs-dish-fats",
+          "kind": "menu-item",
+          "text": "The menu names extra virgin olive oil on aglio e olio, olive oil on the bruschetta, EVOO on the tomato caprese, herb butter on the littleneck clams, butter on the lobster pappardelle, and brown butter on the agnolotti. The steaks and the truffle parmesan steak fries do not name a cooking fat.",
+          "fats": [],
+          "sourceUrl": "https://www.herbsandrye.com/menu",
+          "accessed": "2026-11-18"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Herbs & Rye",
+          "url": "https://www.herbsandrye.com/",
+          "accessed": "2026-11-18",
+          "note": "Lists 3713 W Sahara Avenue, Las Vegas, phone (702) 982-8036, and says the restaurant is open Monday–Saturday, 5pm to 3am."
+        },
+        {
+          "title": "Herbs & Rye menu",
+          "url": "https://www.herbsandrye.com/menu",
+          "accessed": "2026-11-18",
+          "note": "Prints 3713 W Sahara Avenue, Las Vegas, NV 89102, and the dishes copied here."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-18",
+          "note": "Building named Herbs & Rye at 3713 West Sahara Avenue, postcode 89102. The phone on that feature is +1 702-982-8036."
         }
       ]
     }

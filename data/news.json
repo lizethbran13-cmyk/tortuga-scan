@@ -5,6 +5,93 @@
   "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
+      "id": "2026-11-18",
+      "date": "2026-11-18",
+      "timezone": "America/Los_Angeles",
+      "title": "Wednesday, November 18, 2026",
+      "dek": "An organic puffed cereal heading to Nevada Whole Foods stores, a Clean Label Project–certified electrolyte mix, seed-oil-free bone broth marinara at Sprouts, an award for a steadier natural spirulina blue, a Virginia Tech brain study on ultra-processed diets in young adults, a heart failure link to ultra-processed food, the White House pulling its FDA commissioner pick, and a consumer group’s push for a harm-based ultra-processed food definition.",
+      "items": [
+        {
+          "id": "good-grains-whole-foods-nevada",
+          "category": "launch",
+          "headline": "Good Grains organic puffed cereal heads to Whole Foods, including Nevada",
+          "summary": "In a November 17 release, Good Grains said its organic puffed cereals (Corn, Honey, and Cinnamon Puffs) will expand from about 630 stores to close to 2,000 in early 2027, starting in January at 132 Whole Foods Market locations in states including Nevada, plus 386 select Target stores, Fresh Thyme, Harris Teeter, and ShopRite. It is already in about 500 Sprouts stores. The brand says the cereals are USDA Organic, made from organic khorasan wheat and organic corn, sweetened only with honey and a little monk fruit, with no seed oils or artificial ingredients, and certified glyphosate residue-free and Non-UPF Verified by WISEcode. It also says box prices drop to $5.99 to $6.99 on January 1. Those are the brand’s claims; Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "Good Grains via PR Newswire",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/good-grains-significantly-extends-retail-footprint-through-new-partnerships-with-whole-foods-target-fresh-thyme-and-wakefern-302942102.html",
+          "sourceDate": "2026-11-17"
+        },
+        {
+          "id": "puori-electrolytes-plus",
+          "category": "launch",
+          "headline": "Puori launches a batch-tested electrolyte mix with no added sugar",
+          "summary": "Prepared Foods reported on November 17 that supplement maker Puori launched Electrolytes+, a lemon electrolyte powder made with magnesium bisglycinate, potassium citrate, and unrefined Himalayan salt, with no added sugar or artificial ingredients. Each sachet lists 600 mg sodium, 300 mg potassium, and 60 mg magnesium. Puori says every batch is tested and certified by the Clean Label Project for more than 200 contaminants, including heavy metals and pesticides, and that you can look up your batch’s results with the QR code on the pack. It’s sold on puori.com.",
+          "sourceName": "Prepared Foods",
+          "sourceUrl": "https://www.preparedfoods.com/articles/132072-puori-launches-electrolytes-for-daily-hydration",
+          "sourceDate": "2026-11-17"
+        },
+        {
+          "id": "sauz-kettle-fire-marinara",
+          "category": "launch",
+          "headline": "SAUZ and Kettle & Fire team up on a seed-oil-free bone broth marinara",
+          "summary": "NOSH’s November 13 new-products roundup says SAUZ and bone broth brand Kettle & Fire launched a marinara made with bone broth and California-grown tomatoes, in Chicken (Sautéed Red Pepper & Herb) and Beef (Caramelized Onion & Herb). Each 16 oz. jar has 16 g protein, and both are described as gluten-free, seed-oil-free, and made without added sugar. It’s rolling out to Kroger, Sprouts, and select Texas Costco stores, plus getsauz.com. The same roundup notes Nowhere Bakery’s new grain-free pizza dough mix made without seed oils or gums. Check your local shelf before you go.",
+          "sourceName": "NOSH",
+          "sourceUrl": "https://www.nosh.com/news/2026/new-products-fly-by-jing-spices-up-panettone-feel-good-foods-cracks-into-crab-rangoon",
+          "sourceDate": "2026-11-13"
+        },
+        {
+          "id": "gnt-spirulina-blue-fi-europe",
+          "category": "launch",
+          "headline": "A steadier natural spirulina blue wins an award at Fi Europe",
+          "summary": "GNT, the maker of EXBERRY colors, won the Plant-based Innovation Award at Fi Europe in Frankfurt on November 17 for a technology meant to keep spirulina’s natural blue stable in acidic drinks, through heat processing, and on the shelf. Spirulina blue usually breaks down in those conditions, which is one reason drinks still lean on synthetic Blue No. 1. The coverage gives no performance figures. It’s an ingredient for manufacturers, not something you’ll buy at the store, but it could help brands drop synthetic blues.",
+          "sourceName": "theFutureofFood.org",
+          "sourceUrl": "https://thefutureoffood.org/gnt-wins-fi-europe-innovation-award-for-technology-that-keeps-spirulina-blue-food-color-stable-in-beverages/",
+          "sourceDate": "2026-11-18"
+        },
+        {
+          "id": "vt-upf-milkshake-brain-study",
+          "category": "study",
+          "headline": "Two weeks of ultra-processed food changed how young adults’ brains responded to a milkshake",
+          "summary": "Virginia Tech researchers ran a feeding trial with 22 people ages 18 to 25. Each ate a diet with 81% of calories from ultra-processed food for two weeks and, after a break, a diet with none, with the two diets matched for macronutrients, fiber, added sugar, sodium, and calories. In the 18-to-21 group, the ultra-processed diet was tied to a weaker response to a milkshake in the orbitofrontal cortex, a brain area involved in food reward and decision-making; the 22-to-25 group showed no significant change. The paper is in the journal Obesity. It’s a small trial and the age findings are exploratory, so the researchers say more work is needed.",
+          "sourceName": "Virginia Tech News",
+          "sourceUrl": "https://news.vt.edu/articles/2026/11/research_fralinbiomed_leslieobesity.html",
+          "sourceDate": "2026-11-18"
+        },
+        {
+          "id": "mesa-upf-heart-failure",
+          "category": "study",
+          "headline": "More ultra-processed food is linked to a higher risk of heart failure",
+          "summary": "A study of 6,531 U.S. adults ages 45 to 84 in the Multi-Ethnic Study of Atherosclerosis, published November 16 in JACC: Heart Failure, found that each extra daily serving of ultra-processed food was tied to about a 5% higher risk of developing heart failure in the main model. The link was driven mainly by the type of heart failure called HFpEF, and people in the top 80% of intake had more than twice the HFpEF risk of the lowest 20%. Waist-to-height ratio accounted for about half of the link. It’s observational, so it shows a link, not proof of cause.",
+          "sourceName": "JACC: Heart Failure",
+          "sourceUrl": "https://www.jacc.org/doi/10.1016/j.jchf.2026.103571",
+          "sourceDate": "2026-11-16",
+          "alsoSee": [
+            {
+              "name": "HCPLive interview with the lead author",
+              "url": "https://www.hcplive.com/view/ultra-processed-food-intake-increases-risk-of-hf-in-all-phenotypes"
+            }
+          ]
+        },
+        {
+          "id": "overton-fda-nomination-withdrawn",
+          "category": "policy",
+          "headline": "White House pulls Heidi Overton’s nomination to run the FDA",
+          "summary": "The White House withdrew Heidi Overton’s nomination for FDA commissioner on the night of November 17, a day before a Senate committee vote. Some MAHA supporters had opposed her, saying she wouldn’t push back hard enough on corporate interests. Kyle Diamantas, the agency’s former food chief, stays on as acting commissioner, and no new nominee had been named. Big food rules are still open, including a proposal to make GRAS notifications mandatory, with comments due December 9.",
+          "sourceName": "theFutureofFood.org",
+          "sourceUrl": "https://thefutureoffood.org/white-house-withdraws-heidi-overtons-nomination-to-lead-the-fda-a-day-before-a-senate-committee-vote/",
+          "sourceDate": "2026-11-18"
+        },
+        {
+          "id": "cspi-harm-based-upf-definition",
+          "category": "policy",
+          "headline": "CSPI calls for a harm-based definition of ultra-processed food",
+          "summary": "In a piece updated November 17, the Center for Science in the Public Interest says the federal ultra-processed food definition is still stuck at the White House budget office after more than a dozen industry meetings. CSPI argues for a harm-based definition that targets foods high in sodium, added sugar, or saturated fat, processed meats, sweetened drinks, refined carbs, and additives tied to serious harms like cancer, rather than relying only on the Nova system. It also warns that new “non-UPF” labels can be healthwashing without a clear standard. This is an advocacy group’s position, not a rule.",
+          "sourceName": "Center for Science in the Public Interest",
+          "sourceUrl": "https://www.cspi.org/cspi-news/defining-ultraprocessed-foods-harm-based-approach",
+          "sourceDate": "2026-11-17"
+        }
+      ]
+    },
+    {
       "id": "2026-11-17",
       "date": "2026-11-17",
       "timezone": "America/Los_Angeles",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -4661,6 +4661,607 @@
           "url": "https://www.openstreetmap.org/copyright",
           "accessed": "2026-11-18",
           "note": "Building named Herbs & Rye at 3713 West Sahara Avenue, postcode 89102. The phone on that feature is +1 702-982-8036."
+        }
+      ]
+    },
+    {
+      "id": "juice-standard-cosmopolitan",
+      "name": "The Juice Standard at The Cosmopolitan",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "3708 S. Las Vegas Blvd, Las Vegas, NV 89109",
+      "lat": 36.1101013,
+      "lng": -115.1738457,
+      "website": "https://www.juicestandard.com/location/buzz/",
+      "hoursNote": "Copied from the Cosmopolitan location page on November 19, 2026: 7am–7pm, 7 days a week. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named The Juice Standard at 3708 South Las Vegas Boulevard. The location page calls this shop BUZZ at The Cosmopolitan of Las Vegas.",
+      "summary": "The Juice Standard inside The Cosmopolitan, the location the company calls BUZZ. The location page gives the address and the daily hours. It does not print a phone number. The company’s menu page lists the juices, bowls, and drinks with the ingredients in the lines. Glow Getter names ghee and MCT oil, the energy bars name coconut oil, and the Mediterranean biome bowl uses the abbreviation evoo inside the black-eyed pea salad. The menu does not name one cooking fat for the cafe, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Essential Egg Bites",
+          "basis": "official-menu",
+          "note": "Listed on the menu: eggs, cottage cheese, spinach, red bell peppers and green onions, salt, pepper. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Collagen Cherry Oats",
+          "basis": "official-menu",
+          "note": "Listed on the menu: oats, chia seeds, cherries, collagen, honey, vanilla, cinnamon. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "The AM Standard",
+          "basis": "official-menu",
+          "note": "Listed on the menu: English muffin, chicken sausage, egg, white cheddar. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Acai Crunch",
+          "basis": "official-menu",
+          "note": "Listed on the menu: acai, blueberries, strawberries, banana, coconut water, reishi and chaga mushrooms, tulsi, moringa, ashwagandha, eleuthero, amla, schisandra, topped with house-made granola, banana, coconut flakes, goji berries, blueberries, honey, cashew-walnut butter. Cashew-walnut butter is the topping named on this bowl, not a cooking fat for the cafe.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Mediterranean Biome Bowl",
+          "basis": "official-menu",
+          "note": "Listed on the menu: sprouted brown rice, black-eyed pea salad (the line names BEP, onion, garlic, parsley, vinegar, evoo, salt, and pepper), spinach, tomatoes, cucumber, tzatziki, roasted sweet potato, hummus, cherry balsamic reduction. The menu uses the abbreviation evoo on this bowl. It does not spell out a cooking fat for the cafe.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Bee Whealthy",
+          "basis": "official-menu",
+          "note": "Listed on the juice menu: cucumber, celery, romaine, kale, apple, dandelion, parsley, lemon, ginger, turmeric.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Green & Good",
+          "basis": "official-menu",
+          "note": "Listed on the smoothie menu: coconut water, kale, banana, raw agave, avocado, spirulina.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Glow Getter",
+          "basis": "official-menu",
+          "fats": [
+            "ghee"
+          ],
+          "suggest": "get",
+          "note": "Listed on the coffee menu: a bulletproof-style latte with MCT oil, espresso, ghee, cashew cream. That is this drink. The menu does not say the cafe cooks with ghee.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        },
+        {
+          "name": "Energy Bars",
+          "basis": "official-menu",
+          "fats": [
+            "coconut oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the snack menu: cashews, dates, walnuts, house-made granola, dried cranberries, raw cacao, coconut oil, raw agave. The coconut oil is named in this bar, not as the fat for the cafe.",
+          "sourceUrl": "https://www.juicestandard.com/menus/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "juice-standard-menu-fats",
+          "kind": "menu-item",
+          "text": "The menu names ghee and MCT oil on Glow Getter, coconut oil in the energy bars, and the abbreviation evoo inside the Mediterranean biome bowl. It does not name one cooking fat for the cafe. The Cosmopolitan location page does not print a separate dish list. The locations page also lists ROSE in Henderson and HIVE at Horizon Ridge.",
+          "fats": [],
+          "sourceUrl": "https://www.juicestandard.com/menus/",
+          "accessed": "2026-11-19"
+        }
+      ],
+      "sources": [
+        {
+          "title": "The Juice Standard at The Cosmopolitan",
+          "url": "https://www.juicestandard.com/location/buzz/",
+          "accessed": "2026-11-19",
+          "note": "Lists 3708 S. Las Vegas Blvd, Las Vegas, NV 89109, and hours 7am–7pm, 7 days a week. The page does not print a phone number."
+        },
+        {
+          "title": "The Juice Standard locations",
+          "url": "https://www.juicestandard.com/locations/",
+          "accessed": "2026-11-19",
+          "note": "Lists ROSE in Henderson, BUZZ at The Cosmopolitan of Las Vegas, and HIVE at Horizon Ridge."
+        },
+        {
+          "title": "The Juice Standard menu",
+          "url": "https://www.juicestandard.com/menus/",
+          "accessed": "2026-11-19"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-19",
+          "note": "Node named The Juice Standard at 3708 South Las Vegas Boulevard, postcode 89109."
+        }
+      ]
+    },
+    {
+      "id": "tacotarian-henderson",
+      "name": "Tacotarian, Henderson",
+      "kind": "restaurant",
+      "city": "Henderson",
+      "address": "75 South Valle Verde Dr, #200, Henderson, NV 89012",
+      "lat": 36.025528,
+      "lng": -115.062431,
+      "phone": "725-205-3544",
+      "website": "https://eattacotarian.com/pages/locations",
+      "hoursNote": "Copied from the locations page on November 19, 2026, for the Henderson restaurant: open daily 11am–9pm. Hours change.",
+      "coordinateNote": "OpenStreetMap has no node named Tacotarian at this address. Nodes at 75 South Valle Verde Drive are named Boom Bang Fine Foods & Cocktails and Papa John’s, which are different businesses. The pin is the U.S. Census Bureau public address point for 75 S Valle Verde Dr, Henderson, NV 89012. It is not a surveyed rooftop.",
+      "summary": "Tacotarian on South Valle Verde Drive in Henderson. The locations page gives this address, the phone, and daily hours. The menu page says every item is 100% plant-based and lists the tacos, antojitos, and platters. Fried items, including the dorado taco, the Baja taco, and the french fries, do not name a frying oil, so the restaurant stays unrated.",
+      "offerings": [
+        {
+          "name": "Al Pastor Taco",
+          "basis": "official-menu",
+          "note": "Listed on the menu: house-made seitan marinated in achiote and pineapple, topped with cilantro-lime dressing, pineapple, pico de gallo, and salsa morita. The line does not name a cooking fat.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Carne Asada Taco",
+          "basis": "official-menu",
+          "note": "Listed on the menu: house-made seitan carne asada, guacamole, pico de gallo, queso fresco. The line does not name a cooking fat.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Barbacoa Taco",
+          "basis": "official-menu",
+          "note": "Listed on the menu: chili-braised jackfruit, onion, cilantro, on a corn tortilla. The line does not name a cooking fat.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Holy Guacamole",
+          "basis": "official-menu",
+          "note": "Listed on the menu: made fresh daily with tomatoes, onions, cilantro, and fresh limes, served with homemade tortilla chips.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Cauliflower Ceviche",
+          "basis": "official-menu",
+          "note": "Listed on the menu: chopped cauliflower soaked in lime juice, topped with pico de gallo, cucumber, and avocado, served with tortilla chips.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Dorado Taco",
+          "basis": "official-menu",
+          "note": "Listed on the menu: deep fried corn tortilla filled with mashed potato, cheddar cheese, lettuce, pico de gallo, crema. The line does not name the frying oil.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Baja Taco",
+          "basis": "official-menu",
+          "note": "Listed on the menu: fried beer-battered avocado, cilantro-lime dressing, coleslaw, guacamole, pico de gallo, chili mayo. The line does not name the frying oil.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Giant Taco",
+          "basis": "official-menu",
+          "note": "Listed on the menu: french fries, choice of protein, refried beans, house nacho cheese, lettuce, guacamole, pico de gallo, crema, salsa morita, cheddar cheese. The line does not name the fry oil.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        },
+        {
+          "name": "Birria Platter",
+          "basis": "official-menu",
+          "note": "Listed on the menu: 4 jackfruit birria tacos on corn tortillas with melted cheese, topped with onion and cilantro, served with a side of smoky house-made dipping consomme. The line does not name a cooking fat.",
+          "sourceUrl": "https://eattacotarian.com/pages/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "tacotarian-plant-based-no-oil",
+          "kind": "quality",
+          "text": "The menu page says every item is 100% plant-based and vegan, and that proteins are house-made from scratch. It also says the dorado taco is deep fried and the Baja taco is fried, and it lists french fries, without naming a frying oil.",
+          "fats": [],
+          "sourceUrl": "https://eattacotarian.com/pages/menu",
+          "accessed": "2026-11-19"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Tacotarian locations",
+          "url": "https://eattacotarian.com/pages/locations",
+          "accessed": "2026-11-19",
+          "note": "Lists the Henderson restaurant at 75 South Valle Verde Dr, #200, Henderson, NV 89012, phone 725-205-3544, open daily 11am–9pm."
+        },
+        {
+          "title": "Tacotarian menu",
+          "url": "https://eattacotarian.com/pages/menu",
+          "accessed": "2026-11-19",
+          "note": "The company’s menu page. It names Henderson among the Las Vegas locations that menu covers. The Miracle Mile page is a separate menu and was not copied here."
+        },
+        {
+          "title": "U.S. Census Bureau address point",
+          "url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=75%20S%20Valle%20Verde%20Dr,%20Henderson,%20NV%2089012&benchmark=Public_AR_Current&format=json",
+          "accessed": "2026-11-19",
+          "note": "Public address point for 75 S Valle Verde Dr, Henderson, NV 89012. OSM had no node named Tacotarian at this house number."
+        }
+      ]
+    },
+    {
+      "id": "hugos-cellar",
+      "name": "Hugo’s Cellar",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "202 Fremont Street, Las Vegas, NV 89101",
+      "lat": 36.1695999,
+      "lng": -115.1412464,
+      "phone": "702-385-4011",
+      "website": "https://www.fourqueens.com/dining/hugos_cellar/index.php",
+      "hoursNote": "Copied from the Hugo’s Cellar page on November 19, 2026: hours of operation 5:00pm to 10:00pm. The page does not print which days those hours cover. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address for 202 Fremont Street, Las Vegas 89101. OSM does not name that point Hugo’s Cellar. A way named Four Queens is a different point and does not repeat this street number.",
+      "summary": "Hugo’s Cellar at Four Queens. The restaurant page gives the address, the phone, and hours of 5:00pm to 10:00pm, and it links the current menu. The menu says the veal scallopini is sautéed in olive oil, the steaks are finished with herb steak butter, and the Scottish salmon is pan-seared in drawn butter. It does not name one cooking fat for the kitchen, so the place stays unrated.",
+      "offerings": [
+        {
+          "name": "Hugo’s Hot Rock Specialty for Two",
+          "basis": "official-menu",
+          "note": "Listed on the menu: marinated medallions of Certified Angus Beef filet mignon, swordfish, shrimp, and breast of chicken, cooked table-side on a granite slab, with béarnaise, plum, and mustard dipping sauces. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "French Onion Soup",
+          "basis": "official-menu",
+          "note": "Listed on the menu: caramelized julienned onions deglazed with sherry wine, chicken and beef stock, finished with brandy, crostini, house-made croutons, mozzarella, and Parmesan. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Veal Scallopini",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: tender veal cutlets dredged in seasoned flour and sautéed in olive oil. That is this dish, not a cooking fat for the steaks.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Rack of Lamb",
+          "basis": "official-menu",
+          "note": "Listed on the menu: rubbed with harissa spices and char-grilled, served with house-made mint beurre blanc. The menu uses those words and does not give a separate fat for the grill.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Ribeye Steak",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed as a sixteen-ounce ribeye. The steak section says all steaks are seasoned with Maldon salt, black pepper, and garlic and finished with herb steak butter. That is the steak finish, not a fat for the rest of the menu.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Scottish Salmon",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: pan-seared in drawn butter. That is this fish, not a claim about the kitchen.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Herb Encrusted Chilean Sea Bass",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the menu: encrusted with parsley, chives, salt, and pepper and pan-seared, served on creamy beurre blanc, garnished with herb infused olive oil. The olive oil is named on this garnish.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Beef Wellington",
+          "basis": "official-menu",
+          "note": "Listed on the menu: Certified Angus Beef filet coated in stone ground mustard, herb mushroom duxelle, foie gras, and prosciutto, baked in puff pastry, served with bordelaise sauce. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        },
+        {
+          "name": "Cellar Cut Prime Rib",
+          "basis": "official-menu",
+          "note": "Listed as Hugo’s renowned slow-roasted prime rib, cellar cut, sixteen ounces. The line does not name a cooking fat. The menu says entrées include specialty butter with the bread service. That is the bread, not the roast.",
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "hugos-dish-fats",
+          "kind": "menu-item",
+          "text": "The menu says the veal scallopini is sautéed in olive oil, the steaks are finished with herb steak butter, the Scottish salmon is pan-seared in drawn butter, and the Chilean sea bass is garnished with herb infused olive oil. It does not name one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf",
+          "accessed": "2026-11-19"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Hugo’s Cellar",
+          "url": "https://www.fourqueens.com/dining/hugos_cellar/index.php",
+          "accessed": "2026-11-19",
+          "note": "Lists 202 Fremont Street, Las Vegas, Nevada 89101, phone 702.385.4011, and hours of operation 5:00pm to 10:00pm. The page links the menu PDF."
+        },
+        {
+          "title": "Hugo’s Cellar menu",
+          "url": "https://www.fourqueens.com/pdf/hugos_cellar_menu.pdf",
+          "accessed": "2026-11-19"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-19",
+          "note": "Address for 202 Fremont Street, Las Vegas 89101. The point is not named Hugo’s Cellar."
+        }
+      ]
+    },
+    {
+      "id": "lindo-michoacan-desert-inn",
+      "name": "Lindo Michoacán, Desert Inn",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "2655 E Desert Inn Road, Las Vegas, NV 89121",
+      "lat": 36.1294005,
+      "lng": -115.1135106,
+      "phone": "702-735-6828",
+      "website": "https://lindomichoacan.com/lindo-michoacan-di/",
+      "hoursNote": "Copied from the Desert Inn page on November 19, 2026: Monday–Thursday 10:00am–11:15pm, Friday 10:00am–12:15am, Saturday 9:00am–12:15am, Sunday 9:00am–11:15pm. The lunch menu says lunch specials are served Monday through Friday, 11:00am to 4:00pm, except holidays. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Original Lindo Michoacan at 2655 East Desert Inn Road.",
+      "summary": "The Original Lindo Michoacán on East Desert Inn Road. The location page gives the address, phone, and hours, and it points to the menu page. The lunch menu linked there names olive oil on several chicken, shrimp, and fish dishes. The fish tacos are listed as deep fried or grilled and do not name an oil. The dinner flipbook on that menu page is the Summerlin dinner menu, so those dishes are not listed on this Desert Inn record. The place stays unrated.",
+      "offerings": [
+        {
+          "name": "Chile Verde",
+          "basis": "official-menu",
+          "note": "Listed on the Desert Inn lunch menu: lean pork simmered in green salsa made with tomatillos, green peppers, onions, cilantro, fresh garlic, and spices. The line does not name a cooking fat.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Pollo al Mojo de Ajo",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Desert Inn lunch menu: chicken breast fillet cooked in olive oil and wine, simmered in fresh garlic sauce, with slices of guajillo pepper. That is this dish, not a fat for the fryer.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Pollo Correteado",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Desert Inn lunch menu: broiled chicken breast fillet sautéed in a little olive oil, garlic, onions, tomatoes, cilantro, and jalapeños, topped with melted Monterrey Jack cheese.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Gallo al Coñac",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Desert Inn lunch menu: fillet of chicken breast sautéed in olive oil, mushrooms, a bit of sour cream, onions, spices, and cognac.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Carnitas",
+          "basis": "official-menu",
+          "note": "Listed on the Desert Inn lunch menu: lean pork marinated with fresh oranges and spices, slowly cooked in its own juices until tender, served with chiles toreados and avocado sauce. The line does not name a cooking fat.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Tacos de Pescado",
+          "basis": "official-menu",
+          "note": "Listed on the Desert Inn lunch menu: fish tacos, deep fried or grilled, on corn tortillas, with shredded cabbage, pico de gallo, sliced avocado, and special sauce. The line does not name the frying oil.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Camarones al Mojo de Ajo",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Desert Inn lunch menu: large Mexican Gulf shrimp pan-fried with garlic, slices of guajillo pepper, lemon juice, wine, and olive oil.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Pescado Ajillo",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the Desert Inn lunch menu: fillet of orange roughy pan-fried with chopped fresh garlic, olive oil, lemon juice, white wine, and spices.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        },
+        {
+          "name": "Carne Asada",
+          "basis": "official-menu",
+          "note": "Listed on the Desert Inn lunch menu: thin New York steak broiled with lemon juice and spices, topped with sautéed tomatoes, onions, cilantro, and jalapeños. The line does not name a cooking fat.",
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "lindo-lunch-olive-oil-dishes",
+          "kind": "menu-item",
+          "text": "The Desert Inn lunch menu says pollo al mojo de ajo is cooked in olive oil, pollo correteado and pollo con rajas y crema are sautéed in a little olive oil, gallo al coñac is sautéed in olive oil, and camarones al mojo de ajo, camarones rancheros, camarones con rajas y crema, pescado Vallarta, and pescado ajillo name olive oil. The fish tacos are deep fried or grilled and do not name an oil. The menu does not name one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf",
+          "accessed": "2026-11-19"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Lindo Michoacán Desert Inn",
+          "url": "https://lindomichoacan.com/lindo-michoacan-di/",
+          "accessed": "2026-11-19",
+          "note": "Lists 2655 E Desert Inn Road, Las Vegas, NV 89121, phone (702) 735-6828, and the hours copied here."
+        },
+        {
+          "title": "Lindo Michoacán menu",
+          "url": "https://lindomichoacan.com/menu/",
+          "accessed": "2026-11-19",
+          "note": "The lunch flipbook is the Desert Inn lunch PDF. The dinner flipbook on this page is the Summerlin dinner menu and was not used for this address."
+        },
+        {
+          "title": "Lindo Michoacán Desert Inn lunch menu",
+          "url": "https://lindomichoacan.com/wp-content/uploads/2023/12/LUNCH-DI-MENU-oct-2025_compressed.pdf",
+          "accessed": "2026-11-19"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-19",
+          "note": "Node named Original Lindo Michoacan at 2655 East Desert Inn Road, postcode 89121."
+        }
+      ]
+    },
+    {
+      "id": "yardbird-las-vegas",
+      "name": "Yardbird Las Vegas",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "3355 S Las Vegas Blvd, Las Vegas, NV 89109",
+      "lat": 36.122595,
+      "lng": -115.171159,
+      "phone": "702-297-6541",
+      "website": "https://www.runchickenrun.com/location-page-las-vegas/",
+      "hoursNote": "Copied from the Las Vegas location page on November 19, 2026: daily 7am–11pm. The Las Vegas menus page says the all-day menu is Monday–Friday 11:30am–11pm and Saturday–Sunday 3pm–11pm. Hours change.",
+      "coordinateNote": "OpenStreetMap has no node named Yardbird. The pin is the U.S. Census Bureau public address point for 3355 S Las Vegas Blvd, Las Vegas, NV 89109. It is not a surveyed rooftop. A node named The Venetian Las Vegas uses the same street number and is the resort, not this restaurant.",
+      "summary": "Yardbird at The Venetian. The location page gives the address, phone, and daily hours. The all-day menu linked from the Las Vegas menus page says the kitchen fries in beef tallow. That menu also names olive oil on the hummus platter, duck fat on the fingerling potatoes, and butter on the biscuits, the cornbread, the salmon, the shrimp and grits, and the tomahawk. Those sentences do not cover every plate. Tortuga does not treat them as table reports.",
+      "offerings": [
+        {
+          "name": "Lewellyn’s Fine Fried Chicken",
+          "basis": "official-menu",
+          "fats": [
+            "tallow"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: half of the fried chicken, honey hot sauce. The dish line does not name a fat. The menu footer says “We fry in beef tallow.”",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Chicken & Waffles",
+          "basis": "official-menu",
+          "fats": [
+            "tallow"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: chilled spiced watermelon, sharp cheddar waffle, honey hot sauce, bourbon maple syrup. The dish line does not name a fat. The menu footer says “We fry in beef tallow.”",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Classic Buttermilk Biscuits",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: honey butter, housemade jam. That is the biscuit service, not the fryer.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Hummus Platter",
+          "basis": "official-menu",
+          "fats": [
+            "olive oil"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: hummus, cucumber, heirloom tomatoes, olives, shaved red onion, olive oil, feta crumble, pistachios, served with toasted pita.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Skillet Cornbread",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: sharp cheddar, jalapeño, bacon, honey butter.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "14oz NY Prime Strip",
+          "basis": "official-menu",
+          "fats": [
+            "duck fat"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu with crispy fingerlings confit in duck fat, asparagus, heirloom baby carrots, and red wine reduction. The duck fat is named for the potatoes on this plate.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Low Country Salmon Filet",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: blackened salmon filet, roasted corn succotash, chipotle butter beurre blanc. The butter is named in that sauce.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Big Easy Blackened Shrimp & Grits",
+          "basis": "official-menu",
+          "fats": [
+            "butter"
+          ],
+          "suggest": "get",
+          "note": "Listed on the all-day menu: cheesy grits, sweet corn, smoky sausage, roasted peppers, Louisiana hot sauce butter. The butter is named in that sauce.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Rotisserie Chicken",
+          "basis": "official-menu",
+          "note": "Listed on the all-day menu: harissa, brown sugar and orange marinade, heirloom carrots, green beans. The line does not name a cooking fat.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        },
+        {
+          "name": "Lemon Basil Rigatoni",
+          "basis": "official-menu",
+          "note": "Listed on the all-day menu and marked vegan: roasted garlic cashew cream, market vegetables. The line does not name a cooking fat.",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "yardbird-tallow-fryer",
+          "kind": "cooking-fat",
+          "text": "The all-day menu footer says “We fry in beef tallow.” The menu key defines (BT) as beef tallow and SF as Seed-Free. The hummus platter line names olive oil. The New York strip names crispy fingerlings confit in duck fat. The biscuits and the skillet cornbread name honey butter, the salmon names chipotle butter beurre blanc, the shrimp and grits name Louisiana hot sauce butter, and the tomahawk names cowboy butter with the same duck-fat fingerlings. Those are the fryer sentence and the dishes that name a fat. They are not one fat written on every plate.",
+          "fats": [
+            "tallow",
+            "olive oil",
+            "duck fat",
+            "butter"
+          ],
+          "completeness": "partial",
+          "sourceUrl": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf",
+          "accessed": "2026-11-19"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Yardbird Las Vegas",
+          "url": "https://www.runchickenrun.com/location-page-las-vegas/",
+          "accessed": "2026-11-19",
+          "note": "Lists 3355 S Las Vegas Blvd, Las Vegas, NV 89109, phone (702) 297-6541, daily 7am–11pm."
+        },
+        {
+          "title": "Yardbird Las Vegas menus",
+          "url": "https://www.runchickenrun.com/las-vegas-menus/",
+          "accessed": "2026-11-19",
+          "note": "Links the Las Vegas all-day menu PDF. The page says that menu runs Monday–Friday 11:30am–11pm and Saturday–Sunday 3pm–11pm."
+        },
+        {
+          "title": "Yardbird Las Vegas all-day menu",
+          "url": "https://images.getbento.com/accounts/124eb99842499c1fc99b4992db4edfff/media/VfQK6hyEQqiRx45h9A1a_Yardbird%20LV%20All%20Day%20Menu%2010.20.26%20NEW.pdf",
+          "accessed": "2026-11-19"
+        },
+        {
+          "title": "U.S. Census Bureau address point",
+          "url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=3355%20S%20Las%20Vegas%20Blvd,%20Las%20Vegas,%20NV%2089109&benchmark=Public_AR_Current&format=json",
+          "accessed": "2026-11-19",
+          "note": "Public address point for 3355 S Las Vegas Blvd, Las Vegas, NV 89109. OSM had no node named Yardbird."
         }
       ]
     }

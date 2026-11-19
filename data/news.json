@@ -5,6 +5,69 @@
   "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
+      "id": "2026-11-19",
+      "date": "2026-11-19",
+      "timezone": "America/Los_Angeles",
+      "title": "Thursday, November 19, 2026",
+      "dek": "Beef tallow potato chips from a regenerative bone broth brand, three organic seed-oil-free granolas, Sunsweet’s first organic prune juice, a big review on seed oils that finds the evidence mixed, food industry groups asking FDA for more time on its GRAS rule, and a Consumer Reports test of lead in lipstick.",
+      "items": [
+        {
+          "id": "fond-regenerative-tallow-chips",
+          "category": "launch",
+          "headline": "FOND Regenerative launches potato chips cooked in grass-fed beef tallow",
+          "summary": "FOND Regenerative, the Texas bone broth and animal fat brand, announced on November 17 that it is moving into chips with Regenerative Potato Chips in Simply Salted, Cultured Cream & Scallion, and Sea Salt & Vinegar. The brand says the chips use regeneratively grown potatoes from a family farm, are cooked in grass-fed beef tallow, and skip citric acid, maltodextrin, natural flavors, and artificial preservatives. It also says they are seed oil free and glyphosate residue free. They are $9.99 for a 5-ounce bag on fondregenerative.com and at H-E-B for now, with more stores to be announced. These are the brand’s claims; Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "FOND Regenerative via NOSH",
+          "sourceUrl": "https://www.nosh.com/pr/2026/11/17/fond-regenerative-enters-salty-snacks-category-with-new-line-of-artisan-potato-chips",
+          "sourceDate": "2026-11-17"
+        },
+        {
+          "id": "safe-fair-seed-oil-free-granolas",
+          "category": "launch",
+          "headline": "Safe + Fair adds three organic, seed-oil-free granolas",
+          "summary": "In its November 17 newsletter, Safe + Fair announced three new organic granolas made without seed oils: Birthday Cake, Chocolate Chip Cookie Dough, and Strawberry Shortcake. The brand says they are also free of the top 9 allergens, so no peanuts, tree nuts, milk, eggs, wheat, soy, sesame, fish, or shellfish. Dessert flavors usually mean added sugar, so check the label before calling it an everyday pick.",
+          "sourceName": "Safe + Fair newsletter",
+          "sourceUrl": "https://publicemails.com/blog/display/674985/Theyre-Here-Three-New-Seed-Oil-Free-Granolas",
+          "sourceDate": "2026-11-17"
+        },
+        {
+          "id": "sunsweet-organic-prune-juice",
+          "category": "launch",
+          "headline": "Sunsweet releases its first USDA Organic prune juice",
+          "summary": "Sunsweet announced on November 18 that its first organic juice, a 32-ounce Sunsweet Organic Prune Juice made from organic prunes, is rolling out at select Walmart stores, Market Basket, Gelson’s, Lund’s, Food Lion, and Stop & Shop. The company lists 4 grams of prebiotic fiber per 8-ounce serving and a suggested price of $5.49 to $5.99. Availability varies, so check Sunsweet’s store locator before heading out in Las Vegas or Henderson.",
+          "sourceName": "Sunsweet Growers via PR Newswire",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/sunsweets-32-ounce-organic-prune-juice-now-rolling-out-at-select-us-retailers-302942964.html",
+          "sourceDate": "2026-11-18"
+        },
+        {
+          "id": "nutrients-seed-oil-umbrella-review",
+          "category": "study",
+          "headline": "A review of 33 research summaries finds the seed oil evidence mixed",
+          "summary": "An umbrella review in Nutrients, published November 16, looked at 33 systematic reviews and meta-analyses on seed oils, linoleic acid, and omega-6 in adults. In randomized trials, eating more omega-6 showed little or no effect on overall deaths or heart events, and the authors rate that evidence as low certainty. A small subgroup of trials that raised linoleic acid alone showed more heart events, which the authors call hypothesis-generating, not proof. Oils rich in linoleic acid lowered LDL cholesterol when they replaced butter and didn’t raise major inflammation markers. The authors say there isn’t enough evidence to call all seed oils harmful or all of them healthy, and that what the oil replaces matters most. Tortuga still flags seed oils; this is one more view worth knowing about.",
+          "sourceName": "Nutrients (MDPI)",
+          "sourceUrl": "https://www.mdpi.com/2072-6643/18/22/3802",
+          "sourceDate": "2026-11-16"
+        },
+        {
+          "id": "industry-gras-comment-extension",
+          "category": "policy",
+          "headline": "Food industry groups ask FDA for 90 more days on its GRAS rule",
+          "summary": "Baking Business reported on November 17 that 21 food industry groups, including the American Bakers Association, the American Beverage Association, the National Oilseed Processors Association, and the Edible Oil Producers Association, asked FDA for a 90-day extension to comment on its proposed rule for ingredients “generally recognized as safe.” The August proposal would change the system that lets companies decide some ingredients are safe on their own. Comments are currently due December 9. FDA hasn’t answered the request yet.",
+          "sourceName": "Baking Business",
+          "sourceUrl": "https://www.bakingbusiness.com/articles/67251-aba-and-nama-petition-fda-on-gras-rule",
+          "sourceDate": "2026-11-17"
+        },
+        {
+          "id": "cr-lipstick-lead-test",
+          "category": "lab",
+          "headline": "Consumer Reports tests 24 lipsticks for lead",
+          "summary": "Consumer Reports published lead tests of 24 lipsticks on November 17, including “natural” and “clean” brands and cheap online-marketplace picks. Most levels were very low, and all were well under FDA’s proposed 10 ppm guidance. The highest was a $2.63 Temu Yabaolian lipstick at 2.17 ppm on average, which Temu pulled after CR reached out. Mented’s Semi-Matte averaged 1.64 ppm and Estée Lauder’s Pure Color Matte 0.98 ppm, near Washington state’s 1 ppm limit. E.L.F. Sheer Slick was lowest at 0.01 ppm, so price didn’t predict purity.",
+          "sourceName": "Consumer Reports",
+          "sourceUrl": "https://www.consumerreports.org/health/lipsticks/lead-in-lipstick-testing-a1892513932/",
+          "sourceDate": "2026-11-17"
+        }
+      ]
+    },
+    {
       "id": "2026-11-18",
       "date": "2026-11-18",
       "timezone": "America/Los_Angeles",

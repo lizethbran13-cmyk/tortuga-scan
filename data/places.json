@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -5264,6 +5264,554 @@
           "note": "Public address point for 3355 S Las Vegas Blvd, Las Vegas, NV 89109. OSM had no node named Yardbird."
         }
       ]
-    }
+    },
+      {
+        "id": "pressed-for-juice-district",
+        "name": "Pressed For Juice at The District",
+        "kind": "cafe",
+        "city": "Henderson",
+        "address": "2280 Paseo Verde Parkway #130, Henderson, NV 89052",
+        "lat": 36.0198066,
+        "lng": -115.0869716,
+        "phone": "702-260-6883",
+        "website": "https://pressedforjuice.com/find-us",
+        "hoursNote": "Copied from the find-us page on November 20, 2026: Monday–Friday 7am–8pm, Saturday 8am–7pm, Sunday 9am–6pm. That page lists the same hours after both stores and does not split them. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node at 2280 Paseo Verde Parkway, unit 130, postcode 89052. OSM names that node Pressed Juicery and tags a branch of For Juice. The Pressed For Juice find-us page lists this unit as the District store and does not use the name Pressed Juicery.",
+        "summary": "Pressed For Juice at The District in Henderson. The find-us page gives this address, the District phone, and hours that are not split by store. The company menu page lists the juices, smoothies, a bowl, a salad, and a raw energy bar with the ingredients in the lines. The raw energy bar names coconut oil. The menu does not name a cooking fat for the cafe, so the place stays unrated.",
+        "offerings": [
+          {
+            "name": "#1 Green Valley",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: kale, spinach, romaine, cucumber, celery, lemon, parsley, microgreens.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "#2 Gin & Juice",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: apple, celery, spinach, kale, romaine, ginger, lemon.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "#4 Local Hottie",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: pineapple, coconut water, lemon, local honey, cayenne.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "#8 Beet Junkie",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: beet, apple, aloe vera, lemon, ginger.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "#15 Coco Crack",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: coconut water, coconut meat.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "#17 Threesome",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: orange, grape, strawberry.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "Cookies and Cream",
+            "basis": "official-menu",
+            "note": "Listed on the smoothie menu: almond, hazelnut, date, vanilla bean, maple syrup, lava salt, vegan coconut ice cream, cacao nibs, ice. The line names almond and does not name almond oil.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "The Roots",
+            "basis": "official-menu",
+            "note": "Listed on the smoothie menu: apple, orange, lemon, ginger, turmeric, banana, almond, cayenne. The line names almond and does not name almond oil.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "Green Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the acai bowl menu: acai, avocado, banana, kale, spinach, spirulina, hemp granola, blueberry, hemp seed.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "Vegan Caesar Salad",
+            "basis": "official-menu",
+            "note": "Listed on the menu: romaine, avocado, and a homemade Caesar dressing of cashew, lemon, black pepper, sea salt, garlic, and pumpkin seed, with a vegan parmesan of brazil nut, garlic, and sea salt. The line does not name a cooking oil.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "Raw Energy Bar",
+            "basis": "official-menu",
+            "fats": [
+              "coconut oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the snack menu: pistachio, walnut, almond, pecan, sunflower seed, chia seed, flax seed, pumpkin seed, goji berry, cranberry, cinnamon, vanilla, sea salt, local honey, coconut oil. The coconut oil is named in this bar. The line names sunflower seed and does not name sunflower oil.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          },
+          {
+            "name": "Holy Shot",
+            "basis": "official-menu",
+            "note": "Listed on the shot menu: ginger, apple cider vinegar, lemon, cayenne.",
+            "sourceUrl": "https://pressedforjuice.com/the-menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "pressed-district-bar-coconut-oil",
+            "kind": "menu-item",
+            "text": "The company menu names coconut oil in the raw energy bar. It names almond in the cookies and cream smoothie and in The Roots, and sunflower seed in the raw energy bar, and it does not name almond oil or sunflower oil. It does not name a cooking fat for the cafe. The find-us page also lists 6145 S Fort Apache Road #506 in Las Vegas. That store is not this pin. The menu page does not print a separate District dish list.",
+            "fats": [],
+            "sourceUrl": "https://pressedforjuice.com/the-menu",
+            "accessed": "2026-11-20"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Pressed For Juice locations",
+            "url": "https://pressedforjuice.com/find-us",
+            "accessed": "2026-11-20",
+            "note": "Lists The District at 2280 Paseo Verde Parkway #130, Henderson, NV 89052, phone (702) 260-6883, and the hours copied here. It also lists 6145 S Fort Apache Road #506, Las Vegas, NV 89148, phone (702) 895-9672."
+          },
+          {
+            "title": "Pressed For Juice menu",
+            "url": "https://pressedforjuice.com/the-menu",
+            "accessed": "2026-11-20",
+            "note": "The company menu page. It lists both stores and the items copied here."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-20",
+            "note": "Node at 2280 Paseo Verde Parkway, unit 130, Henderson, postcode 89052. The node name is Pressed Juicery. The branch tag is For Juice."
+          }
+        ]
+      },
+      {
+        "id": "great-greek-henderson",
+        "name": "The Great Greek Mediterranean Grill, Henderson",
+        "kind": "restaurant",
+        "city": "Henderson",
+        "address": "1275 W. Warm Springs Rd., Henderson, NV 89014",
+        "lat": 36.0554971,
+        "lng": -115.0416652,
+        "phone": "702-547-2377",
+        "website": "https://www.thegreatgreekgrill.com/henderson-nv",
+        "hoursNote": "Copied from the Henderson page on November 20, 2026: Monday–Sunday 11:00am–9:00pm. The same page marks Thanksgiving Day (November 26, 2026), Christmas Eve (December 24, 2026), Christmas Day (December 25, 2026), New Year's Day (January 1, 2027), and Memorial Day (May 24, 2027) as closed. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named The Great Greek Mediterranean Grill at 1275 West Warm Springs Road, Henderson, postcode 89014. That node includes unit 160. The Henderson page does not print a suite.",
+        "summary": "The Great Greek Mediterranean Grill on West Warm Springs Road in Henderson. The location page gives the address, the phone, and daily hours, and it publishes the menu. Melitzanosalata names olive oil. The french fries and the feta fries are on the sides list without a description or a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Melitzanosalata",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Henderson menu: roasted eggplant, lemon juice, olive oil, garlic, and pita bread. That is this dip, not a cooking fat for the fries.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Hummus",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu: garbanzo beans, garlic, tahini, lemon juice, and pita bread. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Tzatziki",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu: Greek yogurt, labne, cucumber, garlic, dill, and pita bread. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Classic Greek Salad",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu: romaine lettuce, tomatoes, cucumbers, red onions, feta, Kalamata olives, pita bread, and housemade Greek vinaigrette. The line does not name the oil in the vinaigrette.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "The Great Greek Gyro",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu: beef and lamb or grilled chicken, romaine lettuce, tomatoes, red onions, tzatziki, and feta. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Falafel Pita",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu: housemade chickpea fritters, romaine lettuce, tomatoes, red onions, tzatziki, and hummus. The line does not name a frying oil.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Grilled Chicken Souvlaki",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu as chicken breast. The entrees section says plates come with a side salad, tzatziki, pita bread, and a choice of rice pilaf, french fries, or feta fries. The chicken line does not name a cooking fat.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Gyro Plate",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu as Great Greek gyro meat. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "French Fries",
+            "basis": "official-menu",
+            "note": "Named on the sides list. The menu does not give a description or a frying oil.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          },
+          {
+            "name": "Baklava",
+            "basis": "official-menu",
+            "note": "Listed on the Henderson menu: fillo dough, walnuts, and honey syrup. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "great-greek-olive-oil-dip",
+            "kind": "menu-item",
+            "text": "The Henderson menu says melitzanosalata is roasted eggplant with lemon juice, olive oil, and garlic. The french fries and the feta fries are named on the sides list and do not name a frying oil. The menu does not name one cooking fat for the kitchen. The company also lists a St. Rose Parkway restaurant in Henderson. That address is not this pin.",
+            "fats": [],
+            "sourceUrl": "https://www.thegreatgreekgrill.com/henderson-nv",
+            "accessed": "2026-11-20"
+          }
+        ],
+        "sources": [
+          {
+            "title": "The Great Greek Henderson",
+            "url": "https://www.thegreatgreekgrill.com/henderson-nv",
+            "accessed": "2026-11-20",
+            "note": "Lists 1275 W. Warm Springs Rd., Henderson, NV 89014, phone (702) 547-2377, Monday–Sunday 11:00am–9:00pm, and the dishes copied here."
+          },
+          {
+            "title": "The Great Greek St. Rose Parkway",
+            "url": "https://www.thegreatgreekgrill.com/saint-rose-nv",
+            "accessed": "2026-11-20",
+            "note": "A different Henderson restaurant, at 3552 St Rose Pkwy. Not used for this pin."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-20",
+            "note": "Node named The Great Greek Mediterranean Grill at 1275 West Warm Springs Road, Henderson, postcode 89014, unit 160. The phone on that feature is +1-702-547-2377."
+          }
+        ]
+      },
+      {
+        "id": "tacos-el-gordo-charleston",
+        "name": "Tacos El Gordo, Charleston",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "1724 E Charleston Blvd, Las Vegas, NV 89104",
+        "lat": 36.1584862,
+        "lng": -115.1266006,
+        "phone": "702-251-8226",
+        "website": "https://tacoselgordobc.com/locations/",
+        "hoursNote": "The locations page, read on November 20, 2026, lists this address and phone and does not print hours for the Charleston restaurant. The Sunset Road listing on the same page has hours. Those hours are not copied here.",
+        "coordinateNote": "The pin is the OpenStreetMap way named Tacos El Gordo at 1724 East Charleston Boulevard, Las Vegas, postcode 89104.",
+        "summary": "Tacos El Gordo on East Charleston Boulevard. The locations page gives this address and phone and does not print hours for it. The company menu says the tacos use handmade corn tortillas and that guacamole and salsas are made from scratch daily. The fries line does not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Adobada",
+            "basis": "official-menu",
+            "note": "Listed on the menu: spiced pork on a corn tortilla with a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Carne Asada",
+            "basis": "official-menu",
+            "note": "Listed on the menu: grilled beef on a corn tortilla with a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Cabeza",
+            "basis": "official-menu",
+            "note": "Listed on the menu: beef head on a corn tortilla with a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Suadero",
+            "basis": "official-menu",
+            "note": "Listed on the menu: brisket (beef breast) on a corn tortilla with a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Lengua",
+            "basis": "official-menu",
+            "note": "Listed on the menu: beef tongue on a corn tortilla with a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Azteca",
+            "basis": "official-menu",
+            "note": "Listed on the menu: grilled beef and cactus on a corn tortilla with a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Mulas",
+            "basis": "official-menu",
+            "note": "Listed on the menu: a choice of meat, cheese, and fresh toppings on a double corn tortilla. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Quesadillas",
+            "basis": "official-menu",
+            "note": "Listed on the menu: a handmade corn tortilla topped with cheese and a choice of fresh toppings. The line does not name a cooking fat.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          },
+          {
+            "name": "Fries",
+            "basis": "official-menu",
+            "note": "Listed on the menu: a choice of meat on a bed of fries topped with fresh toppings. The line does not name the frying oil.",
+            "sourceUrl": "https://tacoselgordobc.com/menu/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "tacos-el-gordo-no-fry-oil",
+            "kind": "quality",
+            "text": "The menu page says the tacos use handmade corn tortillas, top grade meats, and guacamole and salsas made from scratch daily. It lists fries and does not name a frying oil. The locations page also lists Sunset Road, Las Vegas Boulevard, and Losee Road. Those addresses are not this pin. Losee Road is in North Las Vegas.",
+            "fats": [],
+            "sourceUrl": "https://tacoselgordobc.com/menu/",
+            "accessed": "2026-11-20"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Tacos El Gordo locations",
+            "url": "https://tacoselgordobc.com/locations/",
+            "accessed": "2026-11-20",
+            "note": "Lists the Charleston restaurant at 1724 E Charleston Blvd, Las Vegas, NV 89104, phone +1 (702) 251-8226. The page does not print hours for this address."
+          },
+          {
+            "title": "Tacos El Gordo menu",
+            "url": "https://tacoselgordobc.com/menu/",
+            "accessed": "2026-11-20",
+            "note": "The company menu page. The footer lists the Charleston restaurant among the locations."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-20",
+            "note": "Way named Tacos El Gordo at 1724 East Charleston Boulevard, Las Vegas, postcode 89104. The phone on that feature is +1 702-251-8226. The website on that feature is https://tacoselgordobc.com/."
+          }
+        ]
+      },
+      {
+        "id": "evel-pie",
+        "name": "Evel Pie",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "508 Fremont St, Las Vegas, NV 89101",
+        "lat": 36.169242,
+        "lng": -115.140074,
+        "phone": "702-840-6460",
+        "website": "https://www.evelpie.com/location/evel-pie/",
+        "hoursNote": "Copied from the location page on November 20, 2026: Sunday–Thursday 11am–2am, Friday–Saturday 11am–4am. The same page lists Thanksgiving Day closed, Christmas Eve 11am–8pm, Christmas Day closed, and New Year's Eve 11am–3am. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap way named Evel Pie at 508 Fremont Street, postcode 89101.",
+        "summary": "Evel Pie on Fremont Street. The location page gives the address, the phone, and the hours. The menu names pizzas, salads, wings, and sides. Deez Knots uses the abbreviation evoo. The wings and the fried dough do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Cheesy Rider",
+            "basis": "official-menu",
+            "note": "Listed on the menu as a slice and a 20-inch pie: all the mozzarella cheese. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Pepperoni",
+            "basis": "official-menu",
+            "note": "Listed on the menu: pepperonis and mozzarella. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Extreme Pepperoni",
+            "basis": "official-menu",
+            "note": "Listed on the menu: three kinds of pepperoni, Evel's tomato sauce, and mozzarella. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Gang Green",
+            "basis": "official-menu",
+            "note": "Listed on the menu and marked vegetarian: basil pesto and mozzarella. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Evel Knievel's Super Kick Ass Combination",
+            "basis": "official-menu",
+            "note": "Listed on the whole-pie menu: pepperoni, sausage, ham, mushrooms, red onions, and roasted red peppers. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "The Reaper",
+            "basis": "official-menu",
+            "note": "Listed on the whole-pie menu: hot willy sauce, reaper sauce, chili flake marinated mozzarella, sriracha marinated chorizo, and habaneros. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Caesar Salad",
+            "basis": "official-menu",
+            "note": "Listed on the menu: romaine, croutons, parm, and Caesar dressing. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Wings",
+            "basis": "official-menu",
+            "note": "Listed on the menu: 9 per order, choice of BBQ, buffalo, lemon pepper, or extra hot willy sauce. The line does not name a frying oil.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Deez Knots",
+            "basis": "official-menu",
+            "note": "Listed on the menu: mad garlic, evoo, and parsley, served with Evel's tomato sauce. The menu uses the abbreviation evoo on this side. It does not spell out a cooking fat for the pizzas.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          },
+          {
+            "name": "Led Zeppole",
+            "basis": "official-menu",
+            "note": "Listed on the menu: puffy fried dough, powdered sugar, and a side of honey. The line does not name the frying oil.",
+            "sourceUrl": "https://www.evelpie.com/menu/main/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "evel-pie-evoo-abbreviation",
+            "kind": "menu-item",
+            "text": "The menu uses the abbreviation evoo on Deez Knots, with garlic and parsley. The wings and the Led Zeppole fried dough do not name a frying oil. The menu does not name one cooking fat for the kitchen.",
+            "fats": [],
+            "sourceUrl": "https://www.evelpie.com/menu/main/",
+            "accessed": "2026-11-20"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Evel Pie location",
+            "url": "https://www.evelpie.com/location/evel-pie/",
+            "accessed": "2026-11-20",
+            "note": "Lists 508 Fremont St, Las Vegas, NV 89101, phone (702) 840-6460, and the hours copied here."
+          },
+          {
+            "title": "Evel Pie menu",
+            "url": "https://www.evelpie.com/menu/main/",
+            "accessed": "2026-11-20",
+            "note": "The main menu page. The dishes copied here are on that page."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-20",
+            "note": "Way named Evel Pie at 508 Fremont Street, postcode 89101. The website on that feature is https://www.evelpie.com/."
+          }
+        ]
+      },
+      {
+        "id": "eggslut-cosmopolitan",
+        "name": "Eggslut at The Cosmopolitan",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "3708 Las Vegas Blvd. South, Las Vegas, NV 89109",
+        "lat": 36.109992,
+        "lng": -115.174163,
+        "phone": "702-698-7000",
+        "website": "https://www.eggslut.com/locations",
+        "hoursNote": "Copied from the Eggslut locations page on November 20, 2026, for The Cosmopolitan: Monday–Thursday 7am–2pm, Friday–Sunday 7am–3pm. The page says the restaurant is open for dine in and take away. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named Eggslut at 3708 Las Vegas Boulevard South, Las Vegas, postcode 89109.",
+        "summary": "Eggslut inside The Cosmopolitan. The company locations page gives this address, the phone, and the hours. The company menu names duck fat on the truffle hashbrown. It also names honey butter and brown butter hollandaise on items the same page says are not available at all locations, so those lines are not treated as this kitchen. The place stays unrated.",
+        "offerings": [
+          {
+            "name": "Bacon, Egg & Cheese",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: hardwood smoked bacon, cage-free over medium egg, cheddar cheese, and chipotle ketchup in a warm brioche bun. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Fairfax",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: cage-free soft scrambled eggs and chives, cheddar cheese, caramelized onions, and sriracha mayo in a warm brioche bun. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Egg Salad",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: cage-free hard cooked eggs and thinly sliced chives mixed in honey mustard aioli with dressed arugula in a warm brioche bun. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Cheeseburger",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: ground angus beef patty, cage-free over medium egg, caramelized onions, bread and butter pickles, cheddar cheese, and dijonnaise in a warm brioche bun. The pickles are named that way. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Slut",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: cage-free coddled egg on top of a smooth potato purée, poached in a glass jar, topped with gray salt and chives, served with slices of baguette. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Truffle Hashbrown",
+            "basis": "official-menu",
+            "fats": [
+              "duck fat"
+            ],
+            "suggest": "get",
+            "note": "Listed on the company menu: mini seasoned hashbrowns tossed in duck fat and finished with truffle rosemary salt. That is this side. The menu does not say the kitchen cooks everything in duck fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Side Salad",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: arugula dressed in red wine vinaigrette, served with manchego cheese on top. The line does not name the oil in the vinaigrette.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "French Toast Sticks",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: house made brioche french toast dusted with cinnamon sugar and served with maple custard. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          },
+          {
+            "name": "Sausage, Egg & Cheese",
+            "basis": "official-menu",
+            "note": "Listed on the company menu: house-made chicken sausage, cage-free over medium egg, cheddar cheese, and honey mustard aioli in a warm brioche bun. A note under the line says turkey is available at certain locations. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.eggslut.com/menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "eggslut-duck-fat-hashbrown",
+            "kind": "menu-item",
+            "text": "The company menu says the truffle hashbrown is mini seasoned hashbrowns tossed in duck fat and finished with truffle rosemary salt. The same page says the Gaucho, the golden smash burger, the royale cheeseburger, the buttermilk biscuit, and the salted chocolate chip cookie are not available at all locations. The royale line names brown butter hollandaise and the biscuit line names honey butter. Those two lines are not copied here as Cosmopolitan plates. The menu says all Eggslut bread is made locally and delivered fresh, and it does not name the bakery. The locations page also lists a Rio restaurant at 3700 Flamingo Road. That address is not this pin. The Cosmopolitan page does not print a separate dish list.",
+            "fats": [],
+            "sourceUrl": "https://www.eggslut.com/menu",
+            "accessed": "2026-11-20"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Eggslut locations",
+            "url": "https://www.eggslut.com/locations",
+            "accessed": "2026-11-20",
+            "note": "Lists The Cosmopolitan at 3708 Las Vegas Blvd. South, Las Vegas, NV 89109, phone (702) 698-7000, Monday–Thursday 7am–2pm, Friday–Sunday 7am–3pm, open for dine in and take away."
+          },
+          {
+            "title": "Eggslut at The Cosmopolitan",
+            "url": "https://cosmopolitanlasvegas.mgmresorts.com/en/restaurants/eggslut.html",
+            "accessed": "2026-11-20",
+            "note": "Lists 3708 Las Vegas Boulevard South, Las Vegas, NV 89109, information phone 702.698.7000, Monday–Thursday 7:00am–2:00pm, Friday–Sunday 7:00am–3:00pm. The page does not print the dish list."
+          },
+          {
+            "title": "Eggslut menu",
+            "url": "https://www.eggslut.com/menu",
+            "accessed": "2026-11-20",
+            "note": "The company menu page. It does not print a separate Cosmopolitan dish list. Items marked not available at all locations were not copied as offerings."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-20",
+            "note": "Node named Eggslut at 3708 Las Vegas Boulevard South, Las Vegas, postcode 89109. The phone on that feature is +1-702-698-7000."
+          }
+        ]
+      }
   ]
 }

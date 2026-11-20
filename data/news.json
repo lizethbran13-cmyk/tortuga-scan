@@ -5,6 +5,78 @@
   "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
+      "id": "2026-11-20",
+      "date": "2026-11-20",
+      "timezone": "America/Los_Angeles",
+      "title": "Friday, November 20, 2026",
+      "dek": "An organic sacha inchi protein milk with no gums or seed oils, Ezekiel sprouted-grain bagels, no-sugar-added organic mango snacks at Whole Foods, organic electrolyte pouches for kids, a federal review linking glyphosate to sperm harm in animals, Hochul’s veto of New York’s Red 3 and bromate ban, and a skeptical look at the seed-oil-free boom.",
+      "items": [
+        {
+          "id": "kiki-milk-protein-sacha-inchi",
+          "category": "launch",
+          "headline": "Kiki Milk launches an organic sacha inchi protein milk",
+          "summary": "Kiki Milk announced Kiki Milk Protein, a USDA Organic plant milk that gets most of its protein from sacha inchi, an Amazonian seed. The brand says each serving has 10 grams of protein and 4 grams of fiber, and the Original adds oats for creaminess. It’s made with no gums, seed oils, or natural flavors. It’s sold online at KikiMilk.com and Amazon in six-packs of 32-ounce cartons for $49.99. These are the brand’s claims; Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "Netty",
+          "sourceUrl": "https://netty.com/kiki-milk-builds-its-new-protein-drink-around-sacha-inchi/",
+          "sourceDate": "2026-11-19"
+        },
+        {
+          "id": "food-for-life-ezekiel-sprouted-bagels",
+          "category": "launch",
+          "headline": "Food For Life brings Ezekiel 4:9 sprouted grains to bagels",
+          "summary": "Food For Life Baking Co. added Ezekiel 4:9 Organic Sprouted Bagels in Original and Everything, sold in four-count bags in the freezer section at natural food stores and supermarkets. They use the brand’s sprouted wheat, barley, beans, lentils, millet, and spelt, and are certified organic, non-GMO, kosher, and vegan, with no artificial preservatives, oils, or shortenings. No price was announced. Note they still contain wheat and aren’t gluten-free.",
+          "sourceName": "Netty",
+          "sourceUrl": "https://netty.com/food-for-life-brings-its-ezekiel-49-sprouted-grain-range-to-bagels/",
+          "sourceDate": "2026-11-19"
+        },
+        {
+          "id": "tangoz-organic-mango-whole-foods",
+          "category": "launch",
+          "headline": "TANGOZ flavored organic dried mango rolls out at Whole Foods",
+          "summary": "TANGOZ, a new organic fruit snack brand, is rolling out nationally at Whole Foods Market with Sour Lime and Tropical Burst dried mango. Vanilla Bliss and Chili Lime are sold on Amazon and the brand’s site. The company says it starts with USDA Organic mango infused with organic flavors, with no added sugar and no sulfites. Dried fruit is still concentrated natural sugar, so portion size matters.",
+          "sourceName": "TANGOZ via NOSH",
+          "sourceUrl": "https://www.nosh.com/pr/2026/11/19/real-fruit-gets-a-flavor-upgrade-tangoz-debuts-at-whole-foods-market",
+          "sourceDate": "2026-11-19"
+        },
+        {
+          "id": "once-upon-a-farm-electrolyte-blends",
+          "category": "launch",
+          "headline": "Once Upon a Farm adds organic electrolyte pouches for kids",
+          "summary": "Once Upon a Farm launched Electrolyte Blends, refrigerated organic fruit and veggie purée pouches that get their electrolytes from fruits, vegetables, coconut water, and sea salt instead of a powder mix. Flavors are Strawberry Kiwi, Apple Berry Punch, and Guava Strawberry, in 4-ounce single pouches and four-packs.",
+          "sourceName": "Refrigerated & Frozen Foods",
+          "sourceUrl": "https://www.refrigeratedfrozenfood.com/articles/104832-once-upon-a-farm-expands-refrigerated-portfolio-with-organic-electrolyte-pouches",
+          "sourceDate": "2026-11-19"
+        },
+        {
+          "id": "niehs-glyphosate-male-reproductive-review",
+          "category": "study",
+          "headline": "Federal review finds glyphosate harms sperm health in animal studies",
+          "summary": "Scientists at the National Institute of Environmental Health Sciences, working on a request from HHS, pooled 55 studies in nonhuman mammals and rated the evidence as high confidence that glyphosate and glyphosate-based herbicides like Roundup lower sperm health and sperm counts. The review, published this month in Environment International, also reported lower testosterone. These are animal results, not proof of infertility in people, but it adds weight to buying organic for glyphosate-prone crops. EPA’s public comment window for its glyphosate review closes November 23.",
+          "sourceName": "Sustainable Pulse (on the Environment International review)",
+          "sourceUrl": "https://sustainablepulse.com/2026/11/19/hhs-ordered-us-review-finds-glyphosate-and-roundup-damage-sperm-and-lower-testosterone/",
+          "sourceDate": "2026-11-19"
+        },
+        {
+          "id": "hochul-veto-ny-additive-ban",
+          "category": "policy",
+          "headline": "Hochul says she will veto New York’s Red 3, bromate, and propylparaben ban",
+          "summary": "New York Gov. Kathy Hochul’s office said she would veto the bill that would have banned Red No. 3, potassium bromate, and propylparaben in food and made companies disclose self-affirmed GRAS ingredients to the state. Her office said the bill’s goal was laudable but that it would raise grocery costs and put New York businesses at a disadvantage as the only state with the ban, and it urged FDA to strengthen its own ingredient review.",
+          "sourceName": "New York Post",
+          "sourceUrl": "https://nypost.com/2026/11/20/us-news/gov-kathy-hochul-to-veto-bill-to-ban-common-bagel-and-pizza-additive/",
+          "sourceDate": "2026-11-20"
+        },
+        {
+          "id": "fortune-seed-oil-free-billion",
+          "category": "policy",
+          "headline": "Seed-oil-free sales keep climbing as scientists push back",
+          "summary": "Fortune reports NielsenIQ figures showing more than $1 billion in seed-oil-free food sales over the past year, up 60.2%, compared with 2.6% growth for products without the label. The Seed Oil Free Alliance says products with its certified seal make up about $410 million of that. The piece quotes Stanford and other scientists who say the health claims don’t hold up, so it’s a good one to read for the other side of the debate.",
+          "sourceName": "Fortune",
+          "sourceUrl": "https://www.fortune.com/2026/11/20/seed-oil-free-foods-1-billion-sales-nutrition-science/",
+          "sourceDate": "2026-11-20"
+        }
+      ]
+    },
+    {
       "id": "2026-11-19",
       "date": "2026-11-19",
       "timezone": "America/Los_Angeles",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -5810,6 +5810,479 @@
             "url": "https://www.openstreetmap.org/copyright",
             "accessed": "2026-11-20",
             "note": "Node named Eggslut at 3708 Las Vegas Boulevard South, Las Vegas, postcode 89109. The phone on that feature is +1-702-698-7000."
+          }
+        ]
+      },
+      {
+        "id": "the-modern-vegan",
+        "name": "The Modern Vegan",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "700 E Naples Dr, Las Vegas, NV 89119",
+        "lat": 36.10601,
+        "lng": -115.1489361,
+        "phone": "702-755-8127",
+        "website": "https://themodernveganlv.com/",
+        "hoursNote": "Copied from the contact page on November 21, 2026: open daily 10am–10pm. The menu page, read the same day, also showed a banner that said Opens 1 PM and that ordering was not available. That banner is not the weekly hours list. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap way named The Modern Vegan at 700 East Naples Drive, Las Vegas, postcode 89119. That way is tagged diet:vegan=only. The tag is a map tag. The menu and contact pages are the source for what the restaurant says.",
+        "summary": "The Modern Vegan on East Naples Drive. The contact page gives this address, the phone, and daily hours, and it describes the kitchen as plant-based. The menu names butter, garlic butter, truffle oil, coconut cream, and peanut butter on specific lines. Deep-fried lines do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Crab Cakes",
+            "basis": "official-menu",
+            "note": "Listed on the menu: made with chickpeas and heart of palm, served with mustard remoulade. The line does not name a cooking fat.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Cauliflower Wings",
+            "basis": "official-menu",
+            "note": "Listed on the menu: breaded and deep fried, zesty BBQ or spicy buffalo, served with carrots, celery, and ranch. The line does not name a frying oil.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Sunday Funday",
+            "basis": "official-menu",
+            "note": "Listed on the menu: two buttermilk pancakes, topped with butter, maple syrup, and powdered sugar, served with tofu scramble, breakfast potatoes, and a choice of bacon or sausage. The line names butter. It does not say what the butter is made from.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "The Original",
+            "basis": "official-menu",
+            "note": "Listed on the chicken and waffles menu: two buttermilk waffles, Louisiana fried chicken, bacon, mashed potatoes, asparagus, butter, maple syrup, and powdered sugar. The line names butter. It does not name the frying oil.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Fish Sandwich",
+            "basis": "official-menu",
+            "note": "Listed on the menu: breaded fish fillets, spring mix, mayo, tomato, cucumber, jalapeños, and green goddess dressing, on a garlic butter toasted hoagie. The line names garlic butter. It does not say what the butter is made from, and it does not name a frying oil for the fish.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "The Girlfriend Burger",
+            "basis": "official-menu",
+            "note": "Listed on the menu: Beyond meat patty, cheddar, mayo, spinach, tomato, cucumber, truffle oil, gluten free bun. The line names truffle oil. It does not name the oil the truffle oil is made from.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Steak Stroganoff Fettuccine",
+            "basis": "official-menu",
+            "note": "Listed on the menu: sautéed steak strips and onions in a brown sausage and mushroom coconut cream sauce, served with toasted garlic bread. The line names coconut cream. It does not name coconut oil.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Peanut Pad Thai",
+            "basis": "official-menu",
+            "note": "Listed on the menu: rice noodles, tofu, bell peppers, onions, mushrooms, and peanut pad Thai sauce, topped with crushed peanuts, green onions, and cilantro. The line names peanuts and a peanut sauce. It does not name peanut oil.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Protein Power Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the menu: mixed greens, meat crumbles, grilled mushrooms, chickpeas, spinach, bell peppers, white onions, tomatoes, cucumbers, carrots, zucchini, potatoes, and pesto dressing. The line does not name a cooking fat.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Encore",
+            "basis": "official-menu",
+            "note": "Listed on the smoothie menu: avocado, banana, spinach. The line does not name a cooking fat.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          },
+          {
+            "name": "Cosmopolitan",
+            "basis": "official-menu",
+            "note": "Listed on the smoothie menu: blueberry, banana, peanut butter. The line names peanut butter. It does not name peanut oil.",
+            "sourceUrl": "https://themodernveganlv.com/menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "modern-vegan-menu-fats-unnamed-fryer",
+            "kind": "menu-item",
+            "text": "The contact page describes the restaurant as plant-based. The menu names butter on Sunday Funday and on The Original chicken and waffles, and garlic butter on the fish sandwich. The Girlfriend Burger line names truffle oil. The steak stroganoff line names coconut cream. The Cosmopolitan smoothie names peanut butter. The cauliflower wings are described as deep fried and do not name a frying oil. Those lines do not name one cooking fat for the kitchen.",
+            "fats": [],
+            "sourceUrl": "https://themodernveganlv.com/menu",
+            "accessed": "2026-11-21"
+          }
+        ],
+        "sources": [
+          {
+            "title": "The Modern Vegan",
+            "url": "https://themodernveganlv.com/",
+            "accessed": "2026-11-21",
+            "note": "The contact block lists 700 E Naples Dr, Las Vegas, NV 89119, phone (702) 755-8127, and daily hours 10:00 AM–10:00 PM. The page describes the food as plant-based."
+          },
+          {
+            "title": "The Modern Vegan menu",
+            "url": "https://themodernveganlv.com/menu",
+            "accessed": "2026-11-21",
+            "note": "The Las Vegas menu page. The dishes copied here are on that page. The same page showed a banner that said Opens 1 PM and that ordering was not available."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-21",
+            "note": "Way named The Modern Vegan at 700 East Naples Drive, Las Vegas, postcode 89119. The way is tagged diet:vegan=only. That tag is not used as a cooking-fat finding."
+          }
+        ]
+      },
+      {
+        "id": "cafe-zupas-stephanie",
+        "name": "Cafe Zupas, Stephanie",
+        "kind": "cafe",
+        "city": "Henderson",
+        "address": "1381 West Sunset Road, Henderson, NV 89014",
+        "lat": 36.0628779,
+        "lng": -115.0456876,
+        "phone": "702-978-4444",
+        "website": "https://cafezupas.com/view-all-locations",
+        "hoursNote": "The locations directory, read on November 21, 2026, lists the Stephanie store and does not print hours for it. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named Café Zupas at 1381 West Sunset Road, Henderson, postcode 89014. The locations directory lists this street and phone under Nevada and names the store Stephanie. It does not print the city or the ZIP. The city and ZIP are from that node.",
+        "summary": "Cafe Zupas at the Stephanie store. The locations directory gives 1381 West Sunset Road and the phone, under Nevada, and does not print the city. OpenStreetMap places Café Zupas at that street number in Henderson. The company menu names extra virgin olive oil in the tomato basil soup and brown butter in the crispy marshmallow bar. It does not name one cooking fat for the cafe, so the place stays unrated.",
+        "offerings": [
+          {
+            "name": "Tomato Basil",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the soup menu: vine ripe tomatoes, fresh basil, chopped garlic, Parmesan cheese, sautéed celery and onions, extra virgin olive oil, and spices in a creamy broth. The olive oil is named in this soup.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Crispy Marshmallow Bar",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dessert menu: crispy rice puffs mixed with marshmallow cream, brown butter, and a hint of sea salt, hand dipped in milk chocolate. The brown butter is named in this bar.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Athlete Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the protein bowl menu: roasted chicken, rice, roasted broccoli, roasted sweet potatoes, and high-protein chipotle ranch. The line does not name a cooking fat.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Mediterranean Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the protein bowl menu: arugula and rice, roasted chicken, grape tomatoes, sliced cucumbers, black olives, roasted cauliflower, goat cheese, crispy chickpeas, tzatziki, red pepper hummus, with lemon oregano vinaigrette. The line does not name the oil in the vinaigrette.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Nourish Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the protein bowl menu: arugula and rice, roasted chicken, roasted sweet potatoes, roasted cauliflower, sliced apples, grapes, goat cheese, and pistachios with balsamic vinaigrette. The line does not name the oil in the vinaigrette.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Green Goddess Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the protein bowl menu: baby butter lettuce, rice, grilled chicken, freshly grated Parmesan, edamame, sugar snap peas, sliced cucumber, and Hass avocado with green goddess dressing. The line names baby butter lettuce. It does not name a cooking fat.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Veggie Crunch",
+            "basis": "official-menu",
+            "note": "Listed on the sandwich menu: roasted sweet potatoes, sliced avocado, baby cucumber, mixed greens, Roma tomato, goat cheese, roasted red pepper hummus, and pesto spread. The line does not name a cooking fat.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Chickpea & Vegetable",
+            "basis": "official-menu",
+            "note": "Listed on the soup menu: broccoli, Roma tomatoes, chickpeas, onions, celery, and leeks in a roasted vegetable broth. The line does not name a cooking fat.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          },
+          {
+            "name": "Avocado Caesar Salad",
+            "basis": "official-menu",
+            "note": "Listed on the salad menu: house-chopped mixed greens, grilled chicken, Parmesan cheese, avocado, house-made croutons, and avocado Caesar dressing. The line does not name the oil in the dressing.",
+            "sourceUrl": "https://cafezupas.com/menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "zupas-stephanie-two-named-fats",
+            "kind": "menu-item",
+            "text": "The company menu names extra virgin olive oil in the tomato basil soup and brown butter in the crispy marshmallow bar. The green goddess bowl names baby butter lettuce and does not name a cooking fat. The menu does not name one cooking fat for the cafe. The locations directory also lists Blue Diamond, Boca Park, Centennial, Craig Road, Eastern, Fort Apache, Lake Mead, and Rainbow in Nevada. Those stores are not this pin. The menu page does not print a separate Stephanie dish list.",
+            "fats": [],
+            "sourceUrl": "https://cafezupas.com/menu",
+            "accessed": "2026-11-21"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Cafe Zupas locations",
+            "url": "https://cafezupas.com/view-all-locations",
+            "accessed": "2026-11-21",
+            "note": "Under Nevada, the Stephanie store is listed at 1381 West Sunset Road, phone 702-978-4444. The directory does not print the city, the ZIP, or hours for this store."
+          },
+          {
+            "title": "Cafe Zupas menu",
+            "url": "https://cafezupas.com/menu",
+            "accessed": "2026-11-21",
+            "note": "The company menu page. It does not print a separate Stephanie dish list."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-21",
+            "note": "Node named Café Zupas at 1381 West Sunset Road, Henderson, postcode 89014. The phone on that feature is +1 702-978-4444. The website on that feature is https://cafezupas.com/."
+          }
+        ]
+      },
+      {
+        "id": "le-thai-downtown",
+        "name": "Le Thai Downtown",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "523 Fremont St., Las Vegas, NV 89101",
+        "lat": 36.1686949,
+        "lng": -115.1399239,
+        "phone": "702-778-0888",
+        "website": "https://lethaivegas.com/le-thai-downtown/",
+        "orderUrl": "https://order.lethaivegas.com/",
+        "hoursNote": "Copied from the Downtown location page on November 21, 2026: Monday–Thursday 11am–10pm, Friday 11am–11pm, Saturday 12pm–11pm, Sunday 4pm–10pm. Closed Christmas Eve, Christmas Day, and New Year's Day. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap way named Le Thai at 523 Fremont Street, Las Vegas, postcode 89101.",
+        "summary": "Le Thai Downtown on Fremont Street. The location page gives the address, the phone, and the hours. The company menu names coconut milk in the yellow curry, the green curry, and the mango with sweet sticky rice. Fried lines do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Short Rib Fried Rice",
+            "basis": "official-menu",
+            "note": "Listed on the menu: pulled beef from short ribs, stir-fried with waterfall sauce, egg, garlic, yellow and green onion, and cilantro. The page calls it one of LeThai's most famous signature dishes. The line does not name a cooking fat.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "3 Color Curry",
+            "basis": "official-menu",
+            "note": "Listed on the menu: Le Thai's special blend of red, yellow, and green curry and all their vegetables. The line does not name coconut milk. A note above the curries says all curries are gluten free.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Yellow Curry",
+            "basis": "official-menu",
+            "note": "Listed on the menu: potato, onion, and carrots in coconut milk. The line names coconut milk. It does not name coconut oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Green Curry",
+            "basis": "official-menu",
+            "note": "Listed on the menu: bamboo shoots, bell pepper, zucchini, and Thai basil in coconut milk. The line names coconut milk. It does not name coconut oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Tom Kha",
+            "basis": "official-menu",
+            "note": "Listed on the menu as a coconut soup with mushroom, lemon grass, and lemon juice, topped with green onions and cilantro. The line says coconut soup. It does not name coconut milk or coconut oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Papaya Salad (Sum Tum)",
+            "basis": "official-menu",
+            "note": "Listed on the menu: shredded fresh green papaya tossed with Thai chili, garlic, carrot, tomato, and lime, topped with toasted peanuts, served with sticky rice. The line does not name a cooking fat.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Chicken Satay",
+            "basis": "official-menu",
+            "note": "Listed on the menu: four grilled chicken thigh skewers served with a side of cucumber salad and peanut dipping sauce. The line names peanuts in the sauce. It does not name peanut oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Pad Thai",
+            "basis": "official-menu",
+            "note": "Listed on the menu: rice noodles stir-fried with egg, green onion, bean sprouts, carrots, crushed peanuts, and cilantro. The line does not name a cooking oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Ga Pow",
+            "basis": "official-menu",
+            "note": "Listed on the menu: ground meat, bell pepper, onion, and Thai basil in homemade Thai chili sauce, topped with a fried egg. The line does not name a cooking fat.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Crispy Spring Rolls",
+            "basis": "official-menu",
+            "note": "Listed on the menu: four golden brown spring rolls served with sweet plum sauce. The line does not name a frying oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          },
+          {
+            "name": "Mango & Sweet Sticky Rice",
+            "basis": "official-menu",
+            "note": "Listed on the menu: sliced mango served with sticky rice in sweet coconut milk and sesame seeds on top. The line names coconut milk. It does not name coconut oil.",
+            "sourceUrl": "https://lethaivegas.com/menu/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "le-thai-coconut-milk-no-fry-oil",
+            "kind": "menu-item",
+            "text": "The menu names coconut milk in the yellow curry, the green curry, and the mango with sweet sticky rice. Tom Kha is described as a coconut soup and does not name coconut milk or coconut oil. The 3 color curry line does not name coconut milk. The crispy spring rolls and the cream cheese rangoon are fried and do not name a frying oil. The menu does not name one cooking fat for the kitchen. The Downtown page also lists Le Thai 2 at 2202 W. Charleston Blvd., #5. That address is not this pin. The menu page does not print a separate Downtown dish list.",
+            "fats": [],
+            "sourceUrl": "https://lethaivegas.com/menu/",
+            "accessed": "2026-11-21"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Le Thai Downtown",
+            "url": "https://lethaivegas.com/le-thai-downtown/",
+            "accessed": "2026-11-21",
+            "note": "Lists 523 Fremont St., Las Vegas, NV 89101, phone (702) 778-0888, and the hours copied here."
+          },
+          {
+            "title": "Le Thai menu",
+            "url": "https://lethaivegas.com/menu/",
+            "accessed": "2026-11-21",
+            "note": "The company food menu. The dishes copied here are on that page. It does not print a separate Downtown dish list."
+          },
+          {
+            "title": "Le Thai online ordering",
+            "url": "https://order.lethaivegas.com/",
+            "accessed": "2026-11-21",
+            "note": "The order link on the Downtown page and the menu page. It is on the lethaivegas.com domain."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-21",
+            "note": "Way named Le Thai at 523 Fremont Street, Las Vegas, postcode 89101."
+          }
+        ]
+      },
+      {
+        "id": "elia-sahara",
+        "name": "Elia Authentic Greek Taverna",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "8615 West Sahara Avenue, Las Vegas, NV 89117",
+        "lat": 36.1440312,
+        "lng": -115.2795979,
+        "phone": "702-284-5599",
+        "website": "https://elialv.com/",
+        "hoursNote": "Copied from the restaurant homepage on November 21, 2026: lunch Tuesday–Sunday 12:00pm–2:30pm, dinner Tuesday–Sunday 4:00pm–9:00pm, happy hour Tuesday–Sunday 4:00pm–6:00pm, Mondays closed. Hours change.",
+        "coordinateNote": "OpenStreetMap has no feature named Elia. The pin is the OpenStreetMap address way for 8615 West Sahara Avenue, Las Vegas, postcode 89117. It is the address point, not a named restaurant node.",
+        "summary": "Elia Authentic Greek Taverna on West Sahara Avenue. The homepage gives the address, the phone, and the hours. The menu names olive oil on the salmon tartare, the grilled octopus, the gigantes, the roasted feta, the Greek salad, the horta, and the pikantiki. Fried lines do not name a frying oil, and ladolemono is not spelled out as an oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Salmon Tartare",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dinner menu: salmon, fresno chilies, serrano chilies, onion, dill, lime, olive oil. The olive oil is named on this plate.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Oktapodi",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dinner menu: grilled octopus, red onion, red wine vinegar, olive oil. The olive oil is named on this plate.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Gigantes",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dinner menu: gigante beans, tomato, dill, olive oil. The olive oil is named on this plate.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Feta Psiti",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dinner menu: roasted feta, fresh chilies, tomato, Greek oregano, olive oil. The olive oil is named on this plate.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Horiatiki",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dinner menu: tomato, cucumber, red onion, green pepper, feta, kalamata olives, olive oil. The olive oil is named on this salad.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Horta",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the dinner menu: steamed wild greens, lemon, olive oil. The olive oil is named on this plate.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Pikantiki",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "The dinner line lists cabbage, carrot, bell pepper, parsley, olive oil, and honey balsamic. The lunch line says cabbage, carrot, and bell pepper with evoo and honey balsamic. The dinner line spells olive oil. The lunch line uses the abbreviation evoo.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Kota Spasti",
+            "basis": "official-menu",
+            "note": "Listed on the dinner menu: grilled Red Bird Farm lemon and herb chicken, lemon potatoes, ladolemono. The line names Red Bird Farm and ladolemono. It does not spell ladolemono out as an oil.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Tiganito Calamari",
+            "basis": "official-menu",
+            "note": "Listed on the dinner menu: fried calamari, fresh lemon. The line does not name a frying oil.",
+            "sourceUrl": "https://elialv.com/menu/"
+          },
+          {
+            "name": "Tiganites Patates",
+            "basis": "official-menu",
+            "note": "Listed on the dinner menu: hand-cut fried potatoes, salt, Greek oregano. The line does not name a frying oil.",
+            "sourceUrl": "https://elialv.com/menu/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "elia-olive-oil-dishes-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The dinner menu names olive oil on the salmon tartare, the grilled octopus, the gigantes, the roasted feta, the Greek salad, the horta, and the pikantiki. The lunch pikantiki line uses the abbreviation evoo. The fried calamari and the hand-cut fried potatoes do not name a frying oil. Ladolemono is printed on several plates and is not spelled out as an oil. The menu does not name one cooking fat for the kitchen. The order page links to DoorDash and Uber Eats. Those links are not used here.",
+            "fats": [],
+            "sourceUrl": "https://elialv.com/menu/",
+            "accessed": "2026-11-21"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Elia Authentic Greek Taverna",
+            "url": "https://elialv.com/",
+            "accessed": "2026-11-21",
+            "note": "Lists 8615 West Sahara Avenue, Las Vegas, NV 89117, phone (702)-284-5599, and the hours copied here."
+          },
+          {
+            "title": "Elia menu",
+            "url": "https://elialv.com/menu/",
+            "accessed": "2026-11-21",
+            "note": "The dinner, lunch, dessert, and happy hour menu. The dishes copied here are on that page."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-21",
+            "note": "Address way for 8615 West Sahara Avenue, Las Vegas, postcode 89117. No feature on that way is named Elia."
           }
         ]
       }

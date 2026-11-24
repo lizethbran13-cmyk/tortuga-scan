@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-21",
+  "updated": "2026-11-24",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -6283,6 +6283,453 @@
             "url": "https://www.openstreetmap.org/copyright",
             "accessed": "2026-11-21",
             "note": "Address way for 8615 West Sahara Avenue, Las Vegas, postcode 89117. No feature on that way is named Elia."
+          }
+        ]
+      },
+      {
+        "id": "plant-power-craig",
+        "name": "Plant Power Fast Food, Craig Road",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "7090 W. Craig Rd. Suite 120, Las Vegas, NV 89129",
+        "lat": 36.24093,
+        "lng": -115.248937,
+        "phone": "702-979-5951",
+        "website": "https://www.plantpowerfastfood.com/las-vegas",
+        "orderUrl": "https://order.plantpowerfastfood.com/",
+        "hoursNote": "Copied from the Las Vegas location page on November 24, 2026: open daily 8:00am–9:00pm, breakfast 8:00am–12:00pm. The menu page, read the same day, also showed a banner that said new menu items land January 19. That banner is not the weekly hours list. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named Plant Power Fast Food at 7090 West Craig Road, Las Vegas, postcode 89129. The phone on that node is +1-702-979-5951. The website on that node is https://www.plantpowerfastfood.com. The node is tagged diet:vegan=yes and drive_through=yes. Those tags are map tags. The location page is the source for the suite and for what the restaurant says. The node does not print Suite 120.",
+        "summary": "Plant Power Fast Food on West Craig Road. The location page gives this address, the phone, and the hours, and it says every item at this restaurant is 100% plant-based. The company menu names coconut oil as the base of the plant-based parmesan. Fries and crispy chicken do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Big Zac",
+            "basis": "official-menu",
+            "note": "Listed on the menu: two pea-protein patties, cheddar made from cultured oat cream, shredded lettuce, chopped onions, and Big Zac sauce on a toasted sesame bun. The patty line says 13g of plant-based protein per patty, 35% less saturated fat, no cholesterol, no added soy ingredients, and no added hormones or antibiotics. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Holy Guacamole Burger",
+            "basis": "official-menu",
+            "note": "Listed on the menu: a plant-based patty, Pepper Jack made from cultured oat cream, housemade guacamole, jalapeños, lettuce, tomato, and chipotle sauce on a toasted bun. The chipotle sauce is described as plant-based mayo with chipotle peppers. The line does not name a cooking oil.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Chicken Caesar Salad",
+            "basis": "official-menu",
+            "fats": [
+              "coconut oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the menu: romaine and kale, hand-breaded crispy chicken or grilled chicken, parmesan, croutons, and Caesar dressing. The chicken is described as soy and wheat proteins. The parmesan line says the plant-based parmesan is made from a coconut oil base. That is the cheese. The line does not name a frying oil for the crispy chicken, and it does not name the oil in the Caesar dressing.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Regular Fries",
+            "basis": "official-menu",
+            "note": "Listed on the menu: thin crispy skin-on fries. The line does not name a frying oil.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Sweet Potato Fries",
+            "basis": "official-menu",
+            "note": "Listed on the menu: crispy skin-on sweet potato fries. The line does not name a frying oil.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Curly Fries",
+            "basis": "official-menu",
+            "note": "Listed on the menu: seasoned curly fries. The line does not name a frying oil.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Chicken Nuggets",
+            "basis": "official-menu",
+            "note": "Listed on the menu: crispy plant-based chicken nuggets, 6 or 12 pieces, with sauce on the side. The chicken is described as soy and wheat proteins. The line does not name a frying oil.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Milkshakes",
+            "basis": "official-menu",
+            "note": "Listed on the drinks menu: creamy oat-based vanilla ice cream blended with flavors. The ice cream line says the soft serve is made from oat milk. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          },
+          {
+            "name": "Fried Egg and Bacon Bagel",
+            "basis": "official-menu",
+            "note": "Listed on the menu: plant-based bacon made from soy and wheat proteins, a fried egg, and cheddar made from cultured oat cream. The fried egg line says it is made from mung bean, soy protein, carrots, and other ingredients, and that it is used on this bagel. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "plant-power-craig-parmesan-coconut-oil-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The Las Vegas page says every item on the menu is 100% plant-based, from the burgers and crispy chicken to the oat-based shakes and soft serve. The company menu names coconut oil as the base of the plant-based parmesan on the chicken Caesar salad and on the side Caesar salad. The regular fries, sweet potato fries, curly fries, chicken nuggets, and crispy chicken do not name a frying oil. The homepage also says no cholesterol, no antibiotics, no hormones, no artificial colors, no corn syrup, and no trans fat. Those lines do not name a cooking oil. The menu does not name one cooking fat for the kitchen. The menu page does not print a separate Las Vegas dish list. The same page showed a banner that said new menu items land January 19.",
+            "fats": [],
+            "sourceUrl": "https://www.plantpowerfastfood.com/menu",
+            "accessed": "2026-11-24"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Plant Power Fast Food Las Vegas",
+            "url": "https://www.plantpowerfastfood.com/las-vegas",
+            "accessed": "2026-11-24",
+            "note": "Lists 7090 W. Craig Rd. Suite 120, Las Vegas, NV 89129, phone (702) 979 5951, daily hours 8:00am–9:00pm, and breakfast 8:00am–12:00pm. The page says every item at this restaurant is 100% plant-based."
+          },
+          {
+            "title": "Plant Power Fast Food menu",
+            "url": "https://www.plantpowerfastfood.com/menu",
+            "accessed": "2026-11-24",
+            "note": "The company menu page. The dishes copied here are on that page. It does not print a separate Las Vegas dish list."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-24",
+            "note": "Node named Plant Power Fast Food at 7090 West Craig Road, Las Vegas, postcode 89129. The phone on that feature is +1-702-979-5951. The website on that feature is https://www.plantpowerfastfood.com. The node is tagged diet:vegan=yes. That tag is not used as a cooking-fat finding."
+          }
+        ]
+      },
+      {
+        "id": "crossroads-kitchen-las-vegas",
+        "name": "Crossroads Kitchen Las Vegas",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "3000 South Las Vegas Blvd, Las Vegas, NV 89109",
+        "lat": 36.1343161,
+        "lng": -115.1674152,
+        "phone": "702-676-7978",
+        "website": "https://www.crossroadslasvegas.com/",
+        "hoursNote": "Copied from the Las Vegas homepage and the dinner menu page on November 24, 2026. Both print dinner Sunday–Thursday 5pm–9pm and Friday–Saturday 5pm–10pm, Sunday brunch buffet 10am–2pm, and happy hour Monday–Saturday 4pm–5pm at the bar and lounge. The hours-of-operation block also lists dinner Monday–Sunday 5pm–9pm and Friday–Saturday 5pm–10pm. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named Crossroads Kitchen Las Vegas, postcode 89109, on Resorts World Connector. Nominatim geocodes that node in Winchester. The node does not print a street number. The restaurant page prints 3000 South Las Vegas Blvd, Las Vegas, NV 89109, inside Resorts World Las Vegas. The node is tagged diet:vegan=yes. That tag is a map tag. The node lists opening hours that are not the hours copied here.",
+        "summary": "Crossroads Kitchen inside Resorts World Las Vegas. The homepage gives this address, the phone, and the hours, and it says the menu is plant-based. The dinner menu names truffle butter, garlic butter, and a tomato butter sauce on specific pastas. Fried lines do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Figs & Feta",
+            "basis": "official-menu",
+            "note": "Listed on the fall dinner menu: white balsamic glaze and grilled sourdough bread. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Calamari Fritti",
+            "basis": "official-menu",
+            "note": "Listed on the fall dinner menu: diablo sauce and lemon. The line does not name a frying oil.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Fettuccine & Truffles",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the fall dinner menu: fresh shaved truffles and truffle butter. The line names truffle butter. It does not say what the butter is made from.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Linguine Scallops",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the fall dinner menu: white wine, garlic butter, and parsley. The line names garlic butter. It does not say what the butter is made from.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Spinach & Artichoke Ravioli",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the fall dinner menu: sherry tomato butter sauce and parmesan. The line names a tomato butter sauce. It does not say what the butter is made from.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Campfire Gnocchi",
+            "basis": "official-menu",
+            "note": "Listed on the fall dinner menu: autumn vegetable veloute, crispy maitake mushrooms, burnt onion ash, and scallion oil. The line names scallion oil. It does not say which oil that is.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Lentil & Farro Stuffed Artichoke",
+            "basis": "official-menu",
+            "note": "Listed on the fall dinner menu: roasted garlic, pine nut butter, and toasted fennel gastrique. The line names pine nut butter. It does not name a cooking oil.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Grilled Lion's Mane Steak",
+            "basis": "official-menu",
+            "note": "Listed on the fall dinner menu: truffle potatoes and mushroom bordelaise. The line names truffle potatoes. It does not name truffle oil or a cooking fat.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Pepperoni",
+            "basis": "official-menu",
+            "note": "Listed on the pizza menu. The pizza heading says the cheese contains soy. The pepperoni line does not name a cooking fat.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          },
+          {
+            "name": "Eggplant Filet",
+            "basis": "official-menu",
+            "note": "Listed on the fall dinner menu: mashed potatoes and mushroom bordelaise. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "crossroads-lv-butter-lines-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The Las Vegas homepage says the restaurant continues the plant-based dining and that the menu is plant-based. The fall dinner menu names truffle butter on the fettuccine, garlic butter on the linguine scallops, and a sherry tomato butter sauce on the spinach and artichoke ravioli. The campfire gnocchi line names scallion oil and does not say which oil that is. The stuffed artichoke line names pine nut butter and does not name a cooking oil. The calamari fritti line does not name a frying oil. A note on the dinner page says gluten-free items may be cooked in the same area or fryer as items containing gluten, and it does not name the fryer oil. The menu does not name one cooking fat for the kitchen. The order links on the homepage go to DoorDash, Postmates, and Uber Eats. Those links are not used here.",
+            "fats": [],
+            "sourceUrl": "https://www.crossroadslasvegas.com/dinner-menu",
+            "accessed": "2026-11-24"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Crossroads Kitchen Las Vegas",
+            "url": "https://www.crossroadslasvegas.com/",
+            "accessed": "2026-11-24",
+            "note": "Lists 3000 South Las Vegas Blvd, Las Vegas, NV 89109, inside Resorts World Las Vegas, phone (702) 676-7978, and the hours copied here. The page says the menu is plant-based."
+          },
+          {
+            "title": "Crossroads Kitchen Las Vegas dinner menu",
+            "url": "https://www.crossroadslasvegas.com/dinner-menu",
+            "accessed": "2026-11-24",
+            "note": "The Las Vegas fall dinner menu. The dishes copied here are on that page."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-24",
+            "note": "Node named Crossroads Kitchen Las Vegas, postcode 89109, on Resorts World Connector. Nominatim geocodes the node in Winchester. The node does not print a street number. It is tagged diet:vegan=yes. That tag is not used as a cooking-fat finding. The opening hours on the node are not the hours copied here."
+          }
+        ]
+      },
+      {
+        "id": "fogo-de-chao-flamingo",
+        "name": "Fogo de Chão, Hughes Center",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "360 E. Flamingo Road, Las Vegas, NV 89169",
+        "lat": 36.1150464,
+        "lng": -115.1564259,
+        "phone": "702-431-4500",
+        "website": "https://fogodechao.com/location/las-vegas-hughes-center/",
+        "hoursNote": "Copied from the Hughes Center location page on November 24, 2026: lunch Monday–Friday 11:30am–3:00pm, dinner Monday–Thursday 3:00pm–10:00pm, Friday 3:00pm–10:30pm, Saturday 2:00pm–10:30pm, Sunday 2:00pm–9:00pm, brunch Saturday–Sunday 11:30am–2:00pm. The same page lists Thanksgiving, Christmas Eve, and Christmas 11am–8:30pm, New Year's Eve 11am–10:30pm, and New Year's Day 11am–10pm. Happy hour is listed as all day Monday–Thursday. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap way named Fogo de Chão at 360 East Flamingo Road, postcode 89169. Nominatim geocodes that way in Paradise. The restaurant page prints Las Vegas, NV 89169. The phone on the way is +1 702-431-4500. The website on the way is the Hughes Center location page.",
+        "summary": "Fogo de Chão at Hughes Center. The location page gives this address, the phone, and the hours. The Hughes Center dinner menu names butter on the lobster tail, the truffle butter, and the lobster mac and cheese. The yuca fries do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Jumbo Shrimp Cocktail",
+            "basis": "official-menu",
+            "note": "Listed on the Hughes Center dinner menu: six jumbo shrimp. The starters note says the items are served with Brazilian malagueta cocktail sauce and fresh lemon. The line does not name a cooking fat.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Full Churrasco",
+            "basis": "official-menu",
+            "note": "Listed on the Hughes Center dinner menu: continuous tableside carving of Brazilian cuts, including picanha, bone-in ribeye, fraldinha, lamb chops, roasted chicken, and filet. The page says the cuts are seasoned and fire-roasted over an open flame. The line does not name a cooking fat.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Butter-Bathed Lobster Tail",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Hughes Center dinner menu as an enhancement and as part of the indulgent churrasco. The name says butter-bathed. The line names butter. It does not say the kitchen cooks everything in butter.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Black Truffle Butter",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Hughes Center dinner menu as an enhancement and as a choice with the indulgent churrasco. The line names black truffle butter.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Pan-Seared Salmon",
+            "basis": "official-menu",
+            "note": "Listed on the Hughes Center dinner menu: topped with chimichurri and served with grilled asparagus. The line does not name a cooking fat.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Cauliflower Steak",
+            "basis": "official-menu",
+            "note": "Listed on the Hughes Center dinner menu: oven roasted with a parmesan crust and basil sauce, with warm chickpea salad. The line does not name a cooking fat.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Crispy Yuca Fries",
+            "basis": "official-menu",
+            "note": "Listed on the Hughes Center dinner menu: grated parmesan and malagueta aioli. The line does not name a frying oil.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Lobster Mac & Cheese",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Hughes Center dinner menu: butter-bathed lobster, cheese sauce, and panko breadcrumbs. The line names butter on the lobster. It does not name a cooking fat for the cheese sauce.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          },
+          {
+            "name": "Seared Tofu",
+            "basis": "official-menu",
+            "note": "Listed on the Hughes Center dinner menu: chimichurri-marinated tofu served with spinach rice. The line does not name a cooking fat.",
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "fogo-flamingo-butter-dishes-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The Hughes Center dinner menu names butter on the butter-bathed lobster tail, the black truffle butter, and the lobster mac and cheese. The churrasco lines say the cuts are fire-roasted over an open flame and do not name a cooking fat. The crispy yuca fries do not name a frying oil. The menu does not name one cooking fat for the kitchen. The same page prints the full churrasco price twice, once at 58 per person and once at 77 per person. The prices are not copied here.",
+            "fats": [],
+            "sourceUrl": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617",
+            "accessed": "2026-11-24"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Fogo de Chão Las Vegas Hughes Center",
+            "url": "https://fogodechao.com/location/las-vegas-hughes-center/",
+            "accessed": "2026-11-24",
+            "note": "Lists 360 E. Flamingo Road, Las Vegas, NV 89169, phone 702-431-4500, and the hours copied here."
+          },
+          {
+            "title": "Fogo de Chão Hughes Center dinner menu",
+            "url": "https://fogodechao.com/menu-detail/?location=98&type=menu-dinner&id=4617",
+            "accessed": "2026-11-24",
+            "note": "The dinner menu linked from the Hughes Center location page. The dishes copied here are on that page."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-24",
+            "note": "Way named Fogo de Chão at 360 East Flamingo Road, postcode 89169. Nominatim geocodes the way in Paradise. The restaurant page prints Las Vegas. The phone on that feature is +1 702-431-4500. The website on that feature is the Hughes Center location page."
+          }
+        ]
+      },
+      {
+        "id": "publicus-fremont",
+        "name": "PublicUs",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "1126 Fremont Street, Las Vegas, NV 89101",
+        "lat": 36.165783,
+        "lng": -115.132972,
+        "phone": "702-331-5500",
+        "website": "https://www.publicuslv.com/",
+        "hoursNote": "The homepage, read on November 24, 2026, prints the address and the phone and does not print a weekly hours list. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named PublicUs at 1126 Fremont Street, Las Vegas, postcode 89101. The phone on that node is +1-702-331-5500. The website on that node is http://www.publicuslv.com/.",
+        "summary": "PublicUs on Fremont Street. The homepage gives this address and the phone, and it describes the place as a canteen-style neighborhood restaurant and coffeebar in the Fremont East District. The menu on that page names brown butter hollandaise, butter with the toast, and creamed butter in a latte. Fried lines do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Chimichurri NY Steak & Eggs",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: 8oz NY steak, two sunny side up farm eggs, crispy red bliss potatoes, and PublicUs sourdough toast. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Garden Farm Benedict",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the homepage menu: two farm poached eggs, roasted veggies, crispy red bliss potatoes, super spinach, heirloom tomatoes, brown butter hollandaise, and PublicUs sourdough toast. The line names brown butter hollandaise.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Smashed Avo Toast",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: poached farm eggs, guajillo pepper spread, organic cherry tomatoes, PublicUs sourdough toast, and organic mixed greens. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Winter Squash Salad",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: local winter greens, pomegranate, pumpkin seed, fried onion, and maple pumpkin dressing. The line does not name a frying oil or the oil in the dressing.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Veggie Tofu Curry",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: vegan yellow Thai curry, seasonal vegetables, tofu, coconut milk, white rice, furikake, and sesame toast. The line names coconut milk. It does not name coconut oil.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Buttermilk Fried Chicken",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: white rice, a farm fried egg, kimchi, spicy pickles, and spicy bourbon sauce. The line does not name a frying oil.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Fried Fish",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: Tenaya Creek beer battered wild opah, peppernata, kosho aioli, pickle, and a potato Hawaiian sweet bun. The line does not name a frying oil.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "PublicUs Burger",
+            "basis": "official-menu",
+            "note": "Listed on the homepage menu: 30 day dry aged prime angus beef, artisanal cheese blend, tomatoes, red onion, butter lettuce, PublicUs spread, and a potato Hawaiian sweet bun. The line names butter lettuce. That is the lettuce. It does not name a cooking fat.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Toast & Jam",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the homepage menu: served with PublicUs jam of the day and butter. The line names butter.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          },
+          {
+            "name": "Butter & Spice Latte",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the homepage menu: espresso, creamed butter with cinnamon, nutmeg, cardamom, and ginger, and organic milk. The line names creamed butter.",
+            "sourceUrl": "https://www.publicuslv.com/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "publicus-fremont-butter-dishes-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The homepage menu names brown butter hollandaise on the garden farm benedict, butter with the toast and jam, and creamed butter in the butter and spice latte. The burger and the California turkey sandwich name butter lettuce. That is the lettuce, not a cooking fat. An add-on names apple butter. The buttermilk fried chicken, the fried fish, and the fried onion do not name a frying oil. The veggie tofu curry names coconut milk and does not name coconut oil. The menu does not name one cooking fat for the kitchen. The homepage links ordering to Toast. That link is not used here.",
+            "fats": [],
+            "sourceUrl": "https://www.publicuslv.com/",
+            "accessed": "2026-11-24"
+          }
+        ],
+        "sources": [
+          {
+            "title": "PublicUs",
+            "url": "https://www.publicuslv.com/",
+            "accessed": "2026-11-24",
+            "note": "Prints 1126 Fremont Street, Las Vegas, Nevada 89101, and phone (702) 331-5500. The page describes a canteen-style neighborhood restaurant and coffeebar in the Fremont East District. The menu copied here is on this page. It does not print a weekly hours list."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-24",
+            "note": "Node named PublicUs at 1126 Fremont Street, Las Vegas, postcode 89101. The phone on that feature is +1-702-331-5500. The website on that feature is http://www.publicuslv.com/."
           }
         ]
       }

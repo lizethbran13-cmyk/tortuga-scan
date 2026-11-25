@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -6730,6 +6730,479 @@
             "url": "https://www.openstreetmap.org/copyright",
             "accessed": "2026-11-24",
             "note": "Node named PublicUs at 1126 Fremont Street, Las Vegas, postcode 89101. The phone on that feature is +1-702-331-5500. The website on that feature is http://www.publicuslv.com/."
+          }
+        ]
+      },
+      {
+        "id": "sunlife-organics-helen-toland",
+        "name": "SunLife Organics, Helen Toland",
+        "kind": "cafe",
+        "city": "Las Vegas",
+        "address": "6810 Helen Toland Street, Suite 105, Las Vegas, NV 89113",
+        "lat": 36.0644058,
+        "lng": -115.2778553,
+        "phone": "702-545-0707",
+        "website": "https://sunlifeorganics.com/pages/find-us",
+        "orderUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu",
+        "hoursNote": "Copied from the Las Vegas card on the company’s find-us page on November 25, 2026: Monday–Sunday 8am–6pm. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named SunLife Organics on Helen Toland Street, Las Vegas, postcode 89113. That node is tagged with the house number 6680. The find-us page prints 6810 Helen Toland Street, Suite 105. The node does not print Suite 105. The node is tagged diet:organic=yes. That tag is a map tag. It is not a cooking-fat finding.",
+        "summary": "SunLife Organics on Helen Toland Street. The find-us page gives this address, the phone, and the hours, and it links an order menu for this Las Vegas cafe. That menu names olive oil in specific shakes, a bowl, and two toasts. It does not name one cooking fat for the kitchen, so the cafe stays unrated.",
+        "offerings": [
+          {
+            "name": "Million Dollar Smoothie",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Las Vegas order menu: banana, raw cashew butter, raw plant protein, raw cacao nibs, maca, colostrum, olive oil, trace mineral complex, pink Himalayan salt, chia seeds, raw honey, and grass-fed A2/A2 whole milk. The line names olive oil. Raw cashew butter is named. That is not a cooking fat.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Athlete",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Las Vegas order menu, also called The James Ashton: banana, blueberry, grass-fed whey protein, creatine, olive oil, and grass-fed A2/A2 whole milk. The line names olive oil.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Primal Bowl",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Las Vegas order menu: organic Greek yogurt, grass-fed whey protein, and olive oil, topped with paleo granola, strawberries, blueberries, banana, and raw honey. The line names olive oil.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Green Goddess Toast",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Las Vegas order menu: toasted gluten free bread, smashed avocados, goat cheese, pesto, pink Himalayan salt, black pepper, cayenne pepper, olive oil, and chia seeds. The line names olive oil.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Avocado Toast",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the Las Vegas order menu: toasted gluten free bread, smashed avocados, pink Himalayan salt, black pepper, cayenne pepper, balsamic glaze, olive oil, and strawberries. The line names olive oil.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Shroom",
+            "basis": "official-menu",
+            "note": "Listed on the Las Vegas order menu: banana, raw plant chocolate protein, Life Cykel's mushroom blend, peanut butter, dates, cinnamon, pink Himalayan salt, MCT oil, rocket fuel, and oat milk. The line names MCT oil. It does not say what that oil is made from. Peanut butter is named. That is not a cooking fat.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Wolverine",
+            "basis": "official-menu",
+            "note": "Listed on the Las Vegas order menu: banana, raw almond butter, medjool dates, maca, bee pollen, raw cacao nibs, raw coconut butter, royal jelly, and almond milk. The line names raw coconut butter. It does not name coconut oil.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Glow",
+            "basis": "official-menu",
+            "note": "Listed on the Las Vegas order menu under fresh juice: apple, carrot, turmeric, ginger, lemon, and aloe vera. The line does not name a cooking fat.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          },
+          {
+            "name": "Wellness Shot",
+            "basis": "official-menu",
+            "note": "Listed on the Las Vegas order menu: ginger, lemon, oregano, garlic, cayenne, and apple cider vinegar. The line does not name a cooking fat.",
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "sunlife-helen-toland-olive-oil-lines-no-kitchen-fat",
+            "kind": "menu-item",
+            "text": "The Las Vegas card on the find-us page links the order menu for this cafe. That menu names olive oil in the million dollar smoothie, the athlete smoothie, the primal bowl, the green goddess toast, and the avocado toast. The shroom shake names MCT oil and does not say what that oil is made from. The wolverine shake names raw coconut butter and does not name coconut oil. The homepage describes a Sag Harbor shop as a seed oil-free kitchen. That sentence is about Sag Harbor. It is not this Las Vegas cafe, and it is not used as a cooking-fat finding. The menu does not name one cooking fat for the kitchen.",
+            "fats": [],
+            "sourceUrl": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu",
+            "accessed": "2026-11-25"
+          }
+        ],
+        "sources": [
+          {
+            "title": "SunLife Organics find us",
+            "url": "https://sunlifeorganics.com/pages/find-us",
+            "accessed": "2026-11-25",
+            "note": "The Las Vegas card lists 6810 Helen Toland Street, Suite 105, Las Vegas, NV 89113, phone (702) 545-0707, and Monday–Sunday 8am–6pm. The Order Here link on that card goes to the Las Vegas order menu."
+          },
+          {
+            "title": "SunLife Organics Las Vegas order menu",
+            "url": "https://order.incentivio.com/c/sunlifeorganics/locations/lasvegasnv/menu",
+            "accessed": "2026-11-25",
+            "note": "The order menu linked from the Las Vegas card on the find-us page. The page title is the Las Vegas menu. The dishes copied here are on that page."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-25",
+            "note": "Node named SunLife Organics on Helen Toland Street, Las Vegas, postcode 89113. The node is tagged with house number 6680. The find-us page prints 6810 Helen Toland Street, Suite 105. The node is tagged diet:organic=yes. That tag is not used as a cooking-fat finding."
+          }
+        ]
+      },
+      {
+        "id": "cane-juice-bar-rainbow",
+        "name": "Cane Juice Bar & Café",
+        "kind": "cafe",
+        "city": "Las Vegas",
+        "address": "7925 S Rainbow Blvd, Las Vegas, NV 89139",
+        "lat": 36.0446251,
+        "lng": -115.2439538,
+        "phone": "725-204-0830",
+        "website": "https://canejuicebarcafe.square.site/",
+        "hoursNote": "Copied from the store record on the official order site on November 25, 2026: Sunday 9:00am–9:00pm, Monday–Thursday 9:00am–7:00pm, Friday–Saturday 9:00am–9:00pm. The same record lists pickup hours that open at 8:45am and close at 6:45pm Monday–Thursday and at 8:45pm Friday–Sunday. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap node named Cane Juice Bar & Café at 7925 South Rainbow Boulevard, Las Vegas, postcode 89139. The phone on that node is +1-725-204-0830. The website on that node is https://canejuicebarcafe.square.site. The opening hours on the node are Monday–Sunday 9:00am–9:00pm. Those hours are not the hours copied here. The node is tagged cuisine=juice. That tag is a map tag.",
+        "summary": "Cane Juice Bar & Café on South Rainbow Boulevard. The official order site gives this address, the phone, and the hours, and it describes the shop as pressed sugarcane made into drinks. The order menu names sugarcane, fruit, and juices. It does not name a cooking oil, so the cafe stays unrated.",
+        "offerings": [
+          {
+            "name": "Wellness Cane",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: cucumber juice, celery juice, ginger, and sugarcane. The line does not name a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Ginger Shot",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: ginger, coconut water, lemon, and cayenne pepper. The line names coconut water. It does not name coconut oil.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Original Sugarcane",
+            "basis": "official-menu",
+            "note": "Listed on the order menu as original sugarcane. The line does not name a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Pineapple Ginger Cane",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: pineapple purée, ginger juice, and sugarcane. The line does not name a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Tropical Açaí Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: kiwi, pineapple, banana, acai, coconut flakes, and granola. The line names coconut flakes. It does not name coconut oil.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Classic Açaí Bowl",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: strawberries, blueberries, banana, acai, coconut flakes, and granola. The line does not name a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Strawberry Banana Smoothie",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: strawberries, banana, and sugarcane. The line does not name a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Sausage Egg & Cheese Breakfast Sandwich",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: sausage, egg, cheese, and an English muffin. The line does not name a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          },
+          {
+            "name": "Protein Bar",
+            "basis": "official-menu",
+            "note": "Listed on the order menu: a chewy protein bar made with peanut butter and dark chocolate. Peanut butter is named. That is not a cooking fat.",
+            "sourceUrl": "https://canejuicebarcafe.square.site/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "cane-rainbow-no-cooking-oil",
+            "kind": "menu-item",
+            "text": "The order site describes the shop as pressed sugarcane made into drinks. The order menu names sugarcane, fruit, juices, coconut water, and coconut flakes. It does not name coconut oil. The protein bar names peanut butter. That is not a cooking fat. The breakfast sandwich does not name a cooking fat. The menu does not name one cooking fat for the kitchen.",
+            "fats": [],
+            "sourceUrl": "https://canejuicebarcafe.square.site/",
+            "accessed": "2026-11-25"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Cane Juice Bar & Café order site",
+            "url": "https://canejuicebarcafe.square.site/",
+            "accessed": "2026-11-25",
+            "note": "The store record prints 7925 S Rainbow Blvd, Las Vegas, NV, postal code 89139-6540, phone +1 725-204-0830, and the business hours copied here. The order menu on this site is the menu copied here. The page describes the shop as pressed sugarcane made into drinks."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-25",
+            "note": "Node named Cane Juice Bar & Café at 7925 South Rainbow Boulevard, Las Vegas, postcode 89139. The phone on that feature is +1-725-204-0830. The website on that feature is https://canejuicebarcafe.square.site. The opening hours on the node are not the hours copied here."
+          }
+        ]
+      },
+      {
+        "id": "ferraros-ristorante",
+        "name": "Ferraro's Ristorante",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "4480 Paradise Road, Las Vegas, NV 89169",
+        "lat": 36.1092184,
+        "lng": -115.151929,
+        "phone": "702-364-5300",
+        "website": "https://www.ferraroslasvegas.com/",
+        "hoursNote": "Copied from the menu page on November 25, 2026: lunch Monday–Friday 11:30am–3:30pm, dinner Monday–Sunday 4:00pm–10:00pm, happy hour 4:00pm–7:00pm. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap way named Ferraro's on Paradise Road, postcode 89169. Nominatim geocodes that way in Paradise. The restaurant page prints Las Vegas, NV 89169. The way does not print a house number. Separate nodes tagged 4480 Paradise Road are named Capriotti's and Joe's New York Pizza. Those are other tenants. The pin is the way named Ferraro's.",
+        "summary": "Ferraro's Ristorante on Paradise Road. The menu page gives this address, the phone, and the hours. The menu names extra virgin olive oil, the abbreviation EVOO, and butter on specific plates. Fried lines do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Spaghetti Aglio, Olio, e Peperoncino",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the lunch menu: whole roasted garlic, extra virgin olive oil, Calabrese pepper, parmigiano Reggiano, and toasted breadcrumbs. The line names extra virgin olive oil.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Insalata Mimmo",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the lunch menu: heirloom tomatoes, avocado, red onions, fresh mozzarella, and extra virgin olive oil with balsamic vinegar. The lunch line spells extra virgin olive oil. The dinner Mimmo line uses the abbreviation EVOO.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Verdure Grigliate di Stagione",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the lunch menu: grilled seasonal vegetables, extra virgin olive oil, and fresh basil. The line names extra virgin olive oil. The vegan menu repeats grilled seasonal vegetables with extra virgin olive oil and fresh basil.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Branzino",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the lunch menu: seared Mediterranean seabass, arugula, fennel, lemon, and EVOO. The line uses the abbreviation EVOO.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Piadina",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the happy hour menu: flat bread, Parmigiano, rosemary, and EVOO. The line uses the abbreviation EVOO.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Salmone Limone",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the lunch menu: Scottish salmon, seasonal vegetables, lemon, white wine, and butter. The line names butter.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Vitello Piccata",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the lunch menu: veal scaloppini, lemon, butter, white wine, and capers, served with grilled asparagus and roasted potatoes. The line names butter. The dinner vitello piccata line also names butter.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Rigatoni Aglio, Olio, Primavera",
+            "basis": "official-menu",
+            "fats": [
+              "olive oil"
+            ],
+            "suggest": "get",
+            "note": "Listed on the vegan menu: housemade vegan rigatoni, olive oil, garlic, seasonal vegetables, vegan butter, and vegan Parmigiano. The line names olive oil. It also names vegan butter and does not say what that butter is made from.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Pizza Bianca",
+            "basis": "official-menu",
+            "note": "Listed on the happy hour menu: Bufala mozzarella, Grande mozzarella, arugula, prosciutto, Parmigiano, and truffle oil. The lunch pizza line also names truffle oil. The line does not say which oil that is.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Calamari Fritti",
+            "basis": "official-menu",
+            "note": "Listed on the lunch menu: fried baby squid and spicy mustard. The happy hour line says fried squid and mustard sauce. The line does not name a frying oil.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          },
+          {
+            "name": "Osso Buco",
+            "basis": "official-menu",
+            "note": "Listed on the lunch menu and the dinner menu as the house specialty: veal shank braised in red wine reduction, served with saffron risotto. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "ferraros-olive-oil-butter-lines-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The menu page names extra virgin olive oil on the lunch spaghetti aglio e olio, the lunch insalata Mimmo, and the grilled seasonal vegetables. It uses the abbreviation EVOO on the lunch branzino and the happy hour piadina. The dinner Mimmo line also uses EVOO. The lunch salmon and the veal piccata name butter. The vegan rigatoni line names olive oil and vegan butter, and it does not say what the vegan butter is made from. The pizza bianca line names truffle oil and does not say which oil that is. The yellowtail crudo line names Calabrese chili oil and does not say which oil that is. The fried calamari and the fritto misto do not name a frying oil. The menu does not name one cooking fat for the kitchen.",
+            "fats": [],
+            "sourceUrl": "https://www.ferraroslasvegas.com/menu/",
+            "accessed": "2026-11-25"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Ferraro's Ristorante",
+            "url": "https://www.ferraroslasvegas.com/",
+            "accessed": "2026-11-25",
+            "note": "Lists 4480 Paradise Road, Las Vegas, Nevada 89169, phone 702.364.5300, lunch Monday–Friday 11:30am–3:30pm, dinner Monday–Sunday 4:00pm–10:00pm, and happy hour 4:00pm–7:00pm."
+          },
+          {
+            "title": "Ferraro's menu",
+            "url": "https://www.ferraroslasvegas.com/menu/",
+            "accessed": "2026-11-25",
+            "note": "The seasonal menu page, including lunch, dinner, happy hour, and vegan sections. The dishes copied here are on that page. The same page repeats the address, the phone, and the hours."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-25",
+            "note": "Way named Ferraro's on Paradise Road, postcode 89169. Nominatim geocodes the way in Paradise. The restaurant page prints Las Vegas. The way does not print a house number."
+          }
+        ]
+      },
+      {
+        "id": "makers-finders-arts-district",
+        "name": "Makers & Finders, Arts District",
+        "kind": "restaurant",
+        "city": "Las Vegas",
+        "address": "1120 S. Main St, Ste 110, Las Vegas, NV 89104",
+        "lat": 36.1580377,
+        "lng": -115.1539668,
+        "phone": "702-586-8255",
+        "website": "https://www.makerslv.com/",
+        "hoursNote": "Copied from the Arts District block on the homepage on November 25, 2026: Monday–Saturday 7:00am–4:00pm, last seating 3:30pm, kitchen closes 3:45pm. Sunday brunch 8:00am–4:00pm, last seating 3:30pm, kitchen closes 3:45pm. Happy hour, dine in, 2:00pm–4:00pm, unavailable Sundays. Hours change.",
+        "coordinateNote": "The pin is the OpenStreetMap way named Makers & Finders at 1120 South Main Street, Las Vegas, postcode 89104. The way does not print Ste 110. The phone on that way is +1-702-523-8309. The website on that way is https://www.makerslv.com/. The opening hours on the way are not the hours copied here. The way is tagged diet:vegetarian=yes. That tag is a map tag. It is not a cooking-fat finding.",
+        "summary": "Makers & Finders in the Arts District. The homepage gives this address and the hours, and it prints the phone (702) 586-8255. The brunch menu names butter with the eggs and bacon and with the sourdough toast. Fries do not name a frying oil, so the restaurant stays unrated.",
+        "offerings": [
+          {
+            "name": "Avocado Toast",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: artisan sourdough, avocado mash, cherry tomato, poached egg, lime crema, garlic aioli, and lemon zest. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Eggs, Bacon & Potato",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the brunch menu: 2 eggs any style, 3 strips of bacon, potatoes, chives, sourdough toast, and butter. The page spells sourdough as Sourdought on this line. The line names butter.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Sourdough Toast & Butter",
+            "basis": "official-menu",
+            "fats": [
+              "butter"
+            ],
+            "suggest": "get",
+            "note": "Listed on the brunch menu as sourdough toast and butter. The line names butter.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Steak & Eggs",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: an 8 oz flat iron steak, potatoes, 2 eggs, and chimichurri. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Chilaquiles",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: salsa verde, tortilla chips, a folded egg, black beans, onion and jalapeño, queso, sour cream, and avocado. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Latin Hash",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: braised short rib, roasted potatoes, mixed peppers, caramelized onions, an over easy egg, and garlic. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Smoked Lox Bagel Sando",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: poppyseed bagel, smoked salmon, scallion cream cheese, capers, tomato, red onion, and a choice of side. The line does not name a cooking fat.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Coconut Turmeric Chia",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu under healthy choices: overnight chia pudding, coconut milk, agave, Greek yogurt, lemon zest, blueberries, and coconut flakes. The line names coconut milk. It does not name coconut oil.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Crispy Fries",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: French fries, roasted garlic aioli, and house sauce. The line does not name a frying oil.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          },
+          {
+            "name": "Yuca Frites",
+            "basis": "official-menu",
+            "note": "Listed on the brunch menu: yuca frites, queso fresco, and roasted garlic aioli. The line does not name a frying oil.",
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026"
+          }
+        ],
+        "sourcedNotes": [
+          {
+            "id": "makers-arts-district-butter-lines-fryer-unnamed",
+            "kind": "menu-item",
+            "text": "The brunch menu names butter with the eggs, bacon, and potato, and it names butter with the sourdough toast. The eggs line spells sourdough as Sourdought. The crispy fries and the yuca frites do not name a frying oil. The coconut turmeric chia line names coconut milk and does not name coconut oil. The page says prices may vary by location. It does not print a separate Arts District dish list. The menu does not name one cooking fat for the kitchen.",
+            "fats": [],
+            "sourceUrl": "https://www.makerslv.com/brunchmenu-2026",
+            "accessed": "2026-11-25"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Makers & Finders",
+            "url": "https://www.makerslv.com/",
+            "accessed": "2026-11-25",
+            "note": "The Arts District block prints 1120 S. Main St, Ste 110, Las Vegas, NV 89104, and the hours copied here. The homepage prints the phone (702) 586-8255."
+          },
+          {
+            "title": "Makers & Finders brunch menu",
+            "url": "https://www.makerslv.com/brunchmenu-2026",
+            "accessed": "2026-11-25",
+            "note": "The brunch menu linked from the homepage. The dishes copied here are on that page. The page says prices may vary by location."
+          },
+          {
+            "title": "OpenStreetMap",
+            "url": "https://www.openstreetmap.org/copyright",
+            "accessed": "2026-11-25",
+            "note": "Way named Makers & Finders at 1120 South Main Street, Las Vegas, postcode 89104. The phone on that feature is +1-702-523-8309. That phone is not the phone copied here. The website on that feature is https://www.makerslv.com/. The opening hours on the way are not the hours copied here. The way is tagged diet:vegetarian=yes. That tag is not used as a cooking-fat finding."
           }
         ]
       }

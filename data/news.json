@@ -5,6 +5,195 @@
   "editorial": "Dial down FDA recall items unless they clearly affect people using this app, for example a product sold in Nevada or a nationally relevant clean-living product. Prefer clean-product launches, studies, and clean-living policy news.",
   "reports": [
     {
+      "id": "2026-11-26",
+      "date": "2026-11-26",
+      "timezone": "America/Los_Angeles",
+      "title": "Thursday, November 26, 2026",
+      "dek": "Organic Berri Lyte electrolytes head to Kroger banners and H-E-B, a large French study ties certain additive mixtures (including gums and carrageenan) to heart risk, whole wheat bread beats white for blood sugar in prediabetes, and the White House revives its ultra-processed food definition.",
+      "items": [
+        {
+          "id": "berri-lyte-kroger-heb",
+          "category": "launch",
+          "headline": "Berri Organics brings organic Berri Lyte electrolytes to Kroger banners and H-E-B",
+          "summary": "Berri Organics, which makes certified-organic electrolyte drinks for kids and families, says Berri Lyte is now rolling out to about 100 H-E-B stores in Texas and, starting in December, to King Soopers (Colorado) and Fred Meyer (Oregon and Washington) in the baby and toddler aisle, at a suggested $6.32 to $7.30 per liter. The company says it’s made with real fruit juice and organic ingredients and is already at Whole Foods, Sprouts, Wegmans, and Walmart. These are the brand’s claims; Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "PR Newswire (Berri Organics)",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/berri-organics-expands-retail-footprint-with-launches-at-kroger-and-h-e-b-302950667.html",
+          "sourceDate": "2026-11-25"
+        },
+        {
+          "id": "nutrinet-additive-mixtures-blood-pressure",
+          "category": "study",
+          "headline": "Big French cohort links some additive mixtures, including gums and carrageenan, to higher blood pressure and heart risk",
+          "summary": "Researchers following 112,050 adults in France’s NutriNet-Santé cohort looked at which food additives people tend to eat together. Several combinations were associated with more hypertension and cardiovascular disease among the most-exposed eaters. One mix built around modified starches, pectin, guar gum, and carrageenan was tied to an 18% higher cardiovascular risk and 26% higher coronary risk; another with citric acid, citrates, phosphoric acid, and acesulfame-K was tied to a 19% higher hypertension risk. One mixture showed no link. It’s observational, so it can’t prove the additives cause harm, but it supports looking at additives in combination, not one at a time.",
+          "sourceName": "CRESS / Inserm (NutriNet-Santé)",
+          "sourceUrl": "https://cress-umr1153.fr/en/food-additive-mixtures-and-hypertension-and-cardiovascular-diseases-incidence-in-the-nutrinet-sante-prospective-cohort/",
+          "sourceDate": "2026-11-24"
+        },
+        {
+          "id": "osu-whole-wheat-bread-prediabetes-microbiome",
+          "category": "study",
+          "headline": "Swapping white bread for whole wheat cut blood-sugar spikes in people with prediabetes",
+          "summary": "In a four-week controlled feeding trial at Ohio State with 39 adults with prediabetes, replacing refined white bread with whole wheat bread lowered after-meal blood-sugar rises by about 27% on average. How much each person benefited varied a lot and tracked with their gut bacteria, both before the switch and how it shifted afterward. It’s small and short, and the gut link is an association, not proof.",
+          "sourceName": "Scientific Frontline",
+          "sourceUrl": "https://www.sflorg.com/2026/11/nut11252601.html",
+          "sourceDate": "2026-11-25"
+        },
+        {
+          "id": "upf-definition-revived-miller",
+          "category": "policy",
+          "headline": "White House revives a federal ultra-processed food definition",
+          "summary": "Citing people familiar with the effort, the Wall Street Journal reports that White House chief of staff Stephen Miller has revived a proposed government definition that could label about 60% of the U.S. food supply ultra-processed, flagging ingredients like artificial colors, non-nutritive sweeteners, and chemical preservatives, with carve-outs for infant formula and foods FDA calls “healthy.” The draft reportedly says the label is for research and doesn’t mean a food is harmful. Food industry groups are pushing back. Nothing is final yet.",
+          "sourceName": "Newser (summarizing the Wall Street Journal)",
+          "sourceUrl": "https://www.newser.com/story/400665/latest-maha-initiative-define-ultraprocessed-food.html",
+          "sourceDate": "2026-11-26"
+        }
+      ]
+    },
+    {
+      "id": "2026-11-25",
+      "date": "2026-11-25",
+      "timezone": "America/Los_Angeles",
+      "title": "Wednesday, November 25, 2026",
+      "dek": "Fruit-sweetened organic nut-butter chocolate bars at Sprouts, Uncle Matt’s organic orange-and-coconut hydration drink, Trimona’s organic A2A2 kefir at Whole Foods, a controlled trial on ultra-processed meals and insulin, a big review of the seed-oil evidence, an industry push to delay the GRAS rule, and an Oklahoma bill to pull dyes from school meals.",
+      "items": [
+        {
+          "id": "wild-west-goldstruck-nut-butter-bars",
+          "category": "launch",
+          "headline": "Wild West Chocolate launches fruit-sweetened Goldstruck nut-butter bars",
+          "summary": "Wild West Chocolate rolled out Goldstruck, chocolate bars filled with peanut, hazelnut, almond, or cashew butter. The brand says they’re sweetened with fruit, with no added sugar or sugar substitutes, and are organic, vegan, non-GMO, Fair Trade, gluten-free, and kosher. The peanut and hazelnut bars use 70% dark chocolate; the almond and cashew use 50% oat-milk chocolate. The launch is with Sprouts. These are the brand’s claims; Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "National Confectioners Association",
+          "sourceUrl": "https://candyusa.com/cst/products/wild-west-chocolate-rolls-out-goldstruck-nut-butter-bars/",
+          "sourceDate": "2026-11-25"
+        },
+        {
+          "id": "uncle-matts-orange-hydrate",
+          "category": "launch",
+          "headline": "Uncle Matt’s Organic launches Orange Hydrate at Sprouts",
+          "summary": "Uncle Matt’s Organic released Orange Hydrate, a 52-ounce drink made from organic coconut water, orange juice, pineapple juice, and Celtic sea salt, plus Aquamin sea minerals. The brand says it has 600 mg of potassium per serving, sugar only from fruit, and no gums, preservatives, or artificial colors, and that it carries USDA Organic, Non-GMO, and Glyphosate Residue Free certifications. It’s a Sprouts exclusive for now at $8.99, with wider distribution planned.",
+          "sourceName": "F&B Department",
+          "sourceUrl": "https://fbdepartment.com/article/uncle-matt-s-organic-enters-clean-hydration-with-sprouts-launch",
+          "sourceDate": "2026-11-25"
+        },
+        {
+          "id": "trimona-a2a2-kefir",
+          "category": "launch",
+          "headline": "Trimona brings organic A2A2 kefir to Whole Foods",
+          "summary": "Bulgarian-style yogurt maker Trimona is replacing its drinkable yogurt with its first kefirs, made from organic A2A2 milk from small Amish family farms in Pennsylvania and 11 live cultures. The company says each serving has 8 grams of protein. Plain Kefir (32 oz) is rolling out at Whole Foods nationwide this month; Vanilla Kefir (50 oz) is at some Southeast Costco stores.",
+          "sourceName": "Supermarket Perimeter",
+          "sourceUrl": "https://www.supermarketperimeter.com/articles/14794-trimona-launches-first-kefir-products",
+          "sourceDate": "2026-11-20"
+        },
+        {
+          "id": "upf-matched-meal-insulin-trial",
+          "category": "study",
+          "headline": "Matched meals, different response: ultra-processed breakfast spiked insulin more",
+          "summary": "A Virginia Tech trial published in Nature Metabolism gave adults an ultra-processed and a minimally processed meal matched for calories and nutrients. In the 32 people who did both metabolic visits, the ultra-processed meal brought a larger insulin rise and a slower shift to burning carbs, and those changes tracked with brain-scan responses in reward areas, even though people said they liked both meals equally. It’s a small, short-term study, but it suggests processing itself matters, not just the nutrition label.",
+          "sourceName": "PsyPost",
+          "sourceUrl": "https://www.psypost.org/even-when-calories-and-nutrients-match-ultraprocessed-foods-trigger-a-larger-insulin-surge/",
+          "sourceDate": "2026-11-21"
+        },
+        {
+          "id": "seed-oils-umbrella-review-nutrients",
+          "category": "study",
+          "headline": "Big seed-oil review finds mostly low-certainty evidence either way",
+          "summary": "An umbrella review in Nutrients pooled 33 systematic reviews on seed oils, linoleic acid, and omega-6. The authors concluded the evidence doesn’t show seed oils as a class are uniformly harmful or helpful, and that most of it is low certainty, with little long-term data on individual oils. In a small subgroup, trials that raised linoleic acid alone showed more heart events than trials mixing in omega-3, which the authors call hypothesis-generating. Worth knowing as the seed-oil debate keeps heating up.",
+          "sourceName": "Nutrients (MDPI)",
+          "sourceUrl": "https://doi.org/10.3390/nu18223802",
+          "sourceDate": "2026-11-16"
+        },
+        {
+          "id": "gras-rule-industry-extension-request",
+          "category": "policy",
+          "headline": "Food industry asks FDA for 90 more days on the GRAS disclosure rule",
+          "summary": "A coalition of 21 trade groups asked the FDA to extend comments on its proposal to make companies notify the agency about ingredients they’ve declared safe on their own (“self-GRAS”). As of November 25, the deadline is still December 9, 2026. The rule is only proposed; nothing would be banned by it, and notices wouldn’t be due until 18 months after a final rule takes effect.",
+          "sourceName": "Food World News",
+          "sourceUrl": "https://www.foodworldnews.com/articles/81977/20261125/fda-gras-rule-comment-extension-december-9-deadline.htm",
+          "sourceDate": "2026-11-25"
+        },
+        {
+          "id": "oklahoma-sb2-school-dyes",
+          "category": "policy",
+          "headline": "Oklahoma bill would ban dyes and some additives in school meals",
+          "summary": "Oklahoma Sen. Kristen Thompson filed Senate Bill 2, which would bar public schools, charter schools, juvenile facilities, and state and county jails from serving foods with artificial dyes such as Red 40, Yellow 5, and Blue 1, plus aspartame, titanium dioxide, and potassium bromate. It wouldn’t apply to private businesses. It’s a filed bill, not law yet.",
+          "sourceName": "Oklahoma City Ledger",
+          "sourceUrl": "https://oklahomacityrecord.com/articles/edmond-senator-files-bill-banning-food-dyes-in-oklahoma-schools-mwndbt3r",
+          "sourceDate": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "id": "2026-11-24",
+      "date": "2026-11-24",
+      "timezone": "America/Los_Angeles",
+      "title": "Tuesday, November 24, 2026",
+      "dek": "A tallow-and-honey peanut butter protein bar from Prima, Laird Superfood’s organic functional and electrolyte instant coffees, TRUBAR’s seed-oil-free mini rice cakes at Walmart, date-sweetened AM and PM bars from Brooklyn, new federal glyphosate cancer reviews, Bayer’s Roundup settlement getting final approval, and Hochul’s veto of New York’s Red 3 and GRAS disclosure bill.",
+      "items": [
+        {
+          "id": "prima-peanut-butter-tallow-bar",
+          "category": "launch",
+          "headline": "Prima adds a Peanut Butter protein bar made with grass-fed tallow",
+          "summary": "Prima added Peanut Butter to its protein bar line. The brand says each bar has 21 grams of protein from grass-fed whey and collagen, 10 total ingredients, organic raw honey for sweetness, and grass-fed beef tallow as the fat instead of seed oils, with no isolates, fillers, or artificial flavors. It went direct-to-consumer in October, reached Kroger on November 7, and is slated for Sprouts on December 14, at about $3.69 a bar. These are the brand’s claims; Tortuga hasn’t graded a barcode yet.",
+          "sourceName": "Grocery CPG",
+          "sourceUrl": "https://grocerycpg.com/article/prima-peanut-butter-protein-bar-launch",
+          "sourceDate": "2026-11-24"
+        },
+        {
+          "id": "laird-superfood-functional-electrolyte-instant-coffee",
+          "category": "launch",
+          "headline": "Laird Superfood launches organic functional and electrolyte instant coffees",
+          "summary": "Laird Superfood added two instant coffee lines made with USDA Organic Arabica. The Functional line includes mushroom blends (lion’s mane, chaga, maitake, cordyceps), a Focus blend with coffee fruit extract, and a Digest blend with acacia fiber, green banana, and a probiotic. The Electrolyte line uses coconut water powder, sea salt, and minerals, with 55 mg of caffeine and no added sugar, artificial ingredients, or natural flavors, according to the company. Sold on Laird’s site.",
+          "sourceName": "PR Newswire (Laird Superfood)",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/laird-superfood-expands-instant-coffee-portfolio-with-two-new-collections-302948902.html",
+          "sourceDate": "2026-11-24"
+        },
+        {
+          "id": "trubar-drizzle-mini-rice-cakes",
+          "category": "launch",
+          "headline": "TRUBAR’s Drizzle mini rice cakes land at Walmart, free of seed oils",
+          "summary": "Protein bar maker TRUBAR moved into mini rice cakes with Drizzle, in Birthday Cake, S’mores, and Cinnamon Roll flavors. The brand says each 1-ounce serving has 130 calories, 5 grams of protein, and 3 grams of fiber, with no seed oils, gluten, dairy, or sugar alcohols. It’s at Walmart in 4-ounce bags (about $4.74) and 10-count variety packs (about $11.99). Dessert-style flavors can still carry added sugar, so check the label.",
+          "sourceName": "FoodBev Media",
+          "sourceUrl": "https://www.foodbev.com/news/trubar-expands-beyond-protein-bars-with-mini-rice-cake-launch",
+          "sourceDate": "2026-11-11"
+        },
+        {
+          "id": "highrise-am-pm-protein-bars",
+          "category": "launch",
+          "headline": "Highrise Food Co. debuts date-sweetened AM and PM protein bars",
+          "summary": "Brooklyn startup Highrise Food Co. launched plant-based protein bars built for different times of day: Golden Carrot and Espresso Punch (50 mg caffeine) for mornings, with rhodiola and schisandra, and Dark Cherry Dream for evenings, with magnesium and tart cherry. The company says each bar has 15 grams of plant protein, is sweetened with dates, and has zero grams of added sugar. It’s selling mostly through Brooklyn cafés and retailers for now.",
+          "sourceName": "NOSH (Highrise Food Co. release)",
+          "sourceUrl": "https://www.nosh.com/pr/2026/11/24/brooklynborn-highrise-food-co-launches-am--pm-protein-bars-bringing-a-new-approach-to-functional-snacking",
+          "sourceDate": "2026-11-24"
+        },
+        {
+          "id": "niehs-glyphosate-cancer-reviews",
+          "category": "study",
+          "headline": "Federal scientists’ reviews link glyphosate to blood cancers",
+          "summary": "Scientists at the NIH’s National Institute of Environmental Health Sciences, working at HHS’s request, posted two systematic reviews on glyphosate, the weedkiller in Roundup. The human review found associations between glyphosate herbicides and blood and lymphatic cancers, especially non-Hodgkin lymphoma, and the animal review found more tumors in lab mice and rats. Both are preprints, not yet peer reviewed. They arrive as the EPA reassesses glyphosate, with an updated assessment expected early next year. Last week’s report covered the same team’s sperm-health review.",
+          "sourceName": "The Washington Post",
+          "sourceUrl": "https://www.washingtonpost.com/health/2026/11/22/federal-scientists-flag-new-cancer-concerns-with-common-herbicide/",
+          "sourceDate": "2026-11-22"
+        },
+        {
+          "id": "bayer-roundup-settlement-approved",
+          "category": "policy",
+          "headline": "Judge approves Bayer’s $7.25 billion Roundup settlement",
+          "summary": "A Missouri state judge gave final approval to Bayer’s $7.25 billion settlement of lawsuits claiming Roundup causes cancer, meant to settle nearly all current and future U.S. claims. Bayer faced about 65,000 claims and still says glyphosate is safe. The settlement resolves lawsuits; it doesn’t change whether or how glyphosate can be used on crops.",
+          "sourceName": "Reuters via News Tribune",
+          "sourceUrl": "https://www.newstribune.com/news/2026/nov/22/missouri-judge-approves-bayers-725-billion/",
+          "sourceDate": "2026-11-22"
+        },
+        {
+          "id": "hochul-vetoes-ny-red3-gras-bill",
+          "category": "policy",
+          "headline": "Hochul vetoes New York’s Red 3, bromate, and GRAS disclosure bill",
+          "summary": "Following up on Friday’s report: New York Gov. Kathy Hochul vetoed the Food Safety and Chemical Disclosure Act on November 20. It would have banned Red 3, potassium bromate, and propylparaben in the state and made companies disclose ingredients they had declared safe on their own (self-affirmed GRAS). Her office said it would raise grocery costs and that GRAS should be handled federally. The FDA’s own Red 3 ban for foods still takes effect in January 2027.",
+          "sourceName": "Food Processing",
+          "sourceUrl": "https://www.foodprocessing.com/food-safety/regulatory-compliance/news/55421080/ny-governor-vetoes-a-bill-requiring-gras-details",
+          "sourceDate": "2026-11-23"
+        }
+      ]
+    },
+    {
       "id": "2026-11-20",
       "date": "2026-11-20",
       "timezone": "America/Los_Angeles",

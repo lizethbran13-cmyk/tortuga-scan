@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "area": {
     "name": "Las Vegas and Henderson, Nevada",
     "center": [-115.14, 36.08],
@@ -7205,6 +7205,480 @@
             "note": "Way named Makers & Finders at 1120 South Main Street, Las Vegas, postcode 89104. The phone on that feature is +1-702-523-8309. That phone is not the phone copied here. The website on that feature is https://www.makerslv.com/. The opening hours on the way are not the hours copied here. The way is tagged diet:vegetarian=yes. That tag is not used as a cooking-fat finding."
           }
         ]
-      }
+      },
+    {
+      "id": "garden-grill-lake-mead",
+      "name": "Garden Grill",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "7550 W. Lake Mead Blvd, Suite 8, Las Vegas, NV 89128",
+      "lat": 36.1962011,
+      "lng": -115.2587577,
+      "phone": "702-929-2244",
+      "website": "https://www.gardengrilllv.com/",
+      "orderUrl": "https://www.toasttab.com/gardengrill",
+      "hoursNote": "Copied from the homepage on November 26, 2026: Wednesday to Saturday, 11am to 7pm. The page says the restaurant is open. It does not print hours for Sunday, Monday, or Tuesday. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point Nominatim returns for 7550 West Lake Mead Boulevard, Las Vegas, postcode 89128. OpenStreetMap does not have a node named Garden Grill. The point sits on the West Lake Mead Boulevard way. A nearby amenity on that boulevard is tagged Jack in the Box at 7510. The pin is the 7550 address point, not that restaurant. The suite number is from the Garden Grill page.",
+      "summary": "Garden Grill on West Lake Mead Boulevard. The site gives this address, the phone, and Wednesday-to-Saturday hours, and the Order Now link goes to its Toast page. The menu names plant-based steak, chick'n, and cheeze. Beer-battered and fried lines do not name a frying oil, so the restaurant stays unrated.",
+      "offerings": [
+        {
+          "name": "Beer battered mushrooms",
+          "basis": "official-menu",
+          "note": "Listed on the menu: beer battered crimini mushrooms along side the house made creamy dill sauce. The page spells along side as two words. The line does not name a frying oil.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Carne Asada Fries",
+          "basis": "official-menu",
+          "note": "Listed on the menu: fries, cheeze sauce, plant based steak, pico de gallo, guacamole, and chipotle sour cream. A gluten-free option substitutes jack asada. The line does not name a frying oil.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Steak or chick'n quesadilla",
+          "basis": "official-menu",
+          "note": "Listed on the menu as a steak or chick'n quesadilla topped with cilantro pepita sauce and chipotle sour cream. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Crispy chick'n sandwich",
+          "basis": "official-menu",
+          "note": "Listed on the menu: fried chick'n, lettuce, tomato, and chipotle aioli, served with fries. The line does not name a frying oil.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Buffalo crispy chick'n sandwich",
+          "basis": "official-menu",
+          "note": "Listed on the menu: fried chick'n tossed in buffalo sauce, lettuce, tomato, and creamy dill sauce, served with fries. The line does not name a frying oil.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Blackened chick'n sandwich",
+          "basis": "official-menu",
+          "note": "Listed on the menu: blackened chick'n, lettuce, tomato, and chipotle aioli, served with fries. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Philly Cheeze Steak",
+          "basis": "official-menu",
+          "note": "Listed on the menu: sauteed philly style steak, mushrooms, bell peppers, and onions topped with mozzarella style cheeze sauce on a hoagie roll, served with fries. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Beer Battered Avocado Tacos",
+          "basis": "official-menu",
+          "note": "Listed on the menu as two per order: beer battered avocado on a bed of purple and green cabbage, topped with a creamy cilantro pepita dressing and Sriracha, served with chips. A gluten-free option substitutes fresh avocado. The battered line does not name a frying oil.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Caesars Envy wrap",
+          "basis": "official-menu",
+          "note": "Listed on the menu: Blacked chick'n, quinoa, corn, edemame, lettuce, and chipotle dressing wrapped in a spinach tortilla, served with chips. The page spells the protein Blacked and spells edamame as edemame. A gluten-free salad option omits the chick'n and substitutes BBQ pulled jackfruit or jack asada. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Cheeze quesadilla",
+          "basis": "official-menu",
+          "note": "Listed on the kids menu: melted cheeze in a grilled flour tortilla, served with chips. A gluten-free option substitutes corn tortillas. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Chick'n strips",
+          "basis": "official-menu",
+          "note": "Listed on the kids menu: three crispy chick'n strips, served with fries. The kids section says the plate is served with fries, chips, or apple slices. The line does not name a frying oil.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        },
+        {
+          "name": "Raw NY Style Cheezecake",
+          "basis": "official-menu",
+          "note": "Listed under cheezecake by the slice as Raw NY Style Cheezecake, marked GF and SF. The page key says GF means gluten free and SF means soy free. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.gardengrilllv.com/menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "garden-grill-no-frying-oil",
+          "kind": "menu-item",
+          "text": "The menu names plant based steak, chick'n, cheeze, and jack asada. It marks some lines gluten free or soy free. The beer battered mushrooms, the crispy chick'n, the buffalo chick'n, the beer battered avocado, and the fries do not name a frying oil. The menu does not name one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://www.gardengrilllv.com/menu",
+          "accessed": "2026-11-26"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Garden Grill",
+          "url": "https://www.gardengrilllv.com/",
+          "accessed": "2026-11-26",
+          "note": "Prints 7550 W. Lake Mead Blvd Ste 8, Las Vegas, NV 89128, phone 702.929.2244, and Wednesday to Saturday, 11am to 7pm. The Order Now link goes to https://www.toasttab.com/gardengrill."
+        },
+        {
+          "title": "Garden Grill menu",
+          "url": "https://www.gardengrilllv.com/menu",
+          "accessed": "2026-11-26",
+          "note": "The menu page. The dishes copied here are on that page. The footer repeats 7550 W. Lake Mead Blvd, Suite 8, Las Vegas, NV 89128. The page key says GF means gluten free and SF means soy free."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-26",
+          "note": "Nominatim address point for 7550 West Lake Mead Boulevard, Las Vegas, postcode 89128. OpenStreetMap does not have a node named Garden Grill. A nearby amenity is Jack in the Box at 7510 West Lake Mead Boulevard. That feature is not this restaurant."
+        }
+      ]
+    },
+    {
+      "id": "bronze-cafe-buffalo",
+      "name": "Bronze Cafe",
+      "kind": "cafe",
+      "city": "Las Vegas",
+      "address": "2380 North Buffalo Drive, Suite 110, Las Vegas, NV 89128",
+      "lat": 36.2028923,
+      "lng": -115.2602373,
+      "phone": "702-852-2830",
+      "website": "https://bronzecafe.com/",
+      "hoursNote": "Copied from the homepage on November 26, 2026: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, and Saturday, 7:00 AM to 9:00 PM. The page abbreviates Thursday as Thur. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap node named Bronze Cafe at 2380 North Buffalo Drive, unit 110, Las Vegas, postcode 89128. The node is tagged amenity=cafe and cuisine=coffee_shop. Those are map tags. The node does not print a phone or opening hours. The phone and hours copied here are from the cafe site.",
+      "summary": "Bronze Cafe on North Buffalo Drive. The site gives this address, the phone, and daily hours, and the food menu lists sandwiches, salads, and sides. That menu says the roasted chicken, the roasted sweet potatoes, and the roasted brussels sprouts are cooked with canola oil. Those are three sides, not one fat for every plate, so the cafe stays unrated.",
+      "offerings": [
+        {
+          "name": "Housemade Cold Overnight Oats",
+          "basis": "official-menu",
+          "note": "Listed on the food menu: gluten-free oats soaked overnight in organic oat milk with dried cranberries, Granny Smith apples, cinnamon, and agave nectar, served cold. The line names organic oat milk. It does not name a cooking fat.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Bacon Egg and Havarti Sammich",
+          "basis": "official-menu",
+          "note": "Listed on the food menu: roasted bacon strips, scrambled egg patty, melted Havarti cheese, spring mix, tomato, light shaved red onion, basil aioli, and lemon vinaigrette. The line does not name the oil in the aioli or the vinaigrette.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Avocado Toast",
+          "basis": "official-menu",
+          "note": "Listed on the food menu: fresh avocado, basil aioli, microgreens, and balsamic drizzle. The line does not name a cooking fat.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "The Chickpea Toona Sammich",
+          "basis": "official-menu",
+          "note": "Listed on the vegan sandwiches: housemade chickpea toona salad, avocado, alfalfa sprouts, tomato, light shaved red onion, basil aioli, and lemon vinaigrette. The a la carte chickpea toona line says chopped chickpeas, chopped celery, sweet relish, garlic, vegan mayonnaise, and lemon juice. The line names vegan mayonnaise and does not say what it is made from.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "The Guac & Hummus Sammich",
+          "basis": "official-menu",
+          "note": "Listed on the vegan sandwiches: avocado, hummus, carrots, cucumber, alfalfa sprouts, vegan ranch, and lemon vinaigrette. The line does not name a cooking fat.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "The David Special",
+          "basis": "official-menu",
+          "note": "Listed on the vegan salads: shredded kale massaged with lemon vinaigrette, topped with roasted beets, carrots, avocado, curried quinoa, herb and garlic chickpeas, and hemp seeds. The line does not name a cooking fat.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Roasted Chicken",
+          "basis": "official-menu",
+          "fats": [
+            "canola"
+          ],
+          "suggest": "skip",
+          "note": "Listed a la carte: oven-roasted with canola oil and cracked black pepper. The line names canola oil. That is this side, not a claim about every plate.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Roasted Sweet Potatoes with Onions",
+          "basis": "official-menu",
+          "fats": [
+            "canola"
+          ],
+          "suggest": "skip",
+          "note": "Listed a la carte: chopped yams roasted with chopped red onion and canola oil, then tossed with fresh parsley. The line names canola oil. That is this side, not a claim about every plate.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Roasted Brussels Sprouts with Agrodolce Vinaigrette",
+          "basis": "official-menu",
+          "fats": [
+            "canola"
+          ],
+          "suggest": "skip",
+          "note": "Listed a la carte: brussels sprouts roasted with canola oil and pink Himalayan salt and garnished with housemade agrodolce vinaigrette. The line names canola oil. It does not name the fat in the vinaigrette.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Tomato Basil Soup",
+          "basis": "official-menu",
+          "note": "Listed a la carte: tomatoes, celery, onions, carrots, vegan butter, dried basil, dried oregano, and pink Himalayan salt. The line names vegan butter. It does not say what that butter is made from.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        },
+        {
+          "name": "Steamed Broccoli with Hemp Hearts",
+          "basis": "official-menu",
+          "note": "Listed a la carte: steamed broccoli served cold and topped with hemp hearts. The line does not name a cooking fat.",
+          "sourceUrl": "https://bronzecafe.com/food-menu"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "bronze-cafe-canola-sides-not-kitchen-fat",
+          "kind": "menu-item",
+          "text": "The food menu says the roasted chicken is oven-roasted with canola oil, the chopped yams are roasted with canola oil, and the brussels sprouts are roasted with canola oil. The tomato basil soup names vegan butter and does not say what that butter is made from. The overnight oats name organic oat milk. The chickpea toona names vegan mayonnaise and does not say what it is made from. The menu does not name one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://bronzecafe.com/food-menu",
+          "accessed": "2026-11-26"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Bronze Cafe",
+          "url": "https://bronzecafe.com/",
+          "accessed": "2026-11-26",
+          "note": "Prints 2380 North Buffalo Drive, Suite 110, Las Vegas, NV 89128, phone (702)-852-2830, and 7:00 AM to 9:00 PM Sunday through Saturday. The page calls the shop a cafe and says it serves breakfast, sandwiches, salads, smoothies, and vegan options."
+        },
+        {
+          "title": "Bronze Cafe food menu",
+          "url": "https://bronzecafe.com/food-menu",
+          "accessed": "2026-11-26",
+          "note": "The food menu linked from the homepage. The dishes copied here are on that page, including the three sides that name canola oil."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-26",
+          "note": "Node named Bronze Cafe at 2380 North Buffalo Drive, unit 110, Las Vegas, postcode 89128. The node is tagged amenity=cafe and cuisine=coffee_shop. Those tags are not used as a cooking-fat finding. The node does not print a phone."
+        }
+      ]
+    },
+    {
+      "id": "oscars-steakhouse",
+      "name": "Oscar's Steakhouse",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "1 Main Street, Las Vegas, NV 89101",
+      "lat": 36.1717821,
+      "lng": -115.1465798,
+      "phone": "702-386-7227",
+      "website": "https://www.oscarslv.com/",
+      "hoursNote": "Copied from the restaurant page on November 26, 2026: daily 5pm to 10pm. The same page lists happy hour daily 5pm to 7pm. The Plaza dining page repeats daily 5pm to 10pm and says happy hour is in the bar and lounge and excludes holidays. Hours change.",
+      "coordinateNote": "The pin is the center of the OpenStreetMap way named Oscar's Steakhouse. That way is tagged as an indoor restaurant room on level 2. It prints phone +1 702-386-7227 and website https://www.oscarslv.com. It does not print a house number. Nominatim places the way on South Main Street, postcode 89101. The Plaza Hotel & Casino way is tagged 1 South Main Street. The restaurant page says the dining room is inside the Plaza's glass dome. The address copied here is the address the Plaza dining page prints.",
+      "summary": "Oscar's Steakhouse inside the Plaza's glass dome. The restaurant page gives the phone and daily dinner hours. The Plaza dining page prints 1 Main Street. The dinner menu names steaks, seafood, and sides. It does not name a cooking oil, so the restaurant stays unrated.",
+      "offerings": [
+        {
+          "name": "Sal's Jumbo Shrimp Cocktail",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu as Sal's jumbo shrimp cocktail with spiced cocktail sauce. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Vinnie F's Steakhouse Wedge",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu: peppered bacon, Point Reyes blue cheese, and red onion. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Cardini's Caesar",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu: parmesan, anchovy, and garlic crouton. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Sally's Heirloom Beets",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu: burrata cheese and toasted pistachio. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Izzy M's Crispy Calamari",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu: lemon aioli, marinara, and cherry peppers. The line says crispy. It does not name a frying oil.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "New Zealand Pink Snapper",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu: morel mushroom and champagne beurre blanc. The line uses the words champagne beurre blanc. It does not name butter or an oil in English.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Mary's Organic Chicken",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu as Mary's organic chicken with piccata sauce and wilted escarole. The line names organic chicken. It does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Joey C's 8oz. Filet Mignon",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu under domestic steaks as Joey C's 8oz. filet mignon. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Carolyn's 16oz. Prime Rib",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu under domestic steaks as Carolyn's 16oz. prime rib. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Oscar's Black Angus Burger",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu: toasted brioche, American cheese, and plaza sauce. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Thick Cut Fries",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu under sides as thick cut fries. The line does not name a frying oil.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        },
+        {
+          "name": "Chag's Creamed Spinach",
+          "basis": "official-menu",
+          "note": "Listed on the dinner menu under sides as Chag's creamed spinach. The line does not name a cooking fat.",
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "oscars-dinner-menu-no-cooking-oil",
+          "kind": "menu-item",
+          "text": "The dinner menu names Mary's organic chicken with piccata sauce and the pink snapper with champagne beurre blanc. It does not name butter or an oil in English on those lines. The crispy calamari and the thick cut fries do not name a frying oil. The menu does not name one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://www.oscarslv.com/menu/dinner/",
+          "accessed": "2026-11-26"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Oscar's Steakhouse",
+          "url": "https://www.oscarslv.com/",
+          "accessed": "2026-11-26",
+          "note": "Prints phone (702) 386-7227, hours daily 5pm to 10pm, and happy hour daily 5pm to 7pm. The page says the main dining room is inside the Plaza's glass dome."
+        },
+        {
+          "title": "Oscar's at the Plaza",
+          "url": "https://www.plazahotelcasino.com/dining/oscars-steakhouse/",
+          "accessed": "2026-11-26",
+          "note": "Repeats phone (702) 386-7227 and daily hours 5pm to 10pm. It says happy hour is daily 5pm to 7pm in the bar and lounge and excludes holidays. The page prints 1 Main Street, Las Vegas, Nevada 89101."
+        },
+        {
+          "title": "Oscar's dinner menu",
+          "url": "https://www.oscarslv.com/menu/dinner/",
+          "accessed": "2026-11-26",
+          "note": "The dinner menu linked from the restaurant page. The dishes copied here are on that page."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-26",
+          "note": "Way named Oscar's Steakhouse, tagged indoor=room, level=2, amenity=restaurant, phone +1 702-386-7227, and website https://www.oscarslv.com. The way does not print a house number. The Plaza Hotel & Casino way is tagged 1 South Main Street, Las Vegas, postcode 89101. The cuisine=steak_house tag is a map tag. It is not used as a cooking-fat finding."
+        }
+      ]
+    },
+    {
+      "id": "good-pie-arts-district",
+      "name": "Good Pie, Arts District",
+      "kind": "restaurant",
+      "city": "Las Vegas",
+      "address": "1212 S Main Street, Las Vegas, NV 89104",
+      "lat": 36.1571872,
+      "lng": -115.1537721,
+      "phone": "702-844-2700",
+      "website": "https://www.goodpie.com/",
+      "orderUrl": "https://order.toasttab.com/online/good-pie-arts-district",
+      "hoursNote": "Copied from the Arts District location page on November 26, 2026: Monday to Thursday 11am to 10pm, Friday and Saturday 11am to 11pm, Sunday 11am to 10pm. Hours change.",
+      "coordinateNote": "The pin is the OpenStreetMap address point Nominatim returns for 1212 South Main Street, Las Vegas, postcode 89104, in the Arts District. OpenStreetMap does not have a node named Good Pie. A neighboring restaurant feature is Casa Don Juan at 1204 South Main Street. The pin is the 1212 address point, not that restaurant.",
+      "summary": "Good Pie in the Arts District. The location page gives this address, the phone, and the hours, and the site links Order Online to the Toast menu. That menu names EVOO on the burrata caprese and garlic oil on the garlic nots and the white pie, and it does not spell out those oils. Fried lines do not name a frying oil, so the restaurant stays unrated.",
+      "offerings": [
+        {
+          "name": "Burrata Caprese",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: burrata, heirloom cherry tomatoes, sea salt, basil, EVOO, and balsamic drizzle. The line uses the abbreviation EVOO. It does not spell out the oil.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "House Salad",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: organic field greens, cherry tomatoes, banana peppers, kalamata olives, and red onions, with a choice of balsamic vinaigrette, ranch, or Ceasar dressing. The page spells Caesar as Ceasar on this line. The line names organic field greens. It does not name a cooking fat.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Caesar Salad",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: hearts of romaine, croutons, parm, and Caesar dressing. The line does not name a cooking fat.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Meatballs",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: beef and pork blend, organic sauce, pecorino, and parsley. The line names organic sauce. It does not name a cooking fat.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Fried Ravioli",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: ricotta filled ravioli, organic sauce, parsley, and pecorino. The line does not name a frying oil.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Fried Calamari",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: east coast squid, sauce, chili flakes, and a lemon wedge. The line says rings only. It does not name a frying oil.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Garlic Nots",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: roasted fresh garlic, garlic puree, garlic oil, pecorino, parsley, and sauce. The page spells the item Nots. The line names garlic oil and does not say which oil that is.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Vegan Garlic Nots",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: roasted fresh garlic, garlic puree, garlic oil, NUMU vegan cheese, parsley, and sauce. The line names garlic oil and does not say which oil that is.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Grandma Cheese",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: signature Grandma crust, fresh mozzarella cheeses, sauce, basil, and parm, in a 12 by 18 inch square pan, 8 slices. The line does not name a cooking fat.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        },
+        {
+          "name": "Grandma White Pie",
+          "basis": "official-menu",
+          "note": "Listed on the order menu: Grandma crust, fresh garlic, mozzarella, pecorino, ricotta flowers, garlic oil, parsley, and shaved parm. The line names garlic oil and does not say which oil that is.",
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district"
+        }
+      ],
+      "sourcedNotes": [
+        {
+          "id": "good-pie-evoo-and-garlic-oil-not-spelled-out",
+          "kind": "menu-item",
+          "text": "The order menu linked from the Good Pie site names EVOO on the burrata caprese and does not spell out that abbreviation. It names garlic oil on the garlic nots, the vegan garlic nots, and the Grandma white pie, and it does not say which oil that is. The page spells the knots as Nots. The fried ravioli and the fried calamari do not name a frying oil. The house salad names organic field greens, and the meatballs name organic sauce. The menu does not name one cooking fat for the kitchen.",
+          "fats": [],
+          "sourceUrl": "https://order.toasttab.com/online/good-pie-arts-district",
+          "accessed": "2026-11-26"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Good Pie Arts District",
+          "url": "https://www.goodpie.com/location/good-pie/",
+          "accessed": "2026-11-26",
+          "note": "Prints 1212 S Main Street, Las Vegas, NV 89104, phone (702) 844-2700, and the hours copied here. The site links Order Online to the Toast menu."
+        },
+        {
+          "title": "Good Pie order menu",
+          "url": "https://order.toasttab.com/online/good-pie-arts-district",
+          "accessed": "2026-11-26",
+          "note": "The order page linked from goodpie.com. The page names the Arts District shop at 1212 S Main St, Las Vegas, NV. The dishes copied here are on that page."
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/copyright",
+          "accessed": "2026-11-26",
+          "note": "Nominatim address point for 1212 South Main Street, Las Vegas, postcode 89104, in the Arts District. OpenStreetMap does not have a node named Good Pie. A neighboring restaurant feature is Casa Don Juan at 1204 South Main Street. That feature is not this restaurant."
+        }
+      ]
+    }
   ]
 }
